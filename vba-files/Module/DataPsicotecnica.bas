@@ -1,0 +1,96 @@
+Attribute VB_Name = "DataPsicotecnica"
+Option Explicit
+
+Sub PsicotecnicaData()
+  Dim psicotecnica_destiny_dictionary As Scripting.Dictionary
+  Dim psicotecnica_origin_dictionary As Scripting.Dictionary
+  Dim psicotecnica_destiny_header, psicotecnica_origin_header, psicotecnica_origin_value As Object
+  Dim ItemPsicotecnicaDestiny, ItemPsicotecnicaOrigin, ItemData As Variant
+
+  On Error Goto tecnica:
+  Set psico_origin = origin.Worksheets("PSICOTECNICA") '' PSICOTECNICA DEL LIBRO ORIGEN ''
+
+  psico_destiny.Select
+  ActiveSheet.Range("A3").Select
+  Set psicotecnica_destiny_header = psico_destiny.Range("A1", psico_destiny.Range("A1").End(xlToRight))
+  Set psicotecnica_origin_header = psico_origin.Range("A1", psico_origin.Range("A1").End(xlToRight))
+  Set psicotecnica_destiny_dictionary = CreateObject("Scripting.Dictionary")
+  Set psicotecnica_origin_dictionary = CreateObject("Scripting.Dictionary")
+
+  If (psico_origin.Range("A2") <> Empty And psico_origin.Range("A3") <> Empty) Then
+    Set psicotecnica_origin_value = psico_origin.Range("A2", psico_origin.Range("A2").End(xlDown))
+  ElseIf (psico_origin.Range("A2") <> Empty And psico_origin.Range("A3") = Empty) Then
+    Set psicotecnica_origin_value = psico_origin.Range("A2")
+  End If
+
+  '/***
+  '   En los diccionarios de "psicotecnica_destiny_dictionary" y  "psicotecnica_origin_dictionary"
+  '   se almacena los numeros de la columnas.
+  '*/
+
+  ' CABECERAS DE LA HOJA EMO DEL LIBRO DESTINO
+  For Each ItemPsicotecnicaDestiny In psicotecnica_destiny_header
+    On Error Goto psicotecnicaError
+    psicotecnica_destiny_dictionary.Add psicotecnica_headers(ItemPsicotecnicaDestiny), (ItemPsicotecnicaDestiny.Column - 1)
+  Next ItemPsicotecnicaDestiny
+
+  ' CABECERA DE LA HOJA EMO DEL LIBRO ORIGEN
+  For Each ItemPsicotecnicaOrigin In psicotecnica_origin_header
+    On Error Goto psicotecnicaError
+    psicotecnica_origin_dictionary.Add psicotecnica_headers(ItemPsicotecnicaOrigin), (ItemPsicotecnicaOrigin.Column - 1)
+  Next ItemPsicotecnicaOrigin
+
+  numbers = 1
+  porcentaje = 0
+  counts = psicotecnica_origin_value.Count
+  formImports.ProgressBarOneforOne.Width = 0
+  formImports.porcentageOneoforOne = "0%"
+  vals = 1 / counts
+  oneForOne = 0
+  widthOneforOne = formImports.content_ProgressBarOneforOne.Width / counts
+  For Each ItemData In psicotecnica_origin_value
+    oneForOne = oneForOne + widthOneforOne
+    generalAll = generalAll + widthGeneral
+    formImports.lblGeneral.Caption = "importando " & CStr(numbersGeneral) & " de " & CStr(totalData) & "(" & CStr(totalData - numbersGeneral) & ") REGISTROS"
+      formImports.lblDescription.Caption = "importando " & CStr(numbers) & " de " & CStr(counts) & "(" & CStr(counts - numbers) & ") " & psico_destiny.Name
+      porcentaje = porcentaje + vals
+      porcentajeGeneral = porcentajeGeneral + valsGeneral
+      formImports.ProgressBarOneforOne.Width = oneForOne
+      formImports.ProgressBarGeneral.Width = generalAll
+      formImports.porcentageGeneral.Caption = CStr(VBA.Round(porcentajeGeneral * 100, 1)) & "%"
+      formImports.porcentageOneoforOne.Caption = CStr(VBA.Round(porcentaje * 100, 1)) & "%"
+      formImports.Caption = CStr(nameCompany)
+      If formImports.ProgressBarGeneral.Width > (formImports.content_ProgressBarGeneral.Width / 2) Then: formImports.porcentageGeneral.ForeColor = RGB(255, 255, 255)
+        If formImports.ProgressBarGeneral.Width < (formImports.content_ProgressBarGeneral.Width / 2) Then: formImports.porcentageGeneral.ForeColor = RGB(0, 0, 0)
+          If formImports.ProgressBarOneforOne.Width > (formImports.content_ProgressBarOneforOne.Width / 2) Then: formImports.porcentageOneoforOne.ForeColor = RGB(255, 255, 255)
+            If formImports.ProgressBarOneforOne.Width < (formImports.content_ProgressBarOneforOne.Width / 2) Then: formImports.porcentageOneoforOne.ForeColor = RGB(0, 0, 0)
+              ActiveCell.offset(, psicotecnica_destiny_dictionary("NRO IDENFICACION")) = charters(ItemData.offset(, psicotecnica_origin_dictionary( "NRO IDENFICACION")))
+              ActiveCell.offset(, psicotecnica_destiny_dictionary("PACIENTE")) = charters(ItemData.offset(, psicotecnica_origin_dictionary( "PACIENTE")))
+              ActiveCell.offset(, psicotecnica_destiny_dictionary("PRUEBA PSICOTECNICA")) = charters(ItemData.offset(, psicotecnica_origin_dictionary( "PRUEBA PSICOTECNICA")))
+              ActiveCell.offset(, psicotecnica_destiny_dictionary("DIAGNOSTICO PPAL (CUMPLE, NO CUMPLE)")) = charters(ItemData.offset(, psicotecnica_origin_dictionary( "DIAGNOSTICO PPAL (CUMPLE, NO CUMPLE)")))
+              ActiveCell.offset(, psicotecnica_destiny_dictionary("DIAGNOSTICO OBS")) = charters(ItemData.offset(, psicotecnica_origin_dictionary( "DIAGNOSTICO OBS")))
+              ActiveCell.offset(, psicotecnica_destiny_dictionary("ID_PSICOTECNICA")) = ActiveCell.offset(-1, psicotecnica_destiny_dictionary("ID_PSICOTECNICA")) + 1
+              ActiveCell.offset(1, 0).Select
+              numbers = numbers + 1
+              numbersGeneral = numbersGeneral + 1
+              DoEvents
+            Next ItemData
+
+            Range("D2").Select
+            Call meetsfails
+            Range("$A2", Range("$A2").End(xlDown)).Select
+            Call formatter
+
+            Set psicotecnica_origin_value = Nothing
+            Set psicotecnica_destiny_header = Nothing
+            Set psicotecnica_origin_header = Nothing
+            psicotecnica_destiny_dictionary.RemoveAll
+            psicotecnica_origin_dictionary.RemoveAll
+
+ psicotecnicaError:
+            resume next
+
+ tecnica:
+            Set psico_origin = origin.Worksheets("PSICOLOGIA")
+            resume next
+End Sub
