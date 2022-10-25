@@ -56,6 +56,19 @@ Public Function city(ByVal value As String) As String
 End Function
 
 '/*
+' VALIDACION ESCOLARIDAD
+'*/
+Public Function school(ByVal value As String) As String
+  Select Case value
+   Case "POSTGRADO"
+    school = "POSGRADO"
+   Case Else
+    school = value
+  End Select
+
+End Function
+
+'/*
 ' VALIDACION EXAMEN MEDICO
 '*/
 Public Function typeExams(ByVal value As String) As String
