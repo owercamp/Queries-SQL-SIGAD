@@ -109,3 +109,9 @@ Sub info()
   formImports.Show
 
 End Sub
+
+sub config()
+
+  formControl.Show
+  
+End Sub
