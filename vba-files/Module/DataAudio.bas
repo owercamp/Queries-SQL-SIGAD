@@ -10,7 +10,7 @@ Sub AudioData()
 
   Set audio_origin = origin.Worksheets("AUDIO") '' AUDIO DEL LIBRO ORIGEN ''
   audio_destiny.Select
-  ActiveSheet.Range("A5").Select
+  ActiveSheet.Range("A4").Select
   Set audio_destiny_header = audio_destiny.Range("A3", audio_destiny.Range("A3").End(xlToRight))
   Set audio_origin_header = audio_origin.Range("A1", audio_origin.Range("A1").End(xlToRight))
   Set audio_destiny_dictionary = CreateObject("Scripting.Dictionary")
@@ -114,7 +114,11 @@ Sub AudioData()
               ActiveCell.Offset(, audio_destiny_dictionary("DIAG PPAL")) = charters(ItemData.Offset(, audio_origin_dictionary("DIAG PPAL")))
               ActiveCell.Offset(, audio_destiny_dictionary("DIAG INTERNO")) = charters(ItemData.Offset(, audio_origin_dictionary("DIAG INTERNO")))
               ActiveCell.Offset(, audio_destiny_dictionary("DIAG GATI-SO")) = charters(ItemData.Offset(, audio_origin_dictionary("DIAG GATI-SO")))
-              ActiveCell.Offset(, audio_destiny_dictionary("ID_AUDIOMETRIA")) = ActiveCell.Offset(-1, audio_destiny_dictionary("ID_AUDIOMETRIA")) + 1
+              If (ActiveCell.Row = 4) Then
+                ActiveCell.Offset(, audio_destiny_dictionary("ID_AUDIOMETRIA")) = Trim(ThisWorkbook.Worksheets("RUTAS").Range("$F$6").value)
+              Else
+                ActiveCell.Offset(, audio_destiny_dictionary("ID_AUDIOMETRIA")) = ActiveCell.Offset(-1, audio_destiny_dictionary("ID_AUDIOMETRIA")) + 1
+              End If
               ActiveCell.Offset(1, 0).Select
               numbers = numbers + 1
               numbersGeneral = numbersGeneral + 1
@@ -140,6 +144,6 @@ Sub AudioData()
             audio_destiny_dictionary.RemoveAll
             audio_origin_dictionary.RemoveAll
 
-audioError:
+ audioError:
             Resume Next
 End Sub

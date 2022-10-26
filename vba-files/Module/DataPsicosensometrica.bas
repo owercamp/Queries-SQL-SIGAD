@@ -11,7 +11,7 @@ Sub PsicosensometricaData()
   Set senso_origin = origin.Worksheets("PSICOSENSOMETRICA") '' PSICOSENSOMETRICA DEL LIBRO ORIGEN ''
 
   senso_destiny.Select
-  ActiveSheet.Range("A4").Select
+  ActiveSheet.Range("A3").Select
   Set psicosensometrica_destiny_header = senso_destiny.Range("A2", senso_destiny.Range("A2").End(xlToRight))
   Set psicosensometrica_origin_header = senso_origin.Range("A1", senso_origin.Range("A1").End(xlToRight))
   Set psicosensometrica_destiny_dictionary = CreateObject("Scripting.Dictionary")
@@ -78,7 +78,11 @@ Sub PsicosensometricaData()
               ActiveCell.Offset(, psicosensometrica_destiny_dictionary("CONTROLES 6 MESES")) = charters(ItemData.Offset(, psicosensometrica_origin_dictionary("CONTROLES 6 MESES")))
               ActiveCell.Offset(, psicosensometrica_destiny_dictionary("CONTROLES 1 ANO")) = charters(ItemData.Offset(, psicosensometrica_origin_dictionary("CONTROLES 1 ANO")))
               ActiveCell.Offset(, psicosensometrica_destiny_dictionary("CONTROLES CONFIRMATORIA")) = charters(ItemData.Offset(, psicosensometrica_origin_dictionary("CONTROLES CONFIRMATORIA")))
-              ActiveCell.Offset(, psicosensometrica_destiny_dictionary("ID_PSICOSENSOMETRICA")) = ActiveCell.Offset(-1, psicosensometrica_destiny_dictionary("ID_PSICOSENSOMETRICA")) + 1
+              If (ActiveCell.Row = 3) Then
+                ActiveCell.Offset(, psicosensometrica_destiny_dictionary("ID_PSICOSENSOMETRICA")) = Trim(ThisWorkbook.Worksheets("RUTAS").Range("$F$14").value)
+              Else
+                ActiveCell.Offset(, psicosensometrica_destiny_dictionary("ID_PSICOSENSOMETRICA")) = ActiveCell.Offset(-1, psicosensometrica_destiny_dictionary("ID_PSICOSENSOMETRICA")) + 1
+              End If
               ActiveCell.Offset(1, 0).Select
               numbers = numbers + 1
               numbersGeneral = numbersGeneral + 1
@@ -98,9 +102,9 @@ Sub PsicosensometricaData()
             psicosensometrica_destiny_dictionary.RemoveAll
             psicosensometrica_origin_dictionary.RemoveAll
 
-psicotecnicaError:
+ psicotecnicaError:
             Resume Next
-metrica:
+ metrica:
             Set senso_origin = origin.Worksheets("PSICOMOTRIZ")
             Resume Next
 End Sub

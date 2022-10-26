@@ -10,7 +10,7 @@ Sub VisioData()
 
   Set visio_origin = origin.Worksheets("VISIO") '' VISIO DEL LIBRO ORIGEN ''
   visio_destiny.Select
-  ActiveSheet.Range("A5").Select
+  ActiveSheet.Range("A4").Select
   Set visio_destiny_header = visio_destiny.Range("A3", visio_destiny.Range("A3").End(xlToRight))
   Set visio_origin_header = visio_origin.Range("A1", visio_origin.Range("A1").End(xlToRight))
   Set visio_destiny_dictionary = CreateObject("Scripting.Dictionary")
@@ -131,7 +131,11 @@ Sub VisioData()
               ActiveCell.Offset(, visio_destiny_dictionary("CONTROL 6 MESES")) = charters(ItemData.Offset(, visio_origin_dictionary("CONTROL 6 MESES")))
               ActiveCell.Offset(, visio_destiny_dictionary("CONTROL 1 ANO")) = charters(ItemData.Offset(, visio_origin_dictionary("CONTROL 1 ANO")))
               ActiveCell.Offset(, visio_destiny_dictionary("CONTROL CONFIRMATORIA")) = charters(ItemData.Offset(, visio_origin_dictionary("CONTROL CONFIRMATORIA")))
-              ActiveCell.Offset(, visio_destiny_dictionary("ID_VISIOMETRIA")) = ActiveCell.Offset(-1, visio_destiny_dictionary("ID_VISIOMETRIA")) + 1
+              If (ActiveCell.Row = 4) Then
+                ActiveCell.Offset(, visio_destiny_dictionary("ID_VISIOMETRIA")) = Trim(ThisWorkbook.Worksheets("RUTAS").Range("$F$9").value)
+              Else
+                ActiveCell.Offset(, visio_destiny_dictionary("ID_VISIOMETRIA")) = ActiveCell.Offset(-1, visio_destiny_dictionary("ID_VISIOMETRIA")) + 1
+              End If
               ActiveCell.Offset(1, 0).Select
               numbers = numbers + 1
               numbersGeneral = numbersGeneral + 1
@@ -157,6 +161,6 @@ Sub VisioData()
             visio_destiny_dictionary.RemoveAll
             visio_origin_dictionary.RemoveAll
 
-visioError:
+ visioError:
             Resume Next
 End Sub

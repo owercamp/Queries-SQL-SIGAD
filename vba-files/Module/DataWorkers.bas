@@ -12,7 +12,7 @@ Sub Workers()
   Set emo_origin = origin.Worksheets("EMO") '' EMO DEL LIBRO ORIGEN ''
   Windows(destiny.Name).Activate
   worker_destiny.Select
-  ActiveSheet.Range("A6").Select
+  ActiveSheet.Range("A5").Select
   Set workers_header = worker_destiny.Range("A4", worker_destiny.Range("A4").End(xlToRight))
   Set emo_header = emo_origin.Range("A1", emo_origin.Range("A1").End(xlToRight))
   Set workers_dictionary = CreateObject("Scripting.Dictionary")
@@ -100,7 +100,11 @@ Sub Workers()
               ActiveCell.Offset(, workers_dictionary("LAB DURACION EN ANOS")) = charters(ItemData.Offset(, emo_dictionary("LAB DURACION EN ANOS")))
               ActiveCell.Offset(, workers_dictionary("FUENTE")) = charters("ARMYWEB")
               ActiveCell.Offset(, workers_dictionary("TIPO ACTIVIDAD")) = charters("1")
-              ActiveCell.Offset(, workers_dictionary("idOrdenListaTrabajadores")) = ActiveCell.Offset(-1, workers_dictionary("idOrdenListaTrabajadores")) + 1
+              If (ActiveCell.Row = 5) Then
+                ActiveCell.Offset(, workers_dictionary("idOrdenListaTrabajadores")) = Trim(ThisWorkbook.Worksheets("RUTAS").Range("$F$4").value)
+              Else
+                ActiveCell.Offset(, workers_dictionary("idOrdenListaTrabajadores")) = ActiveCell.Offset(-1, workers_dictionary("idOrdenListaTrabajadores")) + 1
+              End If
               ActiveCell.Offset(, workers_dictionary("idOrden")) = idOrden
               ActiveCell.Offset(1, 0).Select
               numbers = numbers + 1
@@ -126,6 +130,6 @@ Sub Workers()
             Set emo_origin = Nothing
             workers_dictionary.RemoveAll
             emo_dictionary.RemoveAll
-workersError:
+ workersError:
             Resume Next
 End Sub

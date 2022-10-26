@@ -9,7 +9,7 @@ Sub OsteoData()
 
   Set osteo_origin = origin.Worksheets("OSTEO") '' OSTEO DEL LIBRO ORIGEN ''
   osteo_destiny.Select
-  ActiveSheet.Range("A5").Select
+  ActiveSheet.Range("A4").Select
   Set osteo_destiny_header = osteo_destiny.Range("A3", osteo_destiny.Range("A3").End(xlToRight))
   Set osteo_origin_header = osteo_origin.Range("A1", osteo_origin.Range("A1").End(xlToRight))
   Set osteo_destiny_dictionary = CreateObject("Scripting.Dictionary")
@@ -117,7 +117,11 @@ Sub OsteoData()
               ActiveCell.Offset(, osteo_destiny_dictionary("REC/OCUP EVITAR POSTURAS FORZADAS")) = charters_empty(ItemData.Offset(, osteo_origin_dictionary("REC/OCUP EVITAR POSTURAS FORZADAS")))
               ActiveCell.Offset(, osteo_destiny_dictionary("RECOM_ OCUPACIONALES")) = charters(ItemData.Offset(, osteo_origin_dictionary("RECOM_ OCUPACIONALES")))
               ActiveCell.Offset(, osteo_destiny_dictionary("RECOM_ G/RALES")) = charters(ItemData.Offset(, osteo_origin_dictionary("RECOM_ G/RALES")))
-              ActiveCell.Offset(, osteo_destiny_dictionary("ID_OSTEOMUSCULAR")) = ActiveCell.Offset(-1, osteo_destiny_dictionary("ID_OSTEOMUSCULAR")) + 1
+              If (ActiveCell.Row = 4) Then
+                ActiveCell.Offset(, osteo_destiny_dictionary("ID_OSTEOMUSCULAR")) = Trim(ThisWorkbook.Worksheets("RUTAS").Range("$F$11").value)
+              Else
+                ActiveCell.Offset(, osteo_destiny_dictionary("ID_OSTEOMUSCULAR")) = ActiveCell.Offset(-1, osteo_destiny_dictionary("ID_OSTEOMUSCULAR")) + 1
+              End If
               ActiveCell.Offset(1, 0).Select
               numbers = numbers + 1
               numbersGeneral = numbersGeneral + 1
@@ -128,13 +132,13 @@ Sub OsteoData()
             Call dataDuplicate
             Range("$A4", Range("$A4").End(xlDown)).Select
             Call formatter
-            
+
             Set osteo_origin_value = Nothing
             Set osteo_destiny_header = Nothing
             Set osteo_origin_header = Nothing
             osteo_destiny_dictionary.RemoveAll
             osteo_origin_dictionary.RemoveAll
 
-osteoError:
+ osteoError:
             Resume Next
 End Sub

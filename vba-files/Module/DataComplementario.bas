@@ -11,7 +11,7 @@ Sub ComplementarioData()
   Set comple_origin = origin.Worksheets("COMPLEMENTARIOS") '' COMPLEMENTARIOS DEL LIBRO ORIGEN ''
 
   comple_destiny.Select
-  ActiveSheet.Range("A5").Select
+  ActiveSheet.Range("A4").Select
   Set comple_destiny_header = comple_destiny.Range("A3", comple_destiny.Range("A3").End(xlToRight))
   Set comple_origin_header = comple_origin.Range("A1", comple_origin.Range("A1").End(xlToRight))
   Set comple_destiny_dictionary = CreateObject("Scripting.Dictionary")
@@ -72,7 +72,11 @@ Sub ComplementarioData()
               ActiveCell.Offset(, comple_destiny_dictionary("DIAG_ REL/2")) = charters(ItemData.Offset(, comple_origin_dictionary("DIAG_ REL/2")))
               ActiveCell.Offset(, comple_destiny_dictionary("DIAG_ REL/3")) = charters(ItemData.Offset(, comple_origin_dictionary("DIAG_ REL/3")))
               ActiveCell.Offset(, comple_destiny_dictionary("HALLAZGOS")) = charters(ItemData.Offset(, comple_origin_dictionary("HALLAZGOS")))
-              ActiveCell.Offset(, comple_destiny_dictionary("ID_COMPLEMENTARIOS")) = ActiveCell.Offset(-1, comple_destiny_dictionary("ID_COMPLEMENTARIOS")) + 1
+              If (ActiveCell.Row = 4) Then
+                ActiveCell.Offset(, comple_destiny_dictionary("ID_COMPLEMENTARIOS")) = Trim(ThisWorkbook.Worksheets("RUTAS").Range("$F$12").value)
+              Else
+                ActiveCell.Offset(, comple_destiny_dictionary("ID_COMPLEMENTARIOS")) = ActiveCell.Offset(-1, comple_destiny_dictionary("ID_COMPLEMENTARIOS")) + 1
+              End If
               ActiveCell.Offset(1, 0).Select
               numbers = numbers + 1
               numbersGeneral = numbersGeneral + 1
@@ -83,16 +87,16 @@ Sub ComplementarioData()
             Call dataDuplicate
             Range("$A4", Range("$A4").End(xlDown)).Select
             Call formatter
-            
+
             Set comple_origin_value = Nothing
             Set comple_destiny_header = Nothing
             Set comple_origin_header = Nothing
             comple_destiny_dictionary.RemoveAll
             comple_origin_dictionary.RemoveAll
 
-compleError:
+ compleError:
             Resume Next
-com:
+ com:
             Set comple_origin = origin.Worksheets("COMPLEMENTARIO")
             Resume Next
 End Sub

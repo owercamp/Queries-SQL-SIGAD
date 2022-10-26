@@ -115,6 +115,7 @@ Sub clearContents()
           DoEvents
           Range("A5", Range("A5").Offset(rng, 0)).Select
           Selection.EntireRow.Delete shift:=xlUp
+          ThisWorkbook.Worksheets("RUTAS").Range("$F$4") = Trim(Range("$AW$5").value)
         End If
 
         enfasis.Select
@@ -148,6 +149,7 @@ Sub clearContents()
           DoEvents
           Range("A5", Range("A5").Offset(rng, 0)).Select
           Selection.EntireRow.Delete shift:=xlUp
+          ThisWorkbook.Worksheets("RUTAS").Range("$F$5") = Trim(Range("$EL$5").value)
         End If
 
         audio.Select
@@ -159,6 +161,7 @@ Sub clearContents()
           DoEvents
           Range("A4", Range("A4").Offset(rng, 0)).Select
           Selection.EntireRow.Delete shift:=xlUp
+          ThisWorkbook.Worksheets("RUTAS").Range("$F$6") = Trim(Range("$BG$4").value)
         End If
 
         opto.Select
@@ -170,6 +173,8 @@ Sub clearContents()
           DoEvents
           Range("A4", Range("A4").Offset(rng, 0)).Select
           Selection.EntireRow.Delete shift:=xlUp
+          ThisWorkbook.Worksheets("RUTAS").Range("$F$7") = Trim(Range("$BL$4").value)
+          ThisWorkbook.Worksheets("RUTAS").Range("$F$8") = Trim(Range("$BM$4").value)
         End If
 
         visio.Select
@@ -181,6 +186,7 @@ Sub clearContents()
           DoEvents
           Range("A4", Range("A4").Offset(rng, 0)).Select
           Selection.EntireRow.Delete shift:=xlUp
+          ThisWorkbook.Worksheets("RUTAS").Range("$F$9") = Trim(Range("$BS$4").value)
         End If
 
         espiro.Select
@@ -192,6 +198,7 @@ Sub clearContents()
           DoEvents
           Range("A4", Range("A4").Offset(rng, 0)).Select
           Selection.EntireRow.Delete shift:=xlUp
+          ThisWorkbook.Worksheets("RUTAS").Range("$F$10") = Trim(Range("$BZ$4").value)
         End If
 
         osteo.Select
@@ -203,6 +210,7 @@ Sub clearContents()
           DoEvents
           Range("A4", Range("A4").Offset(rng, 0)).Select
           Selection.EntireRow.Delete shift:=xlUp
+          ThisWorkbook.Worksheets("RUTAS").Range("$F$11") = Trim(Range("$BG$4").value)
         End If
 
         complementarios.Select
@@ -214,6 +222,7 @@ Sub clearContents()
           DoEvents
           Range("A4", Range("A4").Offset(rng, 0)).Select
           Selection.EntireRow.Delete shift:=xlUp
+          ThisWorkbook.Worksheets("RUTAS").Range("$F$12") = Trim(Range("$J$4").value)
         End If
 
         psicotecnica.Select
@@ -225,6 +234,7 @@ Sub clearContents()
           DoEvents
           Range("A2", Range("A2").Offset(rng, 0)).Select
           Selection.EntireRow.Delete shift:=xlUp
+          ThisWorkbook.Worksheets("RUTAS").Range("$F$13") = Trim(Range("$G$2").value)
         End If
 
         psicosensometrica.Select
@@ -236,6 +246,7 @@ Sub clearContents()
           DoEvents
           Range("A3", Range("A3").Offset(rng, 0)).Select
           Selection.EntireRow.Delete shift:=xlUp
+          ThisWorkbook.Worksheets("RUTAS").Range("$F$14") = Trim(Range("$Q$3").value)
         End If
 
         trabajadores.Select

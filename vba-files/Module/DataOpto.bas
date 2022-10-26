@@ -10,7 +10,7 @@ Sub OptoData()
 
   Set opto_origin = origin.Worksheets("OPTO") '' OPTO DEL LIBRO ORIGEN ''
   opto_destiny.Select
-  ActiveSheet.Range("A5").Select
+  ActiveSheet.Range("A4").Select
   Set opto_destiny_header = opto_destiny.Range("A3", opto_destiny.Range("A3").End(xlToRight))
   Set opto_origin_header = opto_origin.Range("A1", opto_origin.Range("A1").End(xlToRight))
   Set opto_destiny_dictionary = CreateObject("Scripting.Dictionary")
@@ -123,8 +123,13 @@ Sub OptoData()
                 ActiveCell.Offset(, opto_destiny_dictionary("CONTROLES 6 MESES")) = charters(ItemData.Offset(, opto_origin_dictionary("CONTROLES 6 MESES")))
                 ActiveCell.Offset(, opto_destiny_dictionary("CONTROLES 1 ANO")) = charters(ItemData.Offset(, opto_origin_dictionary("CONTROLES 1 ANO")))
                 ActiveCell.Offset(, opto_destiny_dictionary("CONTROLES CONFIRMATORIA")) = charters(ItemData.Offset(, opto_origin_dictionary("CONTROLES CONFIRMATORIA")))
-                ActiveCell.Offset(, opto_destiny_dictionary("ID_OPTOMETRIA")) = ActiveCell.Offset(-1, opto_destiny_dictionary("ID_OPTOMETRIA")) + 1
-                ActiveCell.Offset(, opto_destiny_dictionary("OP_DIAGNOSTICO")) = ActiveCell.Offset(-1, opto_destiny_dictionary("OP_DIAGNOSTICO")) + 1
+                If (ActiveCell.Row = 4) Then
+                  ActiveCell.Offset(, opto_destiny_dictionary("ID_OPTOMETRIA")) = Trim(ThisWorkbook.Worksheets("RUTAS").Range("$F$7").value)
+                  ActiveCell.Offset(, opto_destiny_dictionary("OP_DIAGNOSTICO")) = Trim(ThisWorkbook.Worksheets("RUTAS").Range("$F$8").value)
+                Else
+                  ActiveCell.Offset(, opto_destiny_dictionary("ID_OPTOMETRIA")) = ActiveCell.Offset(-1, opto_destiny_dictionary("ID_OPTOMETRIA")) + 1
+                  ActiveCell.Offset(, opto_destiny_dictionary("OP_DIAGNOSTICO")) = ActiveCell.Offset(-1, opto_destiny_dictionary("OP_DIAGNOSTICO")) + 1
+                End If
                 ActiveCell.Offset(1, 0).Select
                 numbers = numbers + 1
                 numbersGeneral = numbersGeneral + 1
@@ -151,6 +156,6 @@ Sub OptoData()
               Set opto_origin_header = Nothing
               opto_destiny_dictionary.RemoveAll
               opto_origin_dictionary.RemoveAll
-optoError:
+ optoError:
               Resume Next
 End Sub

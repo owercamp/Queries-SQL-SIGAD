@@ -9,7 +9,7 @@ Sub EspiroData()
 
   Set espiro_origin = origin.Worksheets("ESPIRO") '' ESPIRO DEL LIBRO ORIGEN ''
   espiro_destiny.Select
-  ActiveSheet.Range("A5").Select
+  ActiveSheet.Range("A4").Select
   Set espiro_destiny_header = espiro_destiny.Range("A3", espiro_destiny.Range("A3").End(xlToRight))
   Set espiro_origin_header = espiro_origin.Range("A1", espiro_origin.Range("A1").End(xlToRight))
   Set espiro_destiny_dictionary = CreateObject("Scripting.Dictionary")
@@ -132,7 +132,11 @@ Sub EspiroData()
               ActiveCell.Offset(, espiro_destiny_dictionary("CONTROLES ANUAL")) = charters_empty(ItemData.Offset(, espiro_origin_dictionary("CONTROLES ANUAL")))
               ActiveCell.Offset(, espiro_destiny_dictionary("CONTROLES CONFIRMATORIA")) = charters_empty(ItemData.Offset(, espiro_origin_dictionary("CONTROLES CONFIRMATORIA")))
               ActiveCell.Offset(, espiro_destiny_dictionary("TECNICA ACEPTABLE")) = charters(ItemData.Offset(, espiro_origin_dictionary("TECNICA ACEPTABLE")))
-              ActiveCell.Offset(, espiro_destiny_dictionary("ID_ESPIROMETRIA")) = ActiveCell.Offset(-1, espiro_destiny_dictionary("ID_ESPIROMETRIA")) + 1
+              If (ActiveCell.Row = 4) Then
+                ActiveCell.Offset(, espiro_destiny_dictionary("ID_ESPIROMETRIA")) = Trim(ThisWorkbook.Worksheets("RUTAS").Range("$F$10").value)
+              Else
+                ActiveCell.Offset(, espiro_destiny_dictionary("ID_ESPIROMETRIA")) = ActiveCell.Offset(-1, espiro_destiny_dictionary("ID_ESPIROMETRIA")) + 1
+              End If
               ActiveCell.Offset(1, 0).Select
               numbers = numbers + 1
               numbersGeneral = numbersGeneral + 1
@@ -150,6 +154,6 @@ Sub EspiroData()
             espiro_destiny_dictionary.RemoveAll
             espiro_origin_dictionary.RemoveAll
 
-espiroError:
+ espiroError:
             Resume Next
 End Sub

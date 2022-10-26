@@ -10,7 +10,7 @@ Sub DataEmoWorkers()
 
   Set emo_origin = origin.Worksheets("EMO") '' EMO DEL LIBRO ORIGEN ''
   emo_destiny.Select
-  ActiveSheet.Range("A6").Select
+  ActiveSheet.Range("A5").Select
   Set emo_destiny_header = emo_destiny.Range("A4", emo_destiny.Range("A4").End(xlToRight))
   Set emo_origin_header = emo_origin.Range("A1", emo_origin.Range("A1").End(xlToRight))
   Set emo_destiny_dictionary = CreateObject("Scripting.Dictionary")
@@ -162,7 +162,11 @@ Sub DataEmoWorkers()
               ActiveCell.Offset(, emo_destiny_dictionary("PIEL")) = "0"
               ActiveCell.Offset(, emo_destiny_dictionary("RESPIRATORIA")) = "0"
               ActiveCell.Offset(, emo_destiny_dictionary("AUDITIVO")) = "0"
-              ActiveCell.Offset(, emo_destiny_dictionary("ID_EMO")) = ActiveCell.Offset(-1, emo_destiny_dictionary("ID_EMO")) + 1
+              If (Activecell.Row = 5) Then
+                ActiveCell.Offset(, emo_destiny_dictionary("ID_EMO")) = Trim(ThisWorkbook.Worksheets("RUTAS").Range("$F$5").value)
+              Else
+                ActiveCell.Offset(, emo_destiny_dictionary("ID_EMO")) = ActiveCell.Offset(-1, emo_destiny_dictionary("ID_EMO")) + 1
+              End If
               ActiveCell.Offset(1, 0).Select
               numbers = numbers + 1
               numbersGeneral = numbersGeneral + 1
@@ -189,6 +193,6 @@ Sub DataEmoWorkers()
             emo_destiny_dictionary.RemoveAll
             emo_origin_dictionary.RemoveAll
 
-emoError:
+ emoError:
             Resume Next
 End Sub

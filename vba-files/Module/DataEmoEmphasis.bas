@@ -10,7 +10,7 @@ Sub DataEmphasisEmo()
 
   Set emo_origin = origin.Worksheets("EMO") '' EMO DEL LIBRO ORIGEN ''
   emphasis_destiny.Select
-  ActiveSheet.Range("A6").Select
+  ActiveSheet.Range("A5").Select
   Set emphasis_destiny_header = emphasis_destiny.Range("A4", emphasis_destiny.Range("A4").End(xlToRight))
   Set emo_origin_header = emo_origin.Range("A1", emo_origin.Range("A1").End(xlToRight))
   Set emphasis_destiny_dictionary = CreateObject("Scripting.Dictionary")

@@ -10,7 +10,7 @@ Sub DataDiagnosticsEmo()
 
   Set emo_origin = origin.Worksheets("EMO") '' EMO DEL LIBRO ORIGEN ''
   diagnostics_destiny.Select
-  ActiveSheet.Range("A6").Select
+  ActiveSheet.Range("A5").Select
 
   Set diagnostics_destiny_header = diagnostics_destiny.Range("A4", diagnostics_destiny.Range("A4").End(xlToRight))
   Set emo_origin_header = emo_origin.Range("A1", emo_origin.Range("A1").End(xlToRight))
