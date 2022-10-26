@@ -116,6 +116,8 @@ Sub clearContents()
           Range("A5", Range("A5").Offset(rng, 0)).Select
           Selection.EntireRow.Delete shift:=xlUp
           ThisWorkbook.Worksheets("RUTAS").Range("$F$4") = CLngLng(Trim(Range("$AW$5").value)) + 1
+        Else
+          ThisWorkbook.Worksheets("RUTAS").Range("$F$4") = CLngLng(Trim(Range("$AW$5").value)) + 1
         End If
 
         enfasis.Select
@@ -150,6 +152,8 @@ Sub clearContents()
           Range("A5", Range("A5").Offset(rng, 0)).Select
           Selection.EntireRow.Delete shift:=xlUp
           ThisWorkbook.Worksheets("RUTAS").Range("$F$5") = CLngLng(Trim(Range("$EL$5").value)) + 1
+        Else
+          ThisWorkbook.Worksheets("RUTAS").Range("$F$5") = CLngLng(Trim(Range("$EL$5").value)) + 1
         End If
 
         audio.Select
@@ -161,6 +165,8 @@ Sub clearContents()
           DoEvents
           Range("A4", Range("A4").Offset(rng, 0)).Select
           Selection.EntireRow.Delete shift:=xlUp
+          ThisWorkbook.Worksheets("RUTAS").Range("$F$6") = CLngLng(Trim(Range("$BG$4").value)) + 1
+        Else
           ThisWorkbook.Worksheets("RUTAS").Range("$F$6") = CLngLng(Trim(Range("$BG$4").value)) + 1
         End If
 
@@ -175,6 +181,9 @@ Sub clearContents()
           Selection.EntireRow.Delete shift:=xlUp
           ThisWorkbook.Worksheets("RUTAS").Range("$F$7") = CLngLng(Trim(Range("$BL$4").value)) + 1
           ThisWorkbook.Worksheets("RUTAS").Range("$F$8") = CLngLng(Trim(Range("$BM$4").value)) + 1
+        ELse
+          ThisWorkbook.Worksheets("RUTAS").Range("$F$7") = CLngLng(Trim(Range("$BL$4").value)) + 1
+          ThisWorkbook.Worksheets("RUTAS").Range("$F$8") = CLngLng(Trim(Range("$BM$4").value)) + 1
         End If
 
         visio.Select
@@ -186,6 +195,8 @@ Sub clearContents()
           DoEvents
           Range("A4", Range("A4").Offset(rng, 0)).Select
           Selection.EntireRow.Delete shift:=xlUp
+          ThisWorkbook.Worksheets("RUTAS").Range("$F$9") = CLngLng(Trim(Range("$BS$4").value)) + 1
+        Else
           ThisWorkbook.Worksheets("RUTAS").Range("$F$9") = CLngLng(Trim(Range("$BS$4").value)) + 1
         End If
 
@@ -199,6 +210,8 @@ Sub clearContents()
           Range("A4", Range("A4").Offset(rng, 0)).Select
           Selection.EntireRow.Delete shift:=xlUp
           ThisWorkbook.Worksheets("RUTAS").Range("$F$10") = CLngLng(Trim(Range("$BZ$4").value)) + 1
+        Else
+          ThisWorkbook.Worksheets("RUTAS").Range("$F$10") = CLngLng(Trim(Range("$BZ$4").value)) + 1
         End If
 
         osteo.Select
@@ -210,6 +223,8 @@ Sub clearContents()
           DoEvents
           Range("A4", Range("A4").Offset(rng, 0)).Select
           Selection.EntireRow.Delete shift:=xlUp
+          ThisWorkbook.Worksheets("RUTAS").Range("$F$11") = CLngLng(Trim(Range("$BG$4").value)) + 1
+        Else
           ThisWorkbook.Worksheets("RUTAS").Range("$F$11") = CLngLng(Trim(Range("$BG$4").value)) + 1
         End If
 
@@ -223,6 +238,8 @@ Sub clearContents()
           Range("A4", Range("A4").Offset(rng, 0)).Select
           Selection.EntireRow.Delete shift:=xlUp
           ThisWorkbook.Worksheets("RUTAS").Range("$F$12") = CLngLng(Trim(Range("$J$4").value)) + 1
+        Else
+          ThisWorkbook.Worksheets("RUTAS").Range("$F$12") = CLngLng(Trim(Range("$J$4").value)) + 1
         End If
 
         psicotecnica.Select
@@ -235,6 +252,8 @@ Sub clearContents()
           Range("A2", Range("A2").Offset(rng, 0)).Select
           Selection.EntireRow.Delete shift:=xlUp
           ThisWorkbook.Worksheets("RUTAS").Range("$F$13") = CLngLng(Trim(Range("$G$2").value)) + 1
+        Else
+          ThisWorkbook.Worksheets("RUTAS").Range("$F$13") = CLngLng(Trim(Range("$G$2").value)) + 1
         End If
 
         psicosensometrica.Select
@@ -246,6 +265,8 @@ Sub clearContents()
           DoEvents
           Range("A3", Range("A3").Offset(rng, 0)).Select
           Selection.EntireRow.Delete shift:=xlUp
+          ThisWorkbook.Worksheets("RUTAS").Range("$F$14") = CLngLng(Trim(Range("$Q$3").value)) + 1
+        Else
           ThisWorkbook.Worksheets("RUTAS").Range("$F$14") = CLngLng(Trim(Range("$Q$3").value)) + 1
         End If
 
