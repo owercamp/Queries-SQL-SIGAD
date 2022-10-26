@@ -7,7 +7,7 @@ Sub ComplementarioData()
   Dim comple_destiny_header, comple_origin_header, comple_origin_value As Object
   Dim ItemCompleDestiny, ItemCompleOrigin, ItemData As Variant
 
-  On Error Goto com:
+  On Error GoTo com:
   Set comple_origin = origin.Worksheets("COMPLEMENTARIOS") '' COMPLEMENTARIOS DEL LIBRO ORIGEN ''
 
   comple_destiny.Select
@@ -30,13 +30,13 @@ Sub ComplementarioData()
 
   ' CABECERAS DE LA HOJA EMO DEL LIBRO DESTINO
   For Each ItemCompleDestiny In comple_destiny_header
-    On Error Goto compleError
+    On Error GoTo compleError
     comple_destiny_dictionary.Add comple_headers(ItemCompleDestiny), (ItemCompleDestiny.Column - 1)
   Next ItemCompleDestiny
 
   ' CABECERA DE LA HOJA EMO DEL LIBRO ORIGEN
   For Each ItemCompleOrigin In comple_origin_header
-    On Error Goto compleError
+    On Error GoTo compleError
     comple_origin_dictionary.Add comple_headers(ItemCompleOrigin), (ItemCompleOrigin.Column - 1)
   Next ItemCompleOrigin
 
@@ -64,16 +64,16 @@ Sub ComplementarioData()
         If formImports.ProgressBarGeneral.Width < (formImports.content_ProgressBarGeneral.Width / 2) Then: formImports.porcentageGeneral.ForeColor = RGB(0, 0, 0)
           If formImports.ProgressBarOneforOne.Width > (formImports.content_ProgressBarOneforOne.Width / 2) Then: formImports.porcentageOneoforOne.ForeColor = RGB(255, 255, 255)
             If formImports.ProgressBarOneforOne.Width < (formImports.content_ProgressBarOneforOne.Width / 2) Then: formImports.porcentageOneoforOne.ForeColor = RGB(0, 0, 0)
-              ActiveCell.offset(, comple_destiny_dictionary("NRO IDENFICACION")) = charters(ItemData.offset(, comple_origin_dictionary( "NRO IDENFICACION")))
-              ActiveCell.offset(, comple_destiny_dictionary("PROCEDIMIENTO")) = charters(ItemData.offset(, comple_origin_dictionary( "PROCEDIMIENTO")))
-              ActiveCell.offset(, comple_destiny_dictionary("DIAG_ PPAL")) = charters(ItemData.offset(, comple_origin_dictionary( "DIAG_ PPAL")))
-              ActiveCell.offset(, comple_destiny_dictionary("DIAG_ PPAL OBS")) = charters(ItemData.offset(, comple_origin_dictionary( "DIAG_ PPAL OBS")))
-              ActiveCell.offset(, comple_destiny_dictionary("DIAG_ REL/1")) = charters(ItemData.offset(, comple_origin_dictionary( "DIAG_ REL/1")))
-              ActiveCell.offset(, comple_destiny_dictionary("DIAG_ REL/2")) = charters(ItemData.offset(, comple_origin_dictionary( "DIAG_ REL/2")))
-              ActiveCell.offset(, comple_destiny_dictionary("DIAG_ REL/3")) = charters(ItemData.offset(, comple_origin_dictionary( "DIAG_ REL/3")))
-              ActiveCell.offset(, comple_destiny_dictionary("HALLAZGOS")) = charters(ItemData.offset(, comple_origin_dictionary( "HALLAZGOS")))
-              ActiveCell.offset(, comple_destiny_dictionary("ID_COMPLEMENTARIOS")) = ActiveCell.offset(-1, comple_destiny_dictionary("ID_COMPLEMENTARIOS")) + 1
-              ActiveCell.offset(1, 0).Select
+              ActiveCell.Offset(, comple_destiny_dictionary("NRO IDENFICACION")) = charters(ItemData.Offset(, comple_origin_dictionary("NRO IDENFICACION")))
+              ActiveCell.Offset(, comple_destiny_dictionary("PROCEDIMIENTO")) = charters(ItemData.Offset(, comple_origin_dictionary("PROCEDIMIENTO")))
+              ActiveCell.Offset(, comple_destiny_dictionary("DIAG_ PPAL")) = charters(ItemData.Offset(, comple_origin_dictionary("DIAG_ PPAL")))
+              ActiveCell.Offset(, comple_destiny_dictionary("DIAG_ PPAL OBS")) = charters(ItemData.Offset(, comple_origin_dictionary("DIAG_ PPAL OBS")))
+              ActiveCell.Offset(, comple_destiny_dictionary("DIAG_ REL/1")) = charters(ItemData.Offset(, comple_origin_dictionary("DIAG_ REL/1")))
+              ActiveCell.Offset(, comple_destiny_dictionary("DIAG_ REL/2")) = charters(ItemData.Offset(, comple_origin_dictionary("DIAG_ REL/2")))
+              ActiveCell.Offset(, comple_destiny_dictionary("DIAG_ REL/3")) = charters(ItemData.Offset(, comple_origin_dictionary("DIAG_ REL/3")))
+              ActiveCell.Offset(, comple_destiny_dictionary("HALLAZGOS")) = charters(ItemData.Offset(, comple_origin_dictionary("HALLAZGOS")))
+              ActiveCell.Offset(, comple_destiny_dictionary("ID_COMPLEMENTARIOS")) = ActiveCell.Offset(-1, comple_destiny_dictionary("ID_COMPLEMENTARIOS")) + 1
+              ActiveCell.Offset(1, 0).Select
               numbers = numbers + 1
               numbersGeneral = numbersGeneral + 1
               DoEvents
@@ -90,9 +90,9 @@ Sub ComplementarioData()
             comple_destiny_dictionary.RemoveAll
             comple_origin_dictionary.RemoveAll
 
- compleError:
-            resume next
- com:
+compleError:
+            Resume Next
+com:
             Set comple_origin = origin.Worksheets("COMPLEMENTARIO")
-            resume next
+            Resume Next
 End Sub

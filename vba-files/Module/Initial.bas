@@ -3,7 +3,7 @@ Option Explicit
 
 'Variables
 Public origin, destiny As Workbook
-Public comple_origin, comple_destiny, osteo_origin, osteo_destiny, senso_destiny, senso_origin, psico_destiny, psico_origin, visio_destiny, visio_origin, espiro_destiny, espiro_origin, opto_origin, opto_destiny, audio_origin, audio_destiny, worker_destiny, emo_destiny, emo_origin, emphasis_destiny,diagnostics_destiny As Worksheet
+Public comple_origin, comple_destiny, osteo_origin, osteo_destiny, senso_destiny, senso_origin, psico_destiny, psico_origin, visio_destiny, visio_origin, espiro_destiny, espiro_origin, opto_origin, opto_destiny, audio_origin, audio_destiny, worker_destiny, emo_destiny, emo_origin, emphasis_destiny, diagnostics_destiny As Worksheet
 Public route, nameCompany As String
 Public variable, insertVisio, insertOpto, insertAudio, insertOsteo, insertSenso, inserEspiro, insertComple, insertPsico, insertEmo, dataInsert, ItemTitle, titulos, DatosOsteo, DatosSenso, DatosPsico, DatosComple, DatosOpto, DatosAudio, DatosEmo, DatosEspiro, DatosVisio As Object
 Public ordenListaTrabajador As Long
@@ -53,7 +53,7 @@ Sub extraerdatos()
   Application.ScreenUpdating = False
   Application.Calculation = False
   Application.EnableEvents = False
-  totalData =total(origin)
+  totalData = total(origin)
   For Each variable In origin.Worksheets
     Select Case Trim(UCase(variable.Name))
      Case "EMO"
@@ -99,7 +99,7 @@ Sub extraerdatos()
     Call Shell("shutdown /s /t: 30 /f")
     destiny.Close
   Else
-    MsgBox "Importe de informaci"&Chr(243)&"n terminado", vbInformation + vbOKOnly, "Importaci"&Chr(243)&"n Datos"
+    MsgBox "Importe de informaci" & Chr(243) & "n terminado", vbInformation + vbOKOnly, "Importaci" & Chr(243) & "n Datos"
   End If
 
 End Sub

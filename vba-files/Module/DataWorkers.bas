@@ -10,7 +10,7 @@ Sub Workers()
   Dim range_active As Integer
 
   Set emo_origin = origin.Worksheets("EMO") '' EMO DEL LIBRO ORIGEN ''
-  Windows(destiny.Name).activate
+  Windows(destiny.Name).Activate
   worker_destiny.Select
   ActiveSheet.Range("A6").Select
   Set workers_header = worker_destiny.Range("A4", worker_destiny.Range("A4").End(xlToRight))
@@ -47,13 +47,13 @@ Sub Workers()
 
   ' CABECERAS DE LA HOJA TRABAJADORES DEL LIBRO DESTINO
   For Each ItemWorks In workers_header
-    On Error Goto workersError
+    On Error GoTo workersError
     workers_dictionary.Add header_worker(ItemWorks), (ItemWorks.Column - 1)
   Next ItemWorks
 
   ' CABECERA DE LA HOJA EMO DEL LIBRO ORIGEN
   For Each ItemEmo In emo_header
-    On Error Goto workersError
+    On Error GoTo workersError
     emo_dictionary.Add header_worker(ItemEmo), (ItemEmo.Column - 1)
   Next ItemEmo
 
@@ -81,28 +81,28 @@ Sub Workers()
             If formImports.ProgressBarOneforOne.Width < (formImports.content_ProgressBarOneforOne.Width / 2) Then: formImports.porcentageOneoforOne.ForeColor = RGB(0, 0, 0)
               formImports.Caption = CStr(nameCompany)
               ActiveCell = "8"
-              ActiveCell.offset(, workers_dictionary("NOMBRE CONTRATO")) = charters(ItemData.offset(, emo_dictionary("NOMBRE CONTRATO")))
-              ActiveCell.offset(, workers_dictionary("DESTINO")) = charters(ItemData.offset(, emo_dictionary("DESTINO")))
-              ActiveCell.offset(, workers_dictionary("CIUDAD")) = city(charters(ItemData.offset(, emo_dictionary("CIUDAD"))))
-              ActiveCell.offset(, workers_dictionary("INGRESO REGISTRO")) = charters(ItemData.offset(, emo_dictionary("INGRESO REGISTRO")))
-              ActiveCell.offset(, workers_dictionary("TIPO EXAMEN")) = typeExams(charters(ItemData.offset(, emo_dictionary("TIPO EXAMEN"))))
-              ActiveCell.offset(, workers_dictionary("FECHA INGRESO")) = charters(ItemData.offset(, emo_dictionary("FECHA INGRESO")))
-              ActiveCell.offset(, workers_dictionary("PACIENTE")) = charters(ItemData.offset(, emo_dictionary("PACIENTE")))
-              ActiveCell.offset(, workers_dictionary("NRO IDENFICACION")) = charters(ItemData.offset(, emo_dictionary("NRO IDENFICACION")))
-              ActiveCell.offset(, workers_dictionary("EDAD")) = charters(ItemData.offset(, emo_dictionary("EDAD")))
-              ActiveCell.offset(, workers_dictionary("ESTRATO")) = charters(ItemData.offset(, emo_dictionary("ESTRATO")))
-              ActiveCell.offset(, workers_dictionary("GENERO")) = charters(ItemData.offset(, emo_dictionary("GENERO")))
-              ActiveCell.offset(, workers_dictionary("NRO HIJOS")) = charters(ItemData.offset(, emo_dictionary("NRO HIJOS")))
-              ActiveCell.offset(, workers_dictionary("RAZA")) = typeSex(charters(ItemData.offset(, emo_dictionary("RAZA"))))
-              ActiveCell.offset(, workers_dictionary("ESTADO CIVIL")) = typeCivil(charters(ItemData.offset(, emo_dictionary("ESTADO CIVIL"))))
-              ActiveCell.offset(, workers_dictionary("ESCOLARIDAD")) = school(charters(ItemData.offset(, emo_dictionary("ESCOLARIDAD"))))
-              ActiveCell.offset(, workers_dictionary("CARGO USUARIO")) = charters(ItemData.offset(, emo_dictionary("CARGO USUARIO")))
-              ActiveCell.offset(, workers_dictionary("LAB DURACION EN ANOS")) = charters(ItemData.offset(, emo_dictionary("LAB DURACION EN ANOS")))
-              ActiveCell.offset(, workers_dictionary("FUENTE")) = charters("ARMYWEB")
-              ActiveCell.offset(, workers_dictionary("TIPO ACTIVIDAD")) = charters("1")
-              ActiveCell.offset(, workers_dictionary("idOrdenListaTrabajadores")) = ActiveCell.offset(-1, workers_dictionary("idOrdenListaTrabajadores")) + 1
-              ActiveCell.offset(, workers_dictionary("idOrden")) = idOrden
-              ActiveCell.offset(1, 0).Select
+              ActiveCell.Offset(, workers_dictionary("NOMBRE CONTRATO")) = charters(ItemData.Offset(, emo_dictionary("NOMBRE CONTRATO")))
+              ActiveCell.Offset(, workers_dictionary("DESTINO")) = charters(ItemData.Offset(, emo_dictionary("DESTINO")))
+              ActiveCell.Offset(, workers_dictionary("CIUDAD")) = city(charters(ItemData.Offset(, emo_dictionary("CIUDAD"))))
+              ActiveCell.Offset(, workers_dictionary("INGRESO REGISTRO")) = charters(ItemData.Offset(, emo_dictionary("INGRESO REGISTRO")))
+              ActiveCell.Offset(, workers_dictionary("TIPO EXAMEN")) = typeExams(charters(ItemData.Offset(, emo_dictionary("TIPO EXAMEN"))))
+              ActiveCell.Offset(, workers_dictionary("FECHA INGRESO")) = charters(ItemData.Offset(, emo_dictionary("FECHA INGRESO")))
+              ActiveCell.Offset(, workers_dictionary("PACIENTE")) = charters(ItemData.Offset(, emo_dictionary("PACIENTE")))
+              ActiveCell.Offset(, workers_dictionary("NRO IDENFICACION")) = charters(ItemData.Offset(, emo_dictionary("NRO IDENFICACION")))
+              ActiveCell.Offset(, workers_dictionary("EDAD")) = charters(ItemData.Offset(, emo_dictionary("EDAD")))
+              ActiveCell.Offset(, workers_dictionary("ESTRATO")) = charters(ItemData.Offset(, emo_dictionary("ESTRATO")))
+              ActiveCell.Offset(, workers_dictionary("GENERO")) = charters(ItemData.Offset(, emo_dictionary("GENERO")))
+              ActiveCell.Offset(, workers_dictionary("NRO HIJOS")) = charters(ItemData.Offset(, emo_dictionary("NRO HIJOS")))
+              ActiveCell.Offset(, workers_dictionary("RAZA")) = typeSex(charters(ItemData.Offset(, emo_dictionary("RAZA"))))
+              ActiveCell.Offset(, workers_dictionary("ESTADO CIVIL")) = typeCivil(charters(ItemData.Offset(, emo_dictionary("ESTADO CIVIL"))))
+              ActiveCell.Offset(, workers_dictionary("ESCOLARIDAD")) = school(charters(ItemData.Offset(, emo_dictionary("ESCOLARIDAD"))))
+              ActiveCell.Offset(, workers_dictionary("CARGO USUARIO")) = charters(ItemData.Offset(, emo_dictionary("CARGO USUARIO")))
+              ActiveCell.Offset(, workers_dictionary("LAB DURACION EN ANOS")) = charters(ItemData.Offset(, emo_dictionary("LAB DURACION EN ANOS")))
+              ActiveCell.Offset(, workers_dictionary("FUENTE")) = charters("ARMYWEB")
+              ActiveCell.Offset(, workers_dictionary("TIPO ACTIVIDAD")) = charters("1")
+              ActiveCell.Offset(, workers_dictionary("idOrdenListaTrabajadores")) = ActiveCell.Offset(-1, workers_dictionary("idOrdenListaTrabajadores")) + 1
+              ActiveCell.Offset(, workers_dictionary("idOrden")) = idOrden
+              ActiveCell.Offset(1, 0).Select
               numbers = numbers + 1
               numbersGeneral = numbersGeneral + 1
               DoEvents
@@ -126,6 +126,6 @@ Sub Workers()
             Set emo_origin = Nothing
             workers_dictionary.RemoveAll
             emo_dictionary.RemoveAll
- workersError:
-            resume next
+workersError:
+            Resume Next
 End Sub

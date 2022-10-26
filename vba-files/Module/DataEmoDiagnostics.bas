@@ -30,13 +30,13 @@ Sub DataDiagnosticsEmo()
 
   x = 1
   For Each ItemDiagnosticsDestiny In diagnostics_destiny_header
-    On Error Goto diagnosticsError
+    On Error GoTo diagnosticsError
     diagnostics_destiny_dictionary.Add diagnostics_header(ItemDiagnosticsDestiny), (ItemDiagnosticsDestiny.Column - 1)
   Next ItemDiagnosticsDestiny
 
   x = 1
   For Each ItemEmoOrigin In emo_origin_header
-    On Error Goto diagnosticsError
+    On Error GoTo diagnosticsError
     emo_origin_dictionary.Add diagnostics_header(ItemEmoOrigin), (ItemEmoOrigin.Column - 1)
   Next ItemEmoOrigin
 
@@ -64,14 +64,14 @@ Sub DataDiagnosticsEmo()
         If formImports.ProgressBarGeneral.Width < (formImports.content_ProgressBarGeneral.Width / 2) Then: formImports.porcentageGeneral.ForeColor = RGB(0, 0, 0)
           If formImports.ProgressBarOneforOne.Width > (formImports.content_ProgressBarOneforOne.Width / 2) Then: formImports.porcentageOneoforOne.ForeColor = RGB(255, 255, 255)
             If formImports.ProgressBarOneforOne.Width < (formImports.content_ProgressBarOneforOne.Width / 2) Then: formImports.porcentageOneoforOne.ForeColor = RGB(0, 0, 0)
-              ActiveCell.offset(,diagnostics_destiny_dictionary("IDENTIFICACION")) = charters(ItemData.offset(,emo_origin_dictionary("IDENTIFICACION")))
-              ActiveCell.offset(,diagnostics_destiny_dictionary("CODIGO DIAG PPAL")) = charters(ItemData.offset(,emo_origin_dictionary("CODIGO DIAG PPAL")))
-              ActiveCell.offset(,diagnostics_destiny_dictionary("DIAG PPAL")) = charters(ItemData.offset(,emo_origin_dictionary("DIAG PPAL")))
+              ActiveCell.Offset(, diagnostics_destiny_dictionary("IDENTIFICACION")) = charters(ItemData.Offset(, emo_origin_dictionary("IDENTIFICACION")))
+              ActiveCell.Offset(, diagnostics_destiny_dictionary("CODIGO DIAG PPAL")) = charters(ItemData.Offset(, emo_origin_dictionary("CODIGO DIAG PPAL")))
+              ActiveCell.Offset(, diagnostics_destiny_dictionary("DIAG PPAL")) = charters(ItemData.Offset(, emo_origin_dictionary("DIAG PPAL")))
               For i = 1 To ((emo_origin_dictionary.Count - 5) / 2)
-                ActiveCell.offset(, diagnostics_destiny_dictionary("CODIGO DIAG REL" & i)) = charters(ItemData.offset(, emo_origin_dictionary("CODIGO DIAG REL" & i)))
-                ActiveCell.offset(, diagnostics_destiny_dictionary("DIAG REL " & i)) = charters(ItemData.offset(, emo_origin_dictionary("DIAG REL " & i)))
+                ActiveCell.Offset(, diagnostics_destiny_dictionary("CODIGO DIAG REL" & i)) = charters(ItemData.Offset(, emo_origin_dictionary("CODIGO DIAG REL" & i)))
+                ActiveCell.Offset(, diagnostics_destiny_dictionary("DIAG REL " & i)) = charters(ItemData.Offset(, emo_origin_dictionary("DIAG REL " & i)))
               Next i
-              ActiveCell.offset(1,0).Select
+              ActiveCell.Offset(1, 0).Select
               numbers = numbers + 1
               numbersGeneral = numbersGeneral + 1
               DoEvents
@@ -87,6 +87,6 @@ Sub DataDiagnosticsEmo()
             Set emo_origin_value = Nothing
             diagnostics_destiny_dictionary.RemoveAll
             emo_origin_dictionary.RemoveAll
- diagnosticsError:
-            resume next
+diagnosticsError:
+            Resume Next
 End Sub

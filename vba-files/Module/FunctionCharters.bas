@@ -48,7 +48,7 @@ Public Function city(ByVal value As String) As String
     city = Trim("PUERTO GAITAN")
    Case "PUERTO BOYAC" & Chr(193)
     city = Trim("PUERTO BOYACA")
-   case "PUERTO AS"&Chr(205)&"S"
+   Case "PUERTO AS" & Chr(205) & "S"
     city = Trim("PUERTO ASIS")
    Case Else
     city = value
@@ -77,7 +77,7 @@ Public Function typeExams(ByVal value As String) As String
     typeExams = "POS INCAPACIDAD"
    Case "PERIODICO SEG", "PERIODICO SEGUIMIENTO"
     typeExams = "PERIODICO"
-   Case "CAMBIO OCUPACION","CAMBIO DE OCUPACI" & Chr(211) & "N"
+   Case "CAMBIO OCUPACION", "CAMBIO DE OCUPACI" & Chr(211) & "N"
     typeExams = "CAMBIO DE OCUPACION"
    Case "REINTEGRO LABORAL", "OTROS REINTEGROS"
     typeExams = "EGRESO"
@@ -131,8 +131,8 @@ End Function
 '*/
 Public Function typeActivity(ByVal value As String) As String
   Select Case value
-   Case "F"&Chr(205)&"SICAMENTE ACTIVO", "FISICAMENTE ACTIVO", "FISICAMENTE ACTIVO(A)", "F"&Chr(205)&"SICAMENTE ACTIVO(A)"
-    typeActivity = "F"&Chr(205)&"SICAMENTE ACTIVO"
+   Case "F" & Chr(205) & "SICAMENTE ACTIVO", "FISICAMENTE ACTIVO", "FISICAMENTE ACTIVO(A)", "F" & Chr(205) & "SICAMENTE ACTIVO(A)"
+    typeActivity = "F" & Chr(205) & "SICAMENTE ACTIVO"
    Case Else
     typeActivity = value
   End Select
@@ -232,6 +232,6 @@ Function total(ByVal book As Object) As Integer
     End Select
   Next Sheet
 
-  total = (emo*4) + audio + visio + espiro + osteo + complementarios + psicotecnica + psicosensometrica + opto
+  total = (emo * 4) + audio + visio + espiro + osteo + complementarios + psicotecnica + psicosensometrica + opto
 
 End Function

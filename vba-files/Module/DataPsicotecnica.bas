@@ -7,7 +7,7 @@ Sub PsicotecnicaData()
   Dim psicotecnica_destiny_header, psicotecnica_origin_header, psicotecnica_origin_value As Object
   Dim ItemPsicotecnicaDestiny, ItemPsicotecnicaOrigin, ItemData As Variant
 
-  On Error Goto tecnica:
+  On Error GoTo tecnica:
   Set psico_origin = origin.Worksheets("PSICOTECNICA") '' PSICOTECNICA DEL LIBRO ORIGEN ''
 
   psico_destiny.Select
@@ -30,13 +30,13 @@ Sub PsicotecnicaData()
 
   ' CABECERAS DE LA HOJA EMO DEL LIBRO DESTINO
   For Each ItemPsicotecnicaDestiny In psicotecnica_destiny_header
-    On Error Goto psicotecnicaError
+    On Error GoTo psicotecnicaError
     psicotecnica_destiny_dictionary.Add psicotecnica_headers(ItemPsicotecnicaDestiny), (ItemPsicotecnicaDestiny.Column - 1)
   Next ItemPsicotecnicaDestiny
 
   ' CABECERA DE LA HOJA EMO DEL LIBRO ORIGEN
   For Each ItemPsicotecnicaOrigin In psicotecnica_origin_header
-    On Error Goto psicotecnicaError
+    On Error GoTo psicotecnicaError
     psicotecnica_origin_dictionary.Add psicotecnica_headers(ItemPsicotecnicaOrigin), (ItemPsicotecnicaOrigin.Column - 1)
   Next ItemPsicotecnicaOrigin
 
@@ -64,13 +64,13 @@ Sub PsicotecnicaData()
         If formImports.ProgressBarGeneral.Width < (formImports.content_ProgressBarGeneral.Width / 2) Then: formImports.porcentageGeneral.ForeColor = RGB(0, 0, 0)
           If formImports.ProgressBarOneforOne.Width > (formImports.content_ProgressBarOneforOne.Width / 2) Then: formImports.porcentageOneoforOne.ForeColor = RGB(255, 255, 255)
             If formImports.ProgressBarOneforOne.Width < (formImports.content_ProgressBarOneforOne.Width / 2) Then: formImports.porcentageOneoforOne.ForeColor = RGB(0, 0, 0)
-              ActiveCell.offset(, psicotecnica_destiny_dictionary("NRO IDENFICACION")) = charters(ItemData.offset(, psicotecnica_origin_dictionary( "NRO IDENFICACION")))
-              ActiveCell.offset(, psicotecnica_destiny_dictionary("PACIENTE")) = charters(ItemData.offset(, psicotecnica_origin_dictionary( "PACIENTE")))
-              ActiveCell.offset(, psicotecnica_destiny_dictionary("PRUEBA PSICOTECNICA")) = charters(ItemData.offset(, psicotecnica_origin_dictionary( "PRUEBA PSICOTECNICA")))
-              ActiveCell.offset(, psicotecnica_destiny_dictionary("DIAGNOSTICO PPAL (CUMPLE, NO CUMPLE)")) = charters(ItemData.offset(, psicotecnica_origin_dictionary( "DIAGNOSTICO PPAL (CUMPLE, NO CUMPLE)")))
-              ActiveCell.offset(, psicotecnica_destiny_dictionary("DIAGNOSTICO OBS")) = charters(ItemData.offset(, psicotecnica_origin_dictionary( "DIAGNOSTICO OBS")))
-              ActiveCell.offset(, psicotecnica_destiny_dictionary("ID_PSICOTECNICA")) = ActiveCell.offset(-1, psicotecnica_destiny_dictionary("ID_PSICOTECNICA")) + 1
-              ActiveCell.offset(1, 0).Select
+              ActiveCell.Offset(, psicotecnica_destiny_dictionary("NRO IDENFICACION")) = charters(ItemData.Offset(, psicotecnica_origin_dictionary("NRO IDENFICACION")))
+              ActiveCell.Offset(, psicotecnica_destiny_dictionary("PACIENTE")) = charters(ItemData.Offset(, psicotecnica_origin_dictionary("PACIENTE")))
+              ActiveCell.Offset(, psicotecnica_destiny_dictionary("PRUEBA PSICOTECNICA")) = charters(ItemData.Offset(, psicotecnica_origin_dictionary("PRUEBA PSICOTECNICA")))
+              ActiveCell.Offset(, psicotecnica_destiny_dictionary("DIAGNOSTICO PPAL (CUMPLE, NO CUMPLE)")) = charters(ItemData.Offset(, psicotecnica_origin_dictionary("DIAGNOSTICO PPAL (CUMPLE, NO CUMPLE)")))
+              ActiveCell.Offset(, psicotecnica_destiny_dictionary("DIAGNOSTICO OBS")) = charters(ItemData.Offset(, psicotecnica_origin_dictionary("DIAGNOSTICO OBS")))
+              ActiveCell.Offset(, psicotecnica_destiny_dictionary("ID_PSICOTECNICA")) = ActiveCell.Offset(-1, psicotecnica_destiny_dictionary("ID_PSICOTECNICA")) + 1
+              ActiveCell.Offset(1, 0).Select
               numbers = numbers + 1
               numbersGeneral = numbersGeneral + 1
               DoEvents
@@ -87,10 +87,10 @@ Sub PsicotecnicaData()
             psicotecnica_destiny_dictionary.RemoveAll
             psicotecnica_origin_dictionary.RemoveAll
 
- psicotecnicaError:
-            resume next
+psicotecnicaError:
+            Resume Next
 
- tecnica:
+tecnica:
             Set psico_origin = origin.Worksheets("PSICOLOGIA")
-            resume next
+            Resume Next
 End Sub

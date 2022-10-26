@@ -29,13 +29,13 @@ Sub AudioData()
 
   ' CABECERAS DE LA HOJA EMO DEL LIBRO DESTINO
   For Each ItemAudioDestiny In audio_destiny_header
-    On Error Goto audioError
+    On Error GoTo audioError
     audio_destiny_dictionary.Add audio_headers(ItemAudioDestiny), (ItemAudioDestiny.Column - 1)
   Next ItemAudioDestiny
 
   ' CABECERA DE LA HOJA EMO DEL LIBRO ORIGEN
   For Each ItemAudioOrigin In audio_origin_header
-    On Error Goto audioError
+    On Error GoTo audioError
     audio_origin_dictionary.Add audio_headers(ItemAudioOrigin), (ItemAudioOrigin.Column - 1)
   Next ItemAudioOrigin
 
@@ -63,59 +63,59 @@ Sub AudioData()
         If formImports.ProgressBarGeneral.Width < (formImports.content_ProgressBarGeneral.Width / 2) Then: formImports.porcentageGeneral.ForeColor = RGB(0, 0, 0)
           If formImports.ProgressBarOneforOne.Width > (formImports.content_ProgressBarOneforOne.Width / 2) Then: formImports.porcentageOneoforOne.ForeColor = RGB(255, 255, 255)
             If formImports.ProgressBarOneforOne.Width < (formImports.content_ProgressBarOneforOne.Width / 2) Then: formImports.porcentageOneoforOne.ForeColor = RGB(0, 0, 0)
-              ActiveCell.offset(, audio_destiny_dictionary("NROAIDENFICACION")) = charters(ItemData.offset(, audio_origin_dictionary( "NROAIDENFICACION")))
-              ActiveCell.offset(, audio_destiny_dictionary("EPP ESPECIFICO / AUDITIVO")) = charters_empty(ItemData.offset(, audio_origin_dictionary( "EPP ESPECIFICO / AUDITIVO")))
-              ActiveCell.offset(, audio_destiny_dictionary("EPP ESPECIFICO / AUDITIVO COPA")) = charters_empty(ItemData.offset(, audio_origin_dictionary( "EPP ESPECIFICO / AUDITIVO COPA")))
-              ActiveCell.offset(, audio_destiny_dictionary("EPP ESPECIFICO / AUDITIVO INSERCION")) = charters_empty(ItemData.offset(, audio_origin_dictionary( "EPP ESPECIFICO / AUDITIVO INSERCION")))
-              ActiveCell.offset(, audio_destiny_dictionary("EPP ESPECIFICO / AUDITIVO DOBLE")) = charters_empty(ItemData.offset(, audio_origin_dictionary( "EPP ESPECIFICO / AUDITIVO DOBLE")))
-              ActiveCell.offset(, audio_destiny_dictionary("PABELLON AURIC_ OIDO DER_")) = charters(ItemData.offset(, audio_origin_dictionary( "PABELLON AURIC_ OIDO DER_")))
-              ActiveCell.offset(, audio_destiny_dictionary("PABELLON AURIC_ OIDO DER_ OBS")) = charters(ItemData.offset(, audio_origin_dictionary( "PABELLON AURIC_ OIDO DER_ OBS")))
-              ActiveCell.offset(, audio_destiny_dictionary("PABELLON AURIC_ OIDO IZQ_")) = charters(ItemData.offset(, audio_origin_dictionary( "PABELLON AURIC_ OIDO IZQ_")))
-              ActiveCell.offset(, audio_destiny_dictionary("PABELLON AURIC_ OIDO IZQ_ OBS")) = charters(ItemData.offset(, audio_origin_dictionary( "PABELLON AURIC_ OIDO IZQ_ OBS")))
-              ActiveCell.offset(, audio_destiny_dictionary("CONDUCTO AUDIT_ OIDO DER_")) = charters(ItemData.offset(, audio_origin_dictionary( "CONDUCTO AUDIT_ OIDO DER_")))
-              ActiveCell.offset(, audio_destiny_dictionary("CONDUCTO AUDIT_ OIDO DER_ OBS")) = charters(ItemData.offset(, audio_origin_dictionary( "CONDUCTO AUDIT_ OIDO DER_ OBS")))
-              ActiveCell.offset(, audio_destiny_dictionary("CONDUCTO AUDIT_ OIDO IZQ_")) = charters(ItemData.offset(, audio_origin_dictionary( "CONDUCTO AUDIT_ OIDO IZQ_")))
-              ActiveCell.offset(, audio_destiny_dictionary("CONDUCTO AUDIT_ OIDO IZQ_ OBS")) = charters(ItemData.offset(, audio_origin_dictionary( "CONDUCTO AUDIT_ OIDO IZQ_ OBS")))
-              ActiveCell.offset(, audio_destiny_dictionary("MEMBRANA TIMP_ OIDO DER")) = charters(ItemData.offset(, audio_origin_dictionary( "MEMBRANA TIMP_ OIDO DER")))
-              ActiveCell.offset(, audio_destiny_dictionary("MEMBRANA TIMP_ OIDO DER_ OBS")) = charters(ItemData.offset(, audio_origin_dictionary( "MEMBRANA TIMP_ OIDO DER_ OBS")))
-              ActiveCell.offset(, audio_destiny_dictionary("MEMBRANA TIMP_ OIDO IZQ")) = charters(ItemData.offset(, audio_origin_dictionary( "MEMBRANA TIMP_ OIDO IZQ")))
-              ActiveCell.offset(, audio_destiny_dictionary("MEMBRANA TIMP_ OIDO IZQ_ OBS")) = charters(ItemData.offset(, audio_origin_dictionary( "MEMBRANA TIMP_ OIDO IZQ_ OBS")))
-              ActiveCell.offset(, audio_destiny_dictionary("TIPO DE EXAMEN")) = charters(ItemData.offset(, audio_origin_dictionary( "TIPO DE EXAMEN")))
-              ActiveCell.offset(, audio_destiny_dictionary("OD 500")) = charters(ItemData.offset(, audio_origin_dictionary( "OD 500")))
-              ActiveCell.offset(, audio_destiny_dictionary("OD 1000")) = charters(ItemData.offset(, audio_origin_dictionary( "OD 1000")))
-              ActiveCell.offset(, audio_destiny_dictionary("OD 2000")) = charters(ItemData.offset(, audio_origin_dictionary( "OD 2000")))
-              ActiveCell.offset(, audio_destiny_dictionary("OD 3000")) = charters(ItemData.offset(, audio_origin_dictionary( "OD 3000")))
-              ActiveCell.offset(, audio_destiny_dictionary("OD 4000")) = charters(ItemData.offset(, audio_origin_dictionary( "OD 4000")))
-              ActiveCell.offset(, audio_destiny_dictionary("OD 6000")) = charters(ItemData.offset(, audio_origin_dictionary( "OD 6000")))
-              ActiveCell.offset(, audio_destiny_dictionary("OD 8000")) = charters(ItemData.offset(, audio_origin_dictionary( "OD 8000")))
-              ActiveCell.offset(, audio_destiny_dictionary("OI 500")) = charters(ItemData.offset(, audio_origin_dictionary( "OI 500")))
-              ActiveCell.offset(, audio_destiny_dictionary("OI 1000")) = charters(ItemData.offset(, audio_origin_dictionary( "OI 1000")))
-              ActiveCell.offset(, audio_destiny_dictionary("OI 2000")) = charters(ItemData.offset(, audio_origin_dictionary( "OI 2000")))
-              ActiveCell.offset(, audio_destiny_dictionary("OI 3000")) = charters(ItemData.offset(, audio_origin_dictionary( "OI 3000")))
-              ActiveCell.offset(, audio_destiny_dictionary("OI 4000")) = charters(ItemData.offset(, audio_origin_dictionary( "OI 4000")))
-              ActiveCell.offset(, audio_destiny_dictionary("OI 6000")) = charters(ItemData.offset(, audio_origin_dictionary( "OI 6000")))
-              ActiveCell.offset(, audio_destiny_dictionary("OI 8000")) = charters(ItemData.offset(, audio_origin_dictionary( "OI 8000")))
-              ActiveCell.offset(, audio_destiny_dictionary("CONTROL SEGUN PVE")) = charters_empty(ItemData.offset(, audio_origin_dictionary( "CONTROL SEGUN PVE")))
-              ActiveCell.offset(, audio_destiny_dictionary("CONFIRMATORIA")) = charters_empty(ItemData.offset(, audio_origin_dictionary( "CONFIRMATORIA")))
-              ActiveCell.offset(, audio_destiny_dictionary("REMISION ORL")) = charters_empty(ItemData.offset(, audio_origin_dictionary( "REMISION ORL")))
-              ActiveCell.offset(, audio_destiny_dictionary("PRUEBAS COMPLEMENTARIAS")) = charters_empty(ItemData.offset(, audio_origin_dictionary( "PRUEBAS COMPLEMENTARIAS")))
-              ActiveCell.offset(, audio_destiny_dictionary("LIMPIEZA DE OIDO")) = charters_empty(ItemData.offset(, audio_origin_dictionary( "LIMPIEZA DE OIDO")))
-              ActiveCell.offset(, audio_destiny_dictionary("LIMPIEZA OD")) = charters_empty(ItemData.offset(, audio_origin_dictionary( "LIMPIEZA OD")))
-              ActiveCell.offset(, audio_destiny_dictionary("LIMPIEZA OI")) = charters_empty(ItemData.offset(, audio_origin_dictionary( "LIMPIEZA OI")))
-              ActiveCell.offset(, audio_destiny_dictionary("REPOSO AUDITIVO EXTRALAB")) = charters_empty(ItemData.offset(, audio_origin_dictionary( "REPOSO AUDITIVO EXTRALAB")))
-              ActiveCell.offset(, audio_destiny_dictionary("ROTAR DIADEMA TELEFONICA")) = charters_empty(ItemData.offset(, audio_origin_dictionary( "ROTAR DIADEMA TELEFONICA")))
-              ActiveCell.offset(, audio_destiny_dictionary("CONDUCIR CON VENTANAS CERRADAS")) = charters_empty(ItemData.offset(, audio_origin_dictionary( "CONDUCIR CON VENTANAS CERRADAS")))
-              ActiveCell.offset(, audio_destiny_dictionary("USO DE EPP AUDITIVO")) = charters_empty(ItemData.offset(, audio_origin_dictionary( "USO DE EPP AUDITIVO")))
-              ActiveCell.offset(, audio_destiny_dictionary("CONTROLES MENSUALES")) = charters(ItemData.offset(, audio_origin_dictionary( "CONTROLES MENSUALES")))
-              ActiveCell.offset(, audio_destiny_dictionary("CONTROLES_BIMESTRALES")) = charters(ItemData.offset(, audio_origin_dictionary( "CONTROLES_BIMESTRALES")))
-              ActiveCell.offset(, audio_destiny_dictionary("CONTROLES TRIMESTRALES")) = charters(ItemData.offset(, audio_origin_dictionary( "CONTROLES TRIMESTRALES")))
-              ActiveCell.offset(, audio_destiny_dictionary("CONTROLES 6 MESES")) = charters(ItemData.offset(, audio_origin_dictionary( "CONTROLES 6 MESES")))
-              ActiveCell.offset(, audio_destiny_dictionary("CONTROLES 1 ANO")) = charters(ItemData.offset(, audio_origin_dictionary( "CONTROLES 1 ANO")))
-              ActiveCell.offset(, audio_destiny_dictionary("DIAG PPAL")) = charters(ItemData.offset(, audio_origin_dictionary( "DIAG PPAL")))
-              ActiveCell.offset(, audio_destiny_dictionary("DIAG INTERNO")) = charters(ItemData.offset(, audio_origin_dictionary( "DIAG INTERNO")))
-              ActiveCell.offset(, audio_destiny_dictionary("DIAG GATI-SO")) = charters(ItemData.offset(, audio_origin_dictionary( "DIAG GATI-SO")))
-              ActiveCell.offset(, audio_destiny_dictionary("ID_AUDIOMETRIA")) = ActiveCell.offset(-1, audio_destiny_dictionary("ID_AUDIOMETRIA")) + 1
-              ActiveCell.offset(1, 0).Select
+              ActiveCell.Offset(, audio_destiny_dictionary("NROAIDENFICACION")) = charters(ItemData.Offset(, audio_origin_dictionary("NROAIDENFICACION")))
+              ActiveCell.Offset(, audio_destiny_dictionary("EPP ESPECIFICO / AUDITIVO")) = charters_empty(ItemData.Offset(, audio_origin_dictionary("EPP ESPECIFICO / AUDITIVO")))
+              ActiveCell.Offset(, audio_destiny_dictionary("EPP ESPECIFICO / AUDITIVO COPA")) = charters_empty(ItemData.Offset(, audio_origin_dictionary("EPP ESPECIFICO / AUDITIVO COPA")))
+              ActiveCell.Offset(, audio_destiny_dictionary("EPP ESPECIFICO / AUDITIVO INSERCION")) = charters_empty(ItemData.Offset(, audio_origin_dictionary("EPP ESPECIFICO / AUDITIVO INSERCION")))
+              ActiveCell.Offset(, audio_destiny_dictionary("EPP ESPECIFICO / AUDITIVO DOBLE")) = charters_empty(ItemData.Offset(, audio_origin_dictionary("EPP ESPECIFICO / AUDITIVO DOBLE")))
+              ActiveCell.Offset(, audio_destiny_dictionary("PABELLON AURIC_ OIDO DER_")) = charters(ItemData.Offset(, audio_origin_dictionary("PABELLON AURIC_ OIDO DER_")))
+              ActiveCell.Offset(, audio_destiny_dictionary("PABELLON AURIC_ OIDO DER_ OBS")) = charters(ItemData.Offset(, audio_origin_dictionary("PABELLON AURIC_ OIDO DER_ OBS")))
+              ActiveCell.Offset(, audio_destiny_dictionary("PABELLON AURIC_ OIDO IZQ_")) = charters(ItemData.Offset(, audio_origin_dictionary("PABELLON AURIC_ OIDO IZQ_")))
+              ActiveCell.Offset(, audio_destiny_dictionary("PABELLON AURIC_ OIDO IZQ_ OBS")) = charters(ItemData.Offset(, audio_origin_dictionary("PABELLON AURIC_ OIDO IZQ_ OBS")))
+              ActiveCell.Offset(, audio_destiny_dictionary("CONDUCTO AUDIT_ OIDO DER_")) = charters(ItemData.Offset(, audio_origin_dictionary("CONDUCTO AUDIT_ OIDO DER_")))
+              ActiveCell.Offset(, audio_destiny_dictionary("CONDUCTO AUDIT_ OIDO DER_ OBS")) = charters(ItemData.Offset(, audio_origin_dictionary("CONDUCTO AUDIT_ OIDO DER_ OBS")))
+              ActiveCell.Offset(, audio_destiny_dictionary("CONDUCTO AUDIT_ OIDO IZQ_")) = charters(ItemData.Offset(, audio_origin_dictionary("CONDUCTO AUDIT_ OIDO IZQ_")))
+              ActiveCell.Offset(, audio_destiny_dictionary("CONDUCTO AUDIT_ OIDO IZQ_ OBS")) = charters(ItemData.Offset(, audio_origin_dictionary("CONDUCTO AUDIT_ OIDO IZQ_ OBS")))
+              ActiveCell.Offset(, audio_destiny_dictionary("MEMBRANA TIMP_ OIDO DER")) = charters(ItemData.Offset(, audio_origin_dictionary("MEMBRANA TIMP_ OIDO DER")))
+              ActiveCell.Offset(, audio_destiny_dictionary("MEMBRANA TIMP_ OIDO DER_ OBS")) = charters(ItemData.Offset(, audio_origin_dictionary("MEMBRANA TIMP_ OIDO DER_ OBS")))
+              ActiveCell.Offset(, audio_destiny_dictionary("MEMBRANA TIMP_ OIDO IZQ")) = charters(ItemData.Offset(, audio_origin_dictionary("MEMBRANA TIMP_ OIDO IZQ")))
+              ActiveCell.Offset(, audio_destiny_dictionary("MEMBRANA TIMP_ OIDO IZQ_ OBS")) = charters(ItemData.Offset(, audio_origin_dictionary("MEMBRANA TIMP_ OIDO IZQ_ OBS")))
+              ActiveCell.Offset(, audio_destiny_dictionary("TIPO DE EXAMEN")) = charters(ItemData.Offset(, audio_origin_dictionary("TIPO DE EXAMEN")))
+              ActiveCell.Offset(, audio_destiny_dictionary("OD 500")) = charters(ItemData.Offset(, audio_origin_dictionary("OD 500")))
+              ActiveCell.Offset(, audio_destiny_dictionary("OD 1000")) = charters(ItemData.Offset(, audio_origin_dictionary("OD 1000")))
+              ActiveCell.Offset(, audio_destiny_dictionary("OD 2000")) = charters(ItemData.Offset(, audio_origin_dictionary("OD 2000")))
+              ActiveCell.Offset(, audio_destiny_dictionary("OD 3000")) = charters(ItemData.Offset(, audio_origin_dictionary("OD 3000")))
+              ActiveCell.Offset(, audio_destiny_dictionary("OD 4000")) = charters(ItemData.Offset(, audio_origin_dictionary("OD 4000")))
+              ActiveCell.Offset(, audio_destiny_dictionary("OD 6000")) = charters(ItemData.Offset(, audio_origin_dictionary("OD 6000")))
+              ActiveCell.Offset(, audio_destiny_dictionary("OD 8000")) = charters(ItemData.Offset(, audio_origin_dictionary("OD 8000")))
+              ActiveCell.Offset(, audio_destiny_dictionary("OI 500")) = charters(ItemData.Offset(, audio_origin_dictionary("OI 500")))
+              ActiveCell.Offset(, audio_destiny_dictionary("OI 1000")) = charters(ItemData.Offset(, audio_origin_dictionary("OI 1000")))
+              ActiveCell.Offset(, audio_destiny_dictionary("OI 2000")) = charters(ItemData.Offset(, audio_origin_dictionary("OI 2000")))
+              ActiveCell.Offset(, audio_destiny_dictionary("OI 3000")) = charters(ItemData.Offset(, audio_origin_dictionary("OI 3000")))
+              ActiveCell.Offset(, audio_destiny_dictionary("OI 4000")) = charters(ItemData.Offset(, audio_origin_dictionary("OI 4000")))
+              ActiveCell.Offset(, audio_destiny_dictionary("OI 6000")) = charters(ItemData.Offset(, audio_origin_dictionary("OI 6000")))
+              ActiveCell.Offset(, audio_destiny_dictionary("OI 8000")) = charters(ItemData.Offset(, audio_origin_dictionary("OI 8000")))
+              ActiveCell.Offset(, audio_destiny_dictionary("CONTROL SEGUN PVE")) = charters_empty(ItemData.Offset(, audio_origin_dictionary("CONTROL SEGUN PVE")))
+              ActiveCell.Offset(, audio_destiny_dictionary("CONFIRMATORIA")) = charters_empty(ItemData.Offset(, audio_origin_dictionary("CONFIRMATORIA")))
+              ActiveCell.Offset(, audio_destiny_dictionary("REMISION ORL")) = charters_empty(ItemData.Offset(, audio_origin_dictionary("REMISION ORL")))
+              ActiveCell.Offset(, audio_destiny_dictionary("PRUEBAS COMPLEMENTARIAS")) = charters_empty(ItemData.Offset(, audio_origin_dictionary("PRUEBAS COMPLEMENTARIAS")))
+              ActiveCell.Offset(, audio_destiny_dictionary("LIMPIEZA DE OIDO")) = charters_empty(ItemData.Offset(, audio_origin_dictionary("LIMPIEZA DE OIDO")))
+              ActiveCell.Offset(, audio_destiny_dictionary("LIMPIEZA OD")) = charters_empty(ItemData.Offset(, audio_origin_dictionary("LIMPIEZA OD")))
+              ActiveCell.Offset(, audio_destiny_dictionary("LIMPIEZA OI")) = charters_empty(ItemData.Offset(, audio_origin_dictionary("LIMPIEZA OI")))
+              ActiveCell.Offset(, audio_destiny_dictionary("REPOSO AUDITIVO EXTRALAB")) = charters_empty(ItemData.Offset(, audio_origin_dictionary("REPOSO AUDITIVO EXTRALAB")))
+              ActiveCell.Offset(, audio_destiny_dictionary("ROTAR DIADEMA TELEFONICA")) = charters_empty(ItemData.Offset(, audio_origin_dictionary("ROTAR DIADEMA TELEFONICA")))
+              ActiveCell.Offset(, audio_destiny_dictionary("CONDUCIR CON VENTANAS CERRADAS")) = charters_empty(ItemData.Offset(, audio_origin_dictionary("CONDUCIR CON VENTANAS CERRADAS")))
+              ActiveCell.Offset(, audio_destiny_dictionary("USO DE EPP AUDITIVO")) = charters_empty(ItemData.Offset(, audio_origin_dictionary("USO DE EPP AUDITIVO")))
+              ActiveCell.Offset(, audio_destiny_dictionary("CONTROLES MENSUALES")) = charters(ItemData.Offset(, audio_origin_dictionary("CONTROLES MENSUALES")))
+              ActiveCell.Offset(, audio_destiny_dictionary("CONTROLES_BIMESTRALES")) = charters(ItemData.Offset(, audio_origin_dictionary("CONTROLES_BIMESTRALES")))
+              ActiveCell.Offset(, audio_destiny_dictionary("CONTROLES TRIMESTRALES")) = charters(ItemData.Offset(, audio_origin_dictionary("CONTROLES TRIMESTRALES")))
+              ActiveCell.Offset(, audio_destiny_dictionary("CONTROLES 6 MESES")) = charters(ItemData.Offset(, audio_origin_dictionary("CONTROLES 6 MESES")))
+              ActiveCell.Offset(, audio_destiny_dictionary("CONTROLES 1 ANO")) = charters(ItemData.Offset(, audio_origin_dictionary("CONTROLES 1 ANO")))
+              ActiveCell.Offset(, audio_destiny_dictionary("DIAG PPAL")) = charters(ItemData.Offset(, audio_origin_dictionary("DIAG PPAL")))
+              ActiveCell.Offset(, audio_destiny_dictionary("DIAG INTERNO")) = charters(ItemData.Offset(, audio_origin_dictionary("DIAG INTERNO")))
+              ActiveCell.Offset(, audio_destiny_dictionary("DIAG GATI-SO")) = charters(ItemData.Offset(, audio_origin_dictionary("DIAG GATI-SO")))
+              ActiveCell.Offset(, audio_destiny_dictionary("ID_AUDIOMETRIA")) = ActiveCell.Offset(-1, audio_destiny_dictionary("ID_AUDIOMETRIA")) + 1
+              ActiveCell.Offset(1, 0).Select
               numbers = numbers + 1
               numbersGeneral = numbersGeneral + 1
               DoEvents
@@ -140,6 +140,6 @@ Sub AudioData()
             audio_destiny_dictionary.RemoveAll
             audio_origin_dictionary.RemoveAll
 
- audioError:
-            resume next
+audioError:
+            Resume Next
 End Sub

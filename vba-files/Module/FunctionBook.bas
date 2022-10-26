@@ -3,7 +3,7 @@ Option Explicit
 Public sigad As Variant
 
 Sub cargos()
-  Attribute cargos.VB_ProcData.VB_Invoke_Func = "k\n14"
+Attribute cargos.VB_ProcData.VB_Invoke_Func = "k\n14"
   Workbooks.Open (ThisWorkbook.Worksheets("RUTAS").Range("C7").value)
 End Sub
 
@@ -35,7 +35,7 @@ Sub clearContents()
 
   meses = Array("Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre")
   formMix.Caption = "SIGAD Informe"
-  formMix.lblMsg.Caption = "Ingrese el n"&Chr(250)&"mero de orden SIGAD"
+  formMix.lblMsg.Caption = "Ingrese el n" & Chr(250) & "mero de orden SIGAD"
   formMix.Show
 
   Set trabajadores = Worksheets("TRABAJADORES")
@@ -89,7 +89,7 @@ Sub clearContents()
         Range("C3").End(xlDown).Select
         ActiveCell.Offset(1, 0).Select
         ActiveCell = Trim(UCase(company))
-        ActiveCell.Offset(0, 1) = Trim(UCase("ICS-"&PadLeft(sigad,4,"0")))
+        ActiveCell.Offset(0, 1) = Trim(UCase("ICS-" & PadLeft(sigad, 4, "0")))
         ActiveCell.Offset(0, 2) = Trim(orden)
         ActiveCell.Offset(0, -1) = Date
         ActiveCell.Offset(0, 3) = Trim(info)

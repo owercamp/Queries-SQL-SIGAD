@@ -13,6 +13,7 @@ Attribute VB_GlobalNameSpace = False
 Attribute VB_Creatable = False
 Attribute VB_PredeclaredId = True
 Attribute VB_Exposed = False
+
 Option Explicit
 
 Private Sub btn_confirm_Click()
@@ -26,13 +27,13 @@ Private Sub btn_confirm_Click()
         Me.Hide
         Me.lblMsg.Caption = Empty
         Me.txt_cantidad = Empty
-    ElseIf (Me.lblMsg.Caption = "Por favor ingrese el numero ID correspondiente a la orden en SIGAD") then
+    ElseIf (Me.lblMsg.Caption = "Por favor ingrese el numero ID correspondiente a la orden en SIGAD") Then
         idOrden = Me.txt_cantidad
         Me.Hide
         Me.lblMsg.Caption = Empty
         Me.Caption = Empty
         Me.txt_cantidad = Empty
-    ElseIf (Me.lblMsg.Caption = "Ingrese el n"&Chr(250)&"mero de orden SIGAD") then
+    ElseIf (Me.lblMsg.Caption = "Ingrese el n" & Chr(250) & "mero de orden SIGAD") Then
         sigad = Me.txt_cantidad
         Me.Hide
         Me.lblMsg.Caption = Empty

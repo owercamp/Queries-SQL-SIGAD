@@ -7,7 +7,7 @@ Sub PsicosensometricaData()
   Dim psicosensometrica_destiny_header, psicosensometrica_origin_header, psicosensometrica_origin_value As Object
   Dim ItemPsicosensometricaDestiny, ItemPsicosensometricaOrigin, ItemData As Variant
 
-  On Error Goto metrica:
+  On Error GoTo metrica:
   Set senso_origin = origin.Worksheets("PSICOSENSOMETRICA") '' PSICOSENSOMETRICA DEL LIBRO ORIGEN ''
 
   senso_destiny.Select
@@ -30,13 +30,13 @@ Sub PsicosensometricaData()
 
   ' CABECERAS DE LA HOJA EMO DEL LIBRO DESTINO
   For Each ItemPsicosensometricaDestiny In psicosensometrica_destiny_header
-    On Error Goto psicotecnicaError
+    On Error GoTo psicotecnicaError
     psicosensometrica_destiny_dictionary.Add psicosensometrica_headers(ItemPsicosensometricaDestiny), (ItemPsicosensometricaDestiny.Column - 1)
   Next ItemPsicosensometricaDestiny
 
   ' CABECERA DE LA HOJA EMO DEL LIBRO ORIGEN
   For Each ItemPsicosensometricaOrigin In psicosensometrica_origin_header
-    On Error Goto psicotecnicaError
+    On Error GoTo psicotecnicaError
     psicosensometrica_origin_dictionary.Add psicosensometrica_headers(ItemPsicosensometricaOrigin), (ItemPsicosensometricaOrigin.Column - 1)
   Next ItemPsicosensometricaOrigin
 
@@ -64,22 +64,22 @@ Sub PsicosensometricaData()
         If formImports.ProgressBarGeneral.Width < (formImports.content_ProgressBarGeneral.Width / 2) Then: formImports.porcentageGeneral.ForeColor = RGB(0, 0, 0)
           If formImports.ProgressBarOneforOne.Width > (formImports.content_ProgressBarOneforOne.Width / 2) Then: formImports.porcentageOneoforOne.ForeColor = RGB(255, 255, 255)
             If formImports.ProgressBarOneforOne.Width < (formImports.content_ProgressBarOneforOne.Width / 2) Then: formImports.porcentageOneoforOne.ForeColor = RGB(0, 0, 0)
-              ActiveCell.offset(, psicosensometrica_destiny_dictionary("NRO IDENFICACION")) = charters(ItemData.offset(, psicosensometrica_origin_dictionary( "NRO IDENFICACION")))
-              ActiveCell.offset(, psicosensometrica_destiny_dictionary("PACIENTE")) = charters(ItemData.offset(, psicosensometrica_origin_dictionary( "PACIENTE")))
-              ActiveCell.offset(, psicosensometrica_destiny_dictionary("PRUEBA PSICOSENSOMETRICA")) = charters(ItemData.offset(, psicosensometrica_origin_dictionary( "PRUEBA PSICOSENSOMETRICA")))
-              ActiveCell.offset(, psicosensometrica_destiny_dictionary("DIAGNOSTICO PPAL")) = charters(ItemData.offset(, psicosensometrica_origin_dictionary( "DIAGNOSTICO PPAL")))
-              ActiveCell.offset(, psicosensometrica_destiny_dictionary("DIAGNOSTICO OBS")) = charters(ItemData.offset(, psicosensometrica_origin_dictionary( "DIAGNOSTICO OBS")))
-              ActiveCell.offset(, psicosensometrica_destiny_dictionary("DIAGNOSTICO REL/1")) = charters(ItemData.offset(, psicosensometrica_origin_dictionary( "DIAGNOSTICO REL/1")))
-              ActiveCell.offset(, psicosensometrica_destiny_dictionary("DIAGNOSTICO REL/2")) = charters(ItemData.offset(, psicosensometrica_origin_dictionary( "DIAGNOSTICO REL/2")))
-              ActiveCell.offset(, psicosensometrica_destiny_dictionary("DIAGNOSTICO REL/3")) = charters(ItemData.offset(, psicosensometrica_origin_dictionary( "DIAGNOSTICO REL/3")))
-              ActiveCell.offset(, psicosensometrica_destiny_dictionary("CONTROLES MENSUALES")) = charters(ItemData.offset(, psicosensometrica_origin_dictionary( "CONTROLES MENSUALES")))
-              ActiveCell.offset(, psicosensometrica_destiny_dictionary("CONTROLES BIMENSUAL")) = charters(ItemData.offset(, psicosensometrica_origin_dictionary( "CONTROLES BIMENSUAL")))
-              ActiveCell.offset(, psicosensometrica_destiny_dictionary("CONTROLES TRIMESTRALES")) = charters(ItemData.offset(, psicosensometrica_origin_dictionary( "CONTROLES TRIMESTRALES")))
-              ActiveCell.offset(, psicosensometrica_destiny_dictionary("CONTROLES 6 MESES")) = charters(ItemData.offset(, psicosensometrica_origin_dictionary( "CONTROLES 6 MESES")))
-              ActiveCell.offset(, psicosensometrica_destiny_dictionary("CONTROLES 1 ANO")) = charters(ItemData.offset(, psicosensometrica_origin_dictionary( "CONTROLES 1 ANO")))
-              ActiveCell.offset(, psicosensometrica_destiny_dictionary("CONTROLES CONFIRMATORIA")) = charters(ItemData.offset(, psicosensometrica_origin_dictionary( "CONTROLES CONFIRMATORIA")))
-              ActiveCell.offset(, psicosensometrica_destiny_dictionary("ID_PSICOSENSOMETRICA")) = ActiveCell.offset(-1, psicosensometrica_destiny_dictionary("ID_PSICOSENSOMETRICA")) + 1
-              ActiveCell.offset(1, 0).Select
+              ActiveCell.Offset(, psicosensometrica_destiny_dictionary("NRO IDENFICACION")) = charters(ItemData.Offset(, psicosensometrica_origin_dictionary("NRO IDENFICACION")))
+              ActiveCell.Offset(, psicosensometrica_destiny_dictionary("PACIENTE")) = charters(ItemData.Offset(, psicosensometrica_origin_dictionary("PACIENTE")))
+              ActiveCell.Offset(, psicosensometrica_destiny_dictionary("PRUEBA PSICOSENSOMETRICA")) = charters(ItemData.Offset(, psicosensometrica_origin_dictionary("PRUEBA PSICOSENSOMETRICA")))
+              ActiveCell.Offset(, psicosensometrica_destiny_dictionary("DIAGNOSTICO PPAL")) = charters(ItemData.Offset(, psicosensometrica_origin_dictionary("DIAGNOSTICO PPAL")))
+              ActiveCell.Offset(, psicosensometrica_destiny_dictionary("DIAGNOSTICO OBS")) = charters(ItemData.Offset(, psicosensometrica_origin_dictionary("DIAGNOSTICO OBS")))
+              ActiveCell.Offset(, psicosensometrica_destiny_dictionary("DIAGNOSTICO REL/1")) = charters(ItemData.Offset(, psicosensometrica_origin_dictionary("DIAGNOSTICO REL/1")))
+              ActiveCell.Offset(, psicosensometrica_destiny_dictionary("DIAGNOSTICO REL/2")) = charters(ItemData.Offset(, psicosensometrica_origin_dictionary("DIAGNOSTICO REL/2")))
+              ActiveCell.Offset(, psicosensometrica_destiny_dictionary("DIAGNOSTICO REL/3")) = charters(ItemData.Offset(, psicosensometrica_origin_dictionary("DIAGNOSTICO REL/3")))
+              ActiveCell.Offset(, psicosensometrica_destiny_dictionary("CONTROLES MENSUALES")) = charters(ItemData.Offset(, psicosensometrica_origin_dictionary("CONTROLES MENSUALES")))
+              ActiveCell.Offset(, psicosensometrica_destiny_dictionary("CONTROLES BIMENSUAL")) = charters(ItemData.Offset(, psicosensometrica_origin_dictionary("CONTROLES BIMENSUAL")))
+              ActiveCell.Offset(, psicosensometrica_destiny_dictionary("CONTROLES TRIMESTRALES")) = charters(ItemData.Offset(, psicosensometrica_origin_dictionary("CONTROLES TRIMESTRALES")))
+              ActiveCell.Offset(, psicosensometrica_destiny_dictionary("CONTROLES 6 MESES")) = charters(ItemData.Offset(, psicosensometrica_origin_dictionary("CONTROLES 6 MESES")))
+              ActiveCell.Offset(, psicosensometrica_destiny_dictionary("CONTROLES 1 ANO")) = charters(ItemData.Offset(, psicosensometrica_origin_dictionary("CONTROLES 1 ANO")))
+              ActiveCell.Offset(, psicosensometrica_destiny_dictionary("CONTROLES CONFIRMATORIA")) = charters(ItemData.Offset(, psicosensometrica_origin_dictionary("CONTROLES CONFIRMATORIA")))
+              ActiveCell.Offset(, psicosensometrica_destiny_dictionary("ID_PSICOSENSOMETRICA")) = ActiveCell.Offset(-1, psicosensometrica_destiny_dictionary("ID_PSICOSENSOMETRICA")) + 1
+              ActiveCell.Offset(1, 0).Select
               numbers = numbers + 1
               numbersGeneral = numbersGeneral + 1
               DoEvents
@@ -98,9 +98,9 @@ Sub PsicosensometricaData()
             psicosensometrica_destiny_dictionary.RemoveAll
             psicosensometrica_origin_dictionary.RemoveAll
 
- psicotecnicaError:
-            resume next
- metrica:
+psicotecnicaError:
+            Resume Next
+metrica:
             Set senso_origin = origin.Worksheets("PSICOMOTRIZ")
-            resume next
+            Resume Next
 End Sub

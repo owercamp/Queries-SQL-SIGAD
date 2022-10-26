@@ -14,6 +14,7 @@ Attribute VB_Creatable = False
 Attribute VB_PredeclaredId = True
 Attribute VB_Exposed = False
 
+
 Option Explicit
 
 Public route As String
@@ -37,7 +38,7 @@ Private Sub UserForm_Activate()
     Else
         Unload Me
         On Error Resume Next
-        Windows("ARCHIVO.xlsx").activate
+        Windows("ARCHIVO.xlsx").Activate
     End If
 
 End Sub
