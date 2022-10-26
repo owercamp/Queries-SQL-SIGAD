@@ -175,56 +175,81 @@ Sub ClearCharter()
 
   Dim data As Variant
 
-  data = Array(Chr(193),Chr(192),Chr(200),Chr(201),Chr(204),Chr(205),Chr(210),Chr(211),Chr(217),Chr(218),Chr(44),Chr(46),Chr(147),Chr(13),Chr(10))
+  data = Array(Chr(193),Chr(192),Chr(200),Chr(201),Chr(204),Chr(205),Chr(210),Chr(211),Chr(217),Chr(218),Chr(44),Chr(46),Chr(147),Chr(13),Chr(10),Chr(160)&Chr(160),Chr(92),Chr(47),Chr(45))
   
-  Selection.Replace What:="  ", Replacement:=" ", LookAt:=xlPart, _
+  ' Doble espaciado
+  Selection.Replace What:=data(15), Replacement:=" ", LookAt:=xlPart, _
   SearchOrder:=xlByRows, MatchCase:=False, SearchFormat:=False, _
   ReplaceFormat:=False
-  Selection.Replace What:="/", Replacement:=" ", LookAt:=xlPart, _
+  ' guion al medio
+  Selection.Replace What:=data(18), Replacement:=" ", LookAt:=xlPart, _
   SearchOrder:=xlByRows, MatchCase:=False, SearchFormat:=False, _
   ReplaceFormat:=False
+  ' Slach
+  Selection.Replace What:=data(16), Replacement:=" ", LookAt:=xlPart, _
+  SearchOrder:=xlByRows, MatchCase:=False, SearchFormat:=False, _
+  ReplaceFormat:=False
+  ' Back Slach
+  Selection.Replace What:=data(17), Replacement:=" ", LookAt:=xlPart, _
+  SearchOrder:=xlByRows, MatchCase:=False, SearchFormat:=False, _
+  ReplaceFormat:=False
+  ' A con tilde
   Selection.Replace What:=data(0), Replacement:="A", LookAt:=xlPart, _
   SearchOrder:=xlByRows, MatchCase:=False, SearchFormat:=False, _
   ReplaceFormat:=False
+  ' A con tilde invertida
   Selection.Replace What:=data(1), Replacement:="A", LookAt:=xlPart, _
   SearchOrder:=xlByRows, MatchCase:=False, SearchFormat:=False, _
   ReplaceFormat:=False
+  ' E con tilde invertida
   Selection.Replace What:=data(2), Replacement:="E", LookAt:=xlPart, _
   SearchOrder:=xlByRows, MatchCase:=False, SearchFormat:=False, _
   ReplaceFormat:=False
+  ' E con tilde
   Selection.Replace What:=data(3), Replacement:="E", LookAt:=xlPart, _
   SearchOrder:=xlByRows, MatchCase:=False, SearchFormat:=False, _
   ReplaceFormat:=False
+  ' I con tilde invertida
   Selection.Replace What:=data(4), Replacement:="I", LookAt:=xlPart, _
   SearchOrder:=xlByRows, MatchCase:=False, SearchFormat:=False, _
   ReplaceFormat:=False
+  ' I con tilde
   Selection.Replace What:=data(5), Replacement:="I", LookAt:=xlPart, _
   SearchOrder:=xlByRows, MatchCase:=False, SearchFormat:=False, _
   ReplaceFormat:=False
+  ' O con tilde invertida
   Selection.Replace What:=data(6), Replacement:="O", LookAt:=xlPart, _
   SearchOrder:=xlByRows, MatchCase:=False, SearchFormat:=False, _
   ReplaceFormat:=False
+  ' O con tilde
   Selection.Replace What:=data(7), Replacement:="O", LookAt:=xlPart, _
   SearchOrder:=xlByRows, MatchCase:=False, SearchFormat:=False, _
   ReplaceFormat:=False
+  ' U con tilde invertida
   Selection.Replace What:=data(8), Replacement:="U", LookAt:=xlPart, _
   SearchOrder:=xlByRows, MatchCase:=False, SearchFormat:=False, _
   ReplaceFormat:=False
+  ' U con tilde
   Selection.Replace What:=data(9), Replacement:="U", LookAt:=xlPart, _
   SearchOrder:=xlByRows, MatchCase:=False, SearchFormat:=False, _
   ReplaceFormat:=False
+  ' Coma
   Selection.Replace What:=data(10), Replacement:="", LookAt:=xlPart, _
   SearchOrder:=xlByRows, MatchCase:=False, SearchFormat:=False, _
   ReplaceFormat:=False
+  ' Punto
   Selection.Replace What:=data(11), Replacement:="", LookAt:=xlPart, _
   SearchOrder:=xlByRows, MatchCase:=False, SearchFormat:=False, _
   ReplaceFormat:=False
+  ' Doble commilla
   Selection.Replace What:=data(12), Replacement:="", LookAt:=xlPart, _
   SearchOrder:=xlByRows, MatchCase:=False, SearchFormat:=False, _
   ReplaceFormat:=False
+  ' Espaciado
   Selection.Replace What:=data(13), Replacement:="", LookAt:=xlPart, _
   SearchOrder:=xlByRows, MatchCase:=False, SearchFormat:=False, _
   ReplaceFormat:=False
+  ' Salto de linea
   Selection.Replace What:=data(14), Replacement:=" ", LookAt:=xlPart, _
   SearchOrder:=xlByRows, MatchCase:=False, SearchFormat:=False, _
   ReplaceFormat:=False
