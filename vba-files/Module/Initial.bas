@@ -57,26 +57,54 @@ Sub extraerdatos()
   For Each variable In origin.Worksheets
     Select Case Trim(UCase(variable.Name))
      Case "EMO"
-      Call Workers
-      Call DataEmoWorkers
-      Call DataEmphasisEmo
-      Call DataDiagnosticsEmo
+      If (variable.Visible = True) Then
+        Call Workers
+        Call statusActivate(worker_destiny.Name)
+        Call DataEmoWorkers
+        Call statusActivate(emo_destiny.Name)
+        Call DataEmphasisEmo
+        Call DataDiagnosticsEmo
+      End If
      Case "AUDIO"
-      Call AudioData
+      If (variable.Visible = True) Then
+        Call AudioData
+        Call statusActivate(audio_destiny.Name)
+      End If
      Case "OPTO"
-      Call OptoData
+      If (variable.Visible = True) Then
+        Call OptoData
+        Call statusActivate(opto_destiny.Name)
+      End If
      Case "VISIO"
-      Call VisioData
+      If (variable.Visible = True) Then
+        Call VisioData
+        Call statusActivate(visio_destiny.Name)
+      End If
      Case "ESPIRO"
-      Call EspiroData
+      If (variable.Visible = True) Then
+        Call EspiroData
+        Call statusActivate(espiro_destiny.Name)
+      End If
      Case "OSTEO"
-      Call OsteoData
+      If (variable.Visible = True) Then
+        Call OsteoData
+        Call statusActivate(osteo_destiny.Name)
+      End If
      Case "COMPLEMENTARIO", "COMPLEMENTARIOS"
-      Call ComplementarioData
+      If (variable.Visible = True) Then
+        Call ComplementarioData
+        Call statusActivate(comple_destiny.Name)
+      End If
      Case "PSICOTECNICA", "PSICOLOGIA"
-      Call PsicotecnicaData
+      If (variable.Visible = True) Then
+        Call PsicotecnicaData
+        Call statusActivate(psico_destiny.Name)
+      End If
      Case "PSICOSENSOMETRICA", "PSICOMOTRIZ"
-      Call PsicosensometricaData
+      If (variable.Visible = True) Then
+        Call PsicosensometricaData
+        Call statusActivate(senso_destiny.Name)
+      End If
     End Select
   Next variable
 
@@ -104,6 +132,22 @@ Sub extraerdatos()
 
 End Sub
 
+Sub statusActivate(ByVal name_sheet As String)
+  Sheets(name_sheet).Select
+  With ActiveWorkbook.Sheets(name_sheet).Tab
+    .ThemeColor = xlThemeColorAccent1
+    .TintAndShade = -0.249977111117893
+  End With
+End Sub
+
+Sub statusDesactivate(ByVal name_sheet As String)
+  Sheets(name_sheet).Select
+  With ActiveWorkbook.Sheets(name_sheet).Tab
+    .Color = RGB(222,222,222)
+    .TintAndShade = 0
+  End With
+End Sub
+
 Sub info()
 
   formImports.Show
@@ -113,5 +157,5 @@ End Sub
 sub config()
 
   formControl.Show
-  
+
 End Sub

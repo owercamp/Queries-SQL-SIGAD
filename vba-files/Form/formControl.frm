@@ -37,47 +37,80 @@ Private Sub btn_backup_Click()
 End Sub
 
 Private Sub txt_trabajadores_Change()
-    If CLngLng(Trim(txt_trabajadores.value)) <> CLngLng(Trim(ThisWorkbook.Worksheets("RUTAS").Range("$F$4").value)) Then: ThisWorkbook.Worksheets("RUTAS").Range("$F$4") = Trim(txt_trabajadores.value)
+    If CLngLng(Trim(txt_trabajadores.value)) <> CLngLng(Trim(ThisWorkbook.Worksheets("RUTAS").Range("$F$4").value)) Then
+        ThisWorkbook.Worksheets("RUTAS").Range("$F$4") = Trim(txt_trabajadores.value)
+        ThisWorkbook.Worksheets("TRABAJADORES").Range("$AW$5") = Trim(txt_trabajadores.value)
+    End If
 End Sub
 
 Private Sub txt_emo_Change()
-    If CLngLng(Trim(txt_emo.value)) <> CLngLng(Trim(ThisWorkbook.Worksheets("RUTAS").Range("$F$5").value)) Then: ThisWorkbook.Worksheets("RUTAS").Range("$F$5") = Trim(txt_emo.value)
+    If CLngLng(Trim(txt_emo.value)) <> CLngLng(Trim(ThisWorkbook.Worksheets("RUTAS").Range("$F$5").value)) Then
+        ThisWorkbook.Worksheets("RUTAS").Range("$F$5") = Trim(txt_emo.value)
+        ThisWorkbook.Worksheets("EMO").Range("$EL$5") = Trim(txt_emo.value)
+    End If
 End Sub
 
 Private Sub txt_audio_Change()
-    If CLngLng(Trim(txt_audio.value)) <> CLngLng(Trim(ThisWorkbook.Worksheets("RUTAS").Range("$F$6").value)) Then: ThisWorkbook.Worksheets("RUTAS").Range("$F$6") = Trim(txt_audio.value)
+    If CLngLng(Trim(txt_audio.value)) <> CLngLng(Trim(ThisWorkbook.Worksheets("RUTAS").Range("$F$6").value)) Then
+        ThisWorkbook.Worksheets("RUTAS").Range("$F$6") = Trim(txt_audio.value)
+        ThisWorkbook.Worksheets("AUDIO").Range("$BG$4") = Trim(txt_audio.value)
+    End If
 End Sub
 
 Private Sub txt_opto_Change()
-    If CLngLng(Trim(txt_opto.value)) <> CLngLng(Trim(ThisWorkbook.Worksheets("RUTAS").Range("$F$7").value)) Then: ThisWorkbook.Worksheets("RUTAS").Range("$F$7") = Trim(txt_opto.value)
+    If CLngLng(Trim(txt_opto.value)) <> CLngLng(Trim(ThisWorkbook.Worksheets("RUTAS").Range("$F$7").value)) Then
+        ThisWorkbook.Worksheets("RUTAS").Range("$F$7") = Trim(txt_opto.value)
+        ThisWorkbook.Worksheets("OPTO").Range("$BL$4") = Trim(txt_opto.value)
+    End If
 End Sub
 
 Private Sub txt_diag_Change()
-    If CLngLng(Trim(txt_diag.value)) <> CLngLng(Trim(ThisWorkbook.Worksheets("RUTAS").Range("$F$8").value)) Then: ThisWorkbook.Worksheets("RUTAS").Range("$F$8") = Trim(txt_diag.value)
+    If CLngLng(Trim(txt_diag.value)) <> CLngLng(Trim(ThisWorkbook.Worksheets("RUTAS").Range("$F$8").value)) Then
+        ThisWorkbook.Worksheets("RUTAS").Range("$F$8") = Trim(txt_diag.value)
+        ThisWorkbook.Worksheets("OPTO").Range("$BM$4") = Trim(txt_diag.value)
+    End If
 End Sub
 
 Private Sub txt_visio_Change()
-    If CLngLng(Trim(txt_visio.value)) <> CLngLng(Trim(ThisWorkbook.Worksheets("RUTAS").Range("$F$9").value)) Then: ThisWorkbook.Worksheets("RUTAS").Range("$F$9") = Trim(txt_visio.value)
+    If CLngLng(Trim(txt_visio.value)) <> CLngLng(Trim(ThisWorkbook.Worksheets("RUTAS").Range("$F$9").value)) Then
+        ThisWorkbook.Worksheets("RUTAS").Range("$F$9") = Trim(txt_visio.value)
+        ThisWorkbook.Worksheets("VISIO").Range("$BS$4") = Trim(txt_visio.value)
+    End If
 End Sub
 
 Private Sub txt_espiro_Change()
-    If CLngLng(Trim(txt_espiro.value)) <> CLngLng(Trim(ThisWorkbook.Worksheets("RUTAS").Range("$F$10").value)) Then: ThisWorkbook.Worksheets("RUTAS").Range("$F$10") = Trim(txt_espiro.value)
+    If CLngLng(Trim(txt_espiro.value)) <> CLngLng(Trim(ThisWorkbook.Worksheets("RUTAS").Range("$F$10").value)) Then
+        ThisWorkbook.Worksheets("RUTAS").Range("$F$10") = Trim(txt_espiro.value)
+        ThisWorkbook.Worksheets("ESPIRO").Range("$BZ$4") = Trim(txt_espiro.value)
+    End If
 End Sub
 
 Private Sub txt_osteo_Change()
-    If CLngLng(Trim(txt_osteo.value)) <> CLngLng(Trim(ThisWorkbook.Worksheets("RUTAS").Range("$F$11").value)) Then: ThisWorkbook.Worksheets("RUTAS").Range("$F$11") = Trim(txt_osteo.value)
+    If CLngLng(Trim(txt_osteo.value)) <> CLngLng(Trim(ThisWorkbook.Worksheets("RUTAS").Range("$F$11").value)) Then
+        ThisWorkbook.Worksheets("RUTAS").Range("$F$11") = Trim(txt_osteo.value)
+        ThisWorkbook.Worksheets("OSTEO").Range("$BG$4") = Trim(txt_osteo.value)
+    End If
 End Sub
 
 Private Sub txt_comple_Change()
-    If CLngLng(Trim(txt_comple.value)) <> CLngLng(Trim(ThisWorkbook.Worksheets("RUTAS").Range("$F$12").value)) Then: ThisWorkbook.Worksheets("RUTAS").Range("$F$12") = Trim(txt_comple.value)
+    If CLngLng(Trim(txt_comple.value)) <> CLngLng(Trim(ThisWorkbook.Worksheets("RUTAS").Range("$F$12").value)) Then
+        ThisWorkbook.Worksheets("RUTAS").Range("$F$12") = Trim(txt_comple.value)
+        ThisWorkbook.Worksheets("COMPLEMENTARIOS").Range("$J$4") = Trim(txt_comple.value)
+    End If
 End Sub
 
 Private Sub txt_psico_Change()
-    If CLngLng(Trim(txt_psico.value)) <> CLngLng(Trim(ThisWorkbook.Worksheets("RUTAS").Range("$F$13").value)) Then: ThisWorkbook.Worksheets("RUTAS").Range("$F$13") = Trim(txt_psico.value)
+    If CLngLng(Trim(txt_psico.value)) <> CLngLng(Trim(ThisWorkbook.Worksheets("RUTAS").Range("$F$13").value)) Then
+        ThisWorkbook.Worksheets("RUTAS").Range("$F$13") = Trim(txt_psico.value)
+        ThisWorkbook.Worksheets("PSICOTECNICA").Range("$G$2") = Trim(txt_psico.value)
+    End If
 End Sub
 
 Private Sub txt_senso_Change()
-    If CLngLng(Trim(txt_senso.value)) <> CLngLng(Trim(ThisWorkbook.Worksheets("RUTAS").Range("$F$14").value)) Then: ThisWorkbook.Worksheets("RUTAS").Range("$F$14") = Trim(txt_senso.value)
+    If CLngLng(Trim(txt_senso.value)) <> CLngLng(Trim(ThisWorkbook.Worksheets("RUTAS").Range("$F$14").value)) Then
+        ThisWorkbook.Worksheets("RUTAS").Range("$F$14") = Trim(txt_senso.value)
+        ThisWorkbook.Worksheets("PSICOSENSOMETRICA").Range("$Q$3") = Trim(txt_senso.value)
+    End If
 End Sub
 
 Private Sub UserForm_Initialize()

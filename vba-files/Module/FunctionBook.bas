@@ -1,6 +1,7 @@
 Attribute VB_Name = "FunctionBook"
 Option Explicit
 Public sigad As Variant
+Public trabajadores, emo, audio, visio, opto, espiro, osteo, complementarios, psicotecnica, psicosensometrica, enfasis, diag As Worksheet
 
 Sub cargos()
   Attribute cargos.VB_ProcData.VB_Invoke_Func = "k\n14"
@@ -24,10 +25,8 @@ Sub folder(route, folderName, workbookActive)
     Application.StatusBar = "se guardo una copia en: " & route & splitRoute & folderName & splitRoute & workbookActive
   End If
 End Sub
-
 Sub clearContents()
 
-  Dim trabajadores, emo, audio, visio, opto, espiro, osteo, complementarios, psicotecnica, psicosensometrica, enfasis, diag As Worksheet
   Dim rng, info, rngTrabajadores, rngEmo, rngAudio, rngVisio, rngOpto, rngEspiro, rngOsteo, rngComplementarios, rngPsicotecnica, rngPsicosensometrica, rngEnfasis, rngDiag, MyDay, MyMonth, MyYear As Integer
   Dim meses, finalRow, RowActive As Variant
   Dim nombre, orden, fecha, company As String
@@ -57,6 +56,17 @@ Sub clearContents()
   If trabajadores.Range("D6") <> Empty Or trabajadores.Range("D6") <> vbNullString Then: nombre = trabajadores.Range("B6").value & " - " & trabajadores.Range("D6").value & ".xlsb"
     If trabajadores.Range("D6") = Empty Or trabajadores.Range("D6") = vbNullString Then: nombre = trabajadores.Range("B6").value & ".xlsb"
       orden = trabajadores.Range("AX6").value
+
+      Call statusDesactivate(trabajadores.Name)
+      Call statusDesactivate(emo.Name)
+      Call statusDesactivate(audio.Name)
+      Call statusDesactivate(visio.Name)
+      Call statusDesactivate(opto.Name)
+      Call statusDesactivate(espiro.Name)
+      Call statusDesactivate(osteo.Name)
+      Call statusDesactivate(complementarios.Name)
+      Call statusDesactivate(psicotecnica.Name)
+      Call statusDesactivate(psicosensometrica.Name)
 
       If (Not IsEmpty(nombre)) And (Not IsEmpty(orden)) And (Not IsEmpty(sigad)) Then
         fecha = CStr(MyDay) + " " + CStr(meses(MyMonth - 1)) + " " + CStr(MyYear)

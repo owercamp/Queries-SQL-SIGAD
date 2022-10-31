@@ -50,6 +50,10 @@ Public Function city(ByVal value As String) As String
     city = Trim("PUERTO BOYACA")
    Case "PUERTO AS" & Chr(205) & "S"
     city = Trim("PUERTO ASIS")
+   Case "TULU"&Chr(193)
+    city = Trim("TULUA")
+   Case "SAN JOSE DE GUAVIARE"
+    city = Trim("SAN JOSE DEL GUAVIARE")
    Case Else
     city = value
   End Select

@@ -181,6 +181,9 @@ Attribute ClearCharter.VB_ProcData.VB_Invoke_Func = "y\n14"
   Selection.Replace What:=data(15), Replacement:=" ", LookAt:=xlPart, _
   SearchOrder:=xlByRows, MatchCase:=False, SearchFormat:=False, _
   ReplaceFormat:=False
+  Selection.Replace What:="  ", Replacement:=" ", LookAt:=xlPart, _
+  SearchOrder:=xlByRows, MatchCase:=False, SearchFormat:=False, _
+  ReplaceFormat:=False
   ' guion al medio
   Selection.Replace What:=data(18), Replacement:=" ", LookAt:=xlPart, _
   SearchOrder:=xlByRows, MatchCase:=False, SearchFormat:=False, _
