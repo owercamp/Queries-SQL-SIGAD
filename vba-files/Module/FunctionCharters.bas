@@ -52,6 +52,8 @@ Public Function city(ByVal value As String) As String
     city = Trim("PUERTO ASIS")
    Case "TULU"&Chr(193)
     city = Trim("TULUA")
+   Case "POPAY"&Chr(193)&"N"
+    city =Trim("POPAYAN")
    Case "SAN JOSE DE GUAVIARE"
     city = Trim("SAN JOSE DEL GUAVIARE")
    Case Else
