@@ -79,7 +79,7 @@ End Function
 '*/
 Public Function typeExams(ByVal value As String) As String
   Select Case value
-   Case "POST INCAPACIDAD"
+   Case "POST INCAPACIDAD","POST-INCAPACIDAD"
     typeExams = "POS INCAPACIDAD"
    Case "PERIODICO SEG", "PERIODICO SEGUIMIENTO"
     typeExams = "PERIODICO"

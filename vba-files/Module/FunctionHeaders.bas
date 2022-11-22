@@ -524,7 +524,7 @@ Public Function audio_headers(ByVal value As String) As String
     audio_headers = "DIAG PPAL"
    Case "DIAG INTERNO"
     audio_headers = "DIAG INTERNO"
-   Case "DIAG GATI-SO"
+   Case "DIAG GATI-SO","DIAG GATISO"
     audio_headers = "DIAG GATI-SO"
    Case "ID_AUDIOMETRIA"
     audio_headers = "ID_AUDIOMETRIA"
