@@ -171,12 +171,12 @@ Sub thisText()
 End Sub
 
 Sub ClearCharter()
-Attribute ClearCharter.VB_ProcData.VB_Invoke_Func = "y\n14"
+  Attribute ClearCharter.VB_ProcData.VB_Invoke_Func = "y\n14"
 
   Dim data As Variant
 
   data = Array(Chr(193), Chr(192), Chr(200), Chr(201), Chr(204), Chr(205), Chr(210), Chr(211), Chr(217), Chr(218), Chr(44), Chr(46), Chr(147), Chr(13), Chr(10), Chr(160) & Chr(160), Chr(92), Chr(47), Chr(45))
-  
+
   ' Doble espaciado
   Selection.Replace What:=data(15), Replacement:=" ", LookAt:=xlPart, _
   SearchOrder:=xlByRows, MatchCase:=False, SearchFormat:=False, _
@@ -256,5 +256,7 @@ Attribute ClearCharter.VB_ProcData.VB_Invoke_Func = "y\n14"
   Selection.Replace What:=data(14), Replacement:=" ", LookAt:=xlPart, _
   SearchOrder:=xlByRows, MatchCase:=False, SearchFormat:=False, _
   ReplaceFormat:=False
+
+  MsgBox "Correcciones realizadas, exitosamente!!",vbInformation,"Correcciones"
 
 End Sub
