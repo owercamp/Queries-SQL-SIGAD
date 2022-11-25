@@ -29,8 +29,8 @@ Private Sub UserForm_Activate()
     '''''''''''''''''''''''''''''''''''''''''''''''''
     Set origin = Workbooks.Open(route)
     
-    msg = MsgBox("Advertencia fueron eliminadas las columnas adicionales del archivo que se encuentra en:" + _
-    Chr(10) + Chr(10) + " ruta del archivo:" + Chr(10) + CStr(route) & ".xlsx ", vbExclamation + vbYesNo, "Advertencia")
+    msg = MsgBox("Advertencia fueron verificadas las cabeceras de las tablas del archivo que se encuentra en:" + _
+    vbNewLine + vbNewLine+"Nota:"+ vbNewLine +"Las CABECERAS no pueden estar vacias"+ vbNewLine + vbNewLine + " ruta del archivo:" + vbNewLine + CStr(route) & ".xlsx", vbExclamation + vbYesNo, "Cabeceras Vacias")
 
     If msg = vbYes Then
         ''' SE LLAMA A LA FUNCION PARA EXTRAER LA INFORMACION '''
