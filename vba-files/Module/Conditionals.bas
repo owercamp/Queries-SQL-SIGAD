@@ -184,10 +184,12 @@ Sub ClearCharter()
   Selection.Replace What:="  ", Replacement:=" ", LookAt:=xlPart, _
   SearchOrder:=xlByRows, MatchCase:=False, SearchFormat:=False, _
   ReplaceFormat:=False
-  ' guion al medio
-  Selection.Replace What:=data(18), Replacement:=" ", LookAt:=xlPart, _
-  SearchOrder:=xlByRows, MatchCase:=False, SearchFormat:=False, _
-  ReplaceFormat:=False
+  If (ActiveSheet.Name = "COMPLEMENTARIOS" And Selection.Address = Range("tbl_complementarios[PROCEDIMIENTO]").Address) Then
+    ' guion al medio
+    Selection.Replace What:=data(18), Replacement:=" ", LookAt:=xlPart, _
+    SearchOrder:=xlByRows, MatchCase:=False, SearchFormat:=False, _
+    ReplaceFormat:=False
+  End If
   ' Slach
   Selection.Replace What:=data(16), Replacement:=" ", LookAt:=xlPart, _
   SearchOrder:=xlByRows, MatchCase:=False, SearchFormat:=False, _
@@ -236,20 +238,22 @@ Sub ClearCharter()
   Selection.Replace What:=data(9), Replacement:="U", LookAt:=xlPart, _
   SearchOrder:=xlByRows, MatchCase:=False, SearchFormat:=False, _
   ReplaceFormat:=False
-  ' Coma
-  Selection.Replace What:=data(10), Replacement:="", LookAt:=xlPart, _
-  SearchOrder:=xlByRows, MatchCase:=False, SearchFormat:=False, _
-  ReplaceFormat:=False
+  If (ActiveSheet.Name = "OPTO" And Selection.Address = Range("tbl_opto[DIAG PPAL]").Address) Then
+    ' Coma
+    Selection.Replace What:=data(10), Replacement:="", LookAt:=xlPart, _
+    SearchOrder:=xlByRows, MatchCase:=False, SearchFormat:=False, _
+    ReplaceFormat:=False
+  End If
   ' Punto
-  Selection.Replace What:=data(11), Replacement:="", LookAt:=xlPart, _
-  SearchOrder:=xlByRows, MatchCase:=False, SearchFormat:=False, _
-  ReplaceFormat:=False
+  ' Selection.Replace What:=data(11), Replacement:="", LookAt:=xlPart, _
+  ' SearchOrder:=xlByRows, MatchCase:=False, SearchFormat:=False, _
+  ' ReplaceFormat:=False
   ' Doble commilla
   Selection.Replace What:=data(12), Replacement:="", LookAt:=xlPart, _
   SearchOrder:=xlByRows, MatchCase:=False, SearchFormat:=False, _
   ReplaceFormat:=False
   ' Espaciado
-  Selection.Replace What:=data(13), Replacement:="", LookAt:=xlPart, _
+  Selection.Replace What:=data(13), Replacement:=" ", LookAt:=xlPart, _
   SearchOrder:=xlByRows, MatchCase:=False, SearchFormat:=False, _
   ReplaceFormat:=False
   ' Salto de linea
