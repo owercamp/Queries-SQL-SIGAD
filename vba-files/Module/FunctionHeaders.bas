@@ -261,7 +261,7 @@ Public Function emphasis_headers(ByVal value As String) As String
   Select Case Trim(UCase(value))
    Case "IDENTIFICACION", "NRO IDENFICACION", "NRO IDENTIFICACION"
     emphasis_headers = "IDENTIFICACION"
-   Case "ENFASIS_" & x, "ENFASIS " & x
+   Case "ENFASIS_" & x, "ENFASIS " & x,"ENFASIS" & x
     emphasis_headers = "ENFASIS_" & x
    Case "CONCEPTO AL ENFASIS_" & x, "CONCEPTO AL ENFASIS " & x,"CONCEPTO_AL_ENFASIS_" & x
     emphasis_headers = "CONCEPTO AL ENFASIS_" & x
