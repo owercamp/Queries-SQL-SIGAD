@@ -263,7 +263,7 @@ Public Function emphasis_headers(ByVal value As String) As String
     emphasis_headers = "IDENTIFICACION"
    Case "ENFASIS_" & x, "ENFASIS " & x
     emphasis_headers = "ENFASIS_" & x
-   Case "CONCEPTO AL ENFASIS_" & x, "CONCEPTO AL ENFASIS " & x
+   Case "CONCEPTO AL ENFASIS_" & x, "CONCEPTO AL ENFASIS " & x,"CONCEPTO_AL_ENFASIS_" & x
     emphasis_headers = "CONCEPTO AL ENFASIS_" & x
    Case "OBSERVACIONES_AL_ENFASIS_" & x, "OBSERVACIONES AL ENFASIS " & x, "OBSERVACIONES AL ENFASIS_" & x, "OBSERVACIONES_AL_ENFASIS " & x
     emphasis_headers = "OBSERVACIONES_AL_ENFASIS_" & x
