@@ -56,6 +56,8 @@ Public Function city(ByVal value As String) As String
     city =Trim("POPAYAN")
    Case "SAN JOSE DE GUAVIARE"
     city = Trim("SAN JOSE DEL GUAVIARE")
+   Case "MANIZALEZ"
+    city = Trim("MANIZALES")
    Case Else
     city = value
   End Select
@@ -168,6 +170,16 @@ Public Function correction(ByVal value As String) As String
    Case Else
     correction = value
   End Select
+End Function
+
+Public Function typeComplements(ByVal value As String) As String
+  Select Case value
+   Case "ENCUESTA RESPIRATORIA","ENCUESTA DE SINTOMAS RESPIRATORIOS"
+    typeComplements = "VALORACION RESPIRATORIA"
+   Case Else
+    typeComplements = value
+  End Select
+
 End Function
 
 '/*

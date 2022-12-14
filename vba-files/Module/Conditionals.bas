@@ -238,7 +238,7 @@ Sub ClearCharter()
   Selection.Replace What:=data(9), Replacement:="U", LookAt:=xlPart, _
   SearchOrder:=xlByRows, MatchCase:=False, SearchFormat:=False, _
   ReplaceFormat:=False
-  If (ActiveSheet.Name = "OPTO" And Selection.Address = Range("tbl_opto[DIAG PPAL]").Address) Then
+  If (ActiveSheet.Name = "OPTO" And (Selection.Address = Range("tbl_opto[DIAG PPAL]").Address Or Selection.Address = Range("tbl_opto[DIAG OBS]").Address Or Selection.Address = Range("tbl_opto[DIAG REL/1]").Address Or Selection.Address = Range("tbl_opto[DIAG REL/2]").Address Or Selection.Address = Range("tbl_opto[DIAG Rel/3]").Address Or Selection.Address = Range("tbl_opto[[DIAG OBS]:[DIAG Rel/3]]").Address)) Then
     ' Coma
     Selection.Replace What:=data(10), Replacement:="", LookAt:=xlPart, _
     SearchOrder:=xlByRows, MatchCase:=False, SearchFormat:=False, _

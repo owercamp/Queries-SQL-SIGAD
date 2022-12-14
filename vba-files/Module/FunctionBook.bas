@@ -8,23 +8,24 @@ Sub cargos()
   Workbooks.Open (ThisWorkbook.Worksheets("RUTAS").Range("C7").value)
 End Sub
 
-Sub folder(route, folderName, workbookActive)
+Sub folder(route, folderName, workbookActive, YearNow, MonthNow)
   Dim splitRoute As String
   splitRoute = Application.PathSeparator
 
-  If Dir(route, vbDirectory) = Empty Then
-    MkDir route
-  End If
+  If Dir(route, vbDirectory) = Empty Then: MkDir route
+    If Dir(route & splitRoute & YearNow, vbDirectory) = Empty Then: MkDir (route & splitRoute & YearNow)
+      If Dir(route & splitRoute & YearNow & splitRoute & MonthNow, vbDirectory) = Empty Then: MkDir (route & splitRoute & YearNow & splitRoute & MonthNow)
 
-  If Dir(route & splitRoute & folderName, vbDirectory) = Empty Then
-    MkDir (route & splitRoute & folderName)
-    Application.ActiveWorkbook.SaveCopyAs Filename:=route & splitRoute & folderName & splitRoute & workbookActive
-    Application.StatusBar = "se guardo una copia en: " & route & splitRoute & folderName & splitRoute & workbookActive
-  Else
-    Application.ActiveWorkbook.SaveCopyAs Filename:=route & splitRoute & folderName & splitRoute & workbookActive
-    Application.StatusBar = "se guardo una copia en: " & route & splitRoute & folderName & splitRoute & workbookActive
-  End If
+        If Dir(route & splitRoute & YearNow & splitRoute & MonthNow & splitRoute & folderName, vbDirectory) = Empty Then
+          MkDir (route & splitRoute & YearNow & splitRoute & MonthNow & splitRoute & folderName)
+          Application.ActiveWorkbook.SaveCopyAs Filename:=route & splitRoute & YearNow & splitRoute & MonthNow & splitRoute & folderName & splitRoute & workbookActive
+          Application.StatusBar = "se guardo una copia en: " & route & splitRoute & YearNow & splitRoute & MonthNow & splitRoute & folderName & splitRoute & workbookActive
+        Else
+          Application.ActiveWorkbook.SaveCopyAs Filename:=route & splitRoute & YearNow & splitRoute & MonthNow & splitRoute & folderName & splitRoute & workbookActive
+          Application.StatusBar = "se guardo una copia en: " & route & splitRoute & YearNow & splitRoute & MonthNow & splitRoute & folderName & splitRoute & workbookActive
+        End If
 End Sub
+
 Sub clearContents()
 
   Dim rng, info, rngTrabajadores, rngEmo, rngAudio, rngVisio, rngOpto, rngEspiro, rngOsteo, rngComplementarios, rngPsicotecnica, rngPsicosensometrica, rngEnfasis, rngDiag, MyDay, MyMonth, MyYear As Integer
@@ -71,10 +72,10 @@ Sub clearContents()
       If (Not IsEmpty(nombre)) And (Not IsEmpty(orden)) And (Not IsEmpty(sigad)) Then
         fecha = CStr(MyDay) + " " + CStr(meses(MyMonth - 1)) + " " + CStr(MyYear)
 
-        route = CStr(Worksheets("RUTAS").Range("C6").value & "\" & MyYear & "\" & meses(MyMonth - 1))
+        route = CStr(Worksheets("RUTAS").Range("C6").value)
 
         trabajadores.Select
-        Call folder(route, fecha, nombre)
+        Call folder(route, fecha, nombre, MyYear, meses(MyMonth - 1))
 
         Application.ScreenUpdating = False
         Application.Calculation = xlCalculationManual
@@ -139,6 +140,24 @@ Sub clearContents()
           DoEvents
           Range("A5", Range("A5").Offset(rng, 0)).Select
           Selection.EntireRow.Delete shift:=xlUp
+          Range("tbl_enfasis[[ENFASIS_1]:[OBSERVACIONES_AL_ENFASIS_1]]").ClearContents
+          Range("tbl_enfasis[[ENFASIS_2]:[OBSERVACIONES AL ENFASIS_2]]").ClearContents
+          Range("tbl_enfasis[[ENFASIS_3]:[OBSERVACIONES AL ENFASIS_3]]").ClearContents
+          Range("tbl_enfasis[[ENFASIS_4]:[OBSERVACIONES AL ENFASIS_4]]").ClearContents
+          Range("tbl_enfasis[[ENFASIS_5]:[OBSERVACIONES AL ENFASIS_5]]").ClearContents
+          Range("tbl_enfasis[[ENFASIS_6]:[OBSERVACIONES AL ENFASIS_6]]").ClearContents
+          Range("tbl_enfasis[[ENFASIS_7]:[OBSERVACIONES AL ENFASIS_7]]").ClearContents
+          Range("tbl_enfasis[[ENFASIS_8]:[OBSERVACIONES AL ENFASIS_8]]").ClearContents
+          Range("tbl_enfasis[[ENFASIS_9]:[OBSERVACIONES AL ENFASIS_9]]").ClearContents
+          Range("tbl_enfasis[[ENFASIS_10]:[OBSERVACIONES AL ENFASIS_10]]").ClearContents
+          Range("tbl_enfasis[[ENFASIS_11]:[OBSERVACIONES AL ENFASIS_11]]").ClearContents
+          Range("tbl_enfasis[[ENFASIS_12]:[OBSERVACIONES AL ENFASIS_12]]").ClearContents
+          Range("tbl_enfasis[[ENFASIS_13]:[OBSERVACIONES AL ENFASIS_13]]").ClearContents
+          Range("tbl_enfasis[[ENFASIS_14]:[OBSERVACIONES AL ENFASIS_14]]").ClearContents
+          Range("tbl_enfasis[[ENFASIS_15]:[OBSERVACIONES AL ENFASIS_15]]").ClearContents
+          Range("tbl_enfasis[[ENFASIS_16]:[OBSERVACIONES AL ENFASIS_16]]").ClearContents
+          Range("tbl_enfasis[[ENFASIS_17]:[OBSERVACIONES AL ENFASIS_17]]").ClearContents
+          Range("tbl_enfasis[[ENFASIS_18]:[OBSERVACIONES AL ENFASIS_18]]").ClearContents
         End If
 
         diag.Select
@@ -150,6 +169,7 @@ Sub clearContents()
           DoEvents
           Range("A5", Range("A5").Offset(rng, 0)).Select
           Selection.EntireRow.Delete shift:=xlUp
+          Range("tbl_diagnosticos[[CODIGO DIAG PPAL]:[DIAG REL 20]]").ClearContents
         End If
 
         emo.Select
@@ -191,7 +211,7 @@ Sub clearContents()
           Selection.EntireRow.Delete shift:=xlUp
           ThisWorkbook.Worksheets("RUTAS").Range("$F$7") = CLngLng(Trim(Range("$BL$4").value)) + 1
           ThisWorkbook.Worksheets("RUTAS").Range("$F$8") = CLngLng(Trim(Range("$BM$4").value)) + 1
-        ELse
+        Else
           ThisWorkbook.Worksheets("RUTAS").Range("$F$7") = CLngLng(Trim(Range("$BL$4").value)) + 1
           ThisWorkbook.Worksheets("RUTAS").Range("$F$8") = CLngLng(Trim(Range("$BM$4").value)) + 1
         End If
@@ -295,3 +315,4 @@ Sub clearContents()
 
       End If
 End Sub
+
