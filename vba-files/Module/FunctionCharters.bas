@@ -36,7 +36,7 @@ End Function
 '*/
 Public Function city(ByVal value As String) As String
   Select Case value
-   Case "BOGOTA", "BOGOTA, D.C.", "BOGOT" & Chr(193) & ", D.C.", "BOGOTA, D.C", "BOGOTA D.C","BOGOT"& Chr(193)
+   Case "BOGOTA", "BOGOTA, D.C.", "BOGOT" & Chr(193) & ", D.C.", "BOGOTA, D.C", "BOGOTA D.C","BOGOT"& Chr(193), "BOGOTA  D.C"
     city = Trim("BOGOTA D.C.")
    Case "CARTAGENA DE INDIAS"
     city = Trim("CARTAGENA")
@@ -58,6 +58,8 @@ Public Function city(ByVal value As String) As String
     city = Trim("SAN JOSE DEL GUAVIARE")
    Case "MANIZALEZ"
     city = Trim("MANIZALES")
+   Case "FACATATIV" & Chr(193)
+    city = Trim("FACATATIVA")
    Case Else
     city = value
   End Select
