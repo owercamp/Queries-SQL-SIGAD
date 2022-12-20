@@ -58,6 +58,12 @@ Public Function city(ByVal value As String) As String
     city = Trim("SAN JOSE DEL GUAVIARE")
    Case "MANIZALEZ"
     city = Trim("MANIZALES")
+   Case "QUIBD" & Chr(211)
+    city = Trim("QUIBDO")
+   Case "UBATE"
+    city = Trim("VILLA DE SAN DIEGO DE UBATE")
+   Case "CHIQUINQUIR" & Chr(193)
+    city = Trim("CHIQUINQUIRA")
    Case "FACATATIV" & Chr(193)
     city = Trim("FACATATIVA")
    Case Else
@@ -87,8 +93,10 @@ Public Function typeExams(ByVal value As String) As String
   Select Case value
    Case "POST INCAPACIDAD","POST-INCAPACIDAD"
     typeExams = "POS INCAPACIDAD"
-   Case "PERIODICO SEG", "PERIODICO SEGUIMIENTO"
+   Case "PERIODICO SEG"
     typeExams = "PERIODICO"
+   Case "PERIODICO SEGUIMIENTO","PERIODICO CON RECOMENDACIONES"
+    typeExams = "PERIODICO DE SEGUIMIENTO"
    Case "CAMBIO OCUPACION", "CAMBIO DE OCUPACI" & Chr(211) & "N"
     typeExams = "CAMBIO DE OCUPACION"
    Case "REINTEGRO LABORAL", "OTROS REINTEGROS"
