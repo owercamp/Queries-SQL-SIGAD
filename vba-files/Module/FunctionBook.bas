@@ -316,3 +316,53 @@ Sub clearContents()
       End If
 End Sub
 
+Sub Modification()
+
+  Dim consolidado, libro, esLibro As Object
+  Dim dateSmall As Date
+  Dim Name, msg As String
+  Dim patch As Variant
+
+  libro = Worksheets("RUTAS").Range("C5").value
+
+  If (Range("$B$6").value <> "") Then
+
+    msg = Application.InputBox(prompt:="Indica el mensaje de la modificaci" & Chr(243) & "n efectuada", _
+    Default:="", Type:=2)
+
+    If (Trim(msg) = Empty) Then
+      MsgBox prompt:="Las observaciones no pueden estar vacias", Buttons:=vbOKOnly, Title:="Error msg"
+      Exit Sub
+    End If
+
+    Set esLibro = Application.ThisWorkbook
+    patch = VBA.Split(esLibro.FullName, "\")
+    Name = VBA.Split(esLibro.Name, ".")
+
+    dateSmall = CDate(patch(8))
+    Set consolidado = Workbooks.Open(libro)
+
+    consolidado.Worksheets("Registros").Select
+    consolidado.ActiveSheet.Unprotect Password:="1024500065"
+    Range("B2").Select
+    Cells.Find(What:=dateSmall, After:=ActiveCell, LookIn:=xlFormulas, _
+    LookAt:=xlWhole, SearchOrder:=xlByRows, SearchDirection:=xlNext, _
+    MatchCase:=False, SearchFormat:=False).Activate
+
+    Do While ActiveCell = dateSmall
+      If ActiveCell = dateSmall And ActiveCell.Offset(, 1).value = Name(0) Then
+        ActiveCell.Offset(, 7) = msg & " - Date Modified: " & Date
+      End If
+      ActiveCell.Offset(1, 0).Select
+    Loop
+
+    consolidado.ActiveSheet.Protect Password:="1024500065", DrawingObjects:=False, Contents:=True, Scenarios:= _
+    False, AllowSorting:=True, AllowFiltering:=True, AllowUsingPivotTables:= _
+    True
+    consolidado.Save
+    consolidado.Close
+
+    MsgBox prompt:="Se ha registrado la modificaci" & Chr(243) & "n", Buttons:=vbInformation + vbOKOnly, Title:="Registro Exitoso"
+
+  End If
+End Sub
