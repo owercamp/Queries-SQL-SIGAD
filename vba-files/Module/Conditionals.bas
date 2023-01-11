@@ -170,6 +170,27 @@ Sub thisText()
 
 End Sub
 
+Sub thisEgreso()
+
+  Range(Selection, Selection.End(xlDown)).Select
+  Selection.FormatConditions.Add Type:=xlExpression, Formula1:= _
+  "=$G5=""EGRESO"""
+  Selection.FormatConditions(Selection.FormatConditions.Count).SetFirstPriority
+  With Selection.FormatConditions(1).Font
+    .Bold = True
+    .Italic = False
+    .Color = -16777024
+    .TintAndShade = 0
+  End With
+  With Selection.FormatConditions(1).Interior
+    .PatternColorIndex = xlAutomatic
+    .Color = 15198207
+    .TintAndShade = 0
+  End With
+  Selection.FormatConditions(1).StopIfTrue = False
+
+End Sub
+
 Sub ClearCharter()
   Attribute ClearCharter.VB_ProcData.VB_Invoke_Func = "y\n14"
 
