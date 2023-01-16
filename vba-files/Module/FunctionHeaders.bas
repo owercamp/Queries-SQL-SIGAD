@@ -424,7 +424,7 @@ End Function
 
 Public Function audio_headers(ByVal value As String) As String
   Select Case Trim(UCase(value))
-   Case "NROAIDENFICACION", "NRO IDENFICACION", "NRO IDENTIFICACION"
+   Case "NROAIDENFICACION", "NRO IDENFICACION", "NRO IDENTIFICACION", "NRO IDENTFICACION"
     audio_headers = "NROAIDENFICACION"
    Case "EPP ESPECIFICO / AUDITIVO", "EPP"
     audio_headers = "EPP ESPECIFICO / AUDITIVO"
@@ -627,12 +627,12 @@ Public Function visio_headers(ByVal value As String) As String
     visio_headers = "REC CORRECCION VISUAL PARA TRABAJAR"
    Case "REC USO RX PARA VISION PROX"
     visio_headers = "REC USO RX PARA VISION PROX"
-   Case "REC USO AR VIDEO TRMINAL"
+   Case "REC USO AR VIDEO TRMINAL","REC USO AR VIDEO TERMINAL"
     visio_headers = "REC USO AR VIDEO TRMINAL"
    Case "REC USO RX DESCANSO"
     visio_headers = "REC USO RX DESCANSO"
    Case "REC USO LENTES PROT_ SOLAR"
-    visio_headers = "REC USO LENTES PROT_ SOLAR"
+    visio_headers = "REC USO LENTES PROT_ SOLAR","REC USO LENTES PROTECCION SOLAR"
    Case "REC USO PERMANENTE RX OPTICA"
     visio_headers = "REC USO PERMANENTE RX OPTICA"
    Case "REC USO EPP VISUAL"
