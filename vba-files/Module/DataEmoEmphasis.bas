@@ -63,13 +63,15 @@ Sub DataEmphasisEmo()
         If formImports.ProgressBarGeneral.Width < (formImports.content_ProgressBarGeneral.Width / 2) Then: formImports.porcentageGeneral.ForeColor = RGB(0, 0, 0)
           If formImports.ProgressBarOneforOne.Width > (formImports.content_ProgressBarOneforOne.Width / 2) Then: formImports.porcentageOneoforOne.ForeColor = RGB(255, 255, 255)
             If formImports.ProgressBarOneforOne.Width < (formImports.content_ProgressBarOneforOne.Width / 2) Then: formImports.porcentageOneoforOne.ForeColor = RGB(0, 0, 0)
-              ActiveCell.Offset(, emphasis_destiny_dictionary("IDENTIFICACION")) = charters(ItemData.Offset(, emo_origin_dictionary("IDENTIFICACION")))
-              For i = 1 To ((emo_origin_dictionary.Count - 2) / 3)
-                ActiveCell.Offset(, emphasis_destiny_dictionary("ENFASIS_" & i)) = charters(ItemData.Offset(, emo_origin_dictionary("ENFASIS_" & i)))
-                ActiveCell.Offset(, emphasis_destiny_dictionary("CONCEPTO AL ENFASIS_" & i)) = emphasisConcepts(charters(ItemData.Offset(, emo_origin_dictionary("CONCEPTO AL ENFASIS_" & i))), charters(ItemData.Offset(, emo_origin_dictionary("ENFASIS_" & i))))
-                ActiveCell.Offset(, emphasis_destiny_dictionary("OBSERVACIONES_AL_ENFASIS_" & i)) = charters(ItemData.Offset(, emo_origin_dictionary("OBSERVACIONES_AL_ENFASIS_" & i)))
-              Next i
-              ActiveCell.Offset(1, 0).Select
+              If (typeExams(charters(ItemData.Offset(, emo_origin_dictionary("TIPO EXAMEN")))) <> "EGRESO") Then
+                ActiveCell.Offset(, emphasis_destiny_dictionary("IDENTIFICACION")) = charters(ItemData.Offset(, emo_origin_dictionary("IDENTIFICACION")))
+                For i = 1 To ((emo_origin_dictionary.Count - 2) / 3)
+                  ActiveCell.Offset(, emphasis_destiny_dictionary("ENFASIS_" & i)) = charters(ItemData.Offset(, emo_origin_dictionary("ENFASIS_" & i)))
+                  ActiveCell.Offset(, emphasis_destiny_dictionary("CONCEPTO AL ENFASIS_" & i)) = emphasisConcepts(charters(ItemData.Offset(, emo_origin_dictionary("CONCEPTO AL ENFASIS_" & i))), charters(ItemData.Offset(, emo_origin_dictionary("ENFASIS_" & i))))
+                  ActiveCell.Offset(, emphasis_destiny_dictionary("OBSERVACIONES_AL_ENFASIS_" & i)) = charters(ItemData.Offset(, emo_origin_dictionary("OBSERVACIONES_AL_ENFASIS_" & i)))
+                Next i
+                ActiveCell.Offset(1, 0).Select
+              End If
               numbers = numbers + 1
               numbersGeneral = numbersGeneral + 1
               DoEvents
@@ -79,13 +81,13 @@ Sub DataEmphasisEmo()
             Call dataDuplicate
             Range("$A5", Range("$A5").End(xlDown)).Select
             Call formatter
-            
+
             Set emphasis_destiny_header = Nothing
             Set emo_origin_header = Nothing
             Set emo_origin_value = Nothing
             emphasis_destiny_dictionary.RemoveAll
             emo_origin_dictionary.RemoveAll
 
-emphasisError:
+ emphasisError:
             Resume Next
 End Sub

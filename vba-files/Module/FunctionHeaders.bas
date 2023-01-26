@@ -54,6 +54,8 @@ Public Function emo_headers(ByVal value As String) As String
   Select Case Trim(value)
    Case "NRO IDENFICACION", "NRO IDENTIFICACION"
     emo_headers = "NRO IDENFICACION"
+   Case "TIPO EXAMEN"
+    emo_headers = "TIPO EXAMEN"
    Case "RIESGO FISICO / RUIDO", "RIESGO FISICO RUIDO"
     emo_headers = "RIESGO FISICO / RUIDO"
    Case "RIESGO FISICO / ILUMINACION", "RIESGO FISICO ILUMINACION"
@@ -261,6 +263,8 @@ Public Function emphasis_headers(ByVal value As String) As String
   Select Case Trim(UCase(value))
    Case "IDENTIFICACION", "NRO IDENFICACION", "NRO IDENTIFICACION"
     emphasis_headers = "IDENTIFICACION"
+   Case "TIPO EXAMEN"
+    emphasis_headers = "TIPO EXAMEN"
    Case "ENFASIS_" & x, "ENFASIS " & x,"ENFASIS" & x
     emphasis_headers = "ENFASIS_" & x
    Case "CONCEPTO AL ENFASIS_" & x, "CONCEPTO AL ENFASIS " & x,"CONCEPTO_AL_ENFASIS_" & x
@@ -277,6 +281,8 @@ Public Function diagnostics_header(ByVal value As String) As String
   Select Case Trim(UCase(value))
    Case "IDENTIFICACION", "NRO IDENFICACION", "NRO IDENTIFICACION"
     diagnostics_header = "IDENTIFICACION"
+   Case "TIPO EXAMEN"
+    diagnostics_header = "TIPO EXAMEN"
    Case "CODIGO DIAG PPAL"
     diagnostics_header = "CODIGO DIAG PPAL"
    Case "DIAG PPAL"
@@ -295,6 +301,8 @@ Public Function opto_headers(ByVal value As String) As String
   Select Case Trim(UCase(value))
    Case "IDENTIFICACION", "NRO IDENFICACION", "NRO IDENTIFICACION"
     opto_headers = "IDENTIFICACION"
+   Case "TIPO EXAMEN"
+    opto_headers = "TIPO EXAMEN"
    Case "VISIO/ANT_ LABORAL ILUMINACION INADECUADA"
     opto_headers = "VISIO/ANT_ LABORAL ILUMINACION INADECUADA"
    Case "VISIO/ANT_ LABORAL USUARIO COMPUTADOR"
@@ -426,6 +434,8 @@ Public Function audio_headers(ByVal value As String) As String
   Select Case Trim(UCase(value))
    Case "NROAIDENFICACION", "NRO IDENFICACION", "NRO IDENTIFICACION", "NRO IDENTFICACION"
     audio_headers = "NROAIDENFICACION"
+   Case "TIPO EXAMEN"
+    audio_headers = "TIPO EXAMEN"
    Case "EPP ESPECIFICO / AUDITIVO", "EPP"
     audio_headers = "EPP ESPECIFICO / AUDITIVO"
    Case "EPP ESPECIFICO / AUDITIVO COPA", "TIPO EPP"
@@ -537,6 +547,8 @@ Public Function visio_headers(ByVal value As String) As String
   Select Case Trim(UCase(value))
    Case "NRO IDENFICACION", "NRO IDENTIFICACION", "NRO IDENTIFICACION"
     visio_headers = "NRO IDENFICACION"
+   Case "TIPO EXAMEN"
+    visio_headers = "TIPO EXAMEN"
    Case "VISIO/ANT_ LABORAL ILUMINACION INADECUADA", "ANT_ LABORAL ILUMINACION INADECUADA"
     visio_headers = "VISIO/ANT_ LABORAL ILUMINACION INADECUADA"
    Case "VISIO/ANT_ LABORALVISIO RADIACIONES UV", "ANT_ LABORALVISIO RADIACIONES UV"
@@ -682,6 +694,8 @@ Public Function espiro_headers(ByVal value As String) As String
   Select Case Trim(UCase(value))
    Case "NRO IDENFICACION", "NRO IDENTIFICACION"
     espiro_headers = "NRO IDENFICACION"
+   Case "TIPO EXAMEN"
+    espiro_headers = "TIPO EXAMEN"
    Case "ALERGIAS"
     espiro_headers = "ALERGIAS"
    Case "ALERGIAS OBS","ALERGIAS_DESC"
@@ -831,6 +845,8 @@ Public Function osteo_headers(ByVal value As String) As String
   Select Case Trim(UCase(value))
    Case "NRO IDENFICACION", "NRO IDENTIFICACION"
     osteo_headers = "NRO IDENFICACION"
+   Case "TIPO EXAMEN"
+    osteo_headers = "TIPO EXAMEN"
    Case "CERVICALGIA"
     osteo_headers = "CERVICALGIA"
    Case "CERVICALGIA OBS"
@@ -950,6 +966,8 @@ Public Function comple_headers(ByVal value As String) As String
   Select Case Trim(UCase(value))
    Case "NRO IDENFICACION", "NRO IDENTIFICACION"
     comple_headers = "NRO IDENFICACION"
+   Case "TIPO EXAMEN"
+    comple_headers = "TIPO EXAMEN"
    Case "PROCEDIMIENTO"
     comple_headers = "PROCEDIMIENTO"
    Case "DIAG_ PPAL"
@@ -975,6 +993,8 @@ Public Function psicotecnica_headers(ByVal value As String) As String
   Select Case Trim(UCase(value))
    Case "NRO IDENFICACION", "NRO IDENTIFICACION"
     psicotecnica_headers = "NRO IDENFICACION"
+   Case "TIPO EXAMEN"
+    psicotecnica_headers = "TIPO EXAMEN"
    Case "PACIENTE"
     psicotecnica_headers = "PACIENTE"
    Case "PRUEBA PSICOTECNICA"
@@ -994,6 +1014,8 @@ Public Function psicosensometrica_headers(ByVal value As String) As String
   Select Case Trim(UCase(value))
    Case "NRO IDENFICACION", "NRO IDENTIFICACION"
     psicosensometrica_headers = "NRO IDENFICACION"
+   Case "TIPO EXAMEN"
+    psicosensometrica_headers = "TIPO EXAMEN"
    Case "PACIENTE"
     psicosensometrica_headers = "PACIENTE"
    Case "PRUEBA PSICOSENSOMETRICA"

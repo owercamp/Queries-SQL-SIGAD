@@ -64,20 +64,22 @@ Sub ComplementarioData()
         If formImports.ProgressBarGeneral.Width < (formImports.content_ProgressBarGeneral.Width / 2) Then: formImports.porcentageGeneral.ForeColor = RGB(0, 0, 0)
           If formImports.ProgressBarOneforOne.Width > (formImports.content_ProgressBarOneforOne.Width / 2) Then: formImports.porcentageOneoforOne.ForeColor = RGB(255, 255, 255)
             If formImports.ProgressBarOneforOne.Width < (formImports.content_ProgressBarOneforOne.Width / 2) Then: formImports.porcentageOneoforOne.ForeColor = RGB(0, 0, 0)
-              ActiveCell.Offset(, comple_destiny_dictionary("NRO IDENFICACION")) = charters(ItemData.Offset(, comple_origin_dictionary("NRO IDENFICACION")))
-              ActiveCell.Offset(, comple_destiny_dictionary("PROCEDIMIENTO")) = typeComplements(charters(ItemData.Offset(, comple_origin_dictionary("PROCEDIMIENTO"))))
-              ActiveCell.Offset(, comple_destiny_dictionary("DIAG_ PPAL")) = charters(ItemData.Offset(, comple_origin_dictionary("DIAG_ PPAL")))
-              ActiveCell.Offset(, comple_destiny_dictionary("DIAG_ PPAL OBS")) = charters(ItemData.Offset(, comple_origin_dictionary("DIAG_ PPAL OBS")))
-              ActiveCell.Offset(, comple_destiny_dictionary("DIAG_ REL/1")) = charters(ItemData.Offset(, comple_origin_dictionary("DIAG_ REL/1")))
-              ActiveCell.Offset(, comple_destiny_dictionary("DIAG_ REL/2")) = charters(ItemData.Offset(, comple_origin_dictionary("DIAG_ REL/2")))
-              ActiveCell.Offset(, comple_destiny_dictionary("DIAG_ REL/3")) = charters(ItemData.Offset(, comple_origin_dictionary("DIAG_ REL/3")))
-              ActiveCell.Offset(, comple_destiny_dictionary("HALLAZGOS")) = charters(ItemData.Offset(, comple_origin_dictionary("HALLAZGOS")))
-              If (ActiveCell.Row = 4) Then
-                ActiveCell.Offset(, comple_destiny_dictionary("ID_COMPLEMENTARIOS")) = Trim(ThisWorkbook.Worksheets("RUTAS").Range("$F$12").value)
-              Else
-                ActiveCell.Offset(, comple_destiny_dictionary("ID_COMPLEMENTARIOS")) = ActiveCell.Offset(-1, comple_destiny_dictionary("ID_COMPLEMENTARIOS")) + 1
+              If (typeExams(charters(ItemData.Offset(, comple_origin_dictionary("TIPO EXAMEN")))) <> "EGRESO") Then
+                ActiveCell.Offset(, comple_destiny_dictionary("NRO IDENFICACION")) = charters(ItemData.Offset(, comple_origin_dictionary("NRO IDENFICACION")))
+                ActiveCell.Offset(, comple_destiny_dictionary("PROCEDIMIENTO")) = typeComplements(charters(ItemData.Offset(, comple_origin_dictionary("PROCEDIMIENTO"))))
+                ActiveCell.Offset(, comple_destiny_dictionary("DIAG_ PPAL")) = charters(ItemData.Offset(, comple_origin_dictionary("DIAG_ PPAL")))
+                ActiveCell.Offset(, comple_destiny_dictionary("DIAG_ PPAL OBS")) = charters(ItemData.Offset(, comple_origin_dictionary("DIAG_ PPAL OBS")))
+                ActiveCell.Offset(, comple_destiny_dictionary("DIAG_ REL/1")) = charters(ItemData.Offset(, comple_origin_dictionary("DIAG_ REL/1")))
+                ActiveCell.Offset(, comple_destiny_dictionary("DIAG_ REL/2")) = charters(ItemData.Offset(, comple_origin_dictionary("DIAG_ REL/2")))
+                ActiveCell.Offset(, comple_destiny_dictionary("DIAG_ REL/3")) = charters(ItemData.Offset(, comple_origin_dictionary("DIAG_ REL/3")))
+                ActiveCell.Offset(, comple_destiny_dictionary("HALLAZGOS")) = charters(ItemData.Offset(, comple_origin_dictionary("HALLAZGOS")))
+                If (ActiveCell.Row = 4) Then
+                  ActiveCell.Offset(, comple_destiny_dictionary("ID_COMPLEMENTARIOS")) = Trim(ThisWorkbook.Worksheets("RUTAS").Range("$F$12").value)
+                Else
+                  ActiveCell.Offset(, comple_destiny_dictionary("ID_COMPLEMENTARIOS")) = ActiveCell.Offset(-1, comple_destiny_dictionary("ID_COMPLEMENTARIOS")) + 1
+                End If
+                ActiveCell.Offset(1, 0).Select
               End If
-              ActiveCell.Offset(1, 0).Select
               numbers = numbers + 1
               numbersGeneral = numbersGeneral + 1
               DoEvents

@@ -64,17 +64,19 @@ Sub PsicotecnicaData()
         If formImports.ProgressBarGeneral.Width < (formImports.content_ProgressBarGeneral.Width / 2) Then: formImports.porcentageGeneral.ForeColor = RGB(0, 0, 0)
           If formImports.ProgressBarOneforOne.Width > (formImports.content_ProgressBarOneforOne.Width / 2) Then: formImports.porcentageOneoforOne.ForeColor = RGB(255, 255, 255)
             If formImports.ProgressBarOneforOne.Width < (formImports.content_ProgressBarOneforOne.Width / 2) Then: formImports.porcentageOneoforOne.ForeColor = RGB(0, 0, 0)
-              ActiveCell.Offset(, psicotecnica_destiny_dictionary("NRO IDENFICACION")) = charters(ItemData.Offset(, psicotecnica_origin_dictionary("NRO IDENFICACION")))
-              ActiveCell.Offset(, psicotecnica_destiny_dictionary("PACIENTE")) = charters(ItemData.Offset(, psicotecnica_origin_dictionary("PACIENTE")))
-              ActiveCell.Offset(, psicotecnica_destiny_dictionary("PRUEBA PSICOTECNICA")) = charters(ItemData.Offset(, psicotecnica_origin_dictionary("PRUEBA PSICOTECNICA")))
-              ActiveCell.Offset(, psicotecnica_destiny_dictionary("DIAGNOSTICO PPAL (CUMPLE, NO CUMPLE)")) = charters(ItemData.Offset(, psicotecnica_origin_dictionary("DIAGNOSTICO PPAL (CUMPLE, NO CUMPLE)")))
-              ActiveCell.Offset(, psicotecnica_destiny_dictionary("DIAGNOSTICO OBS")) = charters(ItemData.Offset(, psicotecnica_origin_dictionary("DIAGNOSTICO OBS")))
-              If (ActiveCell.Row = 2) Then
-                ActiveCell.Offset(, psicotecnica_destiny_dictionary("ID_PSICOTECNICA")) = Trim(ThisWorkbook.Worksheets("RUTAS").Range("$F$13").value)
-              Else
-                ActiveCell.Offset(, psicotecnica_destiny_dictionary("ID_PSICOTECNICA")) = ActiveCell.Offset(-1, psicotecnica_destiny_dictionary("ID_PSICOTECNICA")) + 1
+              If (typeExams(charters(ItemData.Offset(, psicotecnica_origin_dictionary("TIPO EXAMEN")))) <> "EGRESO") Then
+                ActiveCell.Offset(, psicotecnica_destiny_dictionary("NRO IDENFICACION")) = charters(ItemData.Offset(, psicotecnica_origin_dictionary("NRO IDENFICACION")))
+                ActiveCell.Offset(, psicotecnica_destiny_dictionary("PACIENTE")) = charters(ItemData.Offset(, psicotecnica_origin_dictionary("PACIENTE")))
+                ActiveCell.Offset(, psicotecnica_destiny_dictionary("PRUEBA PSICOTECNICA")) = charters(ItemData.Offset(, psicotecnica_origin_dictionary("PRUEBA PSICOTECNICA")))
+                ActiveCell.Offset(, psicotecnica_destiny_dictionary("DIAGNOSTICO PPAL (CUMPLE, NO CUMPLE)")) = charters(ItemData.Offset(, psicotecnica_origin_dictionary("DIAGNOSTICO PPAL (CUMPLE, NO CUMPLE)")))
+                ActiveCell.Offset(, psicotecnica_destiny_dictionary("DIAGNOSTICO OBS")) = charters(ItemData.Offset(, psicotecnica_origin_dictionary("DIAGNOSTICO OBS")))
+                If (ActiveCell.Row = 2) Then
+                  ActiveCell.Offset(, psicotecnica_destiny_dictionary("ID_PSICOTECNICA")) = Trim(ThisWorkbook.Worksheets("RUTAS").Range("$F$13").value)
+                Else
+                  ActiveCell.Offset(, psicotecnica_destiny_dictionary("ID_PSICOTECNICA")) = ActiveCell.Offset(-1, psicotecnica_destiny_dictionary("ID_PSICOTECNICA")) + 1
+                End If
+                ActiveCell.Offset(1, 0).Select
               End If
-              ActiveCell.Offset(1, 0).Select
               numbers = numbers + 1
               numbersGeneral = numbersGeneral + 1
               DoEvents
