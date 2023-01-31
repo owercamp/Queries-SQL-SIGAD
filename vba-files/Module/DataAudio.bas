@@ -112,9 +112,21 @@ Sub AudioData()
                 ActiveCell.Offset(, audio_destiny_dictionary("CONTROLES TRIMESTRALES")) = charters(ItemData.Offset(, audio_origin_dictionary("CONTROLES TRIMESTRALES")))
                 ActiveCell.Offset(, audio_destiny_dictionary("CONTROLES 6 MESES")) = charters(ItemData.Offset(, audio_origin_dictionary("CONTROLES 6 MESES")))
                 ActiveCell.Offset(, audio_destiny_dictionary("CONTROLES 1 ANO")) = charters(ItemData.Offset(, audio_origin_dictionary("CONTROLES 1 ANO")))
-                ActiveCell.Offset(, audio_destiny_dictionary("DIAG PPAL")) = charters(ItemData.Offset(, audio_origin_dictionary("DIAG PPAL")))
-                ActiveCell.Offset(, audio_destiny_dictionary("DIAG INTERNO")) = charters(ItemData.Offset(, audio_origin_dictionary("DIAG INTERNO")))
-                ActiveCell.Offset(, audio_destiny_dictionary("DIAG GATI-SO")) = charters(ItemData.Offset(, audio_origin_dictionary("DIAG GATI-SO")))
+                If (charters(ItemData.Offset(, audio_origin_dictionary("DIAG PPAL"))) = "NO REFIERE") Then
+                  ActiveCell.Offset(, audio_destiny_dictionary("DIAG PPAL")) = "#N/A"
+                Else
+                  ActiveCell.Offset(, audio_destiny_dictionary("DIAG PPAL")) = charters(ItemData.Offset(, audio_origin_dictionary("DIAG PPAL")))
+                End If
+                If (charters(ItemData.Offset(, audio_origin_dictionary("DIAG INTERNO"))) = "NO REFIERE") Then
+                  ActiveCell.Offset(, audio_destiny_dictionary("DIAG INTERNO")) = "#N/A"
+                Else
+                  ActiveCell.Offset(, audio_destiny_dictionary("DIAG INTERNO")) = charters(ItemData.Offset(, audio_origin_dictionary("DIAG INTERNO")))
+                End If
+                If (charters(ItemData.Offset(, audio_origin_dictionary("DIAG GATI-SO"))) = "NO REFIERE") Then
+                  ActiveCell.Offset(, audio_destiny_dictionary("DIAG GATI-SO")) ="#N/A"
+                Else
+                  ActiveCell.Offset(, audio_destiny_dictionary("DIAG GATI-SO")) = charters(ItemData.Offset(, audio_origin_dictionary("DIAG GATI-SO")))
+                End If
                 If (ActiveCell.Row = 4) Then
                   ActiveCell.Offset(, audio_destiny_dictionary("ID_AUDIOMETRIA")) = Trim(ThisWorkbook.Worksheets("RUTAS").Range("$F$6").value)
                 Else

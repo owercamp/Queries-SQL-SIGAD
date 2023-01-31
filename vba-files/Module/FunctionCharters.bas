@@ -80,6 +80,8 @@ Public Function school(ByVal value As String) As String
     school = "POSGRADO"
    Case "PROFESIONAL"
     school = "UNIVERSITARIO"
+   Case "BACHILLER"
+    school = "SECUNDARIA"
    Case Else
     school = value
   End Select

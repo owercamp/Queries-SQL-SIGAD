@@ -366,3 +366,37 @@ Sub Modification()
 
   End If
 End Sub
+
+Sub AddRecordToGoogleSheet()
+
+  '' ya funciona usa el token oAuth2
+
+  Dim HttpReq As Object
+  Dim Json As Object
+  Dim FechaFull, Fecha, Compania, sigad, db, paciente, mes, ao As String
+
+  FechaFull = Now
+  Fecha = Date
+  Compania = "Preuba de registro 2"
+  sigad = "ICS-0558"
+  db = "558"
+  paciente = "90"
+  mes = "1"
+  ao = "2023"
+
+  Set HttpReq = CreateObject("MSXML2.XMLHTTP")
+  HttpReq.Open "POST", "https://sheets.googleapis.com/v4/spreadsheets/126vzNrB3mA-g-61ccgNyAz-ukhIIqg_Yn3JxzQljC5o/values/Registro!$A3:append?valueInputOption=RAW", False
+  HttpReq.setRequestHeader "Authorization", "Bearer ya29.a0AVvZVso5DCyxiKVGuhuSbBkJlbOYDKzXouVpfle1ipyURwum_iboYnGaSBMSQqLjJsli14royqV4RWTAfVmj2p_L2Coh3fHbIuu8GxltYA418UrICGtZTjooTkyBr0nVX0H0KkHenk51mLbwhOM-4-z2OWO4aCgYKAYESARMSFQGbdwaIj6NM_MAXZZvIm73jDACrHA0163"
+  HttpReq.setRequestHeader "Content-Type", "application/json"
+
+  Dim requestBody As String
+  requestBody = "{""values"":[[""" & FechaFull & """,""" & Fecha & """,""" & Compania & """,""" & sigad & """,""" & db & """,""" & paciente & """,""" & mes & """,""" & ao & """]]}"
+
+  HttpReq.send (requestBody)
+
+  If HttpReq.status = 200 Then
+    MsgBox "Record added successfully: " & HttpReq.status & " - " & HttpReq.ResponseText
+  Else
+    MsgBox "Error adding record: " & HttpReq.status & " - " & HttpReq.ResponseText
+  End If
+End Sub
