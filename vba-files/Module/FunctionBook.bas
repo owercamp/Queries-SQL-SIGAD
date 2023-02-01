@@ -83,13 +83,13 @@ Sub clearContents()
 
 
         '' REGISTRO EN CONSOLIDADO ''
-        info = Worksheets("TRABAJADORES").Range("A6", Worksheets("TRABAJADORES").Range("A6").End(xlDown)).Count
+        info = Worksheets("TRABAJADORES").Range("A5", Worksheets("TRABAJADORES").Range("A5").End(xlDown)).Count
 
         libro = Worksheets("RUTAS").Range("C5").value
-        If trabajadores.Range("D6").value = Empty Or trabajadores.Range("D6").value = vbNullString Then
-          company = trabajadores.Range("B6").value
+        If trabajadores.Range("D5").value = Empty Or trabajadores.Range("D5").value = vbNullString Then
+          company = trabajadores.Range("B5").value
         Else
-          company = trabajadores.Range("B6").value & " - " & trabajadores.Range("D6").value
+          company = trabajadores.Range("B5").value & " - " & trabajadores.Range("D5").value
         End If
 
         Set consolidado = Workbooks.Open(libro)
@@ -113,6 +113,8 @@ Sub clearContents()
         True
         consolidado.Save
         consolidado.Close
+
+        Call AddRecordToGoogleSheet(Trim(UCase(company)), Trim(UCase("ICS-" & PadLeft(sigad, 4, "0"))), Trim(orden),Trim(info), libro)
 
         Application.Calculation = xlCalculationManual
         trabajadores.Select
@@ -367,36 +369,38 @@ Sub Modification()
   End If
 End Sub
 
-Sub AddRecordToGoogleSheet()
+Sub AddRecordToGoogleSheet(ByVal Company as String, ByVal sigad as String, ByVal orden as String, ByVal patience as String, ByVal libro As Variant)
 
   '' ya funciona usa el token oAuth2
 
-  Dim HttpReq As Object
+  Dim HttpReq As Variant
   Dim Json As Object
-  Dim FechaFull, Fecha, Compania, sigad, db, paciente, mes, ao As String
+  Dim row As Integer
+  Dim fullDate, dateNow, monthNow, yearNow, bearerToken As String
 
-  FechaFull = Now
-  Fecha = Date
-  Compania = "Preuba de registro 2"
-  sigad = "ICS-0558"
-  db = "558"
-  paciente = "90"
-  mes = "1"
-  ao = "2023"
+  fullDate = Now
+  dateNow = Date
+  monthNow = Month(Date)
+  yearNow = Year(Date)
+  bearerToken = "Bearer ya29.a0AVvZVspmzggFmNe2ZL0qRKLofNPzyx2EvFelBcdrJj6Ep_lfKAaHxJwAw1Ilss52S-V8hgz8-oo1NNBUr0wbc7VXFqcdT-8oeA8uwV_ctBy-g3L1e_QAPxTLEriff0vYpUrEo4rVF-Q8rjua3WEhfWNPbChcPb0aCgYKASwSAQASFQGbdwaIe1SHm6c-xoJFi6QmfFnAkQ0166"
 
   Set HttpReq = CreateObject("MSXML2.XMLHTTP")
-  HttpReq.Open "POST", "https://sheets.googleapis.com/v4/spreadsheets/126vzNrB3mA-g-61ccgNyAz-ukhIIqg_Yn3JxzQljC5o/values/Registro!$A3:append?valueInputOption=RAW", False
-  HttpReq.setRequestHeader "Authorization", "Bearer ya29.a0AVvZVso5DCyxiKVGuhuSbBkJlbOYDKzXouVpfle1ipyURwum_iboYnGaSBMSQqLjJsli14royqV4RWTAfVmj2p_L2Coh3fHbIuu8GxltYA418UrICGtZTjooTkyBr0nVX0H0KkHenk51mLbwhOM-4-z2OWO4aCgYKAYESARMSFQGbdwaIj6NM_MAXZZvIm73jDACrHA0163"
+  HttpReq.Open "POST", "https://sheets.googleapis.com/v4/spreadsheets/126vzNrB3mA-g-61ccgNyAz-ukhIIqg_Yn3JxzQljC5o/values/Registro!$A2:append?valueInputOption=RAW", False
+  HttpReq.setRequestHeader "Authorization", bearerToken
   HttpReq.setRequestHeader "Content-Type", "application/json"
 
   Dim requestBody As String
-  requestBody = "{""values"":[[""" & FechaFull & """,""" & Fecha & """,""" & Compania & """,""" & sigad & """,""" & db & """,""" & paciente & """,""" & mes & """,""" & ao & """]]}"
+  requestBody = "{""values"":[[""" & fullDate & """,""" & dateNow & """,""" & Company & """,""" & sigad & """,""" & orden & """,""" & patience & """,""" & monthNow & """,""" & yearNow & """]]}"
 
+  On Error Resume Next  
   HttpReq.send (requestBody)
+  Debug.Print HttpReq.ResponseText
 
   If HttpReq.status = 200 Then
-    MsgBox "Record added successfully: " & HttpReq.status & " - " & HttpReq.ResponseText
+    Application.StatusBar = "Record added successfully: code" & HttpReq.status & " status "& HttpReq.statusText 
   Else
-    MsgBox "Error adding record: " & HttpReq.status & " - " & HttpReq.ResponseText
+    MsgBox "Error adding record: " & HttpReq.status & " - " & HttpReq.statusText & " - " & HttpReq.responseText
+    Workbooks.Open(libro)
+    Windows(destiny.Name).Activate
   End If
 End Sub
