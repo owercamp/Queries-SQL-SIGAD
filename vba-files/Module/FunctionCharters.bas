@@ -167,6 +167,10 @@ Public Function typeSmoke(ByVal value As String) As String
   Select Case value
    Case "EX-FUMADOR", "EXFUMADOR"
     typeSmoke = "EXFUMADOR"
+   Case "SI"
+    typeSmoke = "FUMADOR"
+   Case "NO"
+    typeSmoke = "NO FUMA"
    Case Else
     typeSmoke = value
   End Select

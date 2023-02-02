@@ -369,35 +369,34 @@ Sub Modification()
   End If
 End Sub
 
-Sub AddRecordToGoogleSheet(ByVal Company as String, ByVal sigad as String, ByVal orden as String, ByVal patience as String, ByVal libro As Variant)
+Sub AddRecordToGoogleSheet(ByVal Company as String, ByVal sigad as String, ByVal orden as Integer, ByVal patience as Integer, ByVal libro As Variant)
 
   '' ya funciona usa el token oAuth2
 
   Dim HttpReq As Variant
   Dim Json As Object
-  Dim row As Integer
-  Dim fullDate, dateNow, monthNow, yearNow, bearerToken As String
+  Dim monthNow, yearNow As Integer
+  Dim fullDate, dateNow,  bearerToken As String
 
-  fullDate = Now
-  dateNow = Date
+  fullDate = Format(Now, "dd/mm/yyyy hh:mm:ss")
+  dateNow = Format(Date, "dd-mmm-yyyy")
   monthNow = Month(Date)
   yearNow = Year(Date)
-  bearerToken = "Bearer ya29.a0AVvZVspmzggFmNe2ZL0qRKLofNPzyx2EvFelBcdrJj6Ep_lfKAaHxJwAw1Ilss52S-V8hgz8-oo1NNBUr0wbc7VXFqcdT-8oeA8uwV_ctBy-g3L1e_QAPxTLEriff0vYpUrEo4rVF-Q8rjua3WEhfWNPbChcPb0aCgYKASwSAQASFQGbdwaIe1SHm6c-xoJFi6QmfFnAkQ0166"
+  bearerToken = Application.InputBox(prompt:="ingrese el Token de Acceso", title:="Acceso Google Sheet", Default:="", Type:=2)
 
   Set HttpReq = CreateObject("MSXML2.XMLHTTP")
   HttpReq.Open "POST", "https://sheets.googleapis.com/v4/spreadsheets/126vzNrB3mA-g-61ccgNyAz-ukhIIqg_Yn3JxzQljC5o/values/Registro!$A2:append?valueInputOption=RAW", False
-  HttpReq.setRequestHeader "Authorization", bearerToken
+  HttpReq.setRequestHeader "Authorization", "Bearer " & Trim(bearerToken)
   HttpReq.setRequestHeader "Content-Type", "application/json"
 
   Dim requestBody As String
-  requestBody = "{""values"":[[""" & fullDate & """,""" & dateNow & """,""" & Company & """,""" & sigad & """,""" & orden & """,""" & patience & """,""" & monthNow & """,""" & yearNow & """]]}"
+  requestBody = "{""values"":[['" & fullDate & "','" & dateNow & "','" & Company & "','" & sigad & "'," & orden & "," & patience & "," & monthNow & "," & yearNow & "]]}"
 
   On Error Resume Next  
   HttpReq.send (requestBody)
-  Debug.Print HttpReq.ResponseText
 
   If HttpReq.status = 200 Then
-    Application.StatusBar = "Record added successfully: code" & HttpReq.status & " status "& HttpReq.statusText 
+    MsgBox "Record added successfully:"+ vbNewLine + vbNewLine + Chr(32) +"code:" & HttpReq.status & ""+ vbNewLine + Chr(32)+"status:"& HttpReq.statusText 
   Else
     MsgBox "Error adding record: " & HttpReq.status & " - " & HttpReq.statusText & " - " & HttpReq.responseText
     Workbooks.Open(libro)
