@@ -30,7 +30,7 @@ Sub clearContents()
 
   Dim rng, info, rngTrabajadores, rngEmo, rngAudio, rngVisio, rngOpto, rngEspiro, rngOsteo, rngComplementarios, rngPsicotecnica, rngPsicosensometrica, rngEnfasis, rngDiag, MyDay, MyMonth, MyYear As Integer
   Dim meses, finalRow, RowActive As Variant
-  Dim nombre, orden, fecha, company As String
+  Dim nombre, orden, fecha, company, bookNow As String
   Dim libro, consolidado As Object
 
   meses = Array("Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre")
@@ -54,6 +54,7 @@ Sub clearContents()
   MyDay = Day(Date)
   MyMonth = Month(Date)
   MyYear = Year(Date)
+  bookNow = Application.ActiveWorkbook.Name
   If trabajadores.Range("D6") <> Empty Or trabajadores.Range("D6") <> vbNullString Then: nombre = trabajadores.Range("B6").value & " - " & trabajadores.Range("D6").value & ".xlsb"
     If trabajadores.Range("D6") = Empty Or trabajadores.Range("D6") = vbNullString Then: nombre = trabajadores.Range("B6").value & ".xlsb"
       orden = trabajadores.Range("AX6").value
@@ -114,7 +115,7 @@ Sub clearContents()
         consolidado.Save
         consolidado.Close
 
-        Call AddRecordToGoogleSheet(Trim(UCase(company)), Trim(UCase("ICS-" & PadLeft(sigad, 4, "0"))), Trim(orden),Trim(info), libro)
+        Call AddRecordToGoogleSheet(Trim(UCase(company)), Trim(UCase("ICS-" & PadLeft(sigad, 4, "0"))), Trim(orden),Trim(info), libro, bookNow)
 
         Application.Calculation = xlCalculationManual
         trabajadores.Select
@@ -369,7 +370,7 @@ Sub Modification()
   End If
 End Sub
 
-Sub AddRecordToGoogleSheet(ByVal Company as String, ByVal sigad as String, ByVal orden as Integer, ByVal patience as Integer, ByVal libro As Variant)
+Sub AddRecordToGoogleSheet(ByVal Company as String, ByVal sigad as String, ByVal orden as Integer, ByVal patience as Integer, ByVal libro As Variant, ByVal bookNow as String)
 
   '' ya funciona usa el token oAuth2
 
@@ -397,9 +398,13 @@ Sub AddRecordToGoogleSheet(ByVal Company as String, ByVal sigad as String, ByVal
 
   If HttpReq.status = 200 Then
     MsgBox "Record added successfully:"+ vbNewLine + vbNewLine + Chr(32) +"code:" & HttpReq.status & ""+ vbNewLine + Chr(32)+"status:"& HttpReq.statusText 
-  Else
-    MsgBox "Error adding record: " & HttpReq.status & " - " & HttpReq.statusText & " - " & HttpReq.responseText
+  ElseIf HttpReq.status = 12031 then
+    MsgBox "Restriction by network administrator:"+ vbNewLine + vbNewLine + Chr(32) +"code:" & HttpReq.status
     Workbooks.Open(libro)
-    Windows(destiny.Name).Activate
+    Windows(bookNow).Activate
+  Else
+    MsgBox "Error adding record: " & HttpReq.status & vbNewLine & HttpReq.statusText & vbNewLine & HttpReq.responseText
+    Workbooks.Open(libro)
+    Windows(bookNow).Activate
   End If
 End Sub
