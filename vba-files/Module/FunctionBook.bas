@@ -438,6 +438,8 @@ Sub UpdateGoogleSheetRecord(ByVal rowData As Integer, ByVal textModify As String
     MsgBox "Record updated successfully:" + vbNewLine + vbNewLine + Chr(32) + "code:" & httpObject.status & "" + vbNewLine + Chr(32) + "status:" & httpObject.statusText
   ElseIf (httpObject.status = 12031) Then
     MsgBox "Restriction by network administrator:" + vbNewLine + vbNewLine + Chr(32) + "code:" & httpObject.status
+  Else
+    MsgBox "Error updated record: " & httpObject.status & vbNewLine & httpObject.statusText & vbNewLine & httpObject.responseText
   End If
 
 End Sub
