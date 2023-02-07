@@ -355,15 +355,15 @@ Sub Modification()
     Do While ActiveCell = dateSmall
       If ActiveCell = dateSmall And ActiveCell.Offset(, 1).value = Name(0) Then
         ActiveCell.Offset(, 7) = msg & " - Date Modified: " & Date
+        Call UpdateGoogleSheetRecord(ActiveCell.Row - 1, msg & " - Date Modified: " & Date)
+        consolidado.ActiveSheet.Protect Password:="1024500065", DrawingObjects:=False, Contents:=True, Scenarios:= _
+        False, AllowSorting:=True, AllowFiltering:=True, AllowUsingPivotTables:= _
+        True
+        consolidado.Save
+        consolidado.Close
       End If
       ActiveCell.Offset(1, 0).Select
     Loop
-
-    consolidado.ActiveSheet.Protect Password:="1024500065", DrawingObjects:=False, Contents:=True, Scenarios:= _
-    False, AllowSorting:=True, AllowFiltering:=True, AllowUsingPivotTables:= _
-    True
-    consolidado.Save
-    consolidado.Close
 
     MsgBox prompt:="Se ha registrado la modificaci" & Chr(243) & "n", Buttons:=vbInformation + vbOKOnly, Title:="Registro Exitoso"
 
@@ -393,11 +393,11 @@ Sub AddRecordToGoogleSheet(ByVal Company as String, ByVal sigad as String, ByVal
   Dim requestBody As String
   requestBody = "{""values"":[['" & fullDate & "','" & dateNow & "','" & Company & "','" & sigad & "'," & orden & "," & patience & "," & monthNow & "," & yearNow & "]]}"
 
-  On Error Resume Next  
+  On Error Resume Next
   HttpReq.send (requestBody)
 
   If HttpReq.status = 200 Then
-    MsgBox "Record added successfully:"+ vbNewLine + vbNewLine + Chr(32) +"code:" & HttpReq.status & ""+ vbNewLine + Chr(32)+"status:"& HttpReq.statusText 
+    MsgBox "Record added successfully:"+ vbNewLine + vbNewLine + Chr(32) +"code:" & HttpReq.status & ""+ vbNewLine + Chr(32)+"status:"& HttpReq.statusText
   ElseIf HttpReq.status = 12031 then
     MsgBox "Restriction by network administrator:"+ vbNewLine + vbNewLine + Chr(32) +"code:" & HttpReq.status
     Workbooks.Open(libro)
@@ -408,3 +408,37 @@ Sub AddRecordToGoogleSheet(ByVal Company as String, ByVal sigad as String, ByVal
     Windows(bookNow).Activate
   End If
 End Sub
+
+Sub UpdateGoogleSheetRecord(ByVal rowData As Integer, ByVal textModify As String)
+
+  Dim sheetId, accessToken As String
+  sheetId = "126vzNrB3mA-g-61ccgNyAz-ukhIIqg_Yn3JxzQljC5o"
+  accessToken = Application.InputBox(prompt:="ingrese el Token de Acceso", Title:="Acceso Google Sheet", Default:="", Type:=2)
+
+  Dim range As String
+  range = "Registro!I" & rowData
+
+  Dim requestBody As String
+  requestBody = "{""values"": [['" & textModify & "']]}"
+
+  Dim url As String
+  url = "https://sheets.googleapis.com/v4/spreadsheets/" & sheetId & "/values/" & range & "?valueInputOption=RAW"
+
+  Dim httpObject As Object
+  Set httpObject = CreateObject("MSXML2.XMLHTTP")
+
+  httpObject.Open "PUT", url, False
+  httpObject.setRequestHeader "Content-Type", "application/json"
+  httpObject.setRequestHeader "Authorization", "Bearer " & accessToken
+
+  On Error Resume Next
+  httpObject.send (requestBody)
+
+  If (httpObject.status = 200) Then
+    MsgBox "Record updated successfully:" + vbNewLine + vbNewLine + Chr(32) + "code:" & httpObject.status & "" + vbNewLine + Chr(32) + "status:" & httpObject.statusText
+  ElseIf (httpObject.status = 12031) Then
+    MsgBox "Restriction by network administrator:" + vbNewLine + vbNewLine + Chr(32) + "code:" & httpObject.status
+  End If
+
+End Sub
+

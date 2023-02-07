@@ -66,6 +66,8 @@ Public Function city(ByVal value As String) As String
     city = Trim("CHIQUINQUIRA")
    Case "FACATATIV" & Chr(193)
     city = Trim("FACATATIVA")
+   case "BUCARAMANGA, SANTANDER"
+    city = "BUCARAMANGA"
    Case Else
     city = value
   End Select
