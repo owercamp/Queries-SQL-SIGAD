@@ -59,17 +59,6 @@ Sub clearContents()
     If trabajadores.Range("D6") = Empty Or trabajadores.Range("D6") = vbNullString Then: nombre = trabajadores.Range("B6").value & ".xlsb"
       orden = trabajadores.Range("AX6").value
 
-      Call statusDesactivate(trabajadores.Name)
-      Call statusDesactivate(emo.Name)
-      Call statusDesactivate(audio.Name)
-      Call statusDesactivate(visio.Name)
-      Call statusDesactivate(opto.Name)
-      Call statusDesactivate(espiro.Name)
-      Call statusDesactivate(osteo.Name)
-      Call statusDesactivate(complementarios.Name)
-      Call statusDesactivate(psicotecnica.Name)
-      Call statusDesactivate(psicosensometrica.Name)
-
       If (Not IsEmpty(nombre)) And (Not IsEmpty(orden)) And (Not IsEmpty(sigad)) Then
         fecha = CStr(MyDay) + " " + CStr(meses(MyMonth - 1)) + " " + CStr(MyYear)
 
@@ -303,8 +292,6 @@ Sub clearContents()
           ThisWorkbook.Worksheets("RUTAS").Range("$F$14") = CLngLng(Trim(Range("$Q$3").value)) + 1
         End If
 
-        trabajadores.Select
-        Range("A5").Select
         Application.ActiveWorkbook.SaveCopyAs Filename:=route & "\" & Application.ActiveWorkbook.Name
         Application.StatusBar = Empty
         Application.ScreenUpdating = True
@@ -317,6 +304,21 @@ Sub clearContents()
         MsgBox "No hay datos para almacenar", vbOKOnly + vbInformation, "Almacenamiento"
 
       End If
+
+      Call statusDesactivate(trabajadores.Name)
+      Call statusDesactivate(emo.Name)
+      Call statusDesactivate(audio.Name)
+      Call statusDesactivate(visio.Name)
+      Call statusDesactivate(opto.Name)
+      Call statusDesactivate(espiro.Name)
+      Call statusDesactivate(osteo.Name)
+      Call statusDesactivate(complementarios.Name)
+      Call statusDesactivate(psicotecnica.Name)
+      Call statusDesactivate(psicosensometrica.Name)
+
+      trabajadores.Select
+      Range("A5").Select
+
 End Sub
 
 Sub Modification()
