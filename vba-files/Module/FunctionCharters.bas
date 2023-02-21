@@ -66,8 +66,12 @@ Public Function city(ByVal value As String) As String
     city = Trim("CHIQUINQUIRA")
    Case "FACATATIV" & Chr(193)
     city = Trim("FACATATIVA")
-   case "BUCARAMANGA, SANTANDER"
+   Case "BUCARAMANGA, SANTANDER"
     city = "BUCARAMANGA"
+   Case "VILLAVICENCIO, META"
+    city = "VILLAVICENCIO"
+   Case "IBAGUE, TOLIMA"
+    city = "IBAGUE"
    Case Else
     city = value
   End Select
@@ -78,7 +82,7 @@ End Function
 '*/
 Public Function school(ByVal value As String) As String
   Select Case value
-   Case "POSTGRADO"
+   Case "POSTGRADO","POST GRADO"
     school = "POSGRADO"
    Case "PROFESIONAL"
     school = "UNIVERSITARIO"
@@ -274,4 +278,28 @@ Function total(ByVal book As Object) As Integer
 
   total = (emo * 4) + audio + visio + espiro + osteo + complementarios + psicotecnica + psicosensometrica + opto
 
+End Function
+
+Sub ClearNonAlphaNumeric()
+
+  Dim valor As String
+
+  range("$T5").Select
+  Do While Not IsEmpty(ActiveCell)
+    valor = ActiveCell.value
+    ActiveCell = ReplaceNonAlphaNumeric(valor)
+    ActiveCell.Offset(1, 0).Select
+  Loop
+
+End Sub
+
+Function ReplaceNonAlphaNumeric(str As String) As String
+  Dim regEx As Object
+  Set regEx = CreateObject("vbscript.regexp")
+
+  ' Define la expresión regular para encontrar valores no alfanuméricos '
+  regEx.Pattern = "[^a-zA-Z0-9Ñ]"
+
+  ' Reemplaza cualquier valor no alfanumérico por un espacio '
+  ReplaceNonAlphaNumeric = regEx.Replace(str, " ")
 End Function

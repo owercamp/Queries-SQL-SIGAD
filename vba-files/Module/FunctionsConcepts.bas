@@ -92,9 +92,9 @@ Public Function emphasisConcepts(value, emphasis)
 
         activity = "ALTURA"
 
-    ElseIf VBA.InStr(Trim(UCase(value)), "ACTIVIDADES DEPORTIVAS") > 0 Or VBA.InStr(Trim(UCase(value)), "ACTIVIDAD DEPORTIVA") > 0 Then
+    ElseIf VBA.InStr(Trim(UCase(value)), "IONIZANTE") > 0 Or VBA.InStr(Trim(UCase(value)), "IONIZANTES") > 0 Then
 
-        activity = "ACTIVIDAD DEPORTIVA"
+        activity = "RADIACIONES IONIZANTES"
 
     ElseIf VBA.InStr(Trim(UCase(value)), "ALIMENTOS") > 0 Or VBA.InStr(Trim(UCase(value)), "ALIMENTO") > 0 Then
 
@@ -112,9 +112,9 @@ Public Function emphasisConcepts(value, emphasis)
 
         activity = "ALTA TENSION"
 
-    ElseIf VBA.InStr(Trim(UCase(value)), "ACTIVIDADES DEPORTIVAS") > 0 Or VBA.InStr(Trim(UCase(value)), "ACTIVIDAD DEPORTIVA") > 0 Then
+    ElseIf VBA.InStr(Trim(UCase(value)), "OSTEOMUSCULAR") > 0 Then
 
-        activity = "ACTIVIDAD DEPORTIVA"
+        activity = "OSTEOMUSCULAR"
 
     ElseIf VBA.InStr(Trim(UCase(value)), "BAJA") > 0 Or VBA.InStr(Trim(UCase(value)), "BAJAS") > 0 Then
 
@@ -131,6 +131,30 @@ Public Function emphasisConcepts(value, emphasis)
     ElseIf VBA.InStr(Trim(UCase(value)), "HIPERBARICO") > 0 Or VBA.InStr(Trim(UCase(value)), "HIPERBARICOS") > 0 Then
 
         activity = "HIPERBARICOS"
+
+    ElseIf VBA.InStr(Trim(UCase(value)), "CARDIOVASCULAR") > 0 Or VBA.InStr(Trim(UCase(value)), "CARDIOVASCULARES") > 0 Then
+
+        activity = "CARDIOVASCULAR"
+
+    ElseIf VBA.InStr(Trim(UCase(value)), "DERMATOLOGICO") > 0 Or VBA.InStr(Trim(UCase(value)), "DERMATOLOGICOS") > 0 Then
+
+        activity = "DERMATOLOGICO"
+
+    ElseIf VBA.InStr(Trim(UCase(value)), "RESPIRATORIO") > 0 Or VBA.InStr(Trim(UCase(value)), "RESPIRATORIOS") > 0 Then
+
+        activity = "RESPIRATORIO"
+
+    ElseIf VBA.InStr(Trim(UCase(value)), "AEROPORTUARIO") > 0 Or VBA.InStr(Trim(UCase(value)), "AEROPORTUARIOS") > 0 Then
+
+        activity = "AEROPORTUARIO"
+
+    ElseIf VBA.InStr(Trim(UCase(value)), "MANIPULACION DE CARGA") > 0 Or VBA.InStr(Trim(UCase(value)), "MANIPULACION DE CARGAS") > 0 Then
+
+        activity = "MANIPULACION DE CARGAS"
+
+    ElseIf VBA.InStr(Trim(UCase(value)), "NEUROLOGICO") > 0 Or VBA.InStr(Trim(UCase(value)), "NEUROLOGICOS") > 0 Then
+
+        activity = "NEUROLOGICO"
 
     End If
 
@@ -213,7 +237,7 @@ Public Function emphasisConcepts(value, emphasis)
 
         emphasisConcepts = "Apto para manipular medicamentos"
 
-        '' CONCEPTOS AL ENFASIS QUIMICOS ''
+        '' CONCEPTOS AL ENFASIS QUIMICOS Y NEUROLOGICO ''
     ElseIf Trim(UCase(value)) = UCase("Apto") Then
 
         emphasisConcepts = "Apto"
