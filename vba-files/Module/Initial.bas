@@ -22,6 +22,11 @@ Sub extraerdatos()
   totalData = 0
   dateInitials = VBA.Date
 
+  Dim FSO As Object
+  Set FSO = CreateObject("Scripting.FileSystemObject")
+
+  FSO.DeleteFile(ThisWorkbook.Worksheets("RUTAS").Range("C9").value &"testfile.sql")
+
   'route = ThisWorkbook.Worksheets("RUTAS").Range("C4").value
 
   '''''''''''''''''''''''''''''''''''''''''''''''''

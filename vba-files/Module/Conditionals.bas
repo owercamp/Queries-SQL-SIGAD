@@ -282,6 +282,14 @@ Sub ClearCharter()
   SearchOrder:=xlByRows, MatchCase:=False, SearchFormat:=False, _
   ReplaceFormat:=False
 
+  If (ActiveSheet.Name ="TRABAJADORES" and Selection.Address = Range("tbl_trabajadores[CARGO USUARIO]").Address) Then
+    Call ClearNonAlphaNumeric
+  End If
+  If (ActiveSheet.Name ="TRABAJADORES" and Selection.Address = Range("tbl_trabajadores[PACIENTE]").Address) Then
+    Call ClearNonAlphaNumeric
+  End If
+
+
   MsgBox "Correcciones realizadas, exitosamente!!",vbInformation,"Correcciones"
 
 End Sub
