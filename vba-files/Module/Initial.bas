@@ -25,6 +25,7 @@ Sub extraerdatos()
   Dim FSO As Object
   Set FSO = CreateObject("Scripting.FileSystemObject")
 
+  On Error Goto NotFound:
   FSO.DeleteFile(ThisWorkbook.Worksheets("RUTAS").Range("C9").value &"testfile.sql")
 
   'route = ThisWorkbook.Worksheets("RUTAS").Range("C4").value
@@ -134,6 +135,9 @@ Sub extraerdatos()
   Else
     MsgBox "Importe de informaci" & Chr(243) & "n terminado", vbInformation + vbOKOnly, "Importaci" & Chr(243) & "n Datos"
   End If
+
+  NotFound:
+  Resume Next
 
 End Sub
 

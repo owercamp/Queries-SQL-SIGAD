@@ -33,6 +33,8 @@ Sub iqualCero()
     Selection.FormatConditions.Add Type:=xlExpression, Formula1:="=Y($BF4=0;$BG4=0;$BH4=0;$BI4=0;$BD4=0;$BE4=0)"
    Case "PSICOSENSOMETRICA"
     Selection.FormatConditions.Add Type:=xlExpression, Formula1:="=Y($I3=0;$J3=0;$K3=0;$L3=0;$M3=0;$N3=0)"
+   Case "ESPIRO"
+    Selection.FormatConditions.Add Type:=xlExpression, Formula1:="=Y($BN4=0;$BO4=0;$BP4=0;$BQ4=0;$BR4=0;$BS4=0)"
   End Select
   Selection.FormatConditions(Selection.FormatConditions.Count).SetFirstPriority
   With Selection.FormatConditions(1).Font
@@ -132,6 +134,8 @@ Sub greaterThanOne()
     Selection.FormatConditions.Add Type:=xlExpression, Formula1:="=SUMA($BD4;$BE4;$BF4;$BG4;$BH4;$BI4)>1"
    Case "PSICOSENSOMETRICA"
     Selection.FormatConditions.Add Type:=xlExpression, Formula1:="=SUMA($I3;$J3;$K3;$L3;$M3;$N3)>1"
+   Case "ESPIRO"
+    Selection.FormatConditions.Add Type:=xlExpression, Formula1:="=SUMA($BN4;$BO4;$BP4;$BQ4;$BR4;$BS4)>1"
   End Select
   Selection.FormatConditions(Selection.FormatConditions.Count).SetFirstPriority
   With Selection.FormatConditions(1).Font

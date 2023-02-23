@@ -820,7 +820,7 @@ Public Function espiro_headers(ByVal value As String) As String
     espiro_headers = "REC/LAB UTILIZAR EPR"
    Case "REC/LAB INGRESAR SVE"
     espiro_headers = "REC/LAB INGRESAR SVE"
-   Case "CONTROLES MENSUAL","CONTROLES"
+   Case "CONTROLES MENSUAL","CONTROLES","CONTROLES_MENSUALES"
     espiro_headers = "CONTROLES MENSUAL"
    Case "CONTROLES_BIMESTRALES"
     espiro_headers = "CONTROLES_BIMESTRALES"

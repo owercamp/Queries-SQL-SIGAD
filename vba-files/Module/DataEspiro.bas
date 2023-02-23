@@ -149,6 +149,10 @@ Sub EspiroData()
             Call dataDuplicate
             Range("$A4", Range("$A4").End(xlDown)).Select
             Call formatter
+            Range("$BN4:$BS4").Select
+            Call greaterThanOne
+            Range("$BN4:$BS4").Select
+            Call iqualCero
 
             Set espiro_origin_value = Nothing
             Set espiro_destiny_header = Nothing
