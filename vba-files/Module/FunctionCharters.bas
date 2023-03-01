@@ -283,13 +283,16 @@ End Function
 Sub ClearNonAlphaNumeric()
 
   Dim valor As String
+  Dim ini As String
 
   Application.ScreenUpdating = False
+  ini = ActiveCell.Address
   Do While Not IsEmpty(ActiveCell)
     valor = ActiveCell.value
     ActiveCell = Trim(ReplaceNonAlphaNumeric(valor))
     ActiveCell.Offset(1, 0).Select
   Loop
+  range(ini).Select
   Application.ScreenUpdating = True
 
 End Sub
@@ -300,6 +303,7 @@ Function ReplaceNonAlphaNumeric(str As String) As String
 
   ' Define la expresión regular para encontrar valores no alfanuméricos '
   regEx.Pattern = "[^a-zA-Z0-9"&Chr(209)&"]"
+  regEx.Global = True
 
   ' Reemplaza cualquier valor no alfanumérico por un espacio '
   ReplaceNonAlphaNumeric = regEx.Replace(str, " ")

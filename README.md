@@ -5,9 +5,11 @@
 
 ## Cargue de informes plataforma SIGAD
 
-libro de excel en el cual se procesa la información para generar los informes de condiciones de salud a las **empresas aliadas**
+Este proyecto tiene como objetivo proporcionar una herramienta para generar informes de condiciones de salud de los trabajadores para las empresas aliadas. Para lograr esto, se utiliza un libro de Excel que procesa la información y genera los informes necesarios.
 
-en donde podrar validar el estado en salud de sus trabajadores.
+La plataforma SIGAD es una herramienta útil para las empresas aliadas que desean validar el estado de salud de sus trabajadores. Con esta plataforma, pueden acceder a información importante sobre la salud de sus empleados y tomar medidas para mejorar su bienestar.
+
+Para utilizar esta plataforma, es necesario tener acceso al libro de Excel que procesa la información y genera los informes. Este libro de Excel se puede descargar desde este repositorio y se puede personalizar según las necesidades de cada empresa.
 
 :+1: excelente
 

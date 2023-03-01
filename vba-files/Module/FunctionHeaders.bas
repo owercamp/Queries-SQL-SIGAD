@@ -287,7 +287,7 @@ Public Function diagnostics_header(ByVal value As String) As String
     diagnostics_header = "CODIGO DIAG PPAL"
    Case "DIAG PPAL"
     diagnostics_header = "DIAG PPAL"
-   Case "CODIGO DIAG REL" & x, "CODIGO DIAG REL " & x
+   Case "CODIGO DIAG REL" & x, "CODIGO DIAG REL " & x, "CODIGO DIAG REL" & x, "CODIGO DIAG REL" & x &","
     diagnostics_header = "CODIGO DIAG REL" & x
    Case "DIAG REL " & x, "DIAG REL" & x
     diagnostics_header = "DIAG REL " & x
@@ -788,7 +788,7 @@ Public Function espiro_headers(ByVal value As String) As String
     espiro_headers = "FEF 25-75 PRED DIAG_"
    Case "FEF 25-75 %TEOR DIAG_", "FEF 25 75 %TEOR DIAG_"
     espiro_headers = "FEF 25-75 %TEOR DIAG_"
-   Case "DIAG_ PPAL"
+   Case "DIAG_ PPAL","DIAG_PPAL"
     espiro_headers = "DIAG_ PPAL"
    Case "DIAG_ OBS"
     espiro_headers = "DIAG_ OBS"
