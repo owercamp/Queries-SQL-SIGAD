@@ -126,6 +126,11 @@ Sub Workers()
             Call dataDuplicate
             Range("$J5", Range("$J5").End(xlDown)).Select
             Call formatter
+            range("$H5").Select
+            range(Selection, Selection.End(xlDown)).Select
+            Selection.TextToColumns Destination:=range("$H5"), DataType:=xlFixedWidth, _
+              FieldInfo:=Array(Array(0, 4), Array(15, 9)), TrailingMinusNumbers:=True
+            range("tbl_trabajadores[[#Headers],[FECHA INGRESO]]").Select
 
             Set workers_header = Nothing
             Set emo_header = Nothing

@@ -27,6 +27,7 @@ Sub extraerdatos()
 
   On Error Goto NotFound:
   FSO.DeleteFile(ThisWorkbook.Worksheets("RUTAS").Range("C9").value &"testfile.sql")
+  FSO.DeleteFile(ThisWorkbook.Worksheets("RUTAS").Range("C9").value &"post.sql")
 
   'route = ThisWorkbook.Worksheets("RUTAS").Range("C4").value
 

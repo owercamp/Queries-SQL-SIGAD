@@ -292,7 +292,8 @@ Sub ClearNonAlphaNumeric()
     ActiveCell = Trim(ReplaceNonAlphaNumeric(valor))
     ActiveCell.Offset(1, 0).Select
   Loop
-  range(ini).Select
+  Range(ini).Select
+  Range(ActiveCell,ActiveCell.End(xlDown)).Select
   Application.ScreenUpdating = True
 
 End Sub
