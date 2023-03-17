@@ -72,6 +72,8 @@ Public Function city(ByVal value As String) As String
     city = "VILLAVICENCIO"
    Case "IBAGUE, TOLIMA"
     city = "IBAGUE"
+   Case "BARRANQUILA"
+    city = "BARRANQUILLA"
    Case Else
     city = value
   End Select
