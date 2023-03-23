@@ -32,13 +32,13 @@ Sub Workers()
     formMix.txt_cantidad.SetFocus
   End If
 
-  formMix.Caption = "Forms"
-  formMix.lblMsg.Caption = "Ingrese la cantidad de ENFASIS"
-  formMix.Show
-  formMix.txt_cantidad.SetFocus
-  formMix.lblMsg.Caption = "Ingrese la cantidad de DIAGNOSTICOS"
-  formMix.Show
-  formMix.txt_cantidad.SetFocus
+  ' formMix.Caption = "Forms"
+  ' formMix.lblMsg.Caption = "Ingrese la cantidad de ENFASIS"
+  ' formMix.Show
+  ' formMix.txt_cantidad.SetFocus
+  ' formMix.lblMsg.Caption = "Ingrese la cantidad de DIAGNOSTICOS"
+  ' formMix.Show
+  ' formMix.txt_cantidad.SetFocus
 
   '/***
   '   En los diccionarios de "workers_dictionary" y  "emo_dictionary"
