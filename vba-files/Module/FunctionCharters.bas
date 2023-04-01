@@ -36,9 +36,9 @@ End Function
 '*/
 Public Function city(ByVal value As String) As String
   Select Case value
-   Case "BOGOTA", "BOGOTA, D.C.", "BOGOT" & Chr(193) & ", D.C.", "BOGOTA, D.C", "BOGOTA D.C","BOGOT"& Chr(193), "BOGOTA  D.C"
+   Case "BOGOTA", "BOGOTA, D.C.", "BOGOT" & Chr(193) & ", D.C.", "BOGOTA, D.C", "BOGOTA D.C","BOGOT"& Chr(193), "BOGOTA  D.C","BOGOTA, BOGOTA D.C"
     city = Trim("BOGOTA D.C.")
-   Case "CARTAGENA DE INDIAS"
+   Case "CARTAGENA DE INDIAS","CARTAGENA, BOLIVAR"
     city = Trim("CARTAGENA")
    Case "BUGA"
     city = Trim("GUADALAJARA DE BUGA")
@@ -74,6 +74,12 @@ Public Function city(ByVal value As String) As String
     city = "IBAGUE"
    Case "BARRANQUILA"
     city = "BARRANQUILLA"
+   Case "CALI, VALLE DEL CAUCA"
+    city = "CALI"
+   Case "MEDELLIN, ANTIOQUIA"
+    city = "MEDELLIN"
+   Case "TUMACO"
+    city = "SAN ANDRES DE TUMACO"
    Case Else
     city = value
   End Select
@@ -281,6 +287,115 @@ Function total(ByVal book As Object) As Integer
   total = (emo * 4) + audio + visio + espiro + osteo + complementarios + psicotecnica + psicosensometrica + opto
 
 End Function
+
+Sub ClearCharter()
+  Attribute ClearCharter.VB_ProcData.VB_Invoke_Func = "y\n14"
+
+  Dim data As Variant
+
+  data = Array(Chr(193), Chr(192), Chr(200), Chr(201), Chr(204), Chr(205), Chr(210), Chr(211), Chr(217), Chr(218), Chr(44), Chr(95), Chr(147), Chr(13), Chr(10), Chr(160) & Chr(160), Chr(92), Chr(47), Chr(45), Chr(46))
+
+  ' Doble espaciado
+  Selection.Replace What:=data(15), Replacement:=" ", LookAt:=xlPart, _
+  SearchOrder:=xlByRows, MatchCase:=False, SearchFormat:=False, _
+  ReplaceFormat:=False
+  Selection.Replace What:="  ", Replacement:=" ", LookAt:=xlPart, _
+  SearchOrder:=xlByRows, MatchCase:=False, SearchFormat:=False, _
+  ReplaceFormat:=False
+  If (ActiveSheet.Name = "COMPLEMENTARIOS" And Selection.Address = Range("tbl_complementarios[PROCEDIMIENTO]").Address) Then
+    ' guion al medio
+    Selection.Replace What:=data(18), Replacement:=" ", LookAt:=xlPart, _
+    SearchOrder:=xlByRows, MatchCase:=False, SearchFormat:=False, _
+    ReplaceFormat:=False
+  End If
+  ' Slach
+  Selection.Replace What:=data(16), Replacement:=" ", LookAt:=xlPart, _
+  SearchOrder:=xlByRows, MatchCase:=False, SearchFormat:=False, _
+  ReplaceFormat:=False
+  ' Back Slach
+  Selection.Replace What:=data(17), Replacement:=" ", LookAt:=xlPart, _
+  SearchOrder:=xlByRows, MatchCase:=False, SearchFormat:=False, _
+  ReplaceFormat:=False
+  ' A con tilde
+  Selection.Replace What:=data(0), Replacement:="A", LookAt:=xlPart, _
+  SearchOrder:=xlByRows, MatchCase:=False, SearchFormat:=False, _
+  ReplaceFormat:=False
+  ' A con tilde invertida
+  Selection.Replace What:=data(1), Replacement:="A", LookAt:=xlPart, _
+  SearchOrder:=xlByRows, MatchCase:=False, SearchFormat:=False, _
+  ReplaceFormat:=False
+  ' E con tilde invertida
+  Selection.Replace What:=data(2), Replacement:="E", LookAt:=xlPart, _
+  SearchOrder:=xlByRows, MatchCase:=False, SearchFormat:=False, _
+  ReplaceFormat:=False
+  ' E con tilde
+  Selection.Replace What:=data(3), Replacement:="E", LookAt:=xlPart, _
+  SearchOrder:=xlByRows, MatchCase:=False, SearchFormat:=False, _
+  ReplaceFormat:=False
+  ' I con tilde invertida
+  Selection.Replace What:=data(4), Replacement:="I", LookAt:=xlPart, _
+  SearchOrder:=xlByRows, MatchCase:=False, SearchFormat:=False, _
+  ReplaceFormat:=False
+  ' I con tilde
+  Selection.Replace What:=data(5), Replacement:="I", LookAt:=xlPart, _
+  SearchOrder:=xlByRows, MatchCase:=False, SearchFormat:=False, _
+  ReplaceFormat:=False
+  ' O con tilde invertida
+  Selection.Replace What:=data(6), Replacement:="O", LookAt:=xlPart, _
+  SearchOrder:=xlByRows, MatchCase:=False, SearchFormat:=False, _
+  ReplaceFormat:=False
+  ' O con tilde
+  Selection.Replace What:=data(7), Replacement:="O", LookAt:=xlPart, _
+  SearchOrder:=xlByRows, MatchCase:=False, SearchFormat:=False, _
+  ReplaceFormat:=False
+  ' U con tilde invertida
+  Selection.Replace What:=data(8), Replacement:="U", LookAt:=xlPart, _
+  SearchOrder:=xlByRows, MatchCase:=False, SearchFormat:=False, _
+  ReplaceFormat:=False
+  ' U con tilde
+  Selection.Replace What:=data(9), Replacement:="U", LookAt:=xlPart, _
+  SearchOrder:=xlByRows, MatchCase:=False, SearchFormat:=False, _
+  ReplaceFormat:=False
+  If (ActiveSheet.Name = "OPTO" And (Selection.Address = Range("tbl_opto[DIAG PPAL]").Address Or Selection.Address = Range("tbl_opto[DIAG OBS]").Address Or Selection.Address = Range("tbl_opto[DIAG REL/1]").Address Or Selection.Address = Range("tbl_opto[DIAG REL/2]").Address Or Selection.Address = Range("tbl_opto[DIAG Rel/3]").Address Or Selection.Address = Range("tbl_opto[[DIAG OBS]:[DIAG Rel/3]]").Address)) Then
+    ' Coma
+    Selection.Replace What:=data(10), Replacement:="", LookAt:=xlPart, _
+    SearchOrder:=xlByRows, MatchCase:=False, SearchFormat:=False, _
+    ReplaceFormat:=False
+  End If
+  ' Raya al piso
+  Selection.Replace What:=data(11), Replacement:=" ", LookAt:=xlPart, _
+  SearchOrder:=xlByRows, MatchCase:=False, SearchFormat:=False, _
+  ReplaceFormat:=False
+  ' Doble commilla
+  Selection.Replace What:=data(12), Replacement:="", LookAt:=xlPart, _
+  SearchOrder:=xlByRows, MatchCase:=False, SearchFormat:=False, _
+  ReplaceFormat:=False
+  ' Espaciado
+  Selection.Replace What:=data(13), Replacement:=" ", LookAt:=xlPart, _
+  SearchOrder:=xlByRows, MatchCase:=False, SearchFormat:=False, _
+  ReplaceFormat:=False
+  ' Salto de linea
+  Selection.Replace What:=data(14), Replacement:=" ", LookAt:=xlPart, _
+  SearchOrder:=xlByRows, MatchCase:=False, SearchFormat:=False, _
+  ReplaceFormat:=False
+  ' Punto
+  If (ActiveSheet.Name = "DIAGNOSTICOS" Or ActiveSheet.Name = "ENFASIS") Then
+    Selection.Replace What:=data(19), Replacement:="", LookAt:=xlPart, _
+    SearchOrder:=xlByRows, MatchCase:=False, SearchFormat:=False, _
+    ReplaceFormat:=False
+  End If
+
+  If (ActiveSheet.Name ="TRABAJADORES" and Selection.Address = Range("tbl_trabajadores[CARGO USUARIO]").Address) Then
+    Call ClearNonAlphaNumeric
+  End If
+  If (ActiveSheet.Name ="TRABAJADORES" and Selection.Address = Range("tbl_trabajadores[PACIENTE]").Address) Then
+    Call ClearNonAlphaNumeric
+  End If
+
+
+  MsgBox "Correcciones realizadas, exitosamente!!",vbInformation,"Correcciones"
+
+End Sub
 
 Sub ClearNonAlphaNumeric()
 
