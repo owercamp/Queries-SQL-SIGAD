@@ -385,10 +385,13 @@ Sub ClearCharter()
     ReplaceFormat:=False
   End If
 
-  If (ActiveSheet.Name ="TRABAJADORES" and Selection.Address = Range("tbl_trabajadores[CARGO USUARIO]").Address) Then
+  If (ActiveSheet.Name ="TRABAJADORES" And Selection.Address = Range("tbl_trabajadores[CARGO USUARIO]").Address) Then
     Call ClearNonAlphaNumeric
   End If
-  If (ActiveSheet.Name ="TRABAJADORES" and Selection.Address = Range("tbl_trabajadores[PACIENTE]").Address) Then
+  If (ActiveSheet.Name = "EMO" And Selection.Address = Range("tbl_emo[RECOMENDACIONES ESPECIFICAS]").Address) Then
+    Call ClearNonAlphaNumeric
+  End If
+  If (ActiveSheet.Name ="TRABAJADORES" And Selection.Address = Range("tbl_trabajadores[PACIENTE]").Address) Then
     Call ClearNonAlphaNumeric
   End If
 

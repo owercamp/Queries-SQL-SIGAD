@@ -101,12 +101,12 @@ Sub extraerdatos()
         Call ComplementarioData
         Call statusActivate(comple_destiny.Name)
       End If
-     Case "PSICOTECNICA", "PSICOLOGIA"
+     Case "PSICOTECNICA", "PSICOLOGIA", "PSICO"
       If (variable.Visible = True) Then
         Call PsicotecnicaData
         Call statusActivate(psico_destiny.Name)
       End If
-     Case "PSICOSENSOMETRICA", "PSICOMOTRIZ"
+     Case "PSICOSENSOMETRICA", "PSICOMOTRIZ", "MOTRIZ"
       If (variable.Visible = True) Then
         Call PsicosensometricaData
         Call statusActivate(senso_destiny.Name)
