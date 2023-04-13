@@ -4,8 +4,8 @@ Option Explicit
 Sub EspiroData()
   Dim espiro_destiny_dictionary As Scripting.Dictionary
   Dim espiro_origin_dictionary As Scripting.Dictionary
-  Dim espiro_destiny_header, espiro_origin_header, espiro_origin_value As Object
-  Dim ItemEspiroDestiny, ItemEspiroOrigin, ItemData As Variant
+  Dim espiro_destiny_header As Object, espiro_origin_header As Object, espiro_origin_value As Object
+  Dim ItemEspiroDestiny As Variant, ItemEspiroOrigin As Variant, ItemData As Variant
 
   Set espiro_origin = origin.Worksheets("ESPIRO") '' ESPIRO DEL LIBRO ORIGEN ''
   espiro_destiny.Select

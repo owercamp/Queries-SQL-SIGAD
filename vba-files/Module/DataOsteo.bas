@@ -4,8 +4,8 @@ Option Explicit
 Sub OsteoData()
   Dim osteo_destiny_dictionary As Scripting.Dictionary
   Dim osteo_origin_dictionary As Scripting.Dictionary
-  Dim osteo_destiny_header, osteo_origin_header, osteo_origin_value As Object
-  Dim ItemOsteoDestiny, ItemOsteoOrigin, ItemData As Variant
+  Dim osteo_destiny_header As Object, osteo_origin_header As Object, osteo_origin_value As Object
+  Dim ItemOsteoDestiny As Variant, ItemOsteoOrigin As Variant, ItemData As Variant
 
   Set osteo_origin = origin.Worksheets("OSTEO") '' OSTEO DEL LIBRO ORIGEN ''
   osteo_destiny.Select

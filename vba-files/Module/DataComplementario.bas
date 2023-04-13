@@ -4,8 +4,8 @@ Option Explicit
 Sub ComplementarioData()
   Dim comple_destiny_dictionary As Scripting.Dictionary
   Dim comple_origin_dictionary As Scripting.Dictionary
-  Dim comple_destiny_header, comple_origin_header, comple_origin_value As Object
-  Dim ItemCompleDestiny, ItemCompleOrigin, ItemData As Variant
+  Dim comple_destiny_header As Object, comple_origin_header As Object, comple_origin_value As Object
+  Dim ItemCompleDestiny As Variant, ItemCompleOrigin As Variant, ItemData As Variant
 
   On Error GoTo com:
   Set comple_origin = origin.Worksheets("COMPLEMENTARIOS") '' COMPLEMENTARIOS DEL LIBRO ORIGEN ''

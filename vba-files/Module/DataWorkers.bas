@@ -5,8 +5,8 @@ Sub Workers()
 
   Dim workers_dictionary As Scripting.Dictionary
   Dim emo_dictionary As Scripting.Dictionary
-  Dim workers_header, emo_header, workers_value As Object
-  Dim ItemWorks, ItemEmo, ItemData As Variant
+  Dim workers_header As Object, emo_header As Object, workers_value As Object
+  Dim ItemWorks As Variant, ItemEmo As Variant, ItemData As Variant
   Dim range_active As Integer
 
   Set emo_origin = origin.Worksheets("EMO") '' EMO DEL LIBRO ORIGEN ''

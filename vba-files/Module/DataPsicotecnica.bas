@@ -4,8 +4,8 @@ Option Explicit
 Sub PsicotecnicaData()
   Dim psicotecnica_destiny_dictionary As Scripting.Dictionary
   Dim psicotecnica_origin_dictionary As Scripting.Dictionary
-  Dim psicotecnica_destiny_header, psicotecnica_origin_header, psicotecnica_origin_value As Object
-  Dim ItemPsicotecnicaDestiny, ItemPsicotecnicaOrigin, ItemData As Variant
+  Dim psicotecnica_destiny_header As Object, psicotecnica_origin_header As Object, psicotecnica_origin_value As Object
+  Dim ItemPsicotecnicaDestiny As Variant, ItemPsicotecnicaOrigin As Variant, ItemData As Variant
 
   On Error GoTo tecnica:
   Set psico_origin = origin.Worksheets("PSICOTECNICA") '' PSICOTECNICA DEL LIBRO ORIGEN ''

@@ -5,8 +5,8 @@ Sub DataDiagnosticsEmo()
 
   Dim diagnostics_destiny_dictionary As Scripting.Dictionary
   Dim emo_origin_dictionary As Scripting.Dictionary
-  Dim diagnostics_destiny_header, emo_origin_header, emo_origin_value As Object
-  Dim ItemDiagnosticsDestiny, ItemEmoOrigin, ItemData As Variant
+  Dim diagnostics_destiny_header As Object, emo_origin_header As Object, emo_origin_value As Object
+  Dim ItemDiagnosticsDestiny As Variant, ItemEmoOrigin As Variant, ItemData As Variant
 
   Set emo_origin = origin.Worksheets("EMO") '' EMO DEL LIBRO ORIGEN ''
   diagnostics_destiny.Select

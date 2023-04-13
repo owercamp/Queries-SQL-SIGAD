@@ -5,8 +5,8 @@ Sub AudioData()
 
   Dim audio_destiny_dictionary As Scripting.Dictionary
   Dim audio_origin_dictionary As Scripting.Dictionary
-  Dim audio_destiny_header, audio_origin_header, audio_origin_value As Object
-  Dim ItemAudioDestiny, ItemAudioOrigin, ItemData As Variant
+  Dim audio_destiny_header As Object, audio_origin_header As Object, audio_origin_value As Object
+  Dim ItemAudioDestiny As Variant, ItemAudioOrigin As Variant, ItemData As Variant
 
   Set audio_origin = origin.Worksheets("AUDIO") '' AUDIO DEL LIBRO ORIGEN ''
   audio_destiny.Select

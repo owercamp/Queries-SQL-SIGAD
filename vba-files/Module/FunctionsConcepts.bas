@@ -52,7 +52,7 @@ End Function
 Public Function emphasisConcepts(value, emphasis)
 
     Dim No As Integer
-    Dim status, activity As String
+    Dim status As String, activity As String
 
     No = VBA.InStr(Trim(UCase(value)), "NO")
 

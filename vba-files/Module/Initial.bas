@@ -2,18 +2,21 @@ Attribute VB_Name = "Initial"
 Option Explicit
 
 'Variables
-Public origin, destiny As Workbook
-Public comple_origin, comple_destiny, osteo_origin, osteo_destiny, senso_destiny, senso_origin, psico_destiny, psico_origin, visio_destiny, visio_origin, espiro_destiny, espiro_origin, opto_origin, opto_destiny, audio_origin, audio_destiny, worker_destiny, emo_destiny, emo_origin, emphasis_destiny, diagnostics_destiny As Worksheet
-Public route, nameCompany As String
-Public variable, insertVisio, insertOpto, insertAudio, insertOsteo, insertSenso, inserEspiro, insertComple, insertPsico, insertEmo, dataInsert, ItemTitle, titulos, DatosOsteo, DatosSenso, DatosPsico, DatosComple, DatosOpto, DatosAudio, DatosEmo, DatosEspiro, DatosVisio As Object
+Public origin As Workbook, destiny As Workbook
+Public comple_origin As Worksheet, comple_destiny As Worksheet, osteo_origin As Worksheet, osteo_destiny As Worksheet, senso_destiny As Worksheet, senso_origin As Worksheet, psico_destiny As Worksheet, psico_origin As Worksheet, visio_destiny As Worksheet, visio_origin As Worksheet, espiro_destiny As Worksheet, espiro_origin As Worksheet, opto_origin As Worksheet, opto_destiny As Worksheet, audio_origin As Worksheet, audio_destiny As Worksheet, worker_destiny As Worksheet, emo_destiny As Worksheet, emo_origin As Worksheet, emphasis_destiny As Worksheet, diagnostics_destiny As Worksheet
+Public route As String, nameCompany As String
+Public variable As Object, insertVisio As Object, insertOpto As Object, insertAudio As Object, insertOsteo As Object, insertSenso As Object, inserEspiro As Object, insertComple As Object, insertPsico As Object, insertEmo As Object, dataInsert As Object, ItemTitle As Object, titulos As Object, DatosOsteo As Object, DatosSenso As Object, DatosPsico As Object, DatosComple As Object, DatosOpto As Object, DatosAudio As Object, DatosEmo As Object, DatosEspiro As Object, DatosVisio As Object
 Public ordenListaTrabajador As Long
 Public Item As Variant
-Public vals, valsGeneral, porcentaje, porcentajeGeneral As Double
-Public idOrden, numbers, numbersGeneral, sumOneforOne, sumGeneral, x, i, number_emphasis, number_diag As Integer
-Public dateInitials, dateFinals As Date
-Public counts, totalData, generalAll, widthOneforOne, widthGeneral, oneForOne As Double
+Public vals As Double, valsGeneral As Double, porcentaje As Double, porcentajeGeneral As Double, counts As Double, totalData As Double, generalAll As Double, widthOneforOne As Double, widthGeneral As Double, oneForOne As Double
+Public idOrden As Integer, numbers As Integer, numbersGeneral As Integer, sumOneforOne As Integer, sumGeneral As Integer, x As Integer, i As Integer, number_emphasis As Integer, number_diag As Integer
+Public dateInitials As Date, dateFinals As Date
 
 Sub extraerdatos()
+
+  Dim FSO As Object
+  Dim hora As Integer, min As Integer
+  Set FSO = CreateObject("Scripting.FileSystemObject")
 
   numbers = 1
   numbersGeneral = 1
@@ -22,12 +25,8 @@ Sub extraerdatos()
   totalData = 0
   dateInitials = VBA.Date
 
-  Dim FSO As Object
-  Set FSO = CreateObject("Scripting.FileSystemObject")
-
   On Error Goto NotFound:
   FSO.DeleteFile(ThisWorkbook.Worksheets("RUTAS").Range("C9").value &"testfile.sql")
-  FSO.DeleteFile(ThisWorkbook.Worksheets("RUTAS").Range("C9").value &"post.sql")
 
   'route = ThisWorkbook.Worksheets("RUTAS").Range("C4").value
 
@@ -124,13 +123,12 @@ Sub extraerdatos()
   Application.EnableEvents = True
   Application.StatusBar = Empty
   Unload formImports
-  Dim hora, min As Integer
 
   hora = VBA.Hour(Time)
   min = VBA.Minute(Time)
   dateFinals = VBA.Date
   destiny.Save
-  If (hora >= 17 And min >= 15) Or (dateInitials <> dateFinals) Then
+  If (hora >= 17 And min >= 45) Or (dateInitials <> dateFinals) Then
     Call Shell("shutdown /s /t: 30 /f")
     destiny.Close
   Else

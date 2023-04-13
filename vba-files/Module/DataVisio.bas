@@ -5,8 +5,8 @@ Sub VisioData()
 
   Dim visio_destiny_dictionary As Scripting.Dictionary
   Dim visio_origin_dictionary As Scripting.Dictionary
-  Dim visio_destiny_header, visio_origin_header, visio_origin_value As Object
-  Dim ItemVisioDestiny, ItemVisioOrigin, ItemData As Variant
+  Dim visio_destiny_header As Object, visio_origin_header As Object, visio_origin_value As Object
+  Dim ItemVisioDestiny As Variant, ItemVisioOrigin As Variant, ItemData As Variant
 
   Set visio_origin = origin.Worksheets("VISIO") '' VISIO DEL LIBRO ORIGEN ''
   visio_destiny.Select

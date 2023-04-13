@@ -1,7 +1,7 @@
 Attribute VB_Name = "FunctionBook"
 Option Explicit
 Public sigad As Variant
-Public trabajadores, emo, audio, visio, opto, espiro, osteo, complementarios, psicotecnica, psicosensometrica, enfasis, diag As Worksheet
+Public trabajadores As Worksheet, emo As Worksheet, audio As Worksheet, visio As Worksheet, opto As Worksheet, espiro As Worksheet, osteo As Worksheet, complementarios As Worksheet, psicotecnica As Worksheet, psicosensometrica As Worksheet, enfasis As Worksheet, diag As Worksheet
 
 Sub cargos()
   Attribute cargos.VB_ProcData.VB_Invoke_Func = "k\n14"
@@ -28,10 +28,10 @@ End Sub
 
 Sub clearContents()
 
-  Dim rng, info, rngTrabajadores, rngEmo, rngAudio, rngVisio, rngOpto, rngEspiro, rngOsteo, rngComplementarios, rngPsicotecnica, rngPsicosensometrica, rngEnfasis, rngDiag, MyDay, MyMonth, MyYear As Integer
-  Dim meses, finalRow, RowActive As Variant
-  Dim nombre, orden, fecha, company, bookNow As String
-  Dim libro, consolidado As Object
+  Dim rng As Integer, info As Integer, rngTrabajadores As Integer, rngEmo As Integer, rngAudio As Integer, rngVisio As Integer, rngOpto As Integer, rngEspiro As Integer, rngOsteo As Integer, rngComplementarios As Integer, rngPsicotecnica As Integer, rngPsicosensometrica As Integer, rngEnfasis As Integer, rngDiag As Integer, MyDay As Integer, MyMonth As Integer, MyYear As Integer
+  Dim meses As Variant, finalRow As Variant, libro As Variant, RowActive As Variant
+  Dim nombre As String, orden As String, fecha As String, company As String, bookNow As String
+  Dim consolidado As Object
 
   meses = Array("Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre")
   formMix.Caption = "SIGAD Informe"
@@ -118,9 +118,9 @@ Sub clearContents()
           DoEvents
           Range("A5", Range("A5").Offset(rng, 0)).Select
           Selection.EntireRow.Delete shift:=xlUp
-          ThisWorkbook.Worksheets("RUTAS").Range("$F$4") = CLngLng(Trim(Range("$AW$5").value)) + 1
+          ThisWorkbook.Worksheets("RUTAS").Range("$F$4") = CLngPtr(Trim(Range("$AW$5").value)) + 1
         Else
-          ThisWorkbook.Worksheets("RUTAS").Range("$F$4") = CLngLng(Trim(Range("$AW$5").value)) + 1
+          ThisWorkbook.Worksheets("RUTAS").Range("$F$4") = CLngPtr(Trim(Range("$AW$5").value)) + 1
         End If
 
         enfasis.Select
@@ -173,9 +173,9 @@ Sub clearContents()
           DoEvents
           Range("A5", Range("A5").Offset(rng, 0)).Select
           Selection.EntireRow.Delete shift:=xlUp
-          ThisWorkbook.Worksheets("RUTAS").Range("$F$5") = CLngLng(Trim(Range("$EL$5").value)) + 1
+          ThisWorkbook.Worksheets("RUTAS").Range("$F$5") = CLngPtr(Trim(Range("$EL$5").value)) + 1
         Else
-          ThisWorkbook.Worksheets("RUTAS").Range("$F$5") = CLngLng(Trim(Range("$EL$5").value)) + 1
+          ThisWorkbook.Worksheets("RUTAS").Range("$F$5") = CLngPtr(Trim(Range("$EL$5").value)) + 1
         End If
 
         audio.Select
@@ -187,9 +187,9 @@ Sub clearContents()
           DoEvents
           Range("A4", Range("A4").Offset(rng, 0)).Select
           Selection.EntireRow.Delete shift:=xlUp
-          ThisWorkbook.Worksheets("RUTAS").Range("$F$6") = CLngLng(Trim(Range("$BG$4").value)) + 1
+          ThisWorkbook.Worksheets("RUTAS").Range("$F$6") = CLngPtr(Trim(Range("$BG$4").value)) + 1
         Else
-          ThisWorkbook.Worksheets("RUTAS").Range("$F$6") = CLngLng(Trim(Range("$BG$4").value)) + 1
+          ThisWorkbook.Worksheets("RUTAS").Range("$F$6") = CLngPtr(Trim(Range("$BG$4").value)) + 1
         End If
 
         opto.Select
@@ -201,11 +201,11 @@ Sub clearContents()
           DoEvents
           Range("A4", Range("A4").Offset(rng, 0)).Select
           Selection.EntireRow.Delete shift:=xlUp
-          ThisWorkbook.Worksheets("RUTAS").Range("$F$7") = CLngLng(Trim(Range("$BL$4").value)) + 1
-          ThisWorkbook.Worksheets("RUTAS").Range("$F$8") = CLngLng(Trim(Range("$BM$4").value)) + 1
+          ThisWorkbook.Worksheets("RUTAS").Range("$F$7") = CLngPtr(Trim(Range("$BL$4").value)) + 1
+          ThisWorkbook.Worksheets("RUTAS").Range("$F$8") = CLngPtr(Trim(Range("$BM$4").value)) + 1
         Else
-          ThisWorkbook.Worksheets("RUTAS").Range("$F$7") = CLngLng(Trim(Range("$BL$4").value)) + 1
-          ThisWorkbook.Worksheets("RUTAS").Range("$F$8") = CLngLng(Trim(Range("$BM$4").value)) + 1
+          ThisWorkbook.Worksheets("RUTAS").Range("$F$7") = CLngPtr(Trim(Range("$BL$4").value)) + 1
+          ThisWorkbook.Worksheets("RUTAS").Range("$F$8") = CLngPtr(Trim(Range("$BM$4").value)) + 1
         End If
 
         visio.Select
@@ -217,9 +217,9 @@ Sub clearContents()
           DoEvents
           Range("A4", Range("A4").Offset(rng, 0)).Select
           Selection.EntireRow.Delete shift:=xlUp
-          ThisWorkbook.Worksheets("RUTAS").Range("$F$9") = CLngLng(Trim(Range("$BS$4").value)) + 1
+          ThisWorkbook.Worksheets("RUTAS").Range("$F$9") = CLngPtr(Trim(Range("$BS$4").value)) + 1
         Else
-          ThisWorkbook.Worksheets("RUTAS").Range("$F$9") = CLngLng(Trim(Range("$BS$4").value)) + 1
+          ThisWorkbook.Worksheets("RUTAS").Range("$F$9") = CLngPtr(Trim(Range("$BS$4").value)) + 1
         End If
 
         espiro.Select
@@ -231,9 +231,9 @@ Sub clearContents()
           DoEvents
           Range("A4", Range("A4").Offset(rng, 0)).Select
           Selection.EntireRow.Delete shift:=xlUp
-          ThisWorkbook.Worksheets("RUTAS").Range("$F$10") = CLngLng(Trim(Range("$BZ$4").value)) + 1
+          ThisWorkbook.Worksheets("RUTAS").Range("$F$10") = CLngPtr(Trim(Range("$BZ$4").value)) + 1
         Else
-          ThisWorkbook.Worksheets("RUTAS").Range("$F$10") = CLngLng(Trim(Range("$BZ$4").value)) + 1
+          ThisWorkbook.Worksheets("RUTAS").Range("$F$10") = CLngPtr(Trim(Range("$BZ$4").value)) + 1
         End If
 
         osteo.Select
@@ -245,9 +245,9 @@ Sub clearContents()
           DoEvents
           Range("A4", Range("A4").Offset(rng, 0)).Select
           Selection.EntireRow.Delete shift:=xlUp
-          ThisWorkbook.Worksheets("RUTAS").Range("$F$11") = CLngLng(Trim(Range("$BG$4").value)) + 1
+          ThisWorkbook.Worksheets("RUTAS").Range("$F$11") = CLngPtr(Trim(Range("$BG$4").value)) + 1
         Else
-          ThisWorkbook.Worksheets("RUTAS").Range("$F$11") = CLngLng(Trim(Range("$BG$4").value)) + 1
+          ThisWorkbook.Worksheets("RUTAS").Range("$F$11") = CLngPtr(Trim(Range("$BG$4").value)) + 1
         End If
 
         complementarios.Select
@@ -259,9 +259,9 @@ Sub clearContents()
           DoEvents
           Range("A4", Range("A4").Offset(rng, 0)).Select
           Selection.EntireRow.Delete shift:=xlUp
-          ThisWorkbook.Worksheets("RUTAS").Range("$F$12") = CLngLng(Trim(Range("$J$4").value)) + 1
+          ThisWorkbook.Worksheets("RUTAS").Range("$F$12") = CLngPtr(Trim(Range("$J$4").value)) + 1
         Else
-          ThisWorkbook.Worksheets("RUTAS").Range("$F$12") = CLngLng(Trim(Range("$J$4").value)) + 1
+          ThisWorkbook.Worksheets("RUTAS").Range("$F$12") = CLngPtr(Trim(Range("$J$4").value)) + 1
         End If
 
         psicotecnica.Select
@@ -273,9 +273,9 @@ Sub clearContents()
           DoEvents
           Range("A2", Range("A2").Offset(rng, 0)).Select
           Selection.EntireRow.Delete shift:=xlUp
-          ThisWorkbook.Worksheets("RUTAS").Range("$F$13") = CLngLng(Trim(Range("$G$2").value)) + 1
+          ThisWorkbook.Worksheets("RUTAS").Range("$F$13") = CLngPtr(Trim(Range("$G$2").value)) + 1
         Else
-          ThisWorkbook.Worksheets("RUTAS").Range("$F$13") = CLngLng(Trim(Range("$G$2").value)) + 1
+          ThisWorkbook.Worksheets("RUTAS").Range("$F$13") = CLngPtr(Trim(Range("$G$2").value)) + 1
         End If
 
         psicosensometrica.Select
@@ -287,9 +287,9 @@ Sub clearContents()
           DoEvents
           Range("A3", Range("A3").Offset(rng, 0)).Select
           Selection.EntireRow.Delete shift:=xlUp
-          ThisWorkbook.Worksheets("RUTAS").Range("$F$14") = CLngLng(Trim(Range("$Q$3").value)) + 1
+          ThisWorkbook.Worksheets("RUTAS").Range("$F$14") = CLngPtr(Trim(Range("$Q$3").value)) + 1
         Else
-          ThisWorkbook.Worksheets("RUTAS").Range("$F$14") = CLngLng(Trim(Range("$Q$3").value)) + 1
+          ThisWorkbook.Worksheets("RUTAS").Range("$F$14") = CLngPtr(Trim(Range("$Q$3").value)) + 1
         End If
 
         Application.ActiveWorkbook.SaveCopyAs Filename:=route & "\" & Application.ActiveWorkbook.Name
@@ -323,9 +323,9 @@ End Sub
 
 Sub Modification()
 
-  Dim consolidado, libro, esLibro As Object
+  Dim consolidado As Object, libro As Object, esLibro As Object
   Dim dateSmall As Date
-  Dim Name, msg As String
+  Dim name_book() As String, msg As String
   Dim patch As Variant
 
   libro = Worksheets("RUTAS").Range("C5").value
@@ -342,7 +342,7 @@ Sub Modification()
 
     Set esLibro = Application.ThisWorkbook
     patch = VBA.Split(esLibro.FullName, "\")
-    Name = VBA.Split(esLibro.Name, ".")
+    name_book = VBA.Split(esLibro.Name, ".")
 
     dateSmall = CDate(patch(8))
     Set consolidado = Workbooks.Open(libro)
@@ -355,7 +355,7 @@ Sub Modification()
     MatchCase:=False, SearchFormat:=False).Activate
 
     Do While ActiveCell = dateSmall
-      If ActiveCell = dateSmall And ActiveCell.Offset(, 1).value = Name(0) Then
+      If ActiveCell = dateSmall And ActiveCell.Offset(, 1).value = name_book(0) Then
         ActiveCell.Offset(, 7) = msg & " - Date Modified: " & Date
         Call UpdateGoogleSheetRecord(ActiveCell.Row - 1, msg & " - Date Modified: " & Date)
         consolidado.ActiveSheet.Protect Password:="1024500065", DrawingObjects:=False, Contents:=True, Scenarios:= _
@@ -378,8 +378,8 @@ Sub AddRecordToGoogleSheet(ByVal Company as String, ByVal sigad as String, ByVal
 
   Dim HttpReq As Variant
   Dim Json As Object
-  Dim monthNow, yearNow As Integer
-  Dim fullDate, dateNow,  bearerToken As String
+  Dim monthNow As Integer, yearNow As Integer
+  Dim fullDate As String, dateNow As String,  bearerToken As String
 
   fullDate = Format(Now, "dd/mm/yyyy hh:mm:ss")
   dateNow = Format(Date, "dd-mmm-yyyy")
@@ -413,7 +413,7 @@ End Sub
 
 Sub UpdateGoogleSheetRecord(ByVal rowData As Integer, ByVal textModify As String)
 
-  Dim sheetId, accessToken As String
+  Dim sheetId As String, accessToken As String
   sheetId = "126vzNrB3mA-g-61ccgNyAz-ukhIIqg_Yn3JxzQljC5o"
   accessToken = Application.InputBox(prompt:="ingrese el Token de Acceso", Title:="Acceso Google Sheet", Default:="", Type:=2)
 
@@ -449,8 +449,8 @@ End Sub
 Sub ExportSQL()
 
   Dim origin As Workbook
-  Dim comple_origin, worker_origin, osteo_origin, senso_origin, psico_origin, visio_origin, espiro_origin, opto_origin, audio_origin, emo_origin As Worksheet
-  Dim sh, str, MyFile As Variant
+  Dim comple_origin As Worksheet, worker_origin As Worksheet, osteo_origin As Worksheet, senso_origin As Worksheet, psico_origin As Worksheet, visio_origin As Worksheet, espiro_origin As Worksheet, opto_origin As Worksheet, audio_origin As Worksheet, emo_origin As Worksheet
+  Dim sh As Variant, str As Variant, MyFile As Variant
   Dim num As Integer
   Dim FSO As Object
   Set FSO = CreateObject("Scripting.FileSystemObject")

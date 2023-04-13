@@ -4,8 +4,8 @@ Option Explicit
 Sub PsicosensometricaData()
   Dim psicosensometrica_destiny_dictionary As Scripting.Dictionary
   Dim psicosensometrica_origin_dictionary As Scripting.Dictionary
-  Dim psicosensometrica_destiny_header, psicosensometrica_origin_header, psicosensometrica_origin_value As Object
-  Dim ItemPsicosensometricaDestiny, ItemPsicosensometricaOrigin, ItemData As Variant
+  Dim psicosensometrica_destiny_header As Object, psicosensometrica_origin_header As Object, psicosensometrica_origin_value As Object
+  Dim ItemPsicosensometricaDestiny As Variant, ItemPsicosensometricaOrigin As Variant, ItemData As Variant
 
   On Error GoTo metrica:
   Set senso_origin = origin.Worksheets("PSICOSENSOMETRICA") '' PSICOSENSOMETRICA DEL LIBRO ORIGEN ''

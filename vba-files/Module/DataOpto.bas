@@ -5,8 +5,8 @@ Sub OptoData()
 
   Dim opto_destiny_dictionary As Scripting.Dictionary
   Dim opto_origin_dictionary As Scripting.Dictionary
-  Dim opto_destiny_header, opto_origin_header, opto_origin_value As Object
-  Dim ItemOptoDestiny, ItemOptoOrigin, ItemData As Variant
+  Dim opto_destiny_header As Object, opto_origin_header As Object, opto_origin_value As Object
+  Dim ItemOptoDestiny As Variant, ItemOptoOrigin As Variant, ItemData As Variant
 
   Set opto_origin = origin.Worksheets("OPTO") '' OPTO DEL LIBRO ORIGEN ''
   opto_destiny.Select

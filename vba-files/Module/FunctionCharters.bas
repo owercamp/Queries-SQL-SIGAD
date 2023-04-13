@@ -219,7 +219,7 @@ End Function
 '*/
 Function total(ByVal book As Object) As Integer
 
-  Dim emo, audio, opto, espiro, visio, complementarios, psicotecnica, psicosensometrica, osteo As Integer
+  Dim emo As Integer, audio As Integer, opto As Integer, espiro As Integer, visio As Integer, complementarios As Integer, psicotecnica As Integer, psicosensometrica As Integer, osteo As Integer
   Dim Sheet As Object
 
   For Each Sheet In book.Worksheets
@@ -420,7 +420,7 @@ Function ReplaceNonAlphaNumeric(str As String) As String
   Set regEx = CreateObject("vbscript.regexp")
 
   ' Define la expresión regular para encontrar valores no alfanuméricos '
-  regEx.Pattern = "[^a-zA-Z0-9"&Chr(209)&"]"
+  regEx.Pattern = "[^a-zA-Z0-9/"&Chr(209)&"]"
   regEx.Global = True
 
   ' Reemplaza cualquier valor no alfanumérico por un espacio '
