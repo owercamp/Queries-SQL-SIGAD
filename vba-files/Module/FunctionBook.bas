@@ -323,7 +323,7 @@ End Sub
 
 Sub Modification()
 
-  Dim consolidado As Object, libro As Object, esLibro As Object
+  Dim consolidado As Object, libro As String, esLibro As Object
   Dim dateSmall As Date
   Dim name_book() As String, msg As String
   Dim patch As Variant
