@@ -12,18 +12,24 @@ Sub folder(route, folderName, workbookActive, YearNow, MonthNow)
   Dim splitRoute As String
   splitRoute = Application.PathSeparator
 
-  If Dir(route, vbDirectory) = Empty Then: MkDir route
-    If Dir(route & splitRoute & YearNow, vbDirectory) = Empty Then: MkDir (route & splitRoute & YearNow)
-      If Dir(route & splitRoute & YearNow & splitRoute & MonthNow, vbDirectory) = Empty Then: MkDir (route & splitRoute & YearNow & splitRoute & MonthNow)
+  If Dir(route, vbDirectory) = Empty Then
+    MkDir route
+  End If
+  If Dir(route & splitRoute & YearNow, vbDirectory) = Empty Then
+    MkDir (route & splitRoute & YearNow)
+  End If
+  If Dir(route & splitRoute & YearNow & splitRoute & MonthNow, vbDirectory) = Empty Then
+    MkDir (route & splitRoute & YearNow & splitRoute & MonthNow)
+  End If
 
-        If Dir(route & splitRoute & YearNow & splitRoute & MonthNow & splitRoute & folderName, vbDirectory) = Empty Then
-          MkDir (route & splitRoute & YearNow & splitRoute & MonthNow & splitRoute & folderName)
-          Application.ActiveWorkbook.SaveCopyAs Filename:=route & splitRoute & YearNow & splitRoute & MonthNow & splitRoute & folderName & splitRoute & workbookActive
-          Application.StatusBar = "se guardo una copia en: " & route & splitRoute & YearNow & splitRoute & MonthNow & splitRoute & folderName & splitRoute & workbookActive
-        Else
-          Application.ActiveWorkbook.SaveCopyAs Filename:=route & splitRoute & YearNow & splitRoute & MonthNow & splitRoute & folderName & splitRoute & workbookActive
-          Application.StatusBar = "se guardo una copia en: " & route & splitRoute & YearNow & splitRoute & MonthNow & splitRoute & folderName & splitRoute & workbookActive
-        End If
+  If Dir(route & splitRoute & YearNow & splitRoute & MonthNow & splitRoute & folderName, vbDirectory) = Empty Then
+    MkDir (route & splitRoute & YearNow & splitRoute & MonthNow & splitRoute & folderName)
+    Application.ActiveWorkbook.SaveCopyAs Filename:=route & splitRoute & YearNow & splitRoute & MonthNow & splitRoute & folderName & splitRoute & workbookActive
+    Application.StatusBar = "se guardo una copia en: " & route & splitRoute & YearNow & splitRoute & MonthNow & splitRoute & folderName & splitRoute & workbookActive
+  Else
+    Application.ActiveWorkbook.SaveCopyAs Filename:=route & splitRoute & YearNow & splitRoute & MonthNow & splitRoute & folderName & splitRoute & workbookActive
+    Application.StatusBar = "se guardo una copia en: " & route & splitRoute & YearNow & splitRoute & MonthNow & splitRoute & folderName & splitRoute & workbookActive
+  End If
 End Sub
 
 Sub clearContents()
@@ -55,269 +61,274 @@ Sub clearContents()
   MyMonth = Month(Date)
   MyYear = Year(Date)
   bookNow = Application.ActiveWorkbook.Name
-  If trabajadores.Range("D6") <> Empty Or trabajadores.Range("D6") <> vbNullString Then: nombre = trabajadores.Range("B6").value & " - " & trabajadores.Range("D6").value & ".xlsb"
-    If trabajadores.Range("D6") = Empty Or trabajadores.Range("D6") = vbNullString Then: nombre = trabajadores.Range("B6").value & ".xlsb"
-      orden = trabajadores.Range("AX6").value
+  If trabajadores.Range("D6") <> Empty Or trabajadores.Range("D6") <> vbNullString Then
+    nombre = trabajadores.Range("B6").value & " - " & trabajadores.Range("D6").value & ".xlsb"
+  End If
+  If trabajadores.Range("D6") = Empty Or trabajadores.Range("D6") = vbNullString Then
+    nombre = trabajadores.Range("B6").value & ".xlsb"
+  End If
 
-      If (Not IsEmpty(nombre)) And (Not IsEmpty(orden)) And (Not IsEmpty(sigad)) Then
-        fecha = CStr(MyDay) + " " + CStr(meses(MyMonth - 1)) + " " + CStr(MyYear)
+  orden = trabajadores.Range("AX6").value
 
-        route = CStr(Worksheets("RUTAS").Range("C6").value)
+  If (Not IsEmpty(nombre)) And (Not IsEmpty(orden)) And (Not IsEmpty(sigad)) Then
+    fecha = CStr(MyDay) + " " + CStr(meses(MyMonth - 1)) + " " + CStr(MyYear)
 
-        trabajadores.Select
-        Call folder(route, fecha, nombre, MyYear, meses(MyMonth - 1))
+    route = CStr(Worksheets("RUTAS").Range("C6").value)
 
-        Application.ScreenUpdating = False
-        Application.Calculation = xlCalculationManual
-        Application.EnableEvents = False
+    trabajadores.Select
+    Call folder(route, fecha, nombre, MyYear, meses(MyMonth - 1))
+
+    Application.ScreenUpdating = False
+    Application.Calculation = xlCalculationManual
+    Application.EnableEvents = False
 
 
-        '' REGISTRO EN CONSOLIDADO ''
-        info = Worksheets("TRABAJADORES").Range("A5", Worksheets("TRABAJADORES").Range("A5").End(xlDown)).Count
+    ''' REGISTRO EN CONSOLIDADO ''
+    info = Worksheets("TRABAJADORES").Range("A5", Worksheets("TRABAJADORES").Range("A5").End(xlDown)).Count
 
-        libro = Worksheets("RUTAS").Range("C5").value
-        If trabajadores.Range("D5").value = Empty Or trabajadores.Range("D5").value = vbNullString Then
-          company = trabajadores.Range("B5").value
-        Else
-          company = trabajadores.Range("B5").value & " - " & trabajadores.Range("D5").value
-        End If
+    libro = Worksheets("RUTAS").Range("C5").value
+    If trabajadores.Range("D5").value = Empty Or trabajadores.Range("D5").value = vbNullString Then
+      company = trabajadores.Range("B5").value
+    Else
+      company = trabajadores.Range("B5").value & " - " & trabajadores.Range("D5").value
+    End If
 
-        Set consolidado = Workbooks.Open(libro)
-        '' TRABAJADORES ''
+    Set consolidado = Workbooks.Open(libro)
+    ''' TRABAJADORES ''
 
-        consolidado.Worksheets("Registros").Select
-        consolidado.ActiveSheet.Unprotect Password:="1024500065"
-        Range("C3").End(xlDown).Select
-        ActiveCell.Offset(1, 0).Select
-        ActiveCell = Trim(UCase(company))
-        ActiveCell.Offset(0, 1) = Trim(UCase("ICS-" & PadLeft(sigad, 4, "0")))
-        ActiveCell.Offset(0, 2) = Trim(orden)
-        ActiveCell.Offset(0, -1) = Date
-        ActiveCell.Offset(0, 3) = Trim(info)
+    consolidado.Worksheets("Registros").Select
+    consolidado.ActiveSheet.Unprotect Password:="1024500065"
+    Range("C3").End(xlDown).Select
+    ActiveCell.Offset(1, 0).Select
+    ActiveCell = Trim(UCase(company))
+    ActiveCell.Offset(0, 1) = Trim(UCase("ICS-" & PadLeft(sigad, 4, "0")))
+    ActiveCell.Offset(0, 2) = Trim(orden)
+    ActiveCell.Offset(0, -1) = Date
+    ActiveCell.Offset(0, 3) = Trim(info)
 
-        Application.Calculation = xlCalculationAutomatic
-        Application.Calculation = xlCalculationManual
+    Application.Calculation = xlCalculationAutomatic
+    Application.Calculation = xlCalculationManual
 
-        consolidado.ActiveSheet.Protect Password:="1024500065", DrawingObjects:=False, Contents:=True, Scenarios:= _
-        False, AllowSorting:=True, AllowFiltering:=True, AllowUsingPivotTables:= _
-        True
-        consolidado.Save
-        consolidado.Close
+    consolidado.ActiveSheet.Protect Password:="1024500065", DrawingObjects:=False, Contents:=True, Scenarios:= _
+    False, AllowSorting:=True, AllowFiltering:=True, AllowUsingPivotTables:= _
+    True
+    consolidado.Save
+    consolidado.Close
 
-        Call AddRecordToGoogleSheet(Trim(UCase(company)), Trim(UCase("ICS-" & PadLeft(sigad, 4, "0"))), Trim(orden),Trim(info), libro, bookNow)
+    Call AddRecordToGoogleSheet(Trim(UCase(company)), Trim(UCase("ICS-" & PadLeft(sigad, 4, "0"))), Trim(orden),Trim(info), libro, bookNow)
 
-        Application.Calculation = xlCalculationManual
-        trabajadores.Select
-        route = Worksheets("RUTAS").Range("C8").value
+    Application.Calculation = xlCalculationManual
+    trabajadores.Select
+    route = Worksheets("RUTAS").Range("C8").value
 
-        Range("A5").Select
-        Selection.ListObject.Range.FormatConditions.Delete
-        If (ActiveCell <> Empty Or ActiveCell <> vbNullString) And (ActiveCell.Offset(1, 0) <> Empty Or ActiveCell.Offset(1, 0) <> vbNullString) Then
-          Application.StatusBar = "Limpiando trabajadores por favor espere..."
-          rng = Range("A5", Range("A5").End(xlDown)).Count - 2
-          DoEvents
-          Range("A5", Range("A5").Offset(rng, 0)).Select
-          Selection.EntireRow.Delete shift:=xlUp
-          ThisWorkbook.Worksheets("RUTAS").Range("$F$4") = CLngPtr(Trim(Range("$AW$5").value)) + 1
-        Else
-          ThisWorkbook.Worksheets("RUTAS").Range("$F$4") = CLngPtr(Trim(Range("$AW$5").value)) + 1
-        End If
+    Range("A5").Select
+    Selection.ListObject.Range.FormatConditions.Delete
+    If (ActiveCell <> Empty Or ActiveCell <> vbNullString) And (ActiveCell.Offset(1, 0) <> Empty Or ActiveCell.Offset(1, 0) <> vbNullString) Then
+      Application.StatusBar = "Limpiando trabajadores por favor espere..."
+      rng = Range("A5", Range("A5").End(xlDown)).Count - 2
+      DoEvents
+      Range("A5", Range("A5").Offset(rng, 0)).Select
+      Selection.EntireRow.Delete shift:=xlUp
+      ThisWorkbook.Worksheets("RUTAS").Range("$F$4") = CLngPtr(Trim(Range("$AW$5").value)) + 1
+    Else
+      ThisWorkbook.Worksheets("RUTAS").Range("$F$4") = CLngPtr(Trim(Range("$AW$5").value)) + 1
+    End If
 
-        enfasis.Select
-        Range("A5").Select
-        Selection.ListObject.Range.FormatConditions.Delete
-        If (ActiveCell <> Empty Or ActiveCell <> vbNullString) And (ActiveCell.Offset(1, 0) <> Empty Or ActiveCell.Offset(1, 0) <> vbNullString) Then
-          Application.StatusBar = "Limpiando enfasis por favor espere..."
-          rng = Range("A5", Range("A5").End(xlDown)).Count - 2
-          DoEvents
-          Range("A5", Range("A5").Offset(rng, 0)).Select
-          Selection.EntireRow.Delete shift:=xlUp
-          Range("tbl_enfasis[[ENFASIS_1]:[OBSERVACIONES_AL_ENFASIS_1]]").ClearContents
-          Range("tbl_enfasis[[ENFASIS_2]:[OBSERVACIONES AL ENFASIS_2]]").ClearContents
-          Range("tbl_enfasis[[ENFASIS_3]:[OBSERVACIONES AL ENFASIS_3]]").ClearContents
-          Range("tbl_enfasis[[ENFASIS_4]:[OBSERVACIONES AL ENFASIS_4]]").ClearContents
-          Range("tbl_enfasis[[ENFASIS_5]:[OBSERVACIONES AL ENFASIS_5]]").ClearContents
-          Range("tbl_enfasis[[ENFASIS_6]:[OBSERVACIONES AL ENFASIS_6]]").ClearContents
-          Range("tbl_enfasis[[ENFASIS_7]:[OBSERVACIONES AL ENFASIS_7]]").ClearContents
-          Range("tbl_enfasis[[ENFASIS_8]:[OBSERVACIONES AL ENFASIS_8]]").ClearContents
-          Range("tbl_enfasis[[ENFASIS_9]:[OBSERVACIONES AL ENFASIS_9]]").ClearContents
-          Range("tbl_enfasis[[ENFASIS_10]:[OBSERVACIONES AL ENFASIS_10]]").ClearContents
-          Range("tbl_enfasis[[ENFASIS_11]:[OBSERVACIONES AL ENFASIS_11]]").ClearContents
-          Range("tbl_enfasis[[ENFASIS_12]:[OBSERVACIONES AL ENFASIS_12]]").ClearContents
-          Range("tbl_enfasis[[ENFASIS_13]:[OBSERVACIONES AL ENFASIS_13]]").ClearContents
-          Range("tbl_enfasis[[ENFASIS_14]:[OBSERVACIONES AL ENFASIS_14]]").ClearContents
-          Range("tbl_enfasis[[ENFASIS_15]:[OBSERVACIONES AL ENFASIS_15]]").ClearContents
-          Range("tbl_enfasis[[ENFASIS_16]:[OBSERVACIONES AL ENFASIS_16]]").ClearContents
-          Range("tbl_enfasis[[ENFASIS_17]:[OBSERVACIONES AL ENFASIS_17]]").ClearContents
-          Range("tbl_enfasis[[ENFASIS_18]:[OBSERVACIONES AL ENFASIS_18]]").ClearContents
-        End If
+    enfasis.Select
+    Range("A5").Select
+    Selection.ListObject.Range.FormatConditions.Delete
+    If (ActiveCell <> Empty Or ActiveCell <> vbNullString) And (ActiveCell.Offset(1, 0) <> Empty Or ActiveCell.Offset(1, 0) <> vbNullString) Then
+      Application.StatusBar = "Limpiando enfasis por favor espere..."
+      rng = Range("A5", Range("A5").End(xlDown)).Count - 2
+      DoEvents
+      Range("A5", Range("A5").Offset(rng, 0)).Select
+      Selection.EntireRow.Delete shift:=xlUp
+      Range("tbl_enfasis[[ENFASIS_1]:[OBSERVACIONES_AL_ENFASIS_1]]").ClearContents
+      Range("tbl_enfasis[[ENFASIS_2]:[OBSERVACIONES AL ENFASIS_2]]").ClearContents
+      Range("tbl_enfasis[[ENFASIS_3]:[OBSERVACIONES AL ENFASIS_3]]").ClearContents
+      Range("tbl_enfasis[[ENFASIS_4]:[OBSERVACIONES AL ENFASIS_4]]").ClearContents
+      Range("tbl_enfasis[[ENFASIS_5]:[OBSERVACIONES AL ENFASIS_5]]").ClearContents
+      Range("tbl_enfasis[[ENFASIS_6]:[OBSERVACIONES AL ENFASIS_6]]").ClearContents
+      Range("tbl_enfasis[[ENFASIS_7]:[OBSERVACIONES AL ENFASIS_7]]").ClearContents
+      Range("tbl_enfasis[[ENFASIS_8]:[OBSERVACIONES AL ENFASIS_8]]").ClearContents
+      Range("tbl_enfasis[[ENFASIS_9]:[OBSERVACIONES AL ENFASIS_9]]").ClearContents
+      Range("tbl_enfasis[[ENFASIS_10]:[OBSERVACIONES AL ENFASIS_10]]").ClearContents
+      Range("tbl_enfasis[[ENFASIS_11]:[OBSERVACIONES AL ENFASIS_11]]").ClearContents
+      Range("tbl_enfasis[[ENFASIS_12]:[OBSERVACIONES AL ENFASIS_12]]").ClearContents
+      Range("tbl_enfasis[[ENFASIS_13]:[OBSERVACIONES AL ENFASIS_13]]").ClearContents
+      Range("tbl_enfasis[[ENFASIS_14]:[OBSERVACIONES AL ENFASIS_14]]").ClearContents
+      Range("tbl_enfasis[[ENFASIS_15]:[OBSERVACIONES AL ENFASIS_15]]").ClearContents
+      Range("tbl_enfasis[[ENFASIS_16]:[OBSERVACIONES AL ENFASIS_16]]").ClearContents
+      Range("tbl_enfasis[[ENFASIS_17]:[OBSERVACIONES AL ENFASIS_17]]").ClearContents
+      Range("tbl_enfasis[[ENFASIS_18]:[OBSERVACIONES AL ENFASIS_18]]").ClearContents
+    End If
 
-        diag.Select
-        Range("A5").Select
-        Selection.ListObject.Range.FormatConditions.Delete
-        If (ActiveCell <> Empty Or ActiveCell <> vbNullString) And (ActiveCell.Offset(1, 0) <> Empty Or ActiveCell.Offset(1, 0) <> vbNullString) Then
-          Application.StatusBar = "Limpiando diagnosticos por favor espere..."
-          rng = Range("A5", Range("A5").End(xlDown)).Count - 2
-          DoEvents
-          Range("A5", Range("A5").Offset(rng, 0)).Select
-          Selection.EntireRow.Delete shift:=xlUp
-          Range("tbl_diagnosticos[[CODIGO DIAG PPAL]:[DIAG REL 20]]").ClearContents
-        End If
+    diag.Select
+    Range("A5").Select
+    Selection.ListObject.Range.FormatConditions.Delete
+    If (ActiveCell <> Empty Or ActiveCell <> vbNullString) And (ActiveCell.Offset(1, 0) <> Empty Or ActiveCell.Offset(1, 0) <> vbNullString) Then
+      Application.StatusBar = "Limpiando diagnosticos por favor espere..."
+      rng = Range("A5", Range("A5").End(xlDown)).Count - 2
+      DoEvents
+      Range("A5", Range("A5").Offset(rng, 0)).Select
+      Selection.EntireRow.Delete shift:=xlUp
+      Range("tbl_diagnosticos[[CODIGO DIAG PPAL]:[DIAG REL 20]]").ClearContents
+    End If
 
-        emo.Select
-        Range("A5").Select
-        Selection.ListObject.Range.FormatConditions.Delete
-        If (ActiveCell <> Empty Or ActiveCell <> vbNullString) And (ActiveCell.Offset(1, 0) <> Empty Or ActiveCell.Offset(1, 0) <> vbNullString) Then
-          Application.StatusBar = "Limpiando emo por favor espere..."
-          rng = Range("A5", Range("A5").End(xlDown)).Count - 2
-          DoEvents
-          Range("A5", Range("A5").Offset(rng, 0)).Select
-          Selection.EntireRow.Delete shift:=xlUp
-          ThisWorkbook.Worksheets("RUTAS").Range("$F$5") = CLngPtr(Trim(Range("$EL$5").value)) + 1
-        Else
-          ThisWorkbook.Worksheets("RUTAS").Range("$F$5") = CLngPtr(Trim(Range("$EL$5").value)) + 1
-        End If
+    emo.Select
+    Range("A5").Select
+    Selection.ListObject.Range.FormatConditions.Delete
+    If (ActiveCell <> Empty Or ActiveCell <> vbNullString) And (ActiveCell.Offset(1, 0) <> Empty Or ActiveCell.Offset(1, 0) <> vbNullString) Then
+      Application.StatusBar = "Limpiando emo por favor espere..."
+      rng = Range("A5", Range("A5").End(xlDown)).Count - 2
+      DoEvents
+      Range("A5", Range("A5").Offset(rng, 0)).Select
+      Selection.EntireRow.Delete shift:=xlUp
+      ThisWorkbook.Worksheets("RUTAS").Range("$F$5") = CLngPtr(Trim(Range("$EL$5").value)) + 1
+    Else
+      ThisWorkbook.Worksheets("RUTAS").Range("$F$5") = CLngPtr(Trim(Range("$EL$5").value)) + 1
+    End If
 
-        audio.Select
-        Range("A4").Select
-        Selection.ListObject.Range.FormatConditions.Delete
-        If (ActiveCell <> Empty Or ActiveCell <> vbNullString) And (ActiveCell.Offset(1, 0) <> Empty Or ActiveCell.Offset(1, 0) <> vbNullString) Then
-          Application.StatusBar = "Limpiando audio por favor espere..."
-          rng = Range("A4", Range("A4").End(xlDown)).Count - 2
-          DoEvents
-          Range("A4", Range("A4").Offset(rng, 0)).Select
-          Selection.EntireRow.Delete shift:=xlUp
-          ThisWorkbook.Worksheets("RUTAS").Range("$F$6") = CLngPtr(Trim(Range("$BG$4").value)) + 1
-        Else
-          ThisWorkbook.Worksheets("RUTAS").Range("$F$6") = CLngPtr(Trim(Range("$BG$4").value)) + 1
-        End If
+    audio.Select
+    Range("A4").Select
+    Selection.ListObject.Range.FormatConditions.Delete
+    If (ActiveCell <> Empty Or ActiveCell <> vbNullString) And (ActiveCell.Offset(1, 0) <> Empty Or ActiveCell.Offset(1, 0) <> vbNullString) Then
+      Application.StatusBar = "Limpiando audio por favor espere..."
+      rng = Range("A4", Range("A4").End(xlDown)).Count - 2
+      DoEvents
+      Range("A4", Range("A4").Offset(rng, 0)).Select
+      Selection.EntireRow.Delete shift:=xlUp
+      ThisWorkbook.Worksheets("RUTAS").Range("$F$6") = CLngPtr(Trim(Range("$BG$4").value)) + 1
+    Else
+      ThisWorkbook.Worksheets("RUTAS").Range("$F$6") = CLngPtr(Trim(Range("$BG$4").value)) + 1
+    End If
 
-        opto.Select
-        Range("A4").Select
-        Selection.ListObject.Range.FormatConditions.Delete
-        If (ActiveCell <> Empty Or ActiveCell <> vbNullString) And (ActiveCell.Offset(1, 0) <> Empty Or ActiveCell.Offset(1, 0) <> vbNullString) Then
-          Application.StatusBar = "Limpiando opto por favor espere..."
-          rng = Range("A4", Range("A4").End(xlDown)).Count - 2
-          DoEvents
-          Range("A4", Range("A4").Offset(rng, 0)).Select
-          Selection.EntireRow.Delete shift:=xlUp
-          ThisWorkbook.Worksheets("RUTAS").Range("$F$7") = CLngPtr(Trim(Range("$BL$4").value)) + 1
-          ThisWorkbook.Worksheets("RUTAS").Range("$F$8") = CLngPtr(Trim(Range("$BM$4").value)) + 1
-        Else
-          ThisWorkbook.Worksheets("RUTAS").Range("$F$7") = CLngPtr(Trim(Range("$BL$4").value)) + 1
-          ThisWorkbook.Worksheets("RUTAS").Range("$F$8") = CLngPtr(Trim(Range("$BM$4").value)) + 1
-        End If
+    opto.Select
+    Range("A4").Select
+    Selection.ListObject.Range.FormatConditions.Delete
+    If (ActiveCell <> Empty Or ActiveCell <> vbNullString) And (ActiveCell.Offset(1, 0) <> Empty Or ActiveCell.Offset(1, 0) <> vbNullString) Then
+      Application.StatusBar = "Limpiando opto por favor espere..."
+      rng = Range("A4", Range("A4").End(xlDown)).Count - 2
+      DoEvents
+      Range("A4", Range("A4").Offset(rng, 0)).Select
+      Selection.EntireRow.Delete shift:=xlUp
+      ThisWorkbook.Worksheets("RUTAS").Range("$F$7") = CLngPtr(Trim(Range("$BL$4").value)) + 1
+      ThisWorkbook.Worksheets("RUTAS").Range("$F$8") = CLngPtr(Trim(Range("$BM$4").value)) + 1
+    Else
+      ThisWorkbook.Worksheets("RUTAS").Range("$F$7") = CLngPtr(Trim(Range("$BL$4").value)) + 1
+      ThisWorkbook.Worksheets("RUTAS").Range("$F$8") = CLngPtr(Trim(Range("$BM$4").value)) + 1
+    End If
 
-        visio.Select
-        Range("A4").Select
-        Selection.ListObject.Range.FormatConditions.Delete
-        If (ActiveCell <> Empty Or ActiveCell <> vbNullString) And (ActiveCell.Offset(1, 0) <> Empty Or ActiveCell.Offset(1, 0) <> vbNullString) Then
-          Application.StatusBar = "Limpiando visio por favor espere..."
-          rng = Range("A4", Range("A4").End(xlDown)).Count - 2
-          DoEvents
-          Range("A4", Range("A4").Offset(rng, 0)).Select
-          Selection.EntireRow.Delete shift:=xlUp
-          ThisWorkbook.Worksheets("RUTAS").Range("$F$9") = CLngPtr(Trim(Range("$BS$4").value)) + 1
-        Else
-          ThisWorkbook.Worksheets("RUTAS").Range("$F$9") = CLngPtr(Trim(Range("$BS$4").value)) + 1
-        End If
+    visio.Select
+    Range("A4").Select
+    Selection.ListObject.Range.FormatConditions.Delete
+    If (ActiveCell <> Empty Or ActiveCell <> vbNullString) And (ActiveCell.Offset(1, 0) <> Empty Or ActiveCell.Offset(1, 0) <> vbNullString) Then
+      Application.StatusBar = "Limpiando visio por favor espere..."
+      rng = Range("A4", Range("A4").End(xlDown)).Count - 2
+      DoEvents
+      Range("A4", Range("A4").Offset(rng, 0)).Select
+      Selection.EntireRow.Delete shift:=xlUp
+      ThisWorkbook.Worksheets("RUTAS").Range("$F$9") = CLngPtr(Trim(Range("$BS$4").value)) + 1
+    Else
+      ThisWorkbook.Worksheets("RUTAS").Range("$F$9") = CLngPtr(Trim(Range("$BS$4").value)) + 1
+    End If
 
-        espiro.Select
-        Range("A4").Select
-        Selection.ListObject.Range.FormatConditions.Delete
-        If (ActiveCell <> Empty Or ActiveCell <> vbNullString) And (ActiveCell.Offset(1, 0) <> Empty Or ActiveCell.Offset(1, 0) <> vbNullString) Then
-          Application.StatusBar = "Limpiando espiro por favor espere..."
-          rng = Range("A4", Range("A4").End(xlDown)).Count - 2
-          DoEvents
-          Range("A4", Range("A4").Offset(rng, 0)).Select
-          Selection.EntireRow.Delete shift:=xlUp
-          ThisWorkbook.Worksheets("RUTAS").Range("$F$10") = CLngPtr(Trim(Range("$BZ$4").value)) + 1
-        Else
-          ThisWorkbook.Worksheets("RUTAS").Range("$F$10") = CLngPtr(Trim(Range("$BZ$4").value)) + 1
-        End If
+    espiro.Select
+    Range("A4").Select
+    Selection.ListObject.Range.FormatConditions.Delete
+    If (ActiveCell <> Empty Or ActiveCell <> vbNullString) And (ActiveCell.Offset(1, 0) <> Empty Or ActiveCell.Offset(1, 0) <> vbNullString) Then
+      Application.StatusBar = "Limpiando espiro por favor espere..."
+      rng = Range("A4", Range("A4").End(xlDown)).Count - 2
+      DoEvents
+      Range("A4", Range("A4").Offset(rng, 0)).Select
+      Selection.EntireRow.Delete shift:=xlUp
+      ThisWorkbook.Worksheets("RUTAS").Range("$F$10") = CLngPtr(Trim(Range("$BZ$4").value)) + 1
+    Else
+      ThisWorkbook.Worksheets("RUTAS").Range("$F$10") = CLngPtr(Trim(Range("$BZ$4").value)) + 1
+    End If
 
-        osteo.Select
-        Range("A4").Select
-        Selection.ListObject.Range.FormatConditions.Delete
-        If (ActiveCell <> Empty Or ActiveCell <> vbNullString) And (ActiveCell.Offset(1, 0) <> Empty Or ActiveCell.Offset(1, 0) <> vbNullString) Then
-          Application.StatusBar = "Limpiando osteo por favor espere..."
-          rng = Range("A4", Range("A4").End(xlDown)).Count - 2
-          DoEvents
-          Range("A4", Range("A4").Offset(rng, 0)).Select
-          Selection.EntireRow.Delete shift:=xlUp
-          ThisWorkbook.Worksheets("RUTAS").Range("$F$11") = CLngPtr(Trim(Range("$BG$4").value)) + 1
-        Else
-          ThisWorkbook.Worksheets("RUTAS").Range("$F$11") = CLngPtr(Trim(Range("$BG$4").value)) + 1
-        End If
+    osteo.Select
+    Range("A4").Select
+    Selection.ListObject.Range.FormatConditions.Delete
+    If (ActiveCell <> Empty Or ActiveCell <> vbNullString) And (ActiveCell.Offset(1, 0) <> Empty Or ActiveCell.Offset(1, 0) <> vbNullString) Then
+      Application.StatusBar = "Limpiando osteo por favor espere..."
+      rng = Range("A4", Range("A4").End(xlDown)).Count - 2
+      DoEvents
+      Range("A4", Range("A4").Offset(rng, 0)).Select
+      Selection.EntireRow.Delete shift:=xlUp
+      ThisWorkbook.Worksheets("RUTAS").Range("$F$11") = CLngPtr(Trim(Range("$BG$4").value)) + 1
+    Else
+      ThisWorkbook.Worksheets("RUTAS").Range("$F$11") = CLngPtr(Trim(Range("$BG$4").value)) + 1
+    End If
 
-        complementarios.Select
-        Range("A4").Select
-        Selection.ListObject.Range.FormatConditions.Delete
-        If (ActiveCell <> Empty Or ActiveCell <> vbNullString) And (ActiveCell.Offset(1, 0) <> Empty Or ActiveCell.Offset(1, 0) <> vbNullString) Then
-          Application.StatusBar = "Limpiando complementarios por favor espere..."
-          rng = Range("A4", Range("A4").End(xlDown)).Count - 2
-          DoEvents
-          Range("A4", Range("A4").Offset(rng, 0)).Select
-          Selection.EntireRow.Delete shift:=xlUp
-          ThisWorkbook.Worksheets("RUTAS").Range("$F$12") = CLngPtr(Trim(Range("$J$4").value)) + 1
-        Else
-          ThisWorkbook.Worksheets("RUTAS").Range("$F$12") = CLngPtr(Trim(Range("$J$4").value)) + 1
-        End If
+    complementarios.Select
+    Range("A4").Select
+    Selection.ListObject.Range.FormatConditions.Delete
+    If (ActiveCell <> Empty Or ActiveCell <> vbNullString) And (ActiveCell.Offset(1, 0) <> Empty Or ActiveCell.Offset(1, 0) <> vbNullString) Then
+      Application.StatusBar = "Limpiando complementarios por favor espere..."
+      rng = Range("A4", Range("A4").End(xlDown)).Count - 2
+      DoEvents
+      Range("A4", Range("A4").Offset(rng, 0)).Select
+      Selection.EntireRow.Delete shift:=xlUp
+      ThisWorkbook.Worksheets("RUTAS").Range("$F$12") = CLngPtr(Trim(Range("$J$4").value)) + 1
+    Else
+      ThisWorkbook.Worksheets("RUTAS").Range("$F$12") = CLngPtr(Trim(Range("$J$4").value)) + 1
+    End If
 
-        psicotecnica.Select
-        Range("A2").Select
-        Selection.ListObject.Range.FormatConditions.Delete
-        If (ActiveCell <> Empty Or ActiveCell <> vbNullString) And (ActiveCell.Offset(1, 0) <> Empty Or ActiveCell.Offset(1, 0) <> vbNullString) Then
-          Application.StatusBar = "Limpiando psicotecnica por favor espere..."
-          rng = Range("A2", Range("A2").End(xlDown)).Count - 2
-          DoEvents
-          Range("A2", Range("A2").Offset(rng, 0)).Select
-          Selection.EntireRow.Delete shift:=xlUp
-          ThisWorkbook.Worksheets("RUTAS").Range("$F$13") = CLngPtr(Trim(Range("$G$2").value)) + 1
-        Else
-          ThisWorkbook.Worksheets("RUTAS").Range("$F$13") = CLngPtr(Trim(Range("$G$2").value)) + 1
-        End If
+    psicotecnica.Select
+    Range("A2").Select
+    Selection.ListObject.Range.FormatConditions.Delete
+    If (ActiveCell <> Empty Or ActiveCell <> vbNullString) And (ActiveCell.Offset(1, 0) <> Empty Or ActiveCell.Offset(1, 0) <> vbNullString) Then
+      Application.StatusBar = "Limpiando psicotecnica por favor espere..."
+      rng = Range("A2", Range("A2").End(xlDown)).Count - 2
+      DoEvents
+      Range("A2", Range("A2").Offset(rng, 0)).Select
+      Selection.EntireRow.Delete shift:=xlUp
+      ThisWorkbook.Worksheets("RUTAS").Range("$F$13") = CLngPtr(Trim(Range("$G$2").value)) + 1
+    Else
+      ThisWorkbook.Worksheets("RUTAS").Range("$F$13") = CLngPtr(Trim(Range("$G$2").value)) + 1
+    End If
 
-        psicosensometrica.Select
-        Range("A3").Select
-        Selection.ListObject.Range.FormatConditions.Delete
-        If (ActiveCell <> Empty Or ActiveCell <> vbNullString) And (ActiveCell.Offset(1, 0) <> Empty Or ActiveCell.Offset(1, 0) <> vbNullString) Then
-          Application.StatusBar = "Limpiando psicosensometrica por favor espere..."
-          rng = Range("A3", Range("A3").End(xlDown)).Count - 2
-          DoEvents
-          Range("A3", Range("A3").Offset(rng, 0)).Select
-          Selection.EntireRow.Delete shift:=xlUp
-          ThisWorkbook.Worksheets("RUTAS").Range("$F$14") = CLngPtr(Trim(Range("$Q$3").value)) + 1
-        Else
-          ThisWorkbook.Worksheets("RUTAS").Range("$F$14") = CLngPtr(Trim(Range("$Q$3").value)) + 1
-        End If
+    psicosensometrica.Select
+    Range("A3").Select
+    Selection.ListObject.Range.FormatConditions.Delete
+    If (ActiveCell <> Empty Or ActiveCell <> vbNullString) And (ActiveCell.Offset(1, 0) <> Empty Or ActiveCell.Offset(1, 0) <> vbNullString) Then
+      Application.StatusBar = "Limpiando psicosensometrica por favor espere..."
+      rng = Range("A3", Range("A3").End(xlDown)).Count - 2
+      DoEvents
+      Range("A3", Range("A3").Offset(rng, 0)).Select
+      Selection.EntireRow.Delete shift:=xlUp
+      ThisWorkbook.Worksheets("RUTAS").Range("$F$14") = CLngPtr(Trim(Range("$Q$3").value)) + 1
+    Else
+      ThisWorkbook.Worksheets("RUTAS").Range("$F$14") = CLngPtr(Trim(Range("$Q$3").value)) + 1
+    End If
 
-        Application.ActiveWorkbook.SaveCopyAs Filename:=route & "\" & Application.ActiveWorkbook.Name
-        Application.StatusBar = Empty
-        Application.ScreenUpdating = True
-        Application.Calculation = xlCalculationAutomatic
-        Application.EnableEvents = True
+    Application.ActiveWorkbook.SaveCopyAs Filename:=route & "\" & Application.ActiveWorkbook.Name
+    Application.StatusBar = Empty
+    Application.ScreenUpdating = True
+    Application.Calculation = xlCalculationAutomatic
+    Application.EnableEvents = True
 
-        MsgBox "Almacenamiento terminado", vbOKOnly + vbInformation, "Almacenamiento"
-      Else
+    MsgBox "Almacenamiento terminado", vbOKOnly + vbInformation, "Almacenamiento"
+  Else
 
-        MsgBox "No hay datos para almacenar", vbOKOnly + vbInformation, "Almacenamiento"
+    MsgBox "No hay datos para almacenar", vbOKOnly + vbInformation, "Almacenamiento"
 
-      End If
+  End If
 
-      Call statusDesactivate(trabajadores.Name)
-      Call statusDesactivate(emo.Name)
-      Call statusDesactivate(audio.Name)
-      Call statusDesactivate(visio.Name)
-      Call statusDesactivate(opto.Name)
-      Call statusDesactivate(espiro.Name)
-      Call statusDesactivate(osteo.Name)
-      Call statusDesactivate(complementarios.Name)
-      Call statusDesactivate(psicotecnica.Name)
-      Call statusDesactivate(psicosensometrica.Name)
+  Call statusDesactivate(trabajadores.Name)
+  Call statusDesactivate(emo.Name)
+  Call statusDesactivate(audio.Name)
+  Call statusDesactivate(visio.Name)
+  Call statusDesactivate(opto.Name)
+  Call statusDesactivate(espiro.Name)
+  Call statusDesactivate(osteo.Name)
+  Call statusDesactivate(complementarios.Name)
+  Call statusDesactivate(psicotecnica.Name)
+  Call statusDesactivate(psicosensometrica.Name)
 
-      trabajadores.Select
-      Range("A5").Select
+  trabajadores.Select
+  Range("A5").Select
 
 End Sub
 
@@ -374,7 +385,7 @@ End Sub
 
 Sub AddRecordToGoogleSheet(ByVal Company as String, ByVal sigad as String, ByVal orden as Integer, ByVal patience as Integer, ByVal libro As Variant, ByVal bookNow as String)
 
-  '' ya funciona usa el token oAuth2
+  '' ya funciona usa el token oAuth2 ''
 
   Dim HttpReq As Variant
   Dim Json As Object
@@ -472,8 +483,8 @@ Sub ExportSQL()
     If ActiveWorkbook.Sheets(sh.Name).Tab.ThemeColor = xlThemeColorAccent1 Then
       Select Case Trim(Ucase(sh.Name))
        Case "TRABAJADORES"
-        ' orden lista trabajadores
-        num = isEmptyValue(range("tbl_trabajadores[[SCRIPT orden_lista_trabajadores]]")) 
+        '' orden lista trabajadores
+        num = isEmptyValue(range("tbl_trabajadores[[SCRIPT orden_lista_trabajadores]]"))
         If ( num > 0) Then
           MyFile.WriteLine "INSERT INTO orden_lista_trabajadores (`id`, `id_orden`, `estado`, `cedula`, `nombre`, `telefono`, `registro`, `ciudad_id`, `empresa_id`, `digitador_id`, `fecha_ingreso`, `id_cargo`, `fuente`, `edad`, `genero`, `estrato`, `id_raza`, `id_estado_civil`, `hijos`, `id_escolaridad`, `rango_edad`, `duracion`, `antiguedad`, `created_at`, `updated_at`, `id_tipo_actividad`, `id_tipo_examen`) VALUES"
           For Each Item In range("tbl_trabajadores[[SCRIPT orden_lista_trabajadores]]")
@@ -487,8 +498,8 @@ Sub ExportSQL()
           Next Item
         End If
 
-        ' paraclinicos
-        num = isEmptyValue(range("tbl_trabajadores[[SCRIPT ordenes_trabajador_paraclinicos]]")) 
+        '' paraclinicos
+        num = isEmptyValue(range("tbl_trabajadores[[SCRIPT ordenes_trabajador_paraclinicos]]"))
         If ( num > 0) Then
           MyFile.WriteLine ""
           MyFile.WriteLine "INSERT INTO ordenes_trabajador_paraclinicos (`id_orden_trabajador`, `id_paraclinico`, `estado`) VALUES"
@@ -503,8 +514,8 @@ Sub ExportSQL()
           Next Item
         End If
        Case "EMO"
-        ' ics_emo
-        num = isEmptyValue(range("tbl_emo[[SCRIPT ics_emo]]")) 
+        '' ics_emo
+        num = isEmptyValue(range("tbl_emo[[SCRIPT ics_emo]]"))
         If ( num > 0) Then
           MyFile.WriteLine ""
           MyFile.WriteLine "INSERT INTO ics_emo (`id`, `id_orden_lista_trabajadores`, `id_concepto_evaluacion`, `observaciones`, `accidente_laboral`, `enfermedad_laboral`, `fecha_accidente`, `empresa`, `naturaleza_lesion`, `tipo_accidente`, `parte_afectada`, `dias_incapacidad`, `secuelas`, `enfermedad`, `etapa`, `observaciones_enfermedad`, `actividad_fisica`, `fuma`, `consumo_alcohol`, `peso`, `talla`, `tension_arterial`, `frecuencia_cardiaca`, `perimetro_abominal`, `lateralidad`, `frecuencia_respiratoria`, `imc2`, `clasificacion_imc`, `observacion_recomendacion`, `observacion_diagnostico`) VALUES"
@@ -519,7 +530,7 @@ Sub ExportSQL()
           Next Item
         End If
 
-        ' ics_emo_riesgos
+        '' ics_emo_riesgos
         num = isEmptyValue(range("tbl_emo[[SCRIPT ics_emo_riesgos]]"))
         If ( num > 0) Then
           MyFile.WriteLine ""
@@ -535,7 +546,7 @@ Sub ExportSQL()
           Next Item
         End If
 
-        ' ics_condiciones
+        '' ics_condiciones
         num = isEmptyValue(range("tbl_emo[[SCRIPT ics_condiciones]]"))
         If ( num > 0) Then
           MyFile.WriteLine ""
@@ -551,7 +562,7 @@ Sub ExportSQL()
           Next Item
         End If
 
-        ' ics_cie (diagnosticos)
+        '' ics_cie (diagnosticos)
         num = isEmptyValue(range("tbl_emo[[script ics_cie (diagnosticos)]]"))
         If ( num > 0) Then
           MyFile.WriteLine ""
@@ -567,7 +578,7 @@ Sub ExportSQL()
           Next Item
         End If
 
-        ' ics_enfasis
+        '' ics_enfasis
         num = isEmptyValue(range("tbl_emo[[SCRIPT ics_enfasis]]"))
         If ( num > 0) Then
           MyFile.WriteLine ""
@@ -584,8 +595,8 @@ Sub ExportSQL()
         End If
 
        Case "AUDIO"
-        ' au_audiometria
-        num = isEmptyValue(range("tbl_audio[[SCRIPT au_audiometria]]")) 
+        '' au_audiometria
+        num = isEmptyValue(range("tbl_audio[[SCRIPT au_audiometria]]"))
         If ( num > 0) Then
           MyFile.WriteLine ""
           MyFile.WriteLine "INSERT INTO au_audiometria (`id`, `emo_id`, `auditivo`, `auditivo_copa`, `auditivo_insercion`, `auditivo_doble`, `diagnostico_interno`, `diagnostico_ppal`, `diagnostico_gati`, `status_obs`) VALUES"
@@ -600,7 +611,7 @@ Sub ExportSQL()
           Next Item
         End If
 
-        ' au_audiometria_recomendacion
+        '' au_audiometria_recomendacion
         num = isEmptyValue(range("tbl_audio[[SCRIPT au_audiometria_recomendacion]]"))
         If ( num > 0) Then
           MyFile.WriteLine ""
@@ -616,7 +627,7 @@ Sub ExportSQL()
           Next Item
         End If
 
-        ' au_oido
+        '' au_oido
         num = isEmptyValue(range("tbl_audio[[SCRIPT au_oido]]"))
         If ( num > 0) Then
           MyFile.WriteLine ""
@@ -633,7 +644,7 @@ Sub ExportSQL()
         End If
 
        Case "OPTO"
-        ' op_optometria
+        '' op_optometria
         num = isEmptyValue(range("tbl_opto[[SCRIPT op_optometria]]"))
         If ( num > 0) Then
           MyFile.WriteLine ""
@@ -649,7 +660,7 @@ Sub ExportSQL()
           Next Item
         End If
 
-        ' op_optometria_riesgos
+        '' op_optometria_riesgos
         num = isEmptyValue(range("tbl_opto[[SCRIPT op_optometria_riesgos]]"))
         If ( num > 0) Then
           MyFile.WriteLine ""
@@ -665,7 +676,7 @@ Sub ExportSQL()
           Next Item
         End If
 
-        ' op_optometria_sintomas
+        '' op_optometria_sintomas
         num = isEmptyValue(range("tbl_opto[[SCRIPT op_optometria_sintomas]]"))
         If ( num > 0) Then
           MyFile.WriteLine ""
@@ -681,7 +692,7 @@ Sub ExportSQL()
           Next Item
         End If
 
-        ' op_diagnostico
+        '' op_diagnostico
         num = isEmptyValue(range("tbl_opto[[SCRIPT op_diagnostico]]"))
         If ( num > 0) Then
           MyFile.WriteLine ""
@@ -697,7 +708,7 @@ Sub ExportSQL()
           Next Item
         End If
 
-        ' op_diagnostico_cie
+        '' op_diagnostico_cie
         num = isEmptyValue(range("tbl_opto[[SCRIPT op_diagnostico_cie]]"))
         If ( num > 0) Then
           MyFile.WriteLine ""
@@ -713,7 +724,7 @@ Sub ExportSQL()
           Next Item
         End If
 
-        ' op_optometria_recomendacion
+        '' op_optometria_recomendacion
         num = isEmptyValue(range("tbl_opto[[SCRIPT op_optometria_recomendacion]]"))
         If ( num > 0) Then
           MyFile.WriteLine ""
@@ -729,7 +740,7 @@ Sub ExportSQL()
           Next Item
         End If
 
-        ' op_optometria_remision
+        '' op_optometria_remision
         num = isEmptyValue(range("tbl_opto[[SCRIPT op_optometria_remision]]"))
         If ( num > 0) Then
           MyFile.WriteLine ""
@@ -746,7 +757,7 @@ Sub ExportSQL()
         End If
 
        Case "VISIO"
-        ' vi_visiometria
+        '' vi_visiometria
         num = isEmptyValue(range("tbl_visio[[SCRIPT vi_visiometria]]"))
         If ( num > 0) Then
           MyFile.WriteLine ""
@@ -762,7 +773,7 @@ Sub ExportSQL()
           Next Item
         End If
 
-        ' vi_visiometria_antecedentes
+        '' vi_visiometria_antecedentes
         num = isEmptyValue(range("tbl_visio[[SCRIPT vi_visiometria_antecedentes]]"))
         If ( num > 0) Then
           MyFile.WriteLine ""
@@ -778,7 +789,7 @@ Sub ExportSQL()
           Next Item
         End If
 
-        ' vi_visiometria_sintomas
+        '' vi_visiometria_sintomas
         num = isEmptyValue(range("tbl_visio[[SCRIPT vi_visiometria_sintomas]]"))
         If ( num > 0) Then
           MyFile.WriteLine ""
@@ -794,7 +805,7 @@ Sub ExportSQL()
           Next Item
         End If
 
-        ' vi_vl
+        '' vi_vl
         num = isEmptyValue(range("tbl_visio[[SCRIPT vi_vl]]"))
         If ( num > 0) Then
           MyFile.WriteLine ""
@@ -810,7 +821,7 @@ Sub ExportSQL()
           Next Item
         End If
 
-        ' vi_vp
+        '' vi_vp
         num = isEmptyValue(range("tbl_visio[[SCRIPT vi_vp]]"))
         If ( num > 0) Then
           MyFile.WriteLine ""
@@ -826,7 +837,7 @@ Sub ExportSQL()
           Next Item
         End If
 
-        ' vi_visiometria_recomendaciones
+        '' vi_visiometria_recomendaciones
         num = isEmptyValue(range("tbl_visio[[SCRIPT vi_visiometria_recomendaciones]]"))
         If ( num > 0) Then
           MyFile.WriteLine ""
@@ -842,7 +853,7 @@ Sub ExportSQL()
           Next Item
         End If
 
-        ' vi_visiometria_remisiones
+        '' vi_visiometria_remisiones
         num = isEmptyValue(range("tbl_visio[[SCRIPT vi_visiometria_remisiones]]"))
         If ( num > 0) Then
           MyFile.WriteLine ""
@@ -859,7 +870,7 @@ Sub ExportSQL()
         End If
 
        Case "ESPIRO"
-        ' espirometria
+        '' espirometria
         num = isEmptyValue(range("tbl_espiro_info[[SCRIPT espirometria]]"))
         If ( num > 0) Then
           MyFile.WriteLine ""
@@ -875,7 +886,7 @@ Sub ExportSQL()
           Next Item
         End If
 
-        ' espiro_antecedentes_pivot
+        '' espiro_antecedentes_pivot
         num = isEmptyValue(range("tbl_espiro_info[[SCRIPT espiro_antecedentes_pivot]]"))
         If ( num > 0) Then
           MyFile.WriteLine ""
@@ -891,7 +902,7 @@ Sub ExportSQL()
           Next Item
         End If
 
-        ' espiro_quimicos_pivot
+        '' espiro_quimicos_pivot
         num = isEmptyValue(range("tbl_espiro_info[[SCRIPT espiro_quimicos_pivot]]"))
         If ( num > 0) Then
           MyFile.WriteLine ""
@@ -907,7 +918,7 @@ Sub ExportSQL()
           Next Item
         End If
 
-        ' espiro_riesgos_epp
+        '' espiro_riesgos_epp
         num = isEmptyValue(range("tbl_espiro_info[[SCRIPT espiro_riesgos_epp]]"))
         If ( num > 0) Then
           MyFile.WriteLine ""
@@ -923,7 +934,7 @@ Sub ExportSQL()
           Next Item
         End If
 
-        ' espiro_recomendaciones_pivot
+        '' espiro_recomendaciones_pivot
         num = isEmptyValue(range("tbl_espiro_info[[SCRIPT espiro_recomendaciones_pivot]]"))
         If ( num > 0) Then
           MyFile.WriteLine ""
@@ -939,7 +950,7 @@ Sub ExportSQL()
           Next Item
         End If
 
-        ' espiro_recomendaciones_lab_pivot
+        '' espiro_recomendaciones_lab_pivot
         num = isEmptyValue(range("tbl_espiro_info[[SCRIPT espiro_recomendaciones_lab_pivot]]"))
         If ( num > 0) Then
           MyFile.WriteLine ""
@@ -956,7 +967,7 @@ Sub ExportSQL()
         End If
 
        Case "OSTEO"
-        ' osteomuscular
+        '' osteomuscular
         num = isEmptyValue(range("tbl_osteo[[SCRIPT osteomuscular]]"))
         If ( num > 0) Then
           MyFile.WriteLine ""
@@ -972,7 +983,7 @@ Sub ExportSQL()
           Next Item
         End If
 
-        ' osteo_antecedentes_pivot
+        '' osteo_antecedentes_pivot
         num = isEmptyValue(range("tbl_osteo[[SCRIPT osteo_antecedentes_pivot]]"))
         If ( num > 0) Then
           MyFile.WriteLine ""
@@ -988,7 +999,7 @@ Sub ExportSQL()
           Next Item
         End If
 
-        ' osteo_cie_pivot
+        '' osteo_cie_pivot
         num = isEmptyValue(range("tbl_osteo[[SCRIPT osteo_cie_pivot]]"))
         If ( num > 0) Then
           MyFile.WriteLine ""
@@ -1004,7 +1015,7 @@ Sub ExportSQL()
           Next Item
         End If
 
-        ' osteo_recomendaciones_pivot
+        '' osteo_recomendaciones_pivot
         num = isEmptyValue(range("tbl_osteo[[SCRIPT osteo_recomendaciones_pivot]]"))
         If ( num > 0) Then
           MyFile.WriteLine ""
@@ -1021,7 +1032,7 @@ Sub ExportSQL()
         End If
 
        Case "COMPLEMENTARIOS","COMPLEMENTARIO"
-        ' complementarios
+        '' complementarios
         num = isEmptyValue(range("tbl_complementarios[[SCRIPT complementarios]]"))
         If ( num > 0) Then
           MyFile.WriteLine ""
@@ -1037,7 +1048,7 @@ Sub ExportSQL()
           Next Item
         End If
 
-        ' complementarios_diagnos_observaciones_pivot
+        '' complementarios_diagnos_observaciones_pivot
         num = isEmptyValue(range("tbl_complementarios[[SCRIPT complementarios_diagnos_observaciones_pivot]]"))
         If ( num > 0) Then
           MyFile.WriteLine ""
@@ -1054,7 +1065,7 @@ Sub ExportSQL()
         End If
 
        Case "PSICOTECNICA","PSICOLOGIA"
-        ' psicotecnica
+        '' psicotecnica
         num = isEmptyValue(range("tbl_psicotecnica[[SCRIPT psicotecnica]]"))
         If ( num > 0) Then
           MyFile.WriteLine ""
@@ -1071,7 +1082,7 @@ Sub ExportSQL()
         End If
 
        Case "PSICOSENSOMETRICA","PSICOMOTRIZ"
-        ' psicosensometrica
+        '' psicosensometrica
         num = isEmptyValue(range("tbl_psicosensometrica[[SCRIPT psicosensometrica]]"))
         If ( num > 0) Then
           MyFile.WriteLine ""
@@ -1087,7 +1098,7 @@ Sub ExportSQL()
           Next Item
         End If
 
-        ' psicosenso_diagnos_observaciones_pivot
+        '' psicosenso_diagnos_observaciones_pivot
         num = isEmptyValue(range("tbl_psicosensometrica[[SCRIPT psicosenso_diagnos_observaciones_pivot]]"))
         If ( num > 0) Then
           MyFile.WriteLine ""
@@ -1103,7 +1114,7 @@ Sub ExportSQL()
           Next Item
         End If
 
-        ' psicosensometricas_recomendaciones_pivot
+        '' psicosensometricas_recomendaciones_pivot
         num = isEmptyValue(range("tbl_psicosensometrica[[SCRIPT psicosensometricas_recomendaciones_pivot]]"))
         If ( num > 0) Then
           MyFile.WriteLine ""
@@ -1129,12 +1140,14 @@ End Sub
 Public Function isEmptyValue(ByVal Ranges As Object) As Integer
   Dim num As Integer
   Dim Item As Variant
-  
+
   num = 0
   For Each Item In Ranges
-    If (Item <> "") Then: num = num + 1
-  Next Item 
+    If (Item <> "") Then
+      num = num + 1
+    End If
+  Next Item
   isEmptyValue = num
-  
+
 End Function
 
