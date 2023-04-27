@@ -3,12 +3,12 @@ Option Explicit
 Public sigad As Variant
 Public trabajadores As Worksheet, emo As Worksheet, audio As Worksheet, visio As Worksheet, opto As Worksheet, espiro As Worksheet, osteo As Worksheet, complementarios As Worksheet, psicotecnica As Worksheet, psicosensometrica As Worksheet, enfasis As Worksheet, diag As Worksheet
 
-Sub cargos()
+Public Sub cargos()
   Attribute cargos.VB_ProcData.VB_Invoke_Func = "k\n14"
   Workbooks.Open (ThisWorkbook.Worksheets("RUTAS").Range("C7").value)
 End Sub
 
-Sub folder(route, folderName, workbookActive, YearNow, MonthNow)
+Public Sub folder(route, folderName, workbookActive, YearNow, MonthNow)
   Dim splitRoute As String
   splitRoute = Application.PathSeparator
 
@@ -32,7 +32,7 @@ Sub folder(route, folderName, workbookActive, YearNow, MonthNow)
   End If
 End Sub
 
-Sub clearContents()
+Public Sub clearContents()
 
   Dim rng As Integer, info As Integer, rngTrabajadores As Integer, rngEmo As Integer, rngAudio As Integer, rngVisio As Integer, rngOpto As Integer, rngEspiro As Integer, rngOsteo As Integer, rngComplementarios As Integer, rngPsicotecnica As Integer, rngPsicosensometrica As Integer, rngEnfasis As Integer, rngDiag As Integer, MyDay As Integer, MyMonth As Integer, MyYear As Integer
   Dim meses As Variant, finalRow As Variant, libro As Variant, RowActive As Variant
@@ -332,7 +332,7 @@ Sub clearContents()
 
 End Sub
 
-Sub Modification()
+Public Sub Modification()
 
   Dim consolidado As Object, libro As String, esLibro As Object
   Dim dateSmall As Date
@@ -383,7 +383,7 @@ Sub Modification()
   End If
 End Sub
 
-Sub AddRecordToGoogleSheet(ByVal Company as String, ByVal sigad as String, ByVal orden as Integer, ByVal patience as Integer, ByVal libro As Variant, ByVal bookNow as String)
+Public Sub AddRecordToGoogleSheet(ByVal Company as String, ByVal sigad as String, ByVal orden as Integer, ByVal patience as Integer, ByVal libro As Variant, ByVal bookNow as String)
 
   '' ya funciona usa el token oAuth2 ''
 
@@ -422,7 +422,7 @@ Sub AddRecordToGoogleSheet(ByVal Company as String, ByVal sigad as String, ByVal
   End If
 End Sub
 
-Sub UpdateGoogleSheetRecord(ByVal rowData As Integer, ByVal textModify As String)
+Public Sub UpdateGoogleSheetRecord(ByVal rowData As Integer, ByVal textModify As String)
 
   Dim sheetId As String, accessToken As String
   sheetId = "126vzNrB3mA-g-61ccgNyAz-ukhIIqg_Yn3JxzQljC5o"
@@ -457,7 +457,7 @@ Sub UpdateGoogleSheetRecord(ByVal rowData As Integer, ByVal textModify As String
 
 End Sub
 
-Sub ExportSQL()
+Public Sub ExportSQL()
 
   Dim origin As Workbook
   Dim comple_origin As Worksheet, worker_origin As Worksheet, osteo_origin As Worksheet, senso_origin As Worksheet, psico_origin As Worksheet, visio_origin As Worksheet, espiro_origin As Worksheet, opto_origin As Worksheet, audio_origin As Worksheet, emo_origin As Worksheet
@@ -1150,4 +1150,3 @@ Public Function isEmptyValue(ByVal Ranges As Object) As Integer
   isEmptyValue = num
 
 End Function
-

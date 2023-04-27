@@ -1,7 +1,7 @@
 Attribute VB_Name = "DataAudio"
 Option Explicit
 
-Sub AudioData()
+Public Sub AudioData()
 
   Dim audio_destiny_dictionary As Scripting.Dictionary
   Dim audio_origin_dictionary As Scripting.Dictionary

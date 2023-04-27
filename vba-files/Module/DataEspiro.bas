@@ -1,7 +1,7 @@
 Attribute VB_Name = "DataEspiro"
 Option Explicit
 
-Sub EspiroData()
+Public Sub EspiroData()
   Dim espiro_destiny_dictionary As Scripting.Dictionary
   Dim espiro_origin_dictionary As Scripting.Dictionary
   Dim espiro_destiny_header As Object, espiro_origin_header As Object, espiro_origin_value As Object

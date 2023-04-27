@@ -1,7 +1,7 @@
 Attribute VB_Name = "DataOsteo"
 Option Explicit
 
-Sub OsteoData()
+Public Sub OsteoData()
   Dim osteo_destiny_dictionary As Scripting.Dictionary
   Dim osteo_origin_dictionary As Scripting.Dictionary
   Dim osteo_destiny_header As Object, osteo_origin_header As Object, osteo_origin_value As Object

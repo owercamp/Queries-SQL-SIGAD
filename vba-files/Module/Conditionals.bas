@@ -1,6 +1,6 @@
 Attribute VB_Name = "Conditionals"
 
-Sub dataDuplicate()
+Public Sub dataDuplicate()
 
   Range(Selection, Selection.End(xlDown)).Select
   Selection.FormatConditions.AddUniqueValues
@@ -21,7 +21,7 @@ Sub dataDuplicate()
 
 End Sub
 
-Sub iqualCero()
+Public Sub iqualCero()
 
   Range(Selection, Selection.End(xlDown)).Select
   Select Case Trim(UCase(ActiveSheet.Name))
@@ -52,7 +52,7 @@ Sub iqualCero()
 
 End Sub
 
-Sub meetsfails()
+Public Sub meetsfails()
 
   Range(Selection, Selection.End(xlDown)).Select
   Selection.FormatConditions.Add Type:=xlExpression, Formula1:= _
@@ -73,7 +73,7 @@ Sub meetsfails()
 
 End Sub
 
-Sub Risk()
+Public Sub Risk()
 
   Range(Selection, Selection.End(xlDown)).Select
   Selection.FormatConditions.Add Type:=xlExpression, Formula1:= _
@@ -94,7 +94,7 @@ Sub Risk()
 
 End Sub
 
-Sub riskPre_ingreso()
+Public Sub riskPre_ingreso()
 
   Range(Selection, Selection.End(xlDown)).Select
   Selection.FormatConditions.Add Type:=xlExpression, Formula1:= _
@@ -115,14 +115,14 @@ Sub riskPre_ingreso()
 
 End Sub
 
-Sub formatter()
+Public Sub formatter()
 
   Selection.NumberFormat = "0"
   Selection.RowHeight = 40
 
 End Sub
 
-Sub greaterThanOne()
+Public Sub greaterThanOne()
 
   Range(Selection, Selection.End(xlDown)).Select
   Select Case Trim(UCase(ActiveSheet.Name))
@@ -153,7 +153,7 @@ Sub greaterThanOne()
 
 End Sub
 
-Sub thisText()
+Public Sub thisText()
 
   Range(Selection, Selection.End(xlDown)).Select
   Selection.FormatConditions.Add Type:=xlExpression, Formula1:= _
@@ -174,7 +174,7 @@ Sub thisText()
 
 End Sub
 
-Sub thisEgreso()
+Public Sub thisEgreso()
 
   Range(Selection, Selection.End(xlDown)).Select
   Selection.FormatConditions.Add Type:=xlExpression, Formula1:= _

@@ -1,7 +1,7 @@
 Attribute VB_Name = "DataPsicotecnica"
 Option Explicit
 
-Sub PsicotecnicaData()
+Public Sub PsicotecnicaData()
   Dim psicotecnica_destiny_dictionary As Scripting.Dictionary
   Dim psicotecnica_origin_dictionary As Scripting.Dictionary
   Dim psicotecnica_destiny_header As Object, psicotecnica_origin_header As Object, psicotecnica_origin_value As Object

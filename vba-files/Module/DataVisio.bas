@@ -1,7 +1,7 @@
 Attribute VB_Name = "DataVisio"
 Option Explicit
 
-Sub VisioData()
+Public Sub VisioData()
 
   Dim visio_destiny_dictionary As Scripting.Dictionary
   Dim visio_origin_dictionary As Scripting.Dictionary

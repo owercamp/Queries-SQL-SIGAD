@@ -31,7 +31,7 @@ End Function
 '' VALIDACION CIUDAD ''
 Public Function city(ByVal value As String) As String
   Select Case value
-   Case "BOGOTA", "BOGOTA, D.C.", "BOGOT" & Chr(193) & ", D.C.", "BOGOTA, D.C", "BOGOTA D.C","BOGOT"& Chr(193), "BOGOTA  D.C","BOGOTA, BOGOTA D.C","BOGOTA,D,C","BOGOTA  D C"
+   Case "BOGOTA", "BOGOTA, D.C.", "BOGOT" & Chr(193) & ", D.C.", "BOGOTA, D.C", "BOGOTA D.C","BOGOT"& Chr(193), "BOGOTA  D.C","BOGOTA, BOGOTA D.C","BOGOTA,D,C","BOGOTA  D C","BOGOTÁ, D,C,"
     city = Trim("BOGOTA D.C.")
    Case "CARTAGENA DE INDIAS","CARTAGENA, BOLIVAR"
     city = Trim("CARTAGENA")
@@ -195,7 +195,7 @@ Public Function typeComplements(ByVal value As String) As String
 End Function
 
 '' REALIZA EL CONTEO TOTAL DE DATOS A IMPORTAR ''
-Function total(ByVal book As Object) As Integer
+Public Function total(ByVal book As Object) As Integer
 
   Dim emo As Integer, audio As Integer, opto As Integer, espiro As Integer, visio As Integer, complementarios As Integer, psicotecnica As Integer, psicosensometrica As Integer, osteo As Integer
   Dim Sheet As Object
@@ -266,8 +266,8 @@ Function total(ByVal book As Object) As Integer
 
 End Function
 
-  '' REALIZA LA LIMPIEZA DE CARACTERES TAMBIEN LLAMA A LA DUNCION DE LIMPIEZA POR RegExp (EXPRESIONES REGULARES) ''
-Sub ClearCharter()
+'' REALIZA LA LIMPIEZA DE CARACTERES TAMBIEN LLAMA A LA DUNCION DE LIMPIEZA POR RegExp (EXPRESIONES REGULARES) ''
+Public Sub ClearCharter()
   Attribute ClearCharter.VB_ProcData.VB_Invoke_Func = "y\n14"
 
   Dim data As Variant
@@ -295,7 +295,7 @@ Sub ClearCharter()
   Selection.Replace What:=data(17), Replacement:=" ", LookAt:=xlPart, _
   SearchOrder:=xlByRows, MatchCase:=False, SearchFormat:=False, _
   ReplaceFormat:=False
-  '' A con tilde
+  ' A con tilde
   Selection.Replace What:=data(0), Replacement:="A", LookAt:=xlPart, _
   SearchOrder:=xlByRows, MatchCase:=False, SearchFormat:=False, _
   ReplaceFormat:=False
@@ -364,22 +364,11 @@ Sub ClearCharter()
     ReplaceFormat:=False
   End If
 
-  If (ActiveSheet.Name ="TRABAJADORES" And Selection.Address = Range("tbl_trabajadores[CARGO USUARIO]").Address) Then
-    Call ClearNonAlphaNumeric
-  End If
-  If (ActiveSheet.Name = "EMO" And Selection.Address = Range("tbl_emo[RECOMENDACIONES ESPECIFICAS]").Address) Then
-    Call ClearNonAlphaNumeric
-  End If
-  If (ActiveSheet.Name ="TRABAJADORES" And Selection.Address = Range("tbl_trabajadores[PACIENTE]").Address) Then
-    Call ClearNonAlphaNumeric
-  End If
-
-
   MsgBox "Correcciones realizadas, exitosamente!!",vbInformation,"Correcciones"
 
 End Sub
 
-Sub ClearNonAlphaNumeric()
+Public Sub ClearNonAlphaNumeric()
 
   Dim valor As String
   Dim ini As String
@@ -397,14 +386,45 @@ Sub ClearNonAlphaNumeric()
 
 End Sub
 
-Function ReplaceNonAlphaNumeric(str As String) As String
-  Dim regEx As Object
+Public Function ReplaceNonAlphaNumeric(str As String) As String
+  Dim regEx As Object, LetterA As String, LetterE As String, LetterI As String, LetterO As String, LetterU As String
+
   Set regEx = CreateObject("vbscript.regexp")
 
-  '' Define la expresión regular para encontrar valores no alfanuméricos '
+  '' Define la expresión regular para encontrar las a con tilde ''
+  regEx.Pattern ="(["& Chr(193) &""& Chr(192) &"])"
+  regEx.Global = True
+
+  LetterA = regEx.Replace(str,Chr(65))
+
+  '' Define la expresión regular para encontrar las e con tilde ''
+  regEx.Pattern ="(["& Chr(200) &""& Chr(201) &"])"
+  regEx.Global = True
+
+  LetterE = regEx.Replace(LetterA,Chr(69))
+
+  '' Define la expresión regular para encontrar las i con tilde ''
+  regEx.Pattern ="(["& Chr(204) &""& Chr(205) &"])"
+  regEx.Global = True
+
+  LetterI = regEx.Replace(LetterE,Chr(73))
+
+  '' Define la expresión regular para encontrar las o con tilde ''
+  regEx.Pattern ="(["& Chr(210) &""& Chr(211) &"])"
+  regEx.Global = True
+
+  LetterO = regEx.Replace(LetterI,Chr(79))
+
+  '' Define la expresión regular para encontrar las u con tilde ''
+  regEx.Pattern ="(["& Chr(217) &""& Chr(218) &"])"
+  regEx.Global = True
+
+  LetterU = regEx.Replace(LetterO,Chr(85))
+
+  '' Define la expresión regular para encontrar valores no alfanuméricos ''
   regEx.Pattern = "[^a-zA-Z0-9/"&Chr(209)&"]"
   regEx.Global = True
 
-  '' Reemplaza cualquier valor no alfanumérico por un espacio '
-  ReplaceNonAlphaNumeric = regEx.Replace(str, " ")
+  '' Reemplaza cualquier valor no alfanumérico por un espacio ''
+  ReplaceNonAlphaNumeric = regEx.Replace(LetterU, " ")
 End Function

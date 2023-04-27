@@ -1,7 +1,7 @@
 Attribute VB_Name = "DataWorkersEmo"
 Option Explicit
 
-Sub DataEmoWorkers()
+Public Sub DataEmoWorkers()
 
   Dim emo_destiny_dictionary As Scripting.Dictionary
   Dim emo_origin_dictionary As Scripting.Dictionary
@@ -144,10 +144,10 @@ Sub DataEmoWorkers()
         ActiveCell.Offset(, emo_destiny_dictionary("FREC_ RESPIRATORIA")) = charters(ItemData.Offset(, emo_origin_dictionary("FREC_ RESPIRATORIA")))
         ActiveCell.Offset(, emo_destiny_dictionary("PERIMETRO ABDOMINAL")) = charters(ItemData.Offset(, emo_origin_dictionary("PERIMETRO ABDOMINAL")))
         ActiveCell.Offset(, emo_destiny_dictionary("LATERALIDAD")) = charters(ItemData.Offset(, emo_origin_dictionary("LATERALIDAD")))
-        ActiveCell.Offset(, emo_destiny_dictionary("OBS DIAGS")) = charters(ItemData.Offset(, emo_origin_dictionary("OBS DIAGS")))
-        ActiveCell.Offset(, emo_destiny_dictionary("CONCEPTO DE EVALUACION")) = validateConcepts(charters(ItemData.Offset(, emo_origin_dictionary("CONCEPTO DE EVALUACION"))))
-        ActiveCell.Offset(, emo_destiny_dictionary("OBSERVACIONES DEL CONCEPTO")) = charters(ItemData.Offset(, emo_origin_dictionary("OBSERVACIONES DEL CONCEPTO")))
-        ActiveCell.Offset(, emo_destiny_dictionary("RECOMENDACIONES ESPECIFICAS")) = charters(ItemData.Offset(, emo_origin_dictionary("RECOMENDACIONES ESPECIFICAS")))
+        ActiveCell.Offset(, emo_destiny_dictionary("OBS DIAGS")) = charters(ReplaceNonAlphaNumeric(ItemData.Offset(, emo_origin_dictionary("OBS DIAGS"))))
+        ActiveCell.Offset(, emo_destiny_dictionary("CONCEPTO DE EVALUACION")) = ReplaceNonAlphaNumeric(validateConcepts(charters(ItemData.Offset(, emo_origin_dictionary("CONCEPTO DE EVALUACION")))))
+        ActiveCell.Offset(, emo_destiny_dictionary("OBSERVACIONES DEL CONCEPTO")) = charters(ReplaceNonAlphaNumeric(ItemData.Offset(, emo_origin_dictionary("OBSERVACIONES DEL CONCEPTO"))))
+        ActiveCell.Offset(, emo_destiny_dictionary("RECOMENDACIONES ESPECIFICAS")) = charters(ReplaceNonAlphaNumeric(ItemData.Offset(, emo_origin_dictionary("RECOMENDACIONES ESPECIFICAS"))))
         ActiveCell.Offset(, emo_destiny_dictionary("REMISION EPS")) = "0"
         ActiveCell.Offset(, emo_destiny_dictionary("CONTROL PERIODICO OCUPACIONAL")) = "0"
         ActiveCell.Offset(, emo_destiny_dictionary("UTILIZACION EPP ACORDE AL CARGO")) = "0"

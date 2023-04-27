@@ -12,7 +12,7 @@ Public vals As Double, valsGeneral As Double, porcentaje As Double, porcentajeGe
 Public idOrden As Integer, numbers As Integer, numbersGeneral As Integer, sumOneforOne As Integer, sumGeneral As Integer, x As Integer, i As Integer, number_emphasis As Integer, number_diag As Integer
 Public dateInitials As Date, dateFinals As Date
 
-Sub extraerdatos()
+Private Sub extraerdatos()
 
   Dim FSO As Object
   Dim hora As Integer, min As Integer
@@ -135,12 +135,12 @@ Sub extraerdatos()
     MsgBox "Importe de informaci" & Chr(243) & "n terminado", vbInformation + vbOKOnly, "Importaci" & Chr(243) & "n Datos"
   End If
 
-  NotFound:
+ NotFound:
   Resume Next
 
 End Sub
 
-Sub statusActivate(ByVal name_sheet As String)
+Private Sub statusActivate(ByVal name_sheet As String)
   Sheets(name_sheet).Select
   With ActiveWorkbook.Sheets(name_sheet).Tab
     .ThemeColor = xlThemeColorAccent1
@@ -148,7 +148,7 @@ Sub statusActivate(ByVal name_sheet As String)
   End With
 End Sub
 
-Sub statusDesactivate(ByVal name_sheet As String)
+Private Sub statusDesactivate(ByVal name_sheet As String)
   Sheets(name_sheet).Select
   With ActiveWorkbook.Sheets(name_sheet).Tab
     .Color = RGB(222,222,222)
@@ -156,13 +156,13 @@ Sub statusDesactivate(ByVal name_sheet As String)
   End With
 End Sub
 
-Sub info()
+Private Sub info()
 
   formImports.Show
 
 End Sub
 
-sub config()
+Private Sub config()
 
   formControl.Show
 

@@ -1,7 +1,7 @@
 Attribute VB_Name = "DataEmoEmphasis"
 Option Explicit
 
-Sub DataEmphasisEmo()
+Public Sub DataEmphasisEmo()
 
   Dim emphasis_destiny_dictionary As Scripting.Dictionary
   Dim emo_origin_dictionary As Scripting.Dictionary

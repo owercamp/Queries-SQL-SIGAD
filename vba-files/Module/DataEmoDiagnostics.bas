@@ -1,7 +1,7 @@
 Attribute VB_Name = "DataEmoDiagnostics"
 Option Explicit
 
-Sub DataDiagnosticsEmo()
+Public Sub DataDiagnosticsEmo()
 
   Dim diagnostics_destiny_dictionary As Scripting.Dictionary
   Dim emo_origin_dictionary As Scripting.Dictionary

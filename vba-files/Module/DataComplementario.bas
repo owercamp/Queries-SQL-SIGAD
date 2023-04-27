@@ -1,7 +1,7 @@
 Attribute VB_Name = "DataComplementario"
 Option Explicit
 
-Sub ComplementarioData()
+Public Sub ComplementarioData()
   Dim comple_destiny_dictionary As Scripting.Dictionary
   Dim comple_origin_dictionary As Scripting.Dictionary
   Dim comple_destiny_header As Object, comple_origin_header As Object, comple_origin_value As Object

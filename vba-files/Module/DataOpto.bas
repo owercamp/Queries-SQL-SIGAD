@@ -1,7 +1,7 @@
 Attribute VB_Name = "DataOpto"
 Option Explicit
 
-Sub OptoData()
+Public Sub OptoData()
 
   Dim opto_destiny_dictionary As Scripting.Dictionary
   Dim opto_origin_dictionary As Scripting.Dictionary

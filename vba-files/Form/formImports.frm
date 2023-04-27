@@ -37,13 +37,8 @@ Private Sub UserForm_Activate()
     Call extraerdatos
   Else
     Unload Me
-    On Error GoTo type_error
-    Windows("ARCHIVO.xlsb").Activate
+    Windows(origin.Name).Activate
   End If
-
- type_error:
-  Windows("ARCHIVO.xlsx").Activate
-
 End Sub
 
 Private Sub UserForm_Initialize()

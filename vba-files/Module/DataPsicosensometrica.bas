@@ -1,7 +1,7 @@
 Attribute VB_Name = "DataPsicosensometrica"
 Option Explicit
 
-Sub PsicosensometricaData()
+Public Sub PsicosensometricaData()
   Dim psicosensometrica_destiny_dictionary As Scripting.Dictionary
   Dim psicosensometrica_origin_dictionary As Scripting.Dictionary
   Dim psicosensometrica_destiny_header As Object, psicosensometrica_origin_header As Object, psicosensometrica_origin_value As Object
