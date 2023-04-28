@@ -73,7 +73,7 @@ Public Sub ComplementarioData()
       End If
       If (typeExams(charters(ItemData.Offset(, comple_origin_dictionary("TIPO EXAMEN")))) <> "EGRESO") Then
         ActiveCell.Offset(, comple_destiny_dictionary("NRO IDENFICACION")) = charters(ItemData.Offset(, comple_origin_dictionary("NRO IDENFICACION")))
-        ActiveCell.Offset(, comple_destiny_dictionary("PROCEDIMIENTO")) = typeComplements(charters(ItemData.Offset(, comple_origin_dictionary("PROCEDIMIENTO"))))
+        ActiveCell.Offset(, comple_destiny_dictionary("PROCEDIMIENTO")) = typeComplements(charters(ReplaceNonAlphaNumeric(ItemData.Offset(, comple_origin_dictionary("PROCEDIMIENTO")))))
         ActiveCell.Offset(, comple_destiny_dictionary("DIAG_ PPAL")) = charters(ItemData.Offset(, comple_origin_dictionary("DIAG_ PPAL")))
         ActiveCell.Offset(, comple_destiny_dictionary("DIAG_ PPAL OBS")) = charters(ItemData.Offset(, comple_origin_dictionary("DIAG_ PPAL OBS")))
         ActiveCell.Offset(, comple_destiny_dictionary("DIAG_ REL/1")) = charters(ItemData.Offset(, comple_origin_dictionary("DIAG_ REL/1")))

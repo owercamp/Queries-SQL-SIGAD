@@ -1,6 +1,6 @@
 {
-    "app_name": "XVBA",
-    "description": "",
+    "app_name": "SIGAD Queries",
+    "description": "Valida la informacion para generar la sentencia SQL",
     "author": "Ower A Campos",
     "email": "ower.campos@soandes.co",
     "create_ate": "Fri Sep 23 2022 11:30:01 GMT-0500 (hora estándar de Colombia)",

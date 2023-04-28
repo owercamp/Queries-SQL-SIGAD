@@ -12,7 +12,7 @@ Public vals As Double, valsGeneral As Double, porcentaje As Double, porcentajeGe
 Public idOrden As Integer, numbers As Integer, numbersGeneral As Integer, sumOneforOne As Integer, sumGeneral As Integer, x As Integer, i As Integer, number_emphasis As Integer, number_diag As Integer
 Public dateInitials As Date, dateFinals As Date
 
-Private Sub extraerdatos()
+Public Sub extraerdatos()
 
   Dim FSO As Object
   Dim hora As Integer, min As Integer
@@ -55,10 +55,13 @@ Private Sub extraerdatos()
 
   'DATOS ORIGEN
 
-  Application.StatusBar = "Importando informaci" & Chr(243) & "n por favor espere"
-  Application.ScreenUpdating = False
-  Application.Calculation = False
-  Application.EnableEvents = False
+  With Application
+    .StatusBar = "Importando informaci" & Chr(243) & "n por favor espere"
+    .ScreenUpdating = False
+    .Calculation = False
+    .EnableEvents = False
+  End With
+
   totalData = total(origin)
   For Each variable In origin.Worksheets
     Select Case Trim(UCase(variable.Name))
@@ -118,10 +121,13 @@ Private Sub extraerdatos()
   origin.Close
 
   Worksheets("TRABAJADORES").Select
-  Application.ScreenUpdating = True
-  Application.Calculation = xlCalculationAutomatic
-  Application.EnableEvents = True
-  Application.StatusBar = Empty
+
+  With Application
+    .ScreenUpdating = True
+    .Calculation = xlCalculationAutomatic
+    .EnableEvents = True
+    .StatusBar = Empty
+  End With
   Unload formImports
 
   hora = VBA.Hour(Time)
@@ -140,7 +146,7 @@ Private Sub extraerdatos()
 
 End Sub
 
-Private Sub statusActivate(ByVal name_sheet As String)
+Public Sub statusActivate(ByVal name_sheet As String)
   Sheets(name_sheet).Select
   With ActiveWorkbook.Sheets(name_sheet).Tab
     .ThemeColor = xlThemeColorAccent1
@@ -148,7 +154,7 @@ Private Sub statusActivate(ByVal name_sheet As String)
   End With
 End Sub
 
-Private Sub statusDesactivate(ByVal name_sheet As String)
+Public Sub statusDesactivate(ByVal name_sheet As String)
   Sheets(name_sheet).Select
   With ActiveWorkbook.Sheets(name_sheet).Tab
     .Color = RGB(222,222,222)
@@ -156,13 +162,13 @@ Private Sub statusDesactivate(ByVal name_sheet As String)
   End With
 End Sub
 
-Private Sub info()
+Public Sub info()
 
   formImports.Show
 
 End Sub
 
-Private Sub config()
+Public Sub config()
 
   formControl.Show
 

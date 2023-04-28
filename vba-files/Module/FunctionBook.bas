@@ -78,10 +78,11 @@ Public Sub clearContents()
     trabajadores.Select
     Call folder(route, fecha, nombre, MyYear, meses(MyMonth - 1))
 
-    Application.ScreenUpdating = False
-    Application.Calculation = xlCalculationManual
-    Application.EnableEvents = False
-
+    With Application
+      .ScreenUpdating = False
+      .Calculation = xlCalculationManual
+      .EnableEvents = False
+    End With
 
     ''' REGISTRO EN CONSOLIDADO ''
     info = Worksheets("TRABAJADORES").Range("A5", Worksheets("TRABAJADORES").Range("A5").End(xlDown)).Count
@@ -304,10 +305,12 @@ Public Sub clearContents()
     End If
 
     Application.ActiveWorkbook.SaveCopyAs Filename:=route & "\" & Application.ActiveWorkbook.Name
-    Application.StatusBar = Empty
-    Application.ScreenUpdating = True
-    Application.Calculation = xlCalculationAutomatic
-    Application.EnableEvents = True
+    With Application
+      .StatusBar = Empty
+      .ScreenUpdating = True
+      .Calculation = xlCalculationAutomatic
+      .EnableEvents = True
+    End With
 
     MsgBox "Almacenamiento terminado", vbOKOnly + vbInformation, "Almacenamiento"
   Else

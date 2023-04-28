@@ -121,17 +121,17 @@ Public Sub AudioData()
         If (charters(ItemData.Offset(, audio_origin_dictionary("DIAG PPAL"))) = "NO REFIERE") Then
           ActiveCell.Offset(, audio_destiny_dictionary("DIAG PPAL")) = "#N/A"
         Else
-          ActiveCell.Offset(, audio_destiny_dictionary("DIAG PPAL")) = charters(ItemData.Offset(, audio_origin_dictionary("DIAG PPAL")))
+          ActiveCell.Offset(, audio_destiny_dictionary("DIAG PPAL")) = charters(ReplaceNonAlphaNumeric(ItemData.Offset(, audio_origin_dictionary("DIAG PPAL"))))
         End If
         If (charters(ItemData.Offset(, audio_origin_dictionary("DIAG INTERNO"))) = "NO REFIERE") Then
           ActiveCell.Offset(, audio_destiny_dictionary("DIAG INTERNO")) = "#N/A"
         Else
-          ActiveCell.Offset(, audio_destiny_dictionary("DIAG INTERNO")) = charters(ItemData.Offset(, audio_origin_dictionary("DIAG INTERNO")))
+          ActiveCell.Offset(, audio_destiny_dictionary("DIAG INTERNO")) = charters(ReplaceNonAlphaNumeric(ItemData.Offset(, audio_origin_dictionary("DIAG INTERNO"))))
         End If
         If (charters(ItemData.Offset(, audio_origin_dictionary("DIAG GATI-SO"))) = "NO REFIERE") Then
           ActiveCell.Offset(, audio_destiny_dictionary("DIAG GATI-SO")) ="#N/A"
         Else
-          ActiveCell.Offset(, audio_destiny_dictionary("DIAG GATI-SO")) = charters(ItemData.Offset(, audio_origin_dictionary("DIAG GATI-SO")))
+          ActiveCell.Offset(, audio_destiny_dictionary("DIAG GATI-SO")) = charters(ReplaceNonAlphaNumeric(ItemData.Offset(, audio_origin_dictionary("DIAG GATI-SO"))))
         End If
         If (ActiveCell.Row = 4) Then
           ActiveCell.Offset(, audio_destiny_dictionary("ID_AUDIOMETRIA")) = Trim(ThisWorkbook.Worksheets("RUTAS").Range("$F$6").value)

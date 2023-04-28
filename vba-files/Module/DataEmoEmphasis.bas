@@ -72,8 +72,8 @@ Public Sub DataEmphasisEmo()
       If (typeExams(charters(ItemData.Offset(, emo_origin_dictionary("TIPO EXAMEN")))) <> "EGRESO") Then
         ActiveCell.Offset(, emphasis_destiny_dictionary("IDENTIFICACION")) = charters(ItemData.Offset(, emo_origin_dictionary("IDENTIFICACION")))
         For i = 1 To ((emo_origin_dictionary.Count - 2) / 3)
-          ActiveCell.Offset(, emphasis_destiny_dictionary("ENFASIS_" & i)) = charters(ItemData.Offset(, emo_origin_dictionary("ENFASIS_" & i)))
-          ActiveCell.Offset(, emphasis_destiny_dictionary("CONCEPTO AL ENFASIS_" & i)) = emphasisConcepts(charters(ItemData.Offset(, emo_origin_dictionary("CONCEPTO AL ENFASIS_" & i))), charters(ItemData.Offset(, emo_origin_dictionary("ENFASIS_" & i))))
+          ActiveCell.Offset(, emphasis_destiny_dictionary("ENFASIS_" & i)) = charters(ReplaceNonAlphaNumeric(ItemData.Offset(, emo_origin_dictionary("ENFASIS_" & i))))
+          ActiveCell.Offset(, emphasis_destiny_dictionary("CONCEPTO AL ENFASIS_" & i)) = emphasisConcepts(charters(ReplaceNonAlphaNumeric(ItemData.Offset(, emo_origin_dictionary("CONCEPTO AL ENFASIS_" & i)))), charters(ReplaceNonAlphaNumeric(ItemData.Offset(, emo_origin_dictionary("ENFASIS_" & i)))))
           ActiveCell.Offset(, emphasis_destiny_dictionary("OBSERVACIONES_AL_ENFASIS_" & i)) = charters(ItemData.Offset(, emo_origin_dictionary("OBSERVACIONES_AL_ENFASIS_" & i)))
         Next i
         ActiveCell.Offset(1, 0).Select

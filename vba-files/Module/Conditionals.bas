@@ -117,8 +117,10 @@ End Sub
 
 Public Sub formatter()
 
-  Selection.NumberFormat = "0"
-  Selection.RowHeight = 40
+  With Selection
+    .NumberFormat = "0"
+    .RowHeight = 40
+  End With
 
 End Sub
 

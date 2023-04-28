@@ -72,10 +72,10 @@ Public Sub DataDiagnosticsEmo()
       End If
       If (typeExams(charters(ItemData.Offset(, emo_origin_dictionary("TIPO EXAMEN")))) <> "EGRESO") Then
         ActiveCell.Offset(, diagnostics_destiny_dictionary("IDENTIFICACION")) = charters(ItemData.Offset(, emo_origin_dictionary("IDENTIFICACION")))
-        ActiveCell.Offset(, diagnostics_destiny_dictionary("CODIGO DIAG PPAL")) = charters(ItemData.Offset(, emo_origin_dictionary("CODIGO DIAG PPAL")))
+        ActiveCell.Offset(, diagnostics_destiny_dictionary("CODIGO DIAG PPAL")) = charters(ReplaceNonAlphaNumeric(ItemData.Offset(, emo_origin_dictionary("CODIGO DIAG PPAL"))))
         ActiveCell.Offset(, diagnostics_destiny_dictionary("DIAG PPAL")) = charters(ItemData.Offset(, emo_origin_dictionary("DIAG PPAL")))
         For i = 1 To ((emo_origin_dictionary.Count - 5) / 2)
-          ActiveCell.Offset(, diagnostics_destiny_dictionary("CODIGO DIAG REL" & i)) = charters(ItemData.Offset(, emo_origin_dictionary("CODIGO DIAG REL" & i)))
+          ActiveCell.Offset(, diagnostics_destiny_dictionary("CODIGO DIAG REL" & i)) = charters(ReplaceNonAlphaNumeric(ItemData.Offset(, emo_origin_dictionary("CODIGO DIAG REL" & i))))
           ActiveCell.Offset(, diagnostics_destiny_dictionary("DIAG REL " & i)) = charters(ItemData.Offset(, emo_origin_dictionary("DIAG REL " & i)))
         Next i
         ActiveCell.Offset(1, 0).Select
