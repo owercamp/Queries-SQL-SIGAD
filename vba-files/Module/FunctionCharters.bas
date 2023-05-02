@@ -91,6 +91,8 @@ Public Function school(ByVal value As String) As String
     school = "SECUNDARIA"
    Case "MAGISTER"
     school = "MAESTRIA"
+   Case "TECNICA"
+    school = "TECNICO"
    Case Else
     school = value
   End Select
