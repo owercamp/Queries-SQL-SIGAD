@@ -430,3 +430,28 @@ Public Function ReplaceNonAlphaNumeric(str As String) As String
   '' Reemplaza cualquier valor no alfanumérico por un espacio ''
   ReplaceNonAlphaNumeric = regEx.Replace(LetterU, " ")
 End Function
+
+Public Sub peso()
+  Dim num As Integer
+  Do While Not IsEmpty(ActiveCell.Offset(, -35))
+    If IsEmpty(ActiveCell) Or Trim(UCase(ActiveCell.value)) = "SIN DATO" Then
+      num = Int((80 - 60 + 1) * Rnd + 60)
+      ActiveCell = num
+    End If
+    ActiveCell.Offset(1, 0).Select
+  Loop
+End Sub
+
+Public Sub talla()
+  Dim num As Double
+  Do While Not IsEmpty(ActiveCell.Offset(0, -36))
+    If Trim(ActiveCell.value) = Empty Or Trim(UCase(ActiveCell.value)) = "SIN DATO" Then
+      num = CDec((Int((180 - 160 + 1) * Rnd + 160)) / 100)
+      ActiveCell = num
+    ElseIf ActiveCell.value = Int(ActiveCell.value) Then
+      num = CDec(ActiveCell.value / 100)
+      ActiveCell = num
+    End If
+    ActiveCell.Offset(1, 0).Select
+  Loop
+End Sub
