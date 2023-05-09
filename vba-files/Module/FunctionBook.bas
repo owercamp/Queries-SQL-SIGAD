@@ -377,6 +377,7 @@ Public Sub Modification()
         True
         consolidado.Save
         consolidado.Close
+        Exit Do
       End If
       ActiveCell.Offset(1, 0).Select
     Loop

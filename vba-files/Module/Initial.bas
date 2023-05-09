@@ -138,6 +138,7 @@ Public Sub extraerdatos()
     Call Shell("shutdown /s /t: 30 /f")
     destiny.Close
   Else
+    Application.Wait (Now + TimeValue("0:00:30"))
     MsgBox "Importe de informaci" & Chr(243) & "n terminado", vbInformation + vbOKOnly, "Importaci" & Chr(243) & "n Datos"
   End If
 
