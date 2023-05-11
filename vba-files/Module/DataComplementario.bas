@@ -72,20 +72,22 @@ Public Sub ComplementarioData()
         formImports.porcentageOneoforOne.ForeColor = RGB(0, 0, 0)
       End If
       If (typeExams(charters(ItemData.Offset(, comple_origin_dictionary("TIPO EXAMEN")))) <> "EGRESO") Then
-        ActiveCell.Offset(, comple_destiny_dictionary("NRO IDENFICACION")) = charters(ItemData.Offset(, comple_origin_dictionary("NRO IDENFICACION")))
-        ActiveCell.Offset(, comple_destiny_dictionary("PROCEDIMIENTO")) = typeComplements(charters(ReplaceNonAlphaNumeric(ItemData.Offset(, comple_origin_dictionary("PROCEDIMIENTO")))))
-        ActiveCell.Offset(, comple_destiny_dictionary("DIAG_ PPAL")) = charters(ItemData.Offset(, comple_origin_dictionary("DIAG_ PPAL")))
-        ActiveCell.Offset(, comple_destiny_dictionary("DIAG_ PPAL OBS")) = charters(ItemData.Offset(, comple_origin_dictionary("DIAG_ PPAL OBS")))
-        ActiveCell.Offset(, comple_destiny_dictionary("DIAG_ REL/1")) = charters(ItemData.Offset(, comple_origin_dictionary("DIAG_ REL/1")))
-        ActiveCell.Offset(, comple_destiny_dictionary("DIAG_ REL/2")) = charters(ItemData.Offset(, comple_origin_dictionary("DIAG_ REL/2")))
-        ActiveCell.Offset(, comple_destiny_dictionary("DIAG_ REL/3")) = charters(ItemData.Offset(, comple_origin_dictionary("DIAG_ REL/3")))
-        ActiveCell.Offset(, comple_destiny_dictionary("HALLAZGOS")) = charters(ItemData.Offset(, comple_origin_dictionary("HALLAZGOS")))
-        If (ActiveCell.Row = 4) Then
-          ActiveCell.Offset(, comple_destiny_dictionary("ID_COMPLEMENTARIOS")) = Trim(ThisWorkbook.Worksheets("RUTAS").Range("$F$12").value)
-        Else
-          ActiveCell.Offset(, comple_destiny_dictionary("ID_COMPLEMENTARIOS")) = ActiveCell.Offset(-1, comple_destiny_dictionary("ID_COMPLEMENTARIOS")) + 1
-        End If
-        ActiveCell.Offset(1, 0).Select
+        With ActiveCell
+          .Offset(, comple_destiny_dictionary("NRO IDENFICACION")) = charters(ItemData.Offset(, comple_origin_dictionary("NRO IDENFICACION")))
+          .Offset(, comple_destiny_dictionary("PROCEDIMIENTO")) = typeComplements(charters(ReplaceNonAlphaNumeric(ItemData.Offset(, comple_origin_dictionary("PROCEDIMIENTO")))))
+          .Offset(, comple_destiny_dictionary("DIAG_ PPAL")) = charters(ItemData.Offset(, comple_origin_dictionary("DIAG_ PPAL")))
+          .Offset(, comple_destiny_dictionary("DIAG_ PPAL OBS")) = charters(ItemData.Offset(, comple_origin_dictionary("DIAG_ PPAL OBS")))
+          .Offset(, comple_destiny_dictionary("DIAG_ REL/1")) = charters(ItemData.Offset(, comple_origin_dictionary("DIAG_ REL/1")))
+          .Offset(, comple_destiny_dictionary("DIAG_ REL/2")) = charters(ItemData.Offset(, comple_origin_dictionary("DIAG_ REL/2")))
+          .Offset(, comple_destiny_dictionary("DIAG_ REL/3")) = charters(ItemData.Offset(, comple_origin_dictionary("DIAG_ REL/3")))
+          .Offset(, comple_destiny_dictionary("HALLAZGOS")) = charters(ItemData.Offset(, comple_origin_dictionary("HALLAZGOS")))
+          If (.Row = 4) Then
+            .Offset(, comple_destiny_dictionary("ID_COMPLEMENTARIOS")) = Trim(ThisWorkbook.Worksheets("RUTAS").Range("$F$12").value)
+          Else
+            .Offset(, comple_destiny_dictionary("ID_COMPLEMENTARIOS")) = .Offset(-1, comple_destiny_dictionary("ID_COMPLEMENTARIOS")) + 1
+          End If
+          .Offset(1, 0).Select
+        End With
       End If
       numbers = numbers + 1
       numbersGeneral = numbersGeneral + 1
