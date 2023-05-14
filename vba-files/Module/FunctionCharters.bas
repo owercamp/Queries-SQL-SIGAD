@@ -1,13 +1,25 @@
 Attribute VB_Name = "FunctionCharters"
 Option Explicit
 
-'' ELIMINA LOS ESPACIOS AL INICIO Y AL FINAL DE CADA VALOR ''
+''' <summary>
+''' Esta función convierte una cadena de texto a mayúsculas y elimina los espacios en blanco alrededor del valor de entrada.
+''' </summary>
+''' <param name="value">El valor de entrada como cadena de texto.</param>
+''' <returns>El valor de entrada en mayúsculas y sin espacios en blanco.</returns>
 Public Function charters(ByVal value As String) As String
   charters = Trim(UCase(value))
 End Function
 
-'' ELIMINA LOS ESPACIOS AL INICIO Y AL FINAL DE CADA VALOR Y VERIFICA QUE NO SEA UN CAMPO VACIO ''
 Public Function charters_empty(value)
+  ' Elimina los espacios al inicio y al final de cada valor y verifica que no sea un campo vacío.
+
+  ' Parámetros:
+  ' - value: El valor que se va a verificar.
+
+  ' Retorno:
+  ' - Si el valor es un campo vacío o una cadena vacía o "NO", devuelve "0".
+  ' - Si el valor es "OCASIONAL" o "SI", devuelve "1".
+  ' - En cualquier otro caso, devuelve el valor sin espacios al inicio y al final en mayúsculas.
   Select Case Trim(UCase(value))
    Case IsEmpty(Trim(UCase(value))), "", "NO"
     charters_empty = "0"
@@ -18,20 +30,47 @@ Public Function charters_empty(value)
   End Select
 End Function
 
-'' AGREGA 0 HACIA LA IZQUIERDO ''
+''' Devuelve una cadena de caracteres con el texto proporcionado rellenado a la izquierda con el carácter de relleno especificado
+''' hasta alcanzar la longitud total especificada.
+'''
+''' Parámetros:
+'''     - text: El texto que se va a rellenar a la izquierda.
+'''     - totalLength: La longitud total de la cadena resultante, incluyendo el texto y los caracteres de relleno.
+'''     - padCharacter: El carácter utilizado para rellenar a la izquierda el texto.
+'''
+''' Devuelve:
+'''     Una cadena de caracteres con el texto proporcionado rellenado a la izquierda con el carácter de relleno especificado
+'''     hasta alcanzar la longitud total especificada.
+'''
 Public Function PadLeft(text As Variant, totalLength As Integer, padCharacter As String) As String
   PadLeft = String(totalLength - Len(CStr(text)), padCharacter) & CStr(text)
 End Function
 
-'' AGREGA 0 HACIA LA DERECHA ''
+''' Devuelve una cadena de caracteres con el texto proporcionado rellenado a la derecha con el carácter de relleno especificado
+''' hasta alcanzar la longitud total especificada.
+'''
+''' Parámetros:
+'''     - text: El texto que se va a rellenar a la derecha.
+'''     - totalLength: La longitud total de la cadena resultante, incluyendo el texto y los caracteres de relleno.
+'''     - padCharacter: El carácter utilizado para rellenar a la derecha el texto.
+'''
+''' Devuelve:
+'''     Una cadena de caracteres con el texto proporcionado rellenado a la derecha con el carácter de relleno especificado
+'''     hasta alcanzar la longitud total especificada.
+'''
 Public Function PadRight(text As Variant, totalLength As Integer, padCharacter As String) As String
   PadRight = CStr(text) & String(totalLength - Len(CStr(text)), padCharacter)
 End Function
 
-'' VALIDACION CIUDAD ''
+'Función: city
+'Descripción: Esta función recibe una cadena de texto "value" que representa un nombre de ciudad y devuelve una cadena de texto representando una versión estandarizada del nombre de la ciudad. Si el valor de entrada coincide con uno de los casos listados en la instrucción Select Case, se devuelve el nombre de ciudad estandarizado correspondiente. Si el valor de entrada no coincide con ninguno de los casos, se devuelve el valor de entrada original.
+'Parámetros:
+'   - value: Cadena de texto que representa un nombre de ciudad.
+'Retorno:
+'   - Cadena de texto representando una versión estandarizada del nombre de ciudad.
 Public Function city(ByVal value As String) As String
   Select Case value
-   Case "BOGOTA", "BOGOTA, D.C.", "BOGOT" & Chr(193) & ", D.C.", "BOGOTA, D.C", "BOGOTA D.C","BOGOT"& Chr(193), "BOGOTA  D.C","BOGOTA, BOGOTA D.C","BOGOTA,D,C","BOGOTA  D C","BOGOTÁ, D,C,"
+   Case "BOGOTA", "BOGOTA, D.C.", "BOGOT" & Chr(193) & ", D.C.", "BOGOTA, D.C", "BOGOTA D.C","BOGOT"& Chr(193), "BOGOTA  D.C","BOGOTA, BOGOTA D.C","BOGOTA,D,C","BOGOTA  D C","BOGOTÁ, D,C,","BOGOTA,D.C"
     city = Trim("BOGOTA D.C.")
    Case "CARTAGENA DE INDIAS","CARTAGENA, BOLIVAR"
     city = Trim("CARTAGENA")
@@ -80,7 +119,12 @@ Public Function city(ByVal value As String) As String
   End Select
 End Function
 
-'' VALIDACION ESCOLARIDAD ''
+'Función: school
+'Descripción: Esta función recibe una cadena de texto "value" que representa un nivel de educación y devuelve una cadena de texto representando una versión estandarizada del nivel de educación. Si el valor de entrada coincide con uno de los casos listados en la instrucción Select Case, se devuelve el nivel de educación estandarizado correspondiente. Si el valor de entrada no coincide con ninguno de los casos, se devuelve el valor de entrada original.
+'Parámetros:
+'   - value: Cadena de texto que representa un nivel de educación.
+'Retorno:
+'   - Cadena de texto representando una versión estandarizada del nivel de educación.
 Public Function school(ByVal value As String) As String
   Select Case value
    Case "POSTGRADO","POST GRADO"
@@ -98,7 +142,12 @@ Public Function school(ByVal value As String) As String
   End Select
 End Function
 
-'' VALIDACION EXAMEN MEDICO ''
+'Función: typeExams
+'Descripción: Esta función recibe una cadena de texto "value" que representa un tipo de examen y devuelve una cadena de texto representando una versión estandarizada del tipo de examen. Si el valor de entrada coincide con uno de los casos listados en la instrucción Select Case, se devuelve el tipo de examen estandarizado correspondiente. Si el valor de entrada no coincide con ninguno de los casos, se devuelve el valor de entrada original.
+'Parámetros:
+'   - value: Cadena de texto que representa un tipo de examen.
+'Retorno:
+'   - Cadena de texto representando una versión estandarizada del tipo de examen.
 Public Function typeExams(ByVal value As String) As String
   Select Case value
    Case "POST INCAPACIDAD","POST-INCAPACIDAD"
@@ -118,7 +167,12 @@ Public Function typeExams(ByVal value As String) As String
   End Select
 End Function
 
-'' VALIDACION RAZA ''
+'Función: typeSex
+'Descripción: Esta función recibe una cadena de texto "value" que representa un tipo de raza o etnia y devuelve una cadena de texto representando una versión estandarizada del tipo de raza o etnia. Si el valor de entrada coincide con uno de los casos listados en la instrucción Select Case, se devuelve el tipo de raza o etnia estandarizado correspondiente. Si el valor de entrada no coincide con ninguno de los casos, se devuelve el valor de entrada original.
+'Parámetros:
+'   - value: Cadena de texto que representa un tipo de raza o etnia.
+'Retorno:
+'   - Cadena de texto representando una versión estandarizada del tipo de raza o etnia.
 Public Function typeSex(ByVal value As String) As String
   Select Case value
    Case "COBRIZA", "COBRIZO"
@@ -142,7 +196,12 @@ Public Function typeSex(ByVal value As String) As String
   End Select
 End Function
 
-'' VALIDACION ESTADO CIVIL ''
+'Función: typeCivil
+'Descripción: Esta función recibe una cadena de texto "value" que representa un estado civil y devuelve una cadena de texto representando una versión estandarizada del estado civil. Si el valor de entrada coincide con uno de los casos listados en la instrucción Select Case, se devuelve el estado civil estandarizado correspondiente. Si el valor de entrada no coincide con ninguno de los casos, se devuelve el valor de entrada original.
+'Parámetros:
+'   - value: Cadena de texto que representa un estado civil.
+'Retorno:
+'   - Cadena de texto representando una versión estandarizada del estado civil.
 Public Function typeCivil(ByVal value As String) As String
   Select Case value
    Case "UNI" & Chr(211) & "N LIBRE"
@@ -152,7 +211,12 @@ Public Function typeCivil(ByVal value As String) As String
   End Select
 End Function
 
-'' VALIDACION ACTIVIDAD FISICA ''
+'Función: typeActivity
+'Descripción: Esta función recibe una cadena de texto "value" que representa un actividad fisica y devuelve una cadena de texto representando una versión estandarizada del actividad fisica. Si el valor de entrada coincide con uno de los casos listados en la instrucción Select Case, se devuelve el actividad fisica estandarizado correspondiente. Si el valor de entrada no coincide con ninguno de los casos, se devuelve el valor de entrada original.
+'Parámetros:
+'   - value: Cadena de texto que representa un actividad fisica.
+'Retorno:
+'   - Cadena de texto representando una versión estandarizada del actividad fisica.
 Public Function typeActivity(ByVal value As String) As String
   Select Case value
    Case "F" & Chr(205) & "SICAMENTE ACTIVO", "FISICAMENTE ACTIVO", "FISICAMENTE ACTIVO(A)", "F" & Chr(205) & "SICAMENTE ACTIVO(A)"
@@ -162,7 +226,11 @@ Public Function typeActivity(ByVal value As String) As String
   End Select
 End Function
 
-'' VALIDACION FUMADOR O EXFUMADOR ''
+'Función: typeSmoke
+'Descripción: Esta función toma un valor de cadena y devuelve una cadena que indica si el valor es un fumador, un exfumador o no fuma.
+'Parámetros:
+'   - value: El valor de cadena que se evaluará para determinar si es un fumador, un exfumador o no fuma.
+'Retorno: Una cadena que indica si el valor es un fumador, un exfumador o no fuma.
 Public Function typeSmoke(ByVal value As String) As String
   Select Case value
    Case "EX-FUMADOR", "EXFUMADOR"
@@ -176,7 +244,11 @@ Public Function typeSmoke(ByVal value As String) As String
   End Select
 End Function
 
-'' VALIDACION CORRECTION OPTO ''
+'Función: correction
+'Descripción: Esta función toma un valor de cadena y devuelve una cadena que indica si el valor está corregido correctamente o no.
+'Parámetros:
+'   - value: El valor de cadena que se evaluará para determinar si está corregido correctamente o no.
+'Retorno: Una cadena que indica si el valor está corregido correctamente o no.
 Public Function correction(ByVal value As String) As String
   Select Case value
    Case "ANORMAL SIN CORRECCION"
@@ -186,7 +258,11 @@ Public Function correction(ByVal value As String) As String
   End Select
 End Function
 
-'' VALIDACION COMPLEMENTARIOS ''
+'Función: typeComplements
+'Descripción: Esta función toma un valor de cadena y devuelve una cadena que indica si el valor es una encuesta respiratoria o una valoración respiratoria.
+'Parámetros:
+'   - value: El valor de cadena que se evaluará para determinar si es una encuesta respiratoria o una valoración respiratoria.
+'Retorno: Una cadena que indica si el valor es una encuesta respiratoria o una valoración respiratoria.
 Public Function typeComplements(ByVal value As String) As String
   Select Case value
    Case "ENCUESTA RESPIRATORIA","ENCUESTA DE SINTOMAS RESPIRATORIOS"
@@ -196,7 +272,11 @@ Public Function typeComplements(ByVal value As String) As String
   End Select
 End Function
 
-'' REALIZA EL CONTEO TOTAL DE DATOS A IMPORTAR ''
+'Función: total
+'Descripción: Esta función toma un objeto de libro de Excel y cuenta el número de filas en cada hoja de trabajo con un nombre específico para calcular un total.
+'Parámetros:
+'   - book: El objeto de libro de Excel que se utilizará para contar el número de filas en cada hoja de trabajo.
+'Retorno: Un número entero que indica el total calculado.
 Public Function total(ByVal book As Object) As Integer
 
   Dim emo As Integer, audio As Integer, opto As Integer, espiro As Integer, visio As Integer, complementarios As Integer, psicotecnica As Integer, psicosensometrica As Integer, osteo As Integer
@@ -268,7 +348,6 @@ Public Function total(ByVal book As Object) As Integer
 
 End Function
 
-'' REALIZA LA LIMPIEZA DE CARACTERES TAMBIEN LLAMA A LA DUNCION DE LIMPIEZA POR RegExp (EXPRESIONES REGULARES) ''
 Public Sub ClearCharter()
   Attribute ClearCharter.VB_ProcData.VB_Invoke_Func = "y\n14"
 
@@ -371,87 +450,101 @@ Public Sub ClearCharter()
 End Sub
 
 Public Sub ClearNonAlphaNumeric()
+  ' Esta macro elimina los caracteres no alfanuméricos de una columna
 
   Dim valor As String
   Dim ini As String
 
   Application.ScreenUpdating = False
+
+  ' Almacenar la dirección de la celda activa
   ini = ActiveCell.Address
+
+  ' Recorrer la columna hasta que se encuentre una celda vacía
   Do While Not IsEmpty(ActiveCell)
-    valor = ActiveCell.value
+    valor = ActiveCell.Value
     ActiveCell = Trim(ReplaceNonAlphaNumeric(valor))
     ActiveCell.Offset(1, 0).Select
   Loop
+
+  ' Seleccionar la celda inicial y todas las celdas hacia abajo
   Range(ini).Select
-  Range(ActiveCell,ActiveCell.End(xlDown)).Select
+  Range(ActiveCell, ActiveCell.End(xlDown)).Select
+
+  ' Activar la actualización de pantalla
   Application.ScreenUpdating = True
 
 End Sub
 
+' se debe terminar de verificar ya que el codigo AscW(letter) se debe buscar
 Public Function ReplaceNonAlphaNumeric(str As String) As String
-  Dim regEx As Object, LetterA As String, LetterE As String, LetterI As String, LetterO As String, LetterU As String
+  ' Esta función reemplaza los caracteres no alfanuméricos y las letras con acentos en una cadena de texto
+
+  Dim regEx As Object, letter As String, accent As Variant, accentPairs As Variant
 
   Set regEx = CreateObject("vbscript.regexp")
+  accentPairs = Array(ChrW(192)&",A", ChrW(200)&",E", ChrW(204)&",I", ChrW(210)&",O", ChrW(217)&",U", ChrW(193)&",A", ChrW(201)&",E", ChrW(205)&",I", ChrW(211)&",O", ChrW(218)&",U")
 
-  '' Define la expresión regular para encontrar las a con tilde ''
-  regEx.Pattern ="(["& Chr(193) &""& Chr(192) &"])"
+  ' Recorre el array de pares de acentos y letras, aplicando las expresiones regulares correspondientes
+  For Each accent In accentPairs
+    letter = Split(accent, ",")(0)
+    regEx.Pattern = "[" & letter & ChrW(AscW(letter) + 1) & "]"
+    regEx.Global = True
+    str = regEx.Replace(str, Split(accent, ",")(1))
+  Next accent
+
+  ' Define la expresión regular para encontrar valores no alfanuméricos
+  regEx.Pattern = "[^a-zA-Z0-9/" & ChrW(209) & "]"
   regEx.Global = True
 
-  LetterA = regEx.Replace(str,Chr(65))
-
-  '' Define la expresión regular para encontrar las e con tilde ''
-  regEx.Pattern ="(["& Chr(200) &""& Chr(201) &"])"
-  regEx.Global = True
-
-  LetterE = regEx.Replace(LetterA,Chr(69))
-
-  '' Define la expresión regular para encontrar las i con tilde ''
-  regEx.Pattern ="(["& Chr(204) &""& Chr(205) &"])"
-  regEx.Global = True
-
-  LetterI = regEx.Replace(LetterE,Chr(73))
-
-  '' Define la expresión regular para encontrar las o con tilde ''
-  regEx.Pattern ="(["& Chr(210) &""& Chr(211) &"])"
-  regEx.Global = True
-
-  LetterO = regEx.Replace(LetterI,Chr(79))
-
-  '' Define la expresión regular para encontrar las u con tilde ''
-  regEx.Pattern ="(["& Chr(217) &""& Chr(218) &"])"
-  regEx.Global = True
-
-  LetterU = regEx.Replace(LetterO,Chr(85))
-
-  '' Define la expresión regular para encontrar valores no alfanuméricos ''
-  regEx.Pattern = "[^a-zA-Z0-9/"&Chr(209)&"]"
-  regEx.Global = True
-
-  '' Reemplaza cualquier valor no alfanumérico por un espacio ''
-  ReplaceNonAlphaNumeric = regEx.Replace(LetterU, " ")
+  ' Reemplaza cualquier valor no alfanumérico por un espacio
+  ReplaceNonAlphaNumeric = regEx.Replace(str, " ")
 End Function
 
-Public Sub peso()
+Public Sub Peso()
+  'Este Subrutina asigna un número aleatorio entre 60 y 80 a las celdas vacías en la columna activa, siempre y cuando el valor de la celda no sea "SIN DATO".
+
+  'Variables:
+  '   num: Integer - Almacena el número aleatorio generado.
+  'Instrucciones:
+  '   1. Inicio del bucle hasta que la celda activa en la columna anterior esté vacía.
+  '   2. Si la celda activa está vacía o el valor en mayúsculas es "SIN DATO", entonces genera un número aleatorio entre 60 y 80 y lo asigna a la celda activa.
+  '   3. Selecciona la celda siguiente en la columna activa.
+  '   4. Fin del bucle.
+
   Dim num As Integer
+
   Do While Not IsEmpty(ActiveCell.Offset(, -35))
-    If IsEmpty(ActiveCell) Or Trim(UCase(ActiveCell.value)) = "SIN DATO" Then
+    If IsEmpty(ActiveCell) Or Trim(UCase(ActiveCell.Value)) = "SIN DATO" Then
       num = Int((80 - 60 + 1) * Rnd + 60)
-      ActiveCell = num
+      ActiveCell.Value = num
     End If
     ActiveCell.Offset(1, 0).Select
   Loop
+
 End Sub
 
-Public Sub talla()
-  Dim num As Double
+'ajustarTallas ajusta la información de altura en la columna activa.
+'Las celdas vacías o con el valor "sin dato" se reemplazan con una altura aleatoria entre 1.6 y 1.8 metros.
+'Las celdas que contienen un número entero se dividen por 100 para convertirlos a metros.
+'Este subrutina continua hasta que se encuentra una celda vacía en la columna -36.
+
+Public Sub ajustarTallas()
+  Dim talla As Double
+
+  ' Recorre todas las celdas hacia abajo hasta encontrar una vacía en la columna -36
   Do While Not IsEmpty(ActiveCell.Offset(0, -36))
-    If Trim(ActiveCell.value) = Empty Or Trim(UCase(ActiveCell.value)) = "SIN DATO" Then
-      num = CDec((Int((180 - 160 + 1) * Rnd + 160)) / 100)
-      ActiveCell = num
-    ElseIf ActiveCell.value = Int(ActiveCell.value) Then
-      num = CDec(ActiveCell.value / 100)
-      ActiveCell = num
+    If Trim(ActiveCell.Value) = "" Or Trim(UCase(ActiveCell.Value)) = "SIN DATO" Then
+      ' Genera una talla aleatoria entre 1.6 y 1.8 metros
+      talla = CDec((Int((180 - 160 + 1) * Rnd + 160)) / 100)
+      ActiveCell.Value = talla
+    ElseIf ActiveCell.Value = Int(ActiveCell.Value) Then
+      ' Divide el número entero de la celda por 100
+      talla = CDec(ActiveCell.Value / 100)
+      ActiveCell.Value = talla
     End If
+
+    ' Selecciona la celda siguiente
     ActiveCell.Offset(1, 0).Select
   Loop
 End Sub

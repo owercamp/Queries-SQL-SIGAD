@@ -3,12 +3,23 @@ Option Explicit
 Public sigad As Variant
 Public trabajadores As Worksheet, emo As Worksheet, audio As Worksheet, visio As Worksheet, opto As Worksheet, espiro As Worksheet, osteo As Worksheet, complementarios As Worksheet, psicotecnica As Worksheet, psicosensometrica As Worksheet, enfasis As Worksheet, diag As Worksheet
 
+''' <summary>
+''' Abre un libro de Excel especificado en la hoja "RUTAS" y celda "C7".
+''' </summary>
 Public Sub cargos()
   Attribute cargos.VB_ProcData.VB_Invoke_Func = "k\n14"
   Workbooks.Open (ThisWorkbook.Worksheets("RUTAS").Range("C7").value)
 End Sub
 
 Public Sub folder(route, folderName, workbookActive, YearNow, MonthNow)
+  ' Crea una carpeta en la ruta especificada y guarda una copia del libro de trabajo activo en ella. Si la carpeta ya existe, simplemente guarda una copia del libro de trabajo activo en ella.
+
+  '   Argumentos:
+  '   - route: la ruta donde se creará la carpeta y se guardará una copia del libro de trabajo activo.
+  '   - folderName: el nombre de la carpeta que se creará en la ruta especificada.
+  '   - workbookActive: el nombre del libro de trabajo activo que se guardará en la carpeta creada.
+  '   - YearNow: el año actual, que se utilizará para crear una subcarpeta en la carpeta creada.
+  '   - MonthNow: el mes actual, que se utilizará para crear una subcarpeta en la carpeta creada.
   Dim splitRoute As String
   splitRoute = Application.PathSeparator
 
@@ -335,6 +346,14 @@ Public Sub clearContents()
 
 End Sub
 
+' Este procedimiento almacena en un libro de trabajo local y en una hoja de cálculo de Google Sheet el mensaje de modificación
+' y la fecha en que se realizó la modificación para un registro específico en la hoja "Registros" del libro de trabajo especificado
+' en la celda "C5" de la hoja "RUTAS". Si se introduce un mensaje de modificación válido, el procedimiento busca la fecha y el nombre
+' del libro de trabajo actual en la hoja de cálculo, para luego actualizar la celda correspondiente con el mensaje de modificación
+' y la fecha actual, y también actualizar una hoja de cálculo de Google con el mensaje de modificación y la fecha actual.
+'
+' Parámetros: Ninguno.
+' Valores de retorno: Ninguno.
 Public Sub Modification()
 
   Dim consolidado As Object, libro As String, esLibro As Object
@@ -389,7 +408,18 @@ End Sub
 
 Public Sub AddRecordToGoogleSheet(ByVal Company as String, ByVal sigad as String, ByVal orden as Integer, ByVal patience as Integer, ByVal libro As Variant, ByVal bookNow as String)
 
-  '' ya funciona usa el token oAuth2 ''
+  'Agrega un registro a una hoja de Google Sheets
+
+  'Entradas:
+  '   Company - Cadena que representa el nombre de la empresa
+  '   sigad - Cadena que representa sigad
+  '   orden - Entero que representa el pedido
+  '   patience - Entero que representa la paciencia
+  '   libro - Un valor que representa el libro de Excel
+  '   bookNow - Cadena que representa la hoja de trabajo
+
+  'Salidas:
+  '   Ninguna
 
   Dim HttpReq As Variant
   Dim Json As Object
@@ -426,41 +456,57 @@ Public Sub AddRecordToGoogleSheet(ByVal Company as String, ByVal sigad as String
   End If
 End Sub
 
+'Actualiza un registro en una hoja de cálculo de Google
+'rowData: fila donde se encuentra el registro a actualizar
+'textModify: nuevo valor del registro a actualizar
 Public Sub UpdateGoogleSheetRecord(ByVal rowData As Integer, ByVal textModify As String)
 
+  'ID de la hoja de cálculo y token de acceso
   Dim sheetId As String, accessToken As String
   sheetId = "126vzNrB3mA-g-61ccgNyAz-ukhIIqg_Yn3JxzQljC5o"
   accessToken = Application.InputBox(prompt:="ingrese el Token de Acceso", Title:="Acceso Google Sheet", Default:="", Type:=2)
 
+  'Rango de la celda a actualizar
   Dim range As String
   range = "Registro!I" & rowData
 
+  'Cuerpo de la solicitud HTTP
   Dim requestBody As String
   requestBody = "{""values"": [['" & textModify & "']]}"
 
+  'URL de la API de Google Sheets para actualizar la celda
   Dim url As String
   url = "https://sheets.googleapis.com/v4/spreadsheets/" & sheetId & "/values/" & range & "?valueInputOption=RAW"
 
+  'Objeto HTTP para enviar la solicitud
   Dim httpObject As Object
   Set httpObject = CreateObject("MSXML2.XMLHTTP")
 
+  'Configuración de la solicitud HTTP
   httpObject.Open "PUT", url, False
   httpObject.setRequestHeader "Content-Type", "application/json"
   httpObject.setRequestHeader "Authorization", "Bearer " & accessToken
 
+  'Envío de la solicitud HTTP y manejo de errores
   On Error Resume Next
   httpObject.send (requestBody)
 
   If (httpObject.status = 200) Then
+    'Mensaje de éxito en la actualización del registro
     MsgBox "Record updated successfully:" + vbNewLine + vbNewLine + Chr(32) + "code:" & httpObject.status & "" + vbNewLine + Chr(32) + "status:" & httpObject.statusText
   ElseIf (httpObject.status = 12031) Then
+    'Mensaje de error cuando hay restricciones por parte del administrador de red
     MsgBox "Restriction by network administrator:" + vbNewLine + vbNewLine + Chr(32) + "code:" & httpObject.status
   Else
+    'Mensaje de error en la actualización del registro
     MsgBox "Error updated record: " & httpObject.status & vbNewLine & httpObject.statusText & vbNewLine & httpObject.responseText
   End If
 
 End Sub
 
+''' <summary>
+''' Exporta la información de cada tabla en un archivo SQL.
+''' </summary>
 Public Sub ExportSQL()
 
   Dim origin As Workbook
@@ -1141,6 +1187,12 @@ Public Sub ExportSQL()
   MsgBox "Se genero el archivo SQL textfile.sql" + vbNewLine + vbNewLine + Chr(32) + "Que se encuentra en la ruta: " + vbNewLine + vbNewLine + ThisWorkbook.Worksheets("RUTAS").Range("C9").value
 End Sub
 
+' Función: isEmptyValue
+' Descripción: Esta función toma un objeto Ranges como entrada y devuelve el número de elementos que no están vacíos en el objeto.
+' Parámetros:
+'   - Ranges: Objeto que contiene los elementos a verificar.
+' Valor de retorno:
+'   - Un entero que representa el número de elementos que no están vacíos en Ranges.
 Public Function isEmptyValue(ByVal Ranges As Object) As Integer
   Dim num As Integer
   Dim Item As Variant
@@ -1152,5 +1204,5 @@ Public Function isEmptyValue(ByVal Ranges As Object) As Integer
     End If
   Next Item
   isEmptyValue = num
-
 End Function
+

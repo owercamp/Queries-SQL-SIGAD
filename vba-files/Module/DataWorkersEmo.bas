@@ -1,6 +1,18 @@
 Attribute VB_Name = "DataWorkersEmo"
 Option Explicit
 
+' DataEmoWorkers - En esta subrutina se importan datos de audio desde una hoja de origen a una hoja de destino.
+'------------------------------------------------------------------------------------------------------------------
+' Variables:
+' - emo_destiny_dictionary: Un objeto Scripting.Dictionary para almacenar los números de columna de la hoja de destino.
+' - emo_origin_dictionary: Un objeto Scripting.Dictionary para almacenar los números de columna de la hoja de origen.
+' - emo_destiny_header: Una variable de objeto para almacenar el rango del encabezado de la hoja de destino.
+' - emo_origin_header: Una variable de objeto para almacenar el rango del encabezado de la hoja de origen.
+' - emo_origin_value: Una variable de objeto para almacenar los valores de la hoja de origen.
+' - ItemEmoDestiny: Una variable de objeto para almacenar los valores de la columna de la hoja de destino.
+' - ItemEmoOrigin: Una variable de objeto para almacenar los valores de la columna de la hoja de origen.
+' - ItemData: Una variable de objeto para almacenar los valores de la hoja de origen.
+' ------------------------------------------------------------------------------------------------------------------
 Public Sub DataEmoWorkers()
 
   Dim emo_destiny_dictionary As Scripting.Dictionary

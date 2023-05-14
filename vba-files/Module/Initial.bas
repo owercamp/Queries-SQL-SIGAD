@@ -148,6 +148,7 @@ Public Sub extraerdatos()
 End Sub
 
 Public Sub statusActivate(ByVal name_sheet As String)
+  'Cambia el color de la pestaña a azul celeste en la hoja especificada
   Sheets(name_sheet).Select
   With ActiveWorkbook.Sheets(name_sheet).Tab
     .ThemeColor = xlThemeColorAccent1
@@ -156,6 +157,7 @@ Public Sub statusActivate(ByVal name_sheet As String)
 End Sub
 
 Public Sub statusDesactivate(ByVal name_sheet As String)
+  'Cambia el color de la pestaña a gris claro en la hoja especificada
   Sheets(name_sheet).Select
   With ActiveWorkbook.Sheets(name_sheet).Tab
     .Color = RGB(222,222,222)
@@ -163,14 +165,15 @@ Public Sub statusDesactivate(ByVal name_sheet As String)
   End With
 End Sub
 
+' Muestra el formulario "formImports".
+' No recibe argumentos ni devuelve ningún valor.
 Public Sub info()
-
-  formImports.Show
-
+  formImports.Show ' Muestra el formulario "formImports".
 End Sub
 
+' Muestra el formulario "formControl".
+' No recibe argumentos ni devuelve ningún valor.
 Public Sub config()
-
-  formControl.Show
-
+  formControl.Show ' Muestra el formulario "formControl".
 End Sub
+

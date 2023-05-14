@@ -1,6 +1,9 @@
 Attribute VB_Name = "Conditionals"
 
 Public Sub dataDuplicate()
+  ' Esta subrutina aplica formato a las celdas de una columna para resaltar valores duplicados.
+  ' Solo se aplica formato a los valores que aparecen más de una vez en la columna.
+  ' Los valores duplicados se resaltan en negrita y color de fondo.
 
   Range(Selection, Selection.End(xlDown)).Select
   Selection.FormatConditions.AddUniqueValues
@@ -22,6 +25,20 @@ Public Sub dataDuplicate()
 End Sub
 
 Public Sub iqualCero()
+  ' Selecciona un rango y aplica una condición de formato en función del nombre de la hoja activa.
+  '
+  ' El rango a seleccionar comienza desde la celda actualmente seleccionada y se extiende hasta la última celda no vacía de la columna.
+  ' La condición de formato se agrega en función de las siguientes reglas:
+  '   - Si la hoja activa es "AUDIO" y las celdas AT4 a AX4 son todas iguales a cero, se formatea la fuente y el fondo de las celdas.
+  '   - Si la hoja activa es "VISIO" y las celdas BL4 a BQ4 son todas iguales a cero, se formatea la fuente y el fondo de las celdas.
+  '   - Si la hoja activa es "OPTO" y las celdas BD4 a BI4 son todas iguales a cero, se formatea la fuente y el fondo de las celdas.
+  '   - Si la hoja activa es "PSICOSENSOMETRICA" y las celdas I3 a N3 son todas iguales a cero, se formatea la fuente y el fondo de las celdas.
+  '   - Si la hoja activa es "ESPIRO" y las celdas BN4 a BS4 son todas iguales a cero, se formatea la fuente y el fondo de las celdas.
+  '
+  ' Se establece la fuente en negrita y se utiliza el color de tema accent1 con un tono y sombra de -0,5.
+  ' El fondo se establece en un color sólido con valor RGB de 15388336 (un tono de naranja).
+  '
+  ' Nota: Esta función asume que la primera fila del rango seleccionado contiene los encabezados de las columnas.
 
   Range(Selection, Selection.End(xlDown)).Select
   Select Case Trim(UCase(ActiveSheet.Name))
@@ -53,6 +70,15 @@ Public Sub iqualCero()
 End Sub
 
 Public Sub meetsfails()
+  ' Seleccione un rango de celdas y aplique un formato condicional para resaltar las celdas que no contienen "CUMPLE" o "NO CUMPLE".
+  '
+  ' Este sub no toma argumentos y no devuelve un valor.
+  '
+  ' Ejemplo:
+  '   meetsfails
+  '
+  ' Esta sub asume que una selección activa de celdas ya ha sido hecha en la hoja de cálculo activa.
+  ' Si no se ha seleccionado un rango de celdas, se producirá un error en tiempo de ejecución.
 
   Range(Selection, Selection.End(xlDown)).Select
   Selection.FormatConditions.Add Type:=xlExpression, Formula1:= _
@@ -70,10 +96,13 @@ Public Sub meetsfails()
     .TintAndShade = 0
   End With
   Selection.FormatConditions(1).StopIfTrue = False
-
 End Sub
 
 Public Sub Risk()
+  'Aplica una regla de formato condicional a un rango seleccionado de celdas.
+  'Las celdas que cumplen la condición especificada en la fórmula de la regla se formatean con fuente en negrita, color de tema xlThemeColorAccent1 y un tono de sombreado específico.
+  'El color de fondo de la celda se establece en un valor específico.
+  'La condición es verdadera si la celda EO5 está vacía y G5 en la hoja TRABAJADORES es PERIODICO, POS INCAPACIDAD, PERIODICO DE SEGUIMIENTO o ESPECIAL.
 
   Range(Selection, Selection.End(xlDown)).Select
   Selection.FormatConditions.Add Type:=xlExpression, Formula1:= _
@@ -95,7 +124,8 @@ Public Sub Risk()
 End Sub
 
 Public Sub riskPre_ingreso()
-
+  'Aplica formato condicional a las celdas seleccionadas que cumplan con la expresión especificada
+  'para trabajadores en pre-ingreso
   Range(Selection, Selection.End(xlDown)).Select
   Selection.FormatConditions.Add Type:=xlExpression, Formula1:= _
   "=Y($EO5<>"""";TRABAJADORES!$G5=""PRE-INGRESO"")"
@@ -112,10 +142,11 @@ Public Sub riskPre_ingreso()
     .TintAndShade = 0
   End With
   Selection.FormatConditions(1).StopIfTrue = False
-
 End Sub
 
 Public Sub formatter()
+  ' Este subrutina formatea la selección en la hoja de cálculo activa
+  ' El formato numérico se establece en "0" y la altura de fila se establece en 40
 
   With Selection
     .NumberFormat = "0"
@@ -125,6 +156,9 @@ Public Sub formatter()
 End Sub
 
 Public Sub greaterThanOne()
+  'Este sub selecciona un rango de celdas desde la celda activa hasta la última celda con datos en la columna hacia abajo.
+  'Luego, agrega una condición de formato en función del nombre de la hoja activa y la suma de ciertas celdas del rango seleccionado.
+  'Si la suma es mayor que 1, se aplica un formato de fuente en negrita y color de fondo en naranja.
 
   Range(Selection, Selection.End(xlDown)).Select
   Select Case Trim(UCase(ActiveSheet.Name))
@@ -156,6 +190,7 @@ Public Sub greaterThanOne()
 End Sub
 
 Public Sub thisText()
+  ' Este procedimiento selecciona el rango desde la celda activa hacia abajo y agrega una condición de formato para resaltar las celdas que contienen texto en la columna BH.
 
   Range(Selection, Selection.End(xlDown)).Select
   Selection.FormatConditions.Add Type:=xlExpression, Formula1:= _
@@ -177,10 +212,10 @@ Public Sub thisText()
 End Sub
 
 Public Sub thisEgreso()
+  'Aplica una condición de formato a la selección actual si el valor de la columna G es "EGRESO".
 
   Range(Selection, Selection.End(xlDown)).Select
-  Selection.FormatConditions.Add Type:=xlExpression, Formula1:= _
-  "=$G5=""EGRESO"""
+  Selection.FormatConditions.Add Type:=xlExpression, Formula1:="=$G5=""EGRESO"""
   Selection.FormatConditions(Selection.FormatConditions.Count).SetFirstPriority
   With Selection.FormatConditions(1).Font
     .Bold = True
@@ -194,5 +229,4 @@ Public Sub thisEgreso()
     .TintAndShade = 0
   End With
   Selection.FormatConditions(1).StopIfTrue = False
-
 End Sub

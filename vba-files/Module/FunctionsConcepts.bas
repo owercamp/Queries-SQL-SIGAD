@@ -1,5 +1,9 @@
 Attribute VB_Name = "FunctionsConcepts"
 
+'Función que valida el concepto de evaluación de un trabajador
+'Parámetros:
+'   - value: string con el concepto de evaluación
+'Retorna: string con el concepto de evaluación validado
 Public Function validateConcepts(value)
 
   Select Case Trim(UCase(value))
@@ -49,6 +53,13 @@ Public Function validateConcepts(value)
 
 End Function
 
+'Función para determinar el estado de cumplimiento de una actividad
+' Esta función toma un valor de entrada y lo procesa para determinar el estado de cumplimiento de una actividad, así como la actividad correspondiente.
+' Parámetros:
+' - valor: Valor de entrada a procesar.
+' - énfasis: Parámetro opcional que se puede utilizar para especificar el énfasis de la actividad (por ejemplo, "Bajo", "Alto", "Normal", etc.).
+' Devuelve:
+' - Cadena de texto que indica el estado de cumplimiento de la actividad y la actividad correspondiente.
 Public Function emphasisConcepts(value, emphasis)
 
   Dim No As Integer

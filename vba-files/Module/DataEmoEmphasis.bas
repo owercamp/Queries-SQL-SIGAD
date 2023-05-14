@@ -1,6 +1,24 @@
 Attribute VB_Name = "DataEmoEmphasis"
 Option Explicit
 
+' DataEmphasisEmo - En esta subrutina se importan datos de audio desde una hoja de origen a una hoja de destino.
+'------------------------------------------------------------------------------------------------------------------
+' Variables:
+' - emphasis_destiny_dictionary: Un objeto Scripting.Dictionary para almacenar los números de columna de la hoja de destino.
+' - emo_origin_dictionary: Un objeto Scripting.Dictionary para almacenar los números de columna de la hoja de origen.
+' - emphasis_destiny_header: Una variable de objeto para almacenar el rango del encabezado de la hoja de destino.
+' - emo_origin_header: Una variable de objeto para almacenar el rango del encabezado de la hoja de origen.
+' - emo_origin_value: Una variable de objeto para almacenar el rango de los datos de diagnosticos de la hoja de origen.
+' - ItemEmphasisDestiny: Una variable variante para iterar a traves del rango del encabezado de la hoja de destino.
+' - ItemEmoOrigin: Una variable variante para iterar a traves del rango del encabezado de la hoja de origen.
+' - ItemData: Una variable variante para iterar a traves del rango de los datos de diagnosticos de la hoja de origen.
+' - numbers: Una variable numerica para hacer un seguimiento del número de elementos de datos importados.
+' - porcentaje: Una variable numerica para calcular el porcentaje de elementos de datos importados.
+' - counts: Una variable numerica para almacenar el número total de elementos de datos de audio.
+' - vals: Una variable numerica para calcular el valor de incremento de la barra de progreso.
+' - oneForOne: Una variable numerica para hacer un seguimiento del progreso de la barra de progreso para cada elemento de datos.
+' - widthOneforOne: Una variable numerica para calcular el ancho de la barra de progreso para cada elemento de datos.
+'------------------------------------------------------------------------------------------------------------------
 Public Sub DataEmphasisEmo()
 
   Dim emphasis_destiny_dictionary As Scripting.Dictionary
