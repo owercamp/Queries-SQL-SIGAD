@@ -1206,3 +1206,48 @@ Public Function isEmptyValue(ByVal Ranges As Object) As Integer
   isEmptyValue = num
 End Function
 
+Public Sub date_accident()
+  'Esta función convierte las fechas en un formato específico a otro formato "dd/mm/yyyy".
+  'Se recorre un rango de celdas hasta encontrar una celda vacía y se intenta convertir la fecha en esa celda al formato deseado.
+  'Si la conversión es exitosa, se reemplaza el valor de la celda con el nuevo formato.
+  'Si la conversión falla, se establece la celda en vacío.
+  'Si se produce un error, se intenta convertir la fecha utilizando un formato diferente.
+
+  Dim date_cell As Variant, toDate As Variant 'variables para almacenar valores de fecha
+
+  Do Until isEmpty(ActiveCell.offset(0, -54)) 'recorrer el rango de celdas hasta encontrar una celda vacía
+    On Error GoTo Handler
+    date_cell = CDate(VBA.Replace(Trim$(ActiveCell.value)," ","/")) 'convertir la fecha al formato deseado
+    On Error GoTo 0
+
+    On Error Resume Next
+    toDate = date_cell
+    On Error GoTo 0
+
+    If isDate(toDate) Then 'verificar si la fecha es válida
+      ActiveCell = Format(CDate(toDate), "dd/mm/yyyy") 'reemplazar el valor de la celda con el nuevo formato
+      ActiveCell.NumberFormat = "dd/mm/yyyy"
+    Else
+      ActiveCell = Empty 'establecer la celda en vacío si la fecha no es válida
+    End If
+    ActiveCell.offset(1, 0).Select 'mover a la siguiente celda
+  Loop
+
+  Exit Sub
+ Handler:
+  Dim arrayDateStringToNumber As Variant, element As Variant, replace_string As String, separate_array As Variant
+
+  arrayDateStringToNumber = Array("Jan,01","Feb,02","Mar,03","Apr,04","May,05","Jun,06","Jul,07","Aug,08","Sep,09","Oct,10","Nov,11","Dec,12")
+
+  date_cell = CVErr(2000)
+  replace_string = VBA.Replace(Trim$(ActiveCell.value)," ","/")
+  For Each element In arrayDateStringToNumber
+    separate_array = VBA.split(element, ",")
+    If VBA.Ucase$(VBA.split(Trim$(replace_string), "/")(0)) = VBA.Ucase$(separate_array(0)) Then
+      date_cell = VBA.Split(Trim$(replace_string),"/")(1) & "/" & separate_array(1) & "/" & VBA.Split(Trim$(replace_string),"/")(2)
+      Exit For
+    End If
+  Next element
+  Resume Next
+End Sub
+

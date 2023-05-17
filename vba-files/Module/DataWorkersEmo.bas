@@ -208,6 +208,8 @@ Public Sub DataEmoWorkers()
     Call riskPre_ingreso
     Range("$A5", Range("$A5").End(xlDown)).Select
     Call formatter
+    Range("$BC5").Select
+    Call date_accident
 
     Set emo_origin_value = Nothing
     Set emo_destiny_header = Nothing
