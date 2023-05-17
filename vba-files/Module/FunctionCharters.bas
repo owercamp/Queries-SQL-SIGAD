@@ -528,7 +528,6 @@ End Sub
 'Las celdas vacías o con el valor "sin dato" se reemplazan con una altura aleatoria entre 1.6 y 1.8 metros.
 'Las celdas que contienen un número entero se dividen por 100 para convertirlos a metros.
 'Este subrutina continua hasta que se encuentra una celda vacía en la columna -36.
-
 Public Sub ajustarTallas()
   Dim talla As Double
 
