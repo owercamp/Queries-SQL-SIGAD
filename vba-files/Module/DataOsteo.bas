@@ -22,6 +22,7 @@ Public Sub OsteoData()
   Dim osteo_destiny_header As Object, osteo_origin_header As Object, osteo_origin_value As Object
   Dim ItemOsteoDestiny As Variant, ItemOsteoOrigin As Variant, ItemData As Variant
 
+  Call deleteFormatConditions
   Set osteo_origin = origin.Worksheets("OSTEO") '' OSTEO DEL LIBRO ORIGEN ''
   osteo_destiny.Select
   ActiveSheet.Range("A4").Select
@@ -153,10 +154,8 @@ Public Sub OsteoData()
       DoEvents
     Next ItemData
 
-    Range("$A4").Select
-    Call dataDuplicate
-    Range("$A4", Range("$A4").End(xlDown)).Select
-    Call formatter
+    Call dataDuplicate("$A4")
+    Call formatter("$A4")
 
     Set osteo_origin_value = Nothing
     Set osteo_destiny_header = Nothing

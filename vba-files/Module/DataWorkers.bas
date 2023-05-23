@@ -18,6 +18,7 @@ Public Sub Workers()
   Dim ItemWorks As Variant, ItemEmo As Variant, ItemData As Variant
   Dim range_active As Integer
 
+  Call deleteFormatConditions
   Set emo_origin = origin.Worksheets("EMO") '' EMO DEL LIBRO ORIGEN ''
   Windows(destiny.Name).Activate
   worker_destiny.Select
@@ -131,18 +132,12 @@ Public Sub Workers()
       DoEvents
     Next ItemData
 
-    Range("$F5").Select
-    Call dataDuplicate
-    Range("$J5").Select
-    Call dataDuplicate
-    Range("$I5").Select
-    Call dataDuplicate
-    Range("$T5").Select
-    Call dataDuplicate
-    Range("$AW5").Select
-    Call dataDuplicate
-    Range("$J5", Range("$J5").End(xlDown)).Select
-    Call formatter
+    Call dataDuplicate("$F5")
+    Call dataDuplicate("$J5")
+    Call dataDuplicate("$I5")
+    Call dataDuplicate("$T5")
+    Call dataDuplicate("$AW5")
+    Call formatter("$J5")
     range("$H5").Select
     range(Selection, Selection.End(xlDown)).Select
     Selection.TextToColumns Destination:=range("$H5"), DataType:=xlFixedWidth, _

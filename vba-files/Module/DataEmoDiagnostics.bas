@@ -26,6 +26,7 @@ Public Sub DataDiagnosticsEmo()
   Dim diagnostics_destiny_header As Object, emo_origin_header As Object, emo_origin_value As Object
   Dim ItemDiagnosticsDestiny As Variant, ItemEmoOrigin As Variant, ItemData As Variant
 
+  Call deleteFormatConditions
   Set emo_origin = origin.Worksheets("EMO") '' EMO DEL LIBRO ORIGEN ''
   diagnostics_destiny.Select
   ActiveSheet.Range("A5").Select
@@ -105,10 +106,8 @@ Public Sub DataDiagnosticsEmo()
       DoEvents
     Next ItemData
 
-    Range("$A5").Select
-    Call dataDuplicate
-    Range("$A5", Range("$A5").End(xlDown)).Select
-    Call formatter
+    Call dataDuplicate("$A5")
+    Call formatter("$A5")
 
     Set diagnostics_destiny_header = Nothing
     Set emo_origin_header = Nothing

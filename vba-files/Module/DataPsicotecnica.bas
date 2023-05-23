@@ -22,6 +22,7 @@ Public Sub PsicotecnicaData()
   Dim psicotecnica_destiny_header As Object, psicotecnica_origin_header As Object, psicotecnica_origin_value As Object
   Dim ItemPsicotecnicaDestiny As Variant, ItemPsicotecnicaOrigin As Variant, ItemData As Variant
 
+  Call deleteFormatConditions
   On Error GoTo tecnica:
   Set psico_origin = origin.Worksheets("PSICOTECNICA") '' PSICOTECNICA DEL LIBRO ORIGEN ''
 
@@ -105,10 +106,8 @@ Public Sub PsicotecnicaData()
       DoEvents
     Next ItemData
 
-    Range("D2").Select
-    Call meetsfails
-    Range("$A2", Range("$A2").End(xlDown)).Select
-    Call formatter
+    Call meetsfails("$D2")
+    Call formatter("$A2")
 
     Set psicotecnica_origin_value = Nothing
     Set psicotecnica_destiny_header = Nothing

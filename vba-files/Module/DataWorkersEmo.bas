@@ -20,6 +20,7 @@ Public Sub DataEmoWorkers()
   Dim emo_destiny_header As Object, emo_origin_header As Object, emo_origin_value As Object
   Dim ItemEmoDestiny As Variant, ItemEmoOrigin As Variant, ItemData As Variant
 
+  Call deleteFormatConditions
   Set emo_origin = origin.Worksheets("EMO") '' EMO DEL LIBRO ORIGEN ''
   emo_destiny.Select
   ActiveSheet.Range("A5").Select
@@ -195,19 +196,13 @@ Public Sub DataEmoWorkers()
       DoEvents
     Next ItemData
 
-    Range("$BH5").Select
-    Call thisText
-    Range("$EK5").Select
-    Call dataDuplicate
-    Range("$EL5").Select
-    Call dataDuplicate
-    Range("$A5").Select
-    Call dataDuplicate
-    Range("$EO5").Select
-    Call Risk
-    Call riskPre_ingreso
-    Range("$A5", Range("$A5").End(xlDown)).Select
-    Call formatter
+    Call thisText("$BH5")
+    Call dataDuplicate("$EK5")
+    Call dataDuplicate("$EL5")
+    Call dataDuplicate("$A5")
+    Call Risk("$EO5")
+    Call riskPre_ingreso("$EO5")
+    Call formatter("$A5ks")
     Range("$BC5").Select
     Call date_accident
 

@@ -25,6 +25,7 @@ Public Sub EspiroData()
   Dim espiro_destiny_header As Object, espiro_origin_header As Object, espiro_origin_value As Object
   Dim ItemEspiroDestiny As Variant, ItemEspiroOrigin As Variant, ItemData As Variant
 
+  Call deleteFormatConditions
   Set espiro_origin = origin.Worksheets("ESPIRO") '' ESPIRO DEL LIBRO ORIGEN ''
   espiro_destiny.Select
   ActiveSheet.Range("A4").Select
@@ -170,14 +171,10 @@ Public Sub EspiroData()
       DoEvents
     Next ItemData
 
-    Range("$A4").Select
-    Call dataDuplicate
-    Range("$A4", Range("$A4").End(xlDown)).Select
-    Call formatter
-    Range("$BN4:$BS4").Select
-    Call greaterThanOne
-    Range("$BN4:$BS4").Select
-    Call iqualCero
+    Call dataDuplicate("$A4")
+    Call formatter("$A4")
+    Call greaterThanOne("$BN4:$BS4")
+    Call iqualCero("$BN4:$BS4")
 
     Set espiro_origin_value = Nothing
     Set espiro_destiny_header = Nothing

@@ -23,6 +23,7 @@ Public Sub VisioData()
   Dim visio_destiny_header As Object, visio_origin_header As Object, visio_origin_value As Object
   Dim ItemVisioDestiny As Variant, ItemVisioOrigin As Variant, ItemData As Variant
 
+  Call deleteFormatConditions
   Set visio_origin = origin.Worksheets("VISIO") '' VISIO DEL LIBRO ORIGEN ''
   visio_destiny.Select
   ActiveSheet.Range("A4").Select
@@ -166,18 +167,12 @@ Public Sub VisioData()
       DoEvents
     Next ItemData
 
-    Range("$A4").Select
-    Call dataDuplicate
-    Range("$BL4:$BQ4").Select
-    Call greaterThanOne
-    Range("$BL4:$BQ4").Select
-    Call iqualCero
-    Range("$BR4").Select
-    Call dataDuplicate
-    Range("$BS4").Select
-    Call dataDuplicate
-    Range("$A4", Range("$A4").End(xlDown)).Select
-    Call formatter
+    Call dataDuplicate("$A4")
+    Call greaterThanOne("$BL4:$BQ4")
+    Call iqualCero("$BL4:$BQ4")
+    Call dataDuplicate("$BR4")
+    Call dataDuplicate("$BS4")
+    Call formatter("$A4")
 
     Set visio_origin_value = Nothing
     Set visio_destiny_header = Nothing

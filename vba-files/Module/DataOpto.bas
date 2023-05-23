@@ -23,6 +23,7 @@ Public Sub OptoData()
   Dim opto_destiny_header As Object, opto_origin_header As Object, opto_origin_value As Object
   Dim ItemOptoDestiny As Variant, ItemOptoOrigin As Variant, ItemData As Variant
 
+  Call deleteFormatConditions
   Set opto_origin = origin.Worksheets("OPTO") '' OPTO DEL LIBRO ORIGEN ''
   opto_destiny.Select
   ActiveSheet.Range("A4").Select
@@ -161,20 +162,13 @@ Public Sub OptoData()
         DoEvents
       Next ItemData
 
-      Range("$A4").Select
-      Call dataDuplicate
-      Range("$BD4:$BI4").Select
-      Call greaterThanOne
-      Range("$BD4:$BI4").Select
-      Call iqualCero
-      Range("$BK4").Select
-      Call dataDuplicate
-      Range("$BL4").Select
-      Call dataDuplicate
-      Range("$BM4").Select
-      Call dataDuplicate
-      Range("$A4", Range("$A4").End(xlDown)).Select
-      Call formatter
+      Call dataDuplicate("$A4")
+      Call greaterThanOne("$BD4:$BI4")
+      Call iqualCero("$BD4:$BI4")
+      Call dataDuplicate("$BK4")
+      Call dataDuplicate("$BL4")
+      Call dataDuplicate("$BM4")
+      Call formatter("$A4")
 
       Set opto_origin_value = Nothing
       Set opto_destiny_header = Nothing

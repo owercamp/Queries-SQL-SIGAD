@@ -26,6 +26,7 @@ Public Sub AudioData()
   Dim audio_destiny_header As Object, audio_origin_header As Object, audio_origin_value As Object
   Dim ItemAudioDestiny As Variant, ItemAudioOrigin As Variant, ItemData As Variant
 
+  Call deleteFormatConditions
   Set audio_origin = origin.Worksheets("AUDIO") '' AUDIO DEL LIBRO ORIGEN ''
   audio_destiny.Select
   ActiveSheet.Range("A4").Select
@@ -165,18 +166,12 @@ Public Sub AudioData()
       DoEvents
     Next ItemData
 
-    Range("$A4").Select
-    Call dataDuplicate
-    Range("$AT4:$AX4").Select
-    Call greaterThanOne
-    Range("$AT4:$AX4").Select
-    Call iqualCero
-    Range("$BF4").Select
-    Call dataDuplicate
-    Range("$BG4").Select
-    Call dataDuplicate
-    Range("$A4", Range("$A4").End(xlDown)).Select
-    Call formatter
+    Call dataDuplicate("$A4")
+    Call greaterThanOne("$AT4:$AX4")
+    Call iqualCero("$AT4:$AX4")
+    Call dataDuplicate("$BF4")
+    Call dataDuplicate("$BG4")
+    Call formatter("$A4")
 
     Set audio_origin_value = Nothing
     Set audio_destiny_header = Nothing

@@ -25,6 +25,7 @@ Public Sub ComplementarioData()
   Dim comple_destiny_header As Object, comple_origin_header As Object, comple_origin_value As Object
   Dim ItemCompleDestiny As Variant, ItemCompleOrigin As Variant, ItemData As Variant
 
+  Call deleteFormatConditions
   On Error GoTo com:
   Set comple_origin = origin.Worksheets("COMPLEMENTARIOS") '' COMPLEMENTARIOS DEL LIBRO ORIGEN ''
 
@@ -112,10 +113,8 @@ Public Sub ComplementarioData()
       DoEvents
     Next ItemData
 
-    Range("$A4").Select
-    Call dataDuplicate
-    Range("$A4", Range("$A4").End(xlDown)).Select
-    Call formatter
+    Call dataDuplicate("$A4")
+    Call formatter("$A4")
 
     Set comple_origin_value = Nothing
     Set comple_destiny_header = Nothing

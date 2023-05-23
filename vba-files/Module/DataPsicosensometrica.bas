@@ -22,6 +22,7 @@ Public Sub PsicosensometricaData()
   Dim psicosensometrica_destiny_header As Object, psicosensometrica_origin_header As Object, psicosensometrica_origin_value As Object
   Dim ItemPsicosensometricaDestiny As Variant, ItemPsicosensometricaOrigin As Variant, ItemData As Variant
 
+  Call deleteFormatConditions
   On Error GoTo metrica:
   Set senso_origin = origin.Worksheets("PSICOSENSOMETRICA") '' PSICOSENSOMETRICA DEL LIBRO ORIGEN ''
 
@@ -114,12 +115,9 @@ Public Sub PsicosensometricaData()
       DoEvents
     Next ItemData
 
-    Range("$I3:$N3").Select
-    Call greaterThanOne
-    Range("$I3:$N3").Select
-    Call iqualCero
-    Range("$A3", Range("$A3").End(xlDown)).Select
-    Call formatter
+    Call greaterThanOne("$I3:$N3")
+    Call iqualCero("$I3:$N3")
+    Call formatter("$A3")
 
     Set psicosensometrica_origin_value = Nothing
     Set psicosensometrica_destiny_header = Nothing
