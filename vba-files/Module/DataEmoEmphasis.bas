@@ -112,6 +112,8 @@ Public Sub DataEmphasisEmo()
     emphasis_destiny_dictionary.RemoveAll
     emo_origin_dictionary.RemoveAll
 
+    Exit Sub
+
  emphasisError:
     Resume Next
 End Sub

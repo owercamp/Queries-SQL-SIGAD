@@ -178,6 +178,8 @@ Public Sub AudioData()
     audio_destiny_dictionary.RemoveAll
     audio_origin_dictionary.RemoveAll
 
+    Exit Sub
+
  audioError:
     Resume Next
 End Sub

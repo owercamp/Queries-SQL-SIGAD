@@ -47,9 +47,9 @@ Public Function header_worker(ByVal value As String) As String
     header_worker = "FUENTE"
    Case "TIPO ACTIVIDAD"
     header_worker = "TIPO ACTIVIDAD"
-   Case "idOrdenListaTrabajadores"
+   Case Trim$(Ucase$("idOrdenListaTrabajadores"))
     header_worker = "idOrdenListaTrabajadores"
-   Case "idOrden"
+   Case Trim$(Ucase$("idOrden"))
     header_worker = "idOrden"
    Case Else
     header_worker = "SIN DATO"
@@ -264,7 +264,7 @@ Public Function emo_headers(ByVal value As String) As String
     emo_headers = "AUDITIVO"
    Case "RECOMENDACIONES ESPECIFICAS"
     emo_headers = "RECOMENDACIONES ESPECIFICAS"
-   Case "id_emo"
+   Case Trim$(UCase$("id_emo"))
     emo_headers = "ID_EMO"
    Case Else
     emo_headers = "SIN DATO"

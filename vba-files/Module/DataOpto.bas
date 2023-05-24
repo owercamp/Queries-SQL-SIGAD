@@ -174,6 +174,9 @@ Public Sub OptoData()
       Set opto_origin_header = Nothing
       opto_destiny_dictionary.RemoveAll
       opto_origin_dictionary.RemoveAll
+
+      Exit Sub
+        
  optoError:
       Resume Next
 End Sub

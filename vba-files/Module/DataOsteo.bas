@@ -162,6 +162,8 @@ Public Sub OsteoData()
     osteo_destiny_dictionary.RemoveAll
     osteo_origin_dictionary.RemoveAll
 
+    Exit Sub
+
  osteoError:
     Resume Next
 End Sub

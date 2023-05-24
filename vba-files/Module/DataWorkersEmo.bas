@@ -211,6 +211,8 @@ Public Sub DataEmoWorkers()
     emo_destiny_dictionary.RemoveAll
     emo_origin_dictionary.RemoveAll
 
+    Exit Sub
+
  emoError:
     Resume Next
 End Sub

@@ -113,6 +113,9 @@ Public Sub DataDiagnosticsEmo()
     Set emo_origin_value = Nothing
     diagnostics_destiny_dictionary.RemoveAll
     emo_origin_dictionary.RemoveAll
+
+    Exit Sub
+      
  diagnosticsError:
     Resume Next
 End Sub

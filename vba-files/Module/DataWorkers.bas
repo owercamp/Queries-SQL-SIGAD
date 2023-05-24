@@ -148,6 +148,9 @@ Public Sub Workers()
     Set emo_origin = Nothing
     workers_dictionary.RemoveAll
     emo_dictionary.RemoveAll
+
+    Exit Sub
+      
  workersError:
     Resume Next
 End Sub

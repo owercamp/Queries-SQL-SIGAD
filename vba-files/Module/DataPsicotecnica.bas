@@ -114,6 +114,8 @@ Public Sub PsicotecnicaData()
     psicotecnica_destiny_dictionary.RemoveAll
     psicotecnica_origin_dictionary.RemoveAll
 
+    Exit Sub
+
  psicotecnicaError:
     Resume Next
 

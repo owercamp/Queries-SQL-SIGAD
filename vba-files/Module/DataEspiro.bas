@@ -181,6 +181,8 @@ Public Sub EspiroData()
     espiro_destiny_dictionary.RemoveAll
     espiro_origin_dictionary.RemoveAll
 
+    Exit Sub
+
  espiroError:
     Resume Next
 End Sub

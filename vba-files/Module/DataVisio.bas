@@ -179,6 +179,8 @@ Public Sub VisioData()
     visio_destiny_dictionary.RemoveAll
     visio_origin_dictionary.RemoveAll
 
+    Exit Sub
+
  visioError:
     Resume Next
 End Sub

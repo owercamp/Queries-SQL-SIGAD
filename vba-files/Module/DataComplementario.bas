@@ -121,6 +121,8 @@ Public Sub ComplementarioData()
     comple_destiny_dictionary.RemoveAll
     comple_origin_dictionary.RemoveAll
 
+    Exit Sub
+
  compleError:
     Resume Next
  com:

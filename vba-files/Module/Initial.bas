@@ -144,6 +144,7 @@ Public Sub extraerdatos()
     Application.Wait (Now + TimeValue("0:00:05"))
     MsgBox "Importe de informaci" & Chr(243) & "n terminado", vbInformation + vbOKOnly, "Importaci" & Chr(243) & "n Datos"
   End If
+  Exit Sub
 
  NotFound:
   Resume Next

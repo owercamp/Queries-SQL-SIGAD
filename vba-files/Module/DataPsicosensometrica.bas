@@ -124,6 +124,8 @@ Public Sub PsicosensometricaData()
     psicosensometrica_destiny_dictionary.RemoveAll
     psicosensometrica_origin_dictionary.RemoveAll
 
+    Exit Sub
+
  psicotecnicaError:
     Resume Next
  metrica:
