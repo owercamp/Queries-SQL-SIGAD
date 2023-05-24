@@ -48,7 +48,11 @@ Public Sub iqualCero(rngStr As String)
   Dim fc As FormatCondition
 
   Set ws = ActiveSheet
-  Set rng = ws.range(rngStr, ws.range(rngStr).End(xlDown))
+  If IsEmpty(ws.Range(rngStr)(1).offset(1, 0).value) Then
+    Set rng = ws.Range(rngStr)
+  else
+    Set rng = ws.range(rngStr, ws.range(rngStr).End(xlDown))
+  End If
 
   Select Case Trim$(UCase$(ws.Name))
    Case "AUDIO"
@@ -195,7 +199,11 @@ Public Sub greaterThanOne(rngStr As String)
   Dim fc As FormatCondition
 
   Set ws = ActiveSheet
-  Set rng = ws.range(rngStr, ws.range(rngStr).End(xlDown))
+  If IsEmpty(ws.Range(rngStr)(1).offset(1, 0).value) Then
+    Set rng = ws.range(rngStr)
+  else
+    Set rng = ws.range(rngStr, ws.range(rngStr).End(xlDown))
+  End If
 
   Select Case Trim$(UCase$(ws.Name))
    Case "AUDIO"

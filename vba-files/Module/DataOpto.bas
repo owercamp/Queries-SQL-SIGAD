@@ -23,7 +23,6 @@ Public Sub OptoData()
   Dim opto_destiny_header As Object, opto_origin_header As Object, opto_origin_value As Object
   Dim ItemOptoDestiny As Variant, ItemOptoOrigin As Variant, ItemData As Variant
 
-  Call deleteFormatConditions
   Set opto_origin = origin.Worksheets("OPTO") '' OPTO DEL LIBRO ORIGEN ''
   opto_destiny.Select
   ActiveSheet.Range("A4").Select
@@ -148,8 +147,8 @@ Public Sub OptoData()
             .Offset(, opto_destiny_dictionary("CONTROLES 1 ANO")) = charters(ItemData.Offset(, opto_origin_dictionary("CONTROLES 1 ANO")))
             .Offset(, opto_destiny_dictionary("CONTROLES CONFIRMATORIA")) = charters(ItemData.Offset(, opto_origin_dictionary("CONTROLES CONFIRMATORIA")))
             If (.Row = 4) Then
-              .Offset(, opto_destiny_dictionary("ID_OPTOMETRIA")) = Trim(ThisWorkbook.Worksheets("RUTAS").Range("$F$7").value)
-              .Offset(, opto_destiny_dictionary("OP_DIAGNOSTICO")) = Trim(ThisWorkbook.Worksheets("RUTAS").Range("$F$8").value)
+              .Offset(, opto_destiny_dictionary("ID_OPTOMETRIA")) = Trim$(ThisWorkbook.Worksheets("RUTAS").Range("$F$7").value)
+              .Offset(, opto_destiny_dictionary("OP_DIAGNOSTICO")) = Trim$(ThisWorkbook.Worksheets("RUTAS").Range("$F$8").value)
             Else
               .Offset(, opto_destiny_dictionary("ID_OPTOMETRIA")) = .Offset(-1, opto_destiny_dictionary("ID_OPTOMETRIA")) + 1
               .Offset(, opto_destiny_dictionary("OP_DIAGNOSTICO")) = .Offset(-1, opto_destiny_dictionary("OP_DIAGNOSTICO")) + 1

@@ -22,7 +22,6 @@ Public Sub PsicosensometricaData()
   Dim psicosensometrica_destiny_header As Object, psicosensometrica_origin_header As Object, psicosensometrica_origin_value As Object
   Dim ItemPsicosensometricaDestiny As Variant, ItemPsicosensometricaOrigin As Variant, ItemData As Variant
 
-  Call deleteFormatConditions
   On Error GoTo metrica:
   Set senso_origin = origin.Worksheets("PSICOSENSOMETRICA") '' PSICOSENSOMETRICA DEL LIBRO ORIGEN ''
 
@@ -103,7 +102,7 @@ Public Sub PsicosensometricaData()
           .Offset(, psicosensometrica_destiny_dictionary("CONTROLES 1 ANO")) = charters(ItemData.Offset(, psicosensometrica_origin_dictionary("CONTROLES 1 ANO")))
           .Offset(, psicosensometrica_destiny_dictionary("CONTROLES CONFIRMATORIA")) = charters(ItemData.Offset(, psicosensometrica_origin_dictionary("CONTROLES CONFIRMATORIA")))
           If (.Row = 3) Then
-            .Offset(, psicosensometrica_destiny_dictionary("ID_PSICOSENSOMETRICA")) = Trim(ThisWorkbook.Worksheets("RUTAS").Range("$F$14").value)
+            .Offset(, psicosensometrica_destiny_dictionary("ID_PSICOSENSOMETRICA")) = Trim$(ThisWorkbook.Worksheets("RUTAS").Range("$F$14").value)
           Else
             .Offset(, psicosensometrica_destiny_dictionary("ID_PSICOSENSOMETRICA")) = .Offset(-1, psicosensometrica_destiny_dictionary("ID_PSICOSENSOMETRICA")) + 1
           End If

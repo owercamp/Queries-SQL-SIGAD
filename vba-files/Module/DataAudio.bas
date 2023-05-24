@@ -26,7 +26,6 @@ Public Sub AudioData()
   Dim audio_destiny_header As Object, audio_origin_header As Object, audio_origin_value As Object
   Dim ItemAudioDestiny As Variant, ItemAudioOrigin As Variant, ItemData As Variant
 
-  Call deleteFormatConditions
   Set audio_origin = origin.Worksheets("AUDIO") '' AUDIO DEL LIBRO ORIGEN ''
   audio_destiny.Select
   ActiveSheet.Range("A4").Select
@@ -154,7 +153,7 @@ Public Sub AudioData()
             .Offset(, audio_destiny_dictionary("DIAG GATI-SO")) = charters(ReplaceNonAlphaNumeric(ItemData.Offset(, audio_origin_dictionary("DIAG GATI-SO"))))
           End If
           If (.Row = 4) Then
-            .Offset(, audio_destiny_dictionary("ID_AUDIOMETRIA")) = Trim(ThisWorkbook.Worksheets("RUTAS").Range("$F$6").value)
+            .Offset(, audio_destiny_dictionary("ID_AUDIOMETRIA")) = Trim$(ThisWorkbook.Worksheets("RUTAS").Range("$F$6").value)
           Else
             .Offset(, audio_destiny_dictionary("ID_AUDIOMETRIA")) = .Offset(-1, audio_destiny_dictionary("ID_AUDIOMETRIA")) + 1
           End If

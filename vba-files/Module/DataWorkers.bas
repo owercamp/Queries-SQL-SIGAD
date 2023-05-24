@@ -18,7 +18,6 @@ Public Sub Workers()
   Dim ItemWorks As Variant, ItemEmo As Variant, ItemData As Variant
   Dim range_active As Integer
 
-  Call deleteFormatConditions
   Set emo_origin = origin.Worksheets("EMO") '' EMO DEL LIBRO ORIGEN ''
   Windows(destiny.Name).Activate
   worker_destiny.Select
@@ -119,7 +118,7 @@ Public Sub Workers()
           .Offset(, workers_dictionary("FUENTE")) = charters("ARMYWEB")
           .Offset(, workers_dictionary("TIPO ACTIVIDAD")) = charters("1")
           If (.Row = 5) Then
-            .Offset(, workers_dictionary("idOrdenListaTrabajadores")) = Trim(ThisWorkbook.Worksheets("RUTAS").Range("$F$4").value)
+            .Offset(, workers_dictionary("idOrdenListaTrabajadores")) = Trim$(ThisWorkbook.Worksheets("RUTAS").Range("$F$4").value)
           Else
             .Offset(, workers_dictionary("idOrdenListaTrabajadores")) = .Offset(-1, workers_dictionary("idOrdenListaTrabajadores")) + 1
           End If

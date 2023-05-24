@@ -7,7 +7,7 @@ Option Explicit
 ''' <param name="value">El valor de entrada como cadena de texto.</param>
 ''' <returns>El valor de entrada en mayúsculas y sin espacios en blanco.</returns>
 Public Function charters(ByVal value As String) As String
-  charters = Trim(UCase(value))
+  charters = Trim$(UCase$(value))
 End Function
 
 Public Function charters_empty(value)
@@ -20,13 +20,13 @@ Public Function charters_empty(value)
   ' - Si el valor es un campo vacío o una cadena vacía o "NO", devuelve "0".
   ' - Si el valor es "OCASIONAL" o "SI", devuelve "1".
   ' - En cualquier otro caso, devuelve el valor sin espacios al inicio y al final en mayúsculas.
-  Select Case Trim(UCase(value))
-   Case IsEmpty(Trim(UCase(value))), "", "NO"
+  Select Case Trim$(UCase$(value))
+   Case IsEmpty(Trim$(UCase$(value))), "", "NO"
     charters_empty = "0"
    Case "OCASIONAL", "SI"
     charters_empty = "1"
    Case Else
-    charters_empty = Trim(UCase(value))
+    charters_empty = Trim$(UCase$(value))
   End Select
 End Function
 
@@ -69,37 +69,37 @@ End Function
 'Retorno:
 '   - Cadena de texto representando una versión estandarizada del nombre de ciudad.
 Public Function city(ByVal value As String) As String
-  Select Case value
+  Select Case Trim$(Ucase$(value))
    Case "BOGOTA", "BOGOTA, D.C.", "BOGOT" & Chr(193) & ", D.C.", "BOGOTA, D.C", "BOGOTA D.C","BOGOT"& Chr(193), "BOGOTA  D.C","BOGOTA, BOGOTA D.C","BOGOTA,D,C","BOGOTA  D C","BOGOTÁ, D,C,","BOGOTA,D.C"
-    city = Trim("BOGOTA D.C.")
+    city = Trim$("BOGOTA D.C.")
    Case "CARTAGENA DE INDIAS","CARTAGENA, BOLIVAR"
-    city = Trim("CARTAGENA")
+    city = Trim$("CARTAGENA")
    Case "BUGA"
-    city = Trim("GUADALAJARA DE BUGA")
+    city = Trim$("GUADALAJARA DE BUGA")
    Case "MONTEL" & Chr(205) & "BANO"
-    city = Trim("MONTELIBANO")
+    city = Trim$("MONTELIBANO")
    Case "PUERTO GAIT" & Chr(193) & "N"
-    city = Trim("PUERTO GAITAN")
+    city = Trim$("PUERTO GAITAN")
    Case "PUERTO BOYAC" & Chr(193)
-    city = Trim("PUERTO BOYACA")
+    city = Trim$("PUERTO BOYACA")
    Case "PUERTO AS" & Chr(205) & "S"
-    city = Trim("PUERTO ASIS")
+    city = Trim$("PUERTO ASIS")
    Case "TULU"&Chr(193)
-    city = Trim("TULUA")
+    city = Trim$("TULUA")
    Case "POPAY"&Chr(193)&"N"
-    city =Trim("POPAYAN")
+    city =Trim$("POPAYAN")
    Case "SAN JOSE DE GUAVIARE"
-    city = Trim("SAN JOSE DEL GUAVIARE")
+    city = Trim$("SAN JOSE DEL GUAVIARE")
    Case "MANIZALEZ"
-    city = Trim("MANIZALES")
+    city = Trim$("MANIZALES")
    Case "QUIBD" & Chr(211)
-    city = Trim("QUIBDO")
+    city = Trim$("QUIBDO")
    Case "UBATE"
-    city = Trim("VILLA DE SAN DIEGO DE UBATE")
+    city = Trim$("VILLA DE SAN DIEGO DE UBATE")
    Case "CHIQUINQUIR" & Chr(193)
-    city = Trim("CHIQUINQUIRA")
+    city = Trim$("CHIQUINQUIRA")
    Case "FACATATIV" & Chr(193)
-    city = Trim("FACATATIVA")
+    city = Trim$("FACATATIVA")
    Case "BUCARAMANGA, SANTANDER"
     city = "BUCARAMANGA"
    Case "VILLAVICENCIO, META"
@@ -126,7 +126,7 @@ End Function
 'Retorno:
 '   - Cadena de texto representando una versión estandarizada del nivel de educación.
 Public Function school(ByVal value As String) As String
-  Select Case value
+  Select Case Trim$(Ucase$(value))
    Case "POSTGRADO","POST GRADO"
     school = "POSGRADO"
    Case "PROFESIONAL"
@@ -149,7 +149,7 @@ End Function
 'Retorno:
 '   - Cadena de texto representando una versión estandarizada del tipo de examen.
 Public Function typeExams(ByVal value As String) As String
-  Select Case value
+  Select Case Trim$(Ucase$(value))
    Case "POST INCAPACIDAD","POST-INCAPACIDAD"
     typeExams = "POS INCAPACIDAD"
    Case "PERIODICO SEG"
@@ -174,23 +174,23 @@ End Function
 'Retorno:
 '   - Cadena de texto representando una versión estandarizada del tipo de raza o etnia.
 Public Function typeSex(ByVal value As String) As String
-  Select Case value
+  Select Case Trim$(Ucase$(value))
    Case "COBRIZA", "COBRIZO"
-    typeSex = Trim("COBRIZA")
+    typeSex = Trim$("COBRIZA")
    Case "NEGRA", "NEGRO"
-    typeSex = Trim("NEGRA")
+    typeSex = Trim$("NEGRA")
    Case "OTRO", "OTRA"
-    typeSex = Trim("OTRO")
+    typeSex = Trim$("OTRO")
    Case "BLANCA", "CAUCASICA", "BLANCO", "CAUCASICO"
-    typeSex = Trim("CAUCASICA")
+    typeSex = Trim$("CAUCASICA")
    Case "MULATA", "MULATO"
-    typeSex = Trim("MULATO")
+    typeSex = Trim$("MULATO")
    Case "MESTIZO", "MESTIZA"
-    typeSex = Trim("MESTIZO")
+    typeSex = Trim$("MESTIZO")
    Case "SIN DATO", "SIN DATOS"
-    typeSex = Trim("SIN DATO")
+    typeSex = Trim$("SIN DATO")
    Case "IND" & Chr(205) & "GENA"
-    typeSex = Trim("INDIGENA")
+    typeSex = Trim$("INDIGENA")
    Case Else
     typeSex = value
   End Select
@@ -203,7 +203,7 @@ End Function
 'Retorno:
 '   - Cadena de texto representando una versión estandarizada del estado civil.
 Public Function typeCivil(ByVal value As String) As String
-  Select Case value
+  Select Case Trim$(Ucase$(value))
    Case "UNI" & Chr(211) & "N LIBRE"
     typeCivil = "UNION LIBRE"
    Case Else
@@ -218,7 +218,7 @@ End Function
 'Retorno:
 '   - Cadena de texto representando una versión estandarizada del actividad fisica.
 Public Function typeActivity(ByVal value As String) As String
-  Select Case value
+  Select Case Trim$(Ucase$(value))
    Case "F" & Chr(205) & "SICAMENTE ACTIVO", "FISICAMENTE ACTIVO", "FISICAMENTE ACTIVO(A)", "F" & Chr(205) & "SICAMENTE ACTIVO(A)"
     typeActivity = "F" & Chr(205) & "SICAMENTE ACTIVO"
    Case Else
@@ -232,7 +232,7 @@ End Function
 '   - value: El valor de cadena que se evaluará para determinar si es un fumador, un exfumador o no fuma.
 'Retorno: Una cadena que indica si el valor es un fumador, un exfumador o no fuma.
 Public Function typeSmoke(ByVal value As String) As String
-  Select Case value
+  Select Case Trim$(Ucase$(value))
    Case "EX-FUMADOR", "EXFUMADOR"
     typeSmoke = "EXFUMADOR"
    Case "SI"
@@ -250,7 +250,7 @@ End Function
 '   - value: El valor de cadena que se evaluará para determinar si está corregido correctamente o no.
 'Retorno: Una cadena que indica si el valor está corregido correctamente o no.
 Public Function correction(ByVal value As String) As String
-  Select Case value
+  Select Case Trim$(Ucase$(value))
    Case "ANORMAL SIN CORRECCION"
     correction = "ANORMAL MAL CORREGIDO"
    Case Else
@@ -264,7 +264,7 @@ End Function
 '   - value: El valor de cadena que se evaluará para determinar si es una encuesta respiratoria o una valoración respiratoria.
 'Retorno: Una cadena que indica si el valor es una encuesta respiratoria o una valoración respiratoria.
 Public Function typeComplements(ByVal value As String) As String
-  Select Case value
+  Select Case Trim$(Ucase$(value))
    Case "ENCUESTA RESPIRATORIA","ENCUESTA DE SINTOMAS RESPIRATORIOS"
     typeComplements = "VALORACION RESPIRATORIA"
    Case Else
@@ -284,7 +284,7 @@ Public Function total(ByVal book As Object) As Integer
 
   For Each Sheet In book.Worksheets
 
-    Select Case Trim(UCase(Sheet.Name))
+    Select Case Trim$(UCase$(Sheet.Name))
      Case "EMO"
       If Sheet.Range("A2") <> "" And Sheet.Range("A3") <> "" Then
         nameCompany = Sheet.Range("A2").value
@@ -463,7 +463,7 @@ Public Sub ClearNonAlphaNumeric()
   ' Recorrer la columna hasta que se encuentre una celda vacía
   Do While Not IsEmpty(ActiveCell)
     valor = ActiveCell.Value
-    ActiveCell = Trim(ReplaceNonAlphaNumeric(valor))
+    ActiveCell = Trim$(ReplaceNonAlphaNumeric(valor))
     ActiveCell.Offset(1, 0).Select
   Loop
 
@@ -515,7 +515,7 @@ Public Sub Peso()
   Dim num As Integer
 
   Do While Not IsEmpty(ActiveCell.Offset(, -35))
-    If IsEmpty(ActiveCell) Or Trim(UCase(ActiveCell.Value)) = "SIN DATO" Then
+    If IsEmpty(ActiveCell) Or Trim$(UCase$(ActiveCell.Value)) = "SIN DATO" Then
       num = Int((80 - 60 + 1) * Rnd + 60)
       ActiveCell.Value = num
     End If
@@ -533,7 +533,7 @@ Public Sub ajustarTallas()
 
   ' Recorre todas las celdas hacia abajo hasta encontrar una vacía en la columna -36
   Do While Not IsEmpty(ActiveCell.Offset(0, -36))
-    If Trim(ActiveCell.Value) = "" Or Trim(UCase(ActiveCell.Value)) = "SIN DATO" Then
+    If Trim$(ActiveCell.Value) = "" Or Trim$(UCase$(ActiveCell.Value)) = "SIN DATO" Then
       ' Genera una talla aleatoria entre 1.6 y 1.8 metros
       talla = CDec((Int((180 - 160 + 1) * Rnd + 160)) / 100)
       ActiveCell.Value = talla

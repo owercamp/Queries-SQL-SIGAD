@@ -8,7 +8,7 @@ Option Explicit
 'Retorno:
 ' - Cadena de texto que representa el encabezado correspondiente a la cadena de entrada. Si no se encuentra un encabezado correspondiente, devuelve "SIN DATO".
 Public Function header_worker(ByVal value As String) As String
-  Select Case Trim(value)
+  Select Case Trim$(Ucase$(value))
    Case "NOMBRE CONTRATO"
     header_worker = "NOMBRE CONTRATO"
    Case "DESTINO"
@@ -63,7 +63,7 @@ End Function
 ' Retorno:
 ' - emo_headers: Cadena de texto que representa el encabezado emocional correspondiente al valor pasado como parámetro.
 Public Function emo_headers(ByVal value As String) As String
-  Select Case Trim(value)
+  Select Case Trim$(Ucase$(value))
    Case "NRO IDENFICACION", "NRO IDENTIFICACION"
     emo_headers = "NRO IDENFICACION"
    Case "TIPO EXAMEN"
@@ -282,7 +282,7 @@ End Function
 '   Si el valor de entrada coincide con una de las claves de encabezado, la función devuelve la clave correspondiente.
 '   En caso contrario, la función devuelve la cadena "SIN DATO".
 Public Function emphasis_headers(ByVal value As String) As String
-  Select Case Trim(UCase(value))
+  Select Case Trim$(UCase$(value))
    Case "IDENTIFICACION", "NRO IDENFICACION", "NRO IDENTIFICACION"
     emphasis_headers = "IDENTIFICACION"
    Case "TIPO EXAMEN"
@@ -310,7 +310,7 @@ End Function
 '   Si el valor de entrada coincide con una de las claves de encabezado de diagnóstico, la función devuelve la clave correspondiente.
 '   En caso contrario, la función devuelve la cadena "SIN DATO".
 Public Function diagnostics_header(ByVal value As String) As String
-  Select Case Trim(UCase(value))
+  Select Case Trim$(UCase$(value))
    Case "IDENTIFICACION", "NRO IDENFICACION", "NRO IDENTIFICACION"
     diagnostics_header = "IDENTIFICACION"
    Case "TIPO EXAMEN"
@@ -336,7 +336,7 @@ End Function
 'Retorna:
 '   - Una cadena de texto que representa el encabezado correspondiente según el caso que se cumpla en la estructura select case.
 Public Function opto_headers(ByVal value As String) As String
-  Select Case Trim(UCase(value))
+  Select Case Trim$(UCase$(value))
    Case "IDENTIFICACION", "NRO IDENFICACION", "NRO IDENTIFICACION"
     opto_headers = "IDENTIFICACION"
    Case "TIPO EXAMEN"
@@ -476,7 +476,7 @@ End Function
 'Retorna:
 '   - Una cadena de texto que representa el encabezado correspondiente según el caso que se cumpla en la estructura select case.
 Public Function audio_headers(ByVal value As String) As String
-  Select Case Trim(UCase(value))
+  Select Case Trim$(UCase$(value))
    Case "NROAIDENFICACION", "NRO IDENFICACION", "NRO IDENTIFICACION", "NRO IDENTFICACION"
     audio_headers = "NROAIDENFICACION"
    Case "TIPO EXAMEN"
@@ -597,7 +597,7 @@ End Function
 ' - Esta función devuelve el encabezado correspondiente al valor ingresado en el parámetro "value".
 ' - Si el valor ingresado no se corresponde con ninguno de los casos especificados en el Select Case, se devuelve "SIN DATO".
 Public Function visio_headers(ByVal value As String) As String
-  Select Case Trim(UCase(value))
+  Select Case Trim$(UCase$(value))
    Case "NRO IDENFICACION", "NRO IDENTIFICACION", "NRO IDENTIFICACION"
     visio_headers = "NRO IDENFICACION"
    Case "TIPO EXAMEN"
@@ -752,7 +752,7 @@ End Function
 '''    espiro_headers("NRO IDENTIFICACION")
 '''    Devuelve "NRO IDENFICACION"
 Public Function espiro_headers(ByVal value As String) As String
-  Select Case Trim(UCase(value))
+  Select Case Trim$(UCase$(value))
    Case "NRO IDENFICACION", "NRO IDENTIFICACION"
     espiro_headers = "NRO IDENFICACION"
    Case "TIPO EXAMEN"
@@ -908,7 +908,7 @@ End Function
 'Retorna:
 ' -Cadena de texto con el encabezado correspondiente, o "SIN DATO" si no hay coincidencia
 Public Function osteo_headers(ByVal value As String) As String
-  Select Case Trim(UCase(value))
+  Select Case Trim$(UCase$(value))
    Case "NRO IDENFICACION", "NRO IDENTIFICACION"
     osteo_headers = "NRO IDENFICACION"
    Case "TIPO EXAMEN"
@@ -1034,7 +1034,7 @@ End Function
 'Retorna:
 ' -Cadena de texto con el encabezado correspondiente, o "SIN DATO" si no hay coincidencia
 Public Function comple_headers(ByVal value As String) As String
-  Select Case Trim(UCase(value))
+  Select Case Trim$(UCase$(value))
    Case "NRO IDENFICACION", "NRO IDENTIFICACION"
     comple_headers = "NRO IDENFICACION"
    Case "TIPO EXAMEN"
@@ -1066,7 +1066,7 @@ End Function
 'Retorna:
 ' -Cadena de texto con el encabezado correspondiente, o "SIN DATO" si no hay coincidencia
 Public Function psicotecnica_headers(ByVal value As String) As String
-  Select Case Trim(UCase(value))
+  Select Case Trim$(UCase$(value))
    Case "NRO IDENFICACION", "NRO IDENTIFICACION"
     psicotecnica_headers = "NRO IDENFICACION"
    Case "TIPO EXAMEN"
@@ -1092,7 +1092,7 @@ End Function
 'Retorna:
 ' -Cadena de texto con el encabezado correspondiente, o "SIN DATO" si no hay coincidencia
 Public Function psicosensometrica_headers(ByVal value As String) As String
-  Select Case Trim(UCase(value))
+  Select Case Trim$(UCase$(value))
    Case "NRO IDENFICACION", "NRO IDENTIFICACION"
     psicosensometrica_headers = "NRO IDENFICACION"
    Case "TIPO EXAMEN"

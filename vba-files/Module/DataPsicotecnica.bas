@@ -22,7 +22,6 @@ Public Sub PsicotecnicaData()
   Dim psicotecnica_destiny_header As Object, psicotecnica_origin_header As Object, psicotecnica_origin_value As Object
   Dim ItemPsicotecnicaDestiny As Variant, ItemPsicotecnicaOrigin As Variant, ItemData As Variant
 
-  Call deleteFormatConditions
   On Error GoTo tecnica:
   Set psico_origin = origin.Worksheets("PSICOTECNICA") '' PSICOTECNICA DEL LIBRO ORIGEN ''
 
@@ -94,7 +93,7 @@ Public Sub PsicotecnicaData()
           .Offset(, psicotecnica_destiny_dictionary("DIAGNOSTICO PPAL (CUMPLE, NO CUMPLE)")) = charters(ItemData.Offset(, psicotecnica_origin_dictionary("DIAGNOSTICO PPAL (CUMPLE, NO CUMPLE)")))
           .Offset(, psicotecnica_destiny_dictionary("DIAGNOSTICO OBS")) = charters(ItemData.Offset(, psicotecnica_origin_dictionary("DIAGNOSTICO OBS")))
           If (.Row = 2) Then
-            .Offset(, psicotecnica_destiny_dictionary("ID_PSICOTECNICA")) = Trim(ThisWorkbook.Worksheets("RUTAS").Range("$F$13").value)
+            .Offset(, psicotecnica_destiny_dictionary("ID_PSICOTECNICA")) = Trim$(ThisWorkbook.Worksheets("RUTAS").Range("$F$13").value)
           Else
             .Offset(, psicotecnica_destiny_dictionary("ID_PSICOTECNICA")) = .Offset(-1, psicotecnica_destiny_dictionary("ID_PSICOTECNICA")) + 1
           End If

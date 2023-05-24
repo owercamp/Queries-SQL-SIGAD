@@ -25,7 +25,6 @@ Public Sub EspiroData()
   Dim espiro_destiny_header As Object, espiro_origin_header As Object, espiro_origin_value As Object
   Dim ItemEspiroDestiny As Variant, ItemEspiroOrigin As Variant, ItemData As Variant
 
-  Call deleteFormatConditions
   Set espiro_origin = origin.Worksheets("ESPIRO") '' ESPIRO DEL LIBRO ORIGEN ''
   espiro_destiny.Select
   ActiveSheet.Range("A4").Select
@@ -159,7 +158,7 @@ Public Sub EspiroData()
           .Offset(, espiro_destiny_dictionary("CONTROLES CONFIRMATORIA")) = charters_empty(ItemData.Offset(, espiro_origin_dictionary("CONTROLES CONFIRMATORIA")))
           .Offset(, espiro_destiny_dictionary("TECNICA ACEPTABLE")) = charters(ItemData.Offset(, espiro_origin_dictionary("TECNICA ACEPTABLE")))
           If (.Row = 4) Then
-            .Offset(, espiro_destiny_dictionary("ID_ESPIROMETRIA")) = Trim(ThisWorkbook.Worksheets("RUTAS").Range("$F$10").value)
+            .Offset(, espiro_destiny_dictionary("ID_ESPIROMETRIA")) = Trim$(ThisWorkbook.Worksheets("RUTAS").Range("$F$10").value)
           Else
             .Offset(, espiro_destiny_dictionary("ID_ESPIROMETRIA")) = .Offset(-1, espiro_destiny_dictionary("ID_ESPIROMETRIA")) + 1
           End If

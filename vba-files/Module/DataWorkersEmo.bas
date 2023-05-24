@@ -20,7 +20,6 @@ Public Sub DataEmoWorkers()
   Dim emo_destiny_header As Object, emo_origin_header As Object, emo_origin_value As Object
   Dim ItemEmoDestiny As Variant, ItemEmoOrigin As Variant, ItemData As Variant
 
-  Call deleteFormatConditions
   Set emo_origin = origin.Worksheets("EMO") '' EMO DEL LIBRO ORIGEN ''
   emo_destiny.Select
   ActiveSheet.Range("A5").Select
@@ -184,7 +183,7 @@ Public Sub DataEmoWorkers()
           .Offset(, emo_destiny_dictionary("RESPIRATORIA")) = "0"
           .Offset(, emo_destiny_dictionary("AUDITIVO")) = "0"
           If (.Row = 5) Then
-            .Offset(, emo_destiny_dictionary("ID_EMO")) = Trim(ThisWorkbook.Worksheets("RUTAS").Range("$F$5").value)
+            .Offset(, emo_destiny_dictionary("ID_EMO")) = Trim$(ThisWorkbook.Worksheets("RUTAS").Range("$F$5").value)
           Else
             .Offset(, emo_destiny_dictionary("ID_EMO")) = .Offset(-1, emo_destiny_dictionary("ID_EMO")) + 1
           End If

@@ -26,7 +26,6 @@ Public Sub DataEmphasisEmo()
   Dim emphasis_destiny_header As Object, emo_origin_header As Object, emo_origin_value As Object
   Dim ItemEmphasisDestiny As Variant, ItemEmoOrigin As Variant, ItemData As Variant
 
-  Call deleteFormatConditions
   Set emo_origin = origin.Worksheets("EMO") '' EMO DEL LIBRO ORIGEN ''
   emphasis_destiny.Select
   ActiveSheet.Range("A5").Select

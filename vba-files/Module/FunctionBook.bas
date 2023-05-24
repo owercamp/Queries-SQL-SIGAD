@@ -112,11 +112,11 @@ Public Sub clearContents()
     consolidado.ActiveSheet.Unprotect Password:="1024500065"
     Range("C3").End(xlDown).Select
     ActiveCell.Offset(1, 0).Select
-    ActiveCell = Trim(UCase(company))
-    ActiveCell.Offset(0, 1) = Trim(UCase("ICS-" & PadLeft(sigad, 4, "0")))
-    ActiveCell.Offset(0, 2) = Trim(orden)
+    ActiveCell = Trim$(UCase(company))
+    ActiveCell.Offset(0, 1) = Trim$(UCase("ICS-" & PadLeft(sigad, 4, "0")))
+    ActiveCell.Offset(0, 2) = Trim$(orden)
     ActiveCell.Offset(0, -1) = Date
-    ActiveCell.Offset(0, 3) = Trim(info)
+    ActiveCell.Offset(0, 3) = Trim$(info)
 
     Application.Calculation = xlCalculationAutomatic
     Application.Calculation = xlCalculationManual
@@ -127,7 +127,7 @@ Public Sub clearContents()
     consolidado.Save
     consolidado.Close
 
-    Call AddRecordToGoogleSheet(Trim(UCase(company)), Trim(UCase("ICS-" & PadLeft(sigad, 4, "0"))), Trim(orden),Trim(info), libro, bookNow)
+    Call AddRecordToGoogleSheet(Trim$(UCase$(company)), Trim$(UCase$("ICS-" & PadLeft(sigad, 4, "0"))), Trim$(orden),Trim$(info), libro, bookNow)
 
     Application.Calculation = xlCalculationManual
     trabajadores.Select
@@ -141,9 +141,9 @@ Public Sub clearContents()
       DoEvents
       Range("A5", Range("A5").Offset(rng, 0)).Select
       Selection.EntireRow.Delete shift:=xlUp
-      ThisWorkbook.Worksheets("RUTAS").Range("$F$4") = CLngPtr(Trim(Range("$AW$5").value)) + 1
+      ThisWorkbook.Worksheets("RUTAS").Range("$F$4") = CLngPtr(Trim$(Range("$AW$5").value)) + 1
     Else
-      ThisWorkbook.Worksheets("RUTAS").Range("$F$4") = CLngPtr(Trim(Range("$AW$5").value)) + 1
+      ThisWorkbook.Worksheets("RUTAS").Range("$F$4") = CLngPtr(Trim$(Range("$AW$5").value)) + 1
     End If
 
     enfasis.Select
@@ -196,9 +196,9 @@ Public Sub clearContents()
       DoEvents
       Range("A5", Range("A5").Offset(rng, 0)).Select
       Selection.EntireRow.Delete shift:=xlUp
-      ThisWorkbook.Worksheets("RUTAS").Range("$F$5") = CLngPtr(Trim(Range("$EL$5").value)) + 1
+      ThisWorkbook.Worksheets("RUTAS").Range("$F$5") = CLngPtr(Trim$(Range("$EL$5").value)) + 1
     Else
-      ThisWorkbook.Worksheets("RUTAS").Range("$F$5") = CLngPtr(Trim(Range("$EL$5").value)) + 1
+      ThisWorkbook.Worksheets("RUTAS").Range("$F$5") = CLngPtr(Trim$(Range("$EL$5").value)) + 1
     End If
 
     audio.Select
@@ -210,9 +210,9 @@ Public Sub clearContents()
       DoEvents
       Range("A4", Range("A4").Offset(rng, 0)).Select
       Selection.EntireRow.Delete shift:=xlUp
-      ThisWorkbook.Worksheets("RUTAS").Range("$F$6") = CLngPtr(Trim(Range("$BG$4").value)) + 1
+      ThisWorkbook.Worksheets("RUTAS").Range("$F$6") = CLngPtr(Trim$(Range("$BG$4").value)) + 1
     Else
-      ThisWorkbook.Worksheets("RUTAS").Range("$F$6") = CLngPtr(Trim(Range("$BG$4").value)) + 1
+      ThisWorkbook.Worksheets("RUTAS").Range("$F$6") = CLngPtr(Trim$(Range("$BG$4").value)) + 1
     End If
 
     opto.Select
@@ -224,11 +224,11 @@ Public Sub clearContents()
       DoEvents
       Range("A4", Range("A4").Offset(rng, 0)).Select
       Selection.EntireRow.Delete shift:=xlUp
-      ThisWorkbook.Worksheets("RUTAS").Range("$F$7") = CLngPtr(Trim(Range("$BL$4").value)) + 1
-      ThisWorkbook.Worksheets("RUTAS").Range("$F$8") = CLngPtr(Trim(Range("$BM$4").value)) + 1
+      ThisWorkbook.Worksheets("RUTAS").Range("$F$7") = CLngPtr(Trim$(Range("$BL$4").value)) + 1
+      ThisWorkbook.Worksheets("RUTAS").Range("$F$8") = CLngPtr(Trim$(Range("$BM$4").value)) + 1
     Else
-      ThisWorkbook.Worksheets("RUTAS").Range("$F$7") = CLngPtr(Trim(Range("$BL$4").value)) + 1
-      ThisWorkbook.Worksheets("RUTAS").Range("$F$8") = CLngPtr(Trim(Range("$BM$4").value)) + 1
+      ThisWorkbook.Worksheets("RUTAS").Range("$F$7") = CLngPtr(Trim$(Range("$BL$4").value)) + 1
+      ThisWorkbook.Worksheets("RUTAS").Range("$F$8") = CLngPtr(Trim$(Range("$BM$4").value)) + 1
     End If
 
     visio.Select
@@ -240,9 +240,9 @@ Public Sub clearContents()
       DoEvents
       Range("A4", Range("A4").Offset(rng, 0)).Select
       Selection.EntireRow.Delete shift:=xlUp
-      ThisWorkbook.Worksheets("RUTAS").Range("$F$9") = CLngPtr(Trim(Range("$BS$4").value)) + 1
+      ThisWorkbook.Worksheets("RUTAS").Range("$F$9") = CLngPtr(Trim$(Range("$BS$4").value)) + 1
     Else
-      ThisWorkbook.Worksheets("RUTAS").Range("$F$9") = CLngPtr(Trim(Range("$BS$4").value)) + 1
+      ThisWorkbook.Worksheets("RUTAS").Range("$F$9") = CLngPtr(Trim$(Range("$BS$4").value)) + 1
     End If
 
     espiro.Select
@@ -254,9 +254,9 @@ Public Sub clearContents()
       DoEvents
       Range("A4", Range("A4").Offset(rng, 0)).Select
       Selection.EntireRow.Delete shift:=xlUp
-      ThisWorkbook.Worksheets("RUTAS").Range("$F$10") = CLngPtr(Trim(Range("$BZ$4").value)) + 1
+      ThisWorkbook.Worksheets("RUTAS").Range("$F$10") = CLngPtr(Trim$(Range("$BZ$4").value)) + 1
     Else
-      ThisWorkbook.Worksheets("RUTAS").Range("$F$10") = CLngPtr(Trim(Range("$BZ$4").value)) + 1
+      ThisWorkbook.Worksheets("RUTAS").Range("$F$10") = CLngPtr(Trim$(Range("$BZ$4").value)) + 1
     End If
 
     osteo.Select
@@ -268,9 +268,9 @@ Public Sub clearContents()
       DoEvents
       Range("A4", Range("A4").Offset(rng, 0)).Select
       Selection.EntireRow.Delete shift:=xlUp
-      ThisWorkbook.Worksheets("RUTAS").Range("$F$11") = CLngPtr(Trim(Range("$BG$4").value)) + 1
+      ThisWorkbook.Worksheets("RUTAS").Range("$F$11") = CLngPtr(Trim$(Range("$BG$4").value)) + 1
     Else
-      ThisWorkbook.Worksheets("RUTAS").Range("$F$11") = CLngPtr(Trim(Range("$BG$4").value)) + 1
+      ThisWorkbook.Worksheets("RUTAS").Range("$F$11") = CLngPtr(Trim$(Range("$BG$4").value)) + 1
     End If
 
     complementarios.Select
@@ -282,9 +282,9 @@ Public Sub clearContents()
       DoEvents
       Range("A4", Range("A4").Offset(rng, 0)).Select
       Selection.EntireRow.Delete shift:=xlUp
-      ThisWorkbook.Worksheets("RUTAS").Range("$F$12") = CLngPtr(Trim(Range("$J$4").value)) + 1
+      ThisWorkbook.Worksheets("RUTAS").Range("$F$12") = CLngPtr(Trim$(Range("$J$4").value)) + 1
     Else
-      ThisWorkbook.Worksheets("RUTAS").Range("$F$12") = CLngPtr(Trim(Range("$J$4").value)) + 1
+      ThisWorkbook.Worksheets("RUTAS").Range("$F$12") = CLngPtr(Trim$(Range("$J$4").value)) + 1
     End If
 
     psicotecnica.Select
@@ -296,9 +296,9 @@ Public Sub clearContents()
       DoEvents
       Range("A2", Range("A2").Offset(rng, 0)).Select
       Selection.EntireRow.Delete shift:=xlUp
-      ThisWorkbook.Worksheets("RUTAS").Range("$F$13") = CLngPtr(Trim(Range("$G$2").value)) + 1
+      ThisWorkbook.Worksheets("RUTAS").Range("$F$13") = CLngPtr(Trim$(Range("$G$2").value)) + 1
     Else
-      ThisWorkbook.Worksheets("RUTAS").Range("$F$13") = CLngPtr(Trim(Range("$G$2").value)) + 1
+      ThisWorkbook.Worksheets("RUTAS").Range("$F$13") = CLngPtr(Trim$(Range("$G$2").value)) + 1
     End If
 
     psicosensometrica.Select
@@ -310,9 +310,9 @@ Public Sub clearContents()
       DoEvents
       Range("A3", Range("A3").Offset(rng, 0)).Select
       Selection.EntireRow.Delete shift:=xlUp
-      ThisWorkbook.Worksheets("RUTAS").Range("$F$14") = CLngPtr(Trim(Range("$Q$3").value)) + 1
+      ThisWorkbook.Worksheets("RUTAS").Range("$F$14") = CLngPtr(Trim$(Range("$Q$3").value)) + 1
     Else
-      ThisWorkbook.Worksheets("RUTAS").Range("$F$14") = CLngPtr(Trim(Range("$Q$3").value)) + 1
+      ThisWorkbook.Worksheets("RUTAS").Range("$F$14") = CLngPtr(Trim$(Range("$Q$3").value)) + 1
     End If
 
     Application.ActiveWorkbook.SaveCopyAs Filename:=route & "\" & Application.ActiveWorkbook.Name
@@ -368,7 +368,7 @@ Public Sub Modification()
     msg = Application.InputBox(prompt:="Indica el mensaje de la modificaci" & Chr(243) & "n efectuada", _
     Default:="", Type:=2)
 
-    If (Trim(msg) = Empty) Then
+    If (Trim$(msg) = Empty) Then
       MsgBox prompt:="Las observaciones no pueden estar vacias", Buttons:=vbOKOnly, Title:="Error msg"
       Exit Sub
     End If
@@ -434,7 +434,7 @@ Public Sub AddRecordToGoogleSheet(ByVal Company as String, ByVal sigad as String
 
   Set HttpReq = CreateObject("MSXML2.XMLHTTP")
   HttpReq.Open "POST", "https://sheets.googleapis.com/v4/spreadsheets/126vzNrB3mA-g-61ccgNyAz-ukhIIqg_Yn3JxzQljC5o/values/Registro!$A2:append?valueInputOption=RAW", False
-  HttpReq.setRequestHeader "Authorization", "Bearer " & Trim(bearerToken)
+  HttpReq.setRequestHeader "Authorization", "Bearer " & Trim$(bearerToken)
   HttpReq.setRequestHeader "Content-Type", "application/json"
 
   Dim requestBody As String
@@ -531,7 +531,7 @@ Public Sub ExportSQL()
   Set MyFile = FSO.OpenTextFile(ThisWorkbook.Worksheets("RUTAS").Range("C9").value &"testfile.sql", ForAppending, True, TristateTrue)
   For Each sh In origin.Worksheets
     If ActiveWorkbook.Sheets(sh.Name).Tab.ThemeColor = xlThemeColorAccent1 Then
-      Select Case Trim(Ucase(sh.Name))
+      Select Case Trim$(Ucase$(sh.Name))
        Case "TRABAJADORES"
         '' orden lista trabajadores
         num = isEmptyValue(range("tbl_trabajadores[[SCRIPT orden_lista_trabajadores]]"))

@@ -25,7 +25,6 @@ Public Sub ComplementarioData()
   Dim comple_destiny_header As Object, comple_origin_header As Object, comple_origin_value As Object
   Dim ItemCompleDestiny As Variant, ItemCompleOrigin As Variant, ItemData As Variant
 
-  Call deleteFormatConditions
   On Error GoTo com:
   Set comple_origin = origin.Worksheets("COMPLEMENTARIOS") '' COMPLEMENTARIOS DEL LIBRO ORIGEN ''
 
@@ -101,7 +100,7 @@ Public Sub ComplementarioData()
           .Offset(, comple_destiny_dictionary("DIAG_ REL/3")) = charters(ItemData.Offset(, comple_origin_dictionary("DIAG_ REL/3")))
           .Offset(, comple_destiny_dictionary("HALLAZGOS")) = charters(ItemData.Offset(, comple_origin_dictionary("HALLAZGOS")))
           If (.Row = 4) Then
-            .Offset(, comple_destiny_dictionary("ID_COMPLEMENTARIOS")) = Trim(ThisWorkbook.Worksheets("RUTAS").Range("$F$12").value)
+            .Offset(, comple_destiny_dictionary("ID_COMPLEMENTARIOS")) = Trim$(ThisWorkbook.Worksheets("RUTAS").Range("$F$12").value)
           Else
             .Offset(, comple_destiny_dictionary("ID_COMPLEMENTARIOS")) = .Offset(-1, comple_destiny_dictionary("ID_COMPLEMENTARIOS")) + 1
           End If

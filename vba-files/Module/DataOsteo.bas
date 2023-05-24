@@ -22,7 +22,6 @@ Public Sub OsteoData()
   Dim osteo_destiny_header As Object, osteo_origin_header As Object, osteo_origin_value As Object
   Dim ItemOsteoDestiny As Variant, ItemOsteoOrigin As Variant, ItemData As Variant
 
-  Call deleteFormatConditions
   Set osteo_origin = origin.Worksheets("OSTEO") '' OSTEO DEL LIBRO ORIGEN ''
   osteo_destiny.Select
   ActiveSheet.Range("A4").Select
@@ -142,7 +141,7 @@ Public Sub OsteoData()
           .Offset(, osteo_destiny_dictionary("RECOM_ OCUPACIONALES")) = charters(ItemData.Offset(, osteo_origin_dictionary("RECOM_ OCUPACIONALES")))
           .Offset(, osteo_destiny_dictionary("RECOM_ G/RALES")) = charters(ItemData.Offset(, osteo_origin_dictionary("RECOM_ G/RALES")))
           If (.Row = 4) Then
-            .Offset(, osteo_destiny_dictionary("ID_OSTEOMUSCULAR")) = Trim(ThisWorkbook.Worksheets("RUTAS").Range("$F$11").value)
+            .Offset(, osteo_destiny_dictionary("ID_OSTEOMUSCULAR")) = Trim$(ThisWorkbook.Worksheets("RUTAS").Range("$F$11").value)
           Else
             .Offset(, osteo_destiny_dictionary("ID_OSTEOMUSCULAR")) = .Offset(-1, osteo_destiny_dictionary("ID_OSTEOMUSCULAR")) + 1
           End If

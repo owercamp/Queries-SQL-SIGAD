@@ -27,6 +27,7 @@ Public Sub extraerdatos()
 
   On Error Goto NotFound:
   FSO.DeleteFile(ThisWorkbook.Worksheets("RUTAS").Range("C9").value &"testfile.sql")
+  On Error GoTo 0
 
   'route = ThisWorkbook.Worksheets("RUTAS").Range("C4").value
 
@@ -58,13 +59,14 @@ Public Sub extraerdatos()
   With Application
     .StatusBar = "Importando informaci" & Chr(243) & "n por favor espere"
     .ScreenUpdating = False
-    .Calculation = False
+    .DisplayAlerts = False
+    .Calculation = xlCalculationManual
     .EnableEvents = False
   End With
 
   totalData = total(origin)
   For Each variable In origin.Worksheets
-    Select Case Trim(UCase(variable.Name))
+    Select Case Trim$(UCase(variable.Name))
      Case "EMO"
       If (variable.Visible = True) Then
         Call Workers
@@ -124,6 +126,7 @@ Public Sub extraerdatos()
 
   With Application
     .ScreenUpdating = True
+    .DisplayAlerts = True
     .Calculation = xlCalculationAutomatic
     .EnableEvents = True
     .StatusBar = Empty

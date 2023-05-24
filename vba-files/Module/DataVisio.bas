@@ -23,7 +23,6 @@ Public Sub VisioData()
   Dim visio_destiny_header As Object, visio_origin_header As Object, visio_origin_value As Object
   Dim ItemVisioDestiny As Variant, ItemVisioOrigin As Variant, ItemData As Variant
 
-  Call deleteFormatConditions
   Set visio_origin = origin.Worksheets("VISIO") '' VISIO DEL LIBRO ORIGEN ''
   visio_destiny.Select
   ActiveSheet.Range("A4").Select
@@ -155,7 +154,7 @@ Public Sub VisioData()
           .Offset(, visio_destiny_dictionary("CONTROL 1 ANO")) = charters(ItemData.Offset(, visio_origin_dictionary("CONTROL 1 ANO")))
           .Offset(, visio_destiny_dictionary("CONTROL CONFIRMATORIA")) = charters(ItemData.Offset(, visio_origin_dictionary("CONTROL CONFIRMATORIA")))
           If (.Row = 4) Then
-            .Offset(, visio_destiny_dictionary("ID_VISIOMETRIA")) = Trim(ThisWorkbook.Worksheets("RUTAS").Range("$F$9").value)
+            .Offset(, visio_destiny_dictionary("ID_VISIOMETRIA")) = Trim$(ThisWorkbook.Worksheets("RUTAS").Range("$F$9").value)
           Else
             .Offset(, visio_destiny_dictionary("ID_VISIOMETRIA")) = .Offset(-1, visio_destiny_dictionary("ID_VISIOMETRIA")) + 1
           End If
