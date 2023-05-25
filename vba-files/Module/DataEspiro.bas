@@ -1,24 +1,24 @@
 Attribute VB_Name = "DataEspiro"
 Option Explicit
 
-' EspiroData - En esta subrutina se importan datos de audio desde una hoja de origen a una hoja de destino.
-'------------------------------------------------------------------------------------------------------------------
-' Variables:
-' - espiro_destiny_dictionary: Un objeto Scripting.Dictionary para almacenar los números de columna de la hoja de destino.
-' - espiro_origin_dictionary: Un objeto Scripting.Dictionary para almacenar los números de columna de la hoja de origen.
-' - espiro_destiny_header: Una variable de objeto para almacenar el rango del encabezado de la hoja de destino.
-' - espiro_origin_header: Una variable de objeto para almacenar el rango del encabezado de la hoja de origen.
-' - espiro_origin_value: Una variable de objeto para almacenar el rango de los datos de diagnosticos de la hoja de origen.
-' - ItemData: Una variable de objeto para almacenar el rango de los datos de diagnosticos de la hoja de origen.
-' - ItemEspiroDestiny: Una variable de objeto para almacenar el rango de los datos de diagnosticos de la hoja de origen.
-' - ItemEspiroOrigin: Una variable de objeto para almacenar el rango de los datos de diagnosticos de la hoja de origen.
-' - numbers: Una variable numerica para hacer un seguimiento del número de elementos de datos importados.
-' - porcentaje: Una variable numerica para calcular el porcentaje de elementos de datos importados.
-' - counts: Una variable numerica para almacenar el número total de elementos de datos de audio.
-' - vals: Una variable numerica para calcular el valor de incremento de la barra de progreso.
-' - oneForOne: Una variable numerica para hacer un seguimiento del progreso de la barra de progreso para cada elemento de datos.
-' - widthOneforOne: Una variable numerica para calcular el ancho de la barra de progreso para cada elemento de datos.
-'------------------------------------------------------------------------------------------------------------------
+'TODO: EspiroData - En esta subrutina se importan datos de audio desde una hoja de origen a una hoja de destino.
+'* ------------------------------------------------------------------------------------------------------------------
+'* Variables:
+'* - espiro_destiny_dictionary: Un objeto Scripting.Dictionary para almacenar los numeros de columna de la hoja de destino.
+'* - espiro_origin_dictionary: Un objeto Scripting.Dictionary para almacenar los numeros de columna de la hoja de origen.
+'* - espiro_destiny_header: Una variable de objeto para almacenar el rango del encabezado de la hoja de destino.
+'* - espiro_origin_header: Una variable de objeto para almacenar el rango del encabezado de la hoja de origen.
+'* - espiro_origin_value: Una variable de objeto para almacenar el rango de los datos de diagnosticos de la hoja de origen.
+'* - ItemData: Una variable de objeto para almacenar el rango de los datos de diagnosticos de la hoja de origen.
+'* - ItemEspiroDestiny: Una variable de objeto para almacenar el rango de los datos de diagnosticos de la hoja de origen.
+'* - ItemEspiroOrigin: Una variable de objeto para almacenar el rango de los datos de diagnosticos de la hoja de origen.
+'* - numbers: Una variable numerica para hacer un seguimiento del numero de elementos de datos importados.
+'* - porcentaje: Una variable numerica para calcular el porcentaje de elementos de datos importados.
+'* - counts: Una variable numerica para almacenar el numero total de elementos de datos de audio.
+'* - vals: Una variable numerica para calcular el valor de incremento de la barra de progreso.
+'* - oneForOne: Una variable numerica para hacer un seguimiento del progreso de la barra de progreso para cada elemento de datos.
+'* - widthOneforOne: Una variable numerica para calcular el ancho de la barra de progreso para cada elemento de datos.
+'* ------------------------------------------------------------------------------------------------------------------
 Public Sub EspiroData()
   Dim espiro_destiny_dictionary As Scripting.Dictionary
   Dim espiro_origin_dictionary As Scripting.Dictionary

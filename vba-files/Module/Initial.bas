@@ -1,7 +1,7 @@
 Attribute VB_Name = "Initial"
 Option Explicit
 
-'' Variables ''
+''? Variables ?''
 Public origin As Workbook, destiny As Workbook
 Public comple_origin As Worksheet, comple_destiny As Worksheet, osteo_origin As Worksheet, osteo_destiny As Worksheet, senso_destiny As Worksheet, senso_origin As Worksheet, psico_destiny As Worksheet, psico_origin As Worksheet, visio_destiny As Worksheet, visio_origin As Worksheet, espiro_destiny As Worksheet, espiro_origin As Worksheet, opto_origin As Worksheet, opto_destiny As Worksheet, audio_origin As Worksheet, audio_destiny As Worksheet, worker_destiny As Worksheet, emo_destiny As Worksheet, emo_origin As Worksheet, emphasis_destiny As Worksheet, diagnostics_destiny As Worksheet
 Public route As String, nameCompany As String
@@ -37,7 +37,7 @@ Public Sub extraerdatos()
   'Set origin = Workbooks.Open(route)
 
 
-  'DATOS DESTINO
+  '! DATOS DESTINO
 
   Set destiny = Workbooks(ThisWorkbook.Name)
   Set worker_destiny = destiny.Worksheets("TRABAJADORES")
@@ -54,7 +54,7 @@ Public Sub extraerdatos()
   Set diagnostics_destiny = destiny.Worksheets("DIAGNOSTICOS")
 
 
-  'DATOS ORIGEN
+  '! DATOS ORIGEN
 
   With Application
     .StatusBar = "Importando informaci" & Chr(243) & "n por favor espere"
@@ -152,7 +152,7 @@ Public Sub extraerdatos()
 End Sub
 
 Public Sub statusActivate(ByVal name_sheet As String)
-  'Cambia el color de la pestaña a azul celeste en la hoja especificada
+  '? Cambia el color de la pestaña a azul celeste en la hoja especificada
   Sheets(name_sheet).Select
   With ActiveWorkbook.Sheets(name_sheet).Tab
     .ThemeColor = xlThemeColorAccent1
@@ -161,7 +161,7 @@ Public Sub statusActivate(ByVal name_sheet As String)
 End Sub
 
 Public Sub statusDesactivate(ByVal name_sheet As String)
-  'Cambia el color de la pestaña a gris claro en la hoja especificada
+  '? Cambia el color de la pestaña a gris claro en la hoja especificada
   Sheets(name_sheet).Select
   With ActiveWorkbook.Sheets(name_sheet).Tab
     .Color = RGB(222,222,222)
@@ -169,15 +169,15 @@ Public Sub statusDesactivate(ByVal name_sheet As String)
   End With
 End Sub
 
-' Muestra el formulario "formImports".
-' No recibe argumentos ni devuelve ningún valor.
+'TODO: Muestra el formulario "formImports".
+'? No recibe argumentos ni devuelve ningun valor.
 Public Sub info()
-  formImports.Show ' Muestra el formulario "formImports".
+  formImports.Show '* Muestra el formulario "formImports".
 End Sub
 
-' Muestra el formulario "formControl".
-' No recibe argumentos ni devuelve ningún valor.
+'TODO: Muestra el formulario "formControl".
+'? No recibe argumentos ni devuelve ningun valor.
 Public Sub config()
-  formControl.Show ' Muestra el formulario "formControl".
+  formControl.Show '* Muestra el formulario "formControl".
 End Sub
 

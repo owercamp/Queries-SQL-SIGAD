@@ -1,9 +1,9 @@
 Attribute VB_Name = "Conditionals"
 
 Public Sub dataDuplicate(startCell As String)
-  ' Esta subrutina aplica formato a las celdas de una columna para resaltar valores duplicados.
-  ' Solo se aplica formato a los valores que aparecen más de una vez en la columna.
-  ' Los valores duplicados se resaltan en negrita y color de fondo.
+  ' * Esta subrutina aplica formato a las celdas de una columna para resaltar valores duplicados.
+  ' * Solo se aplica formato a los valores que aparecen mas de una vez en la columna.
+  ' * Los valores duplicados se resaltan en negrita y color de fondo.
 
   Dim lastRow As Long
   lastRow = Cells(Rows.Count, Range(startCell).Column).End(xlUp).Row
@@ -28,20 +28,20 @@ Public Sub dataDuplicate(startCell As String)
 End Sub
 
 Public Sub iqualCero(rngStr As String)
-  ' Selecciona un rango y aplica una condición de formato en función del nombre de la hoja activa.
-  '
-  ' El rango a seleccionar comienza desde la celda actualmente seleccionada y se extiende hasta la última celda no vacía de la columna.
-  ' La condición de formato se agrega en función de las siguientes reglas:
-  '   - Si la hoja activa es "AUDIO" y las celdas AT4 a AX4 son todas iguales a cero, se formatea la fuente y el fondo de las celdas.
-  '   - Si la hoja activa es "VISIO" y las celdas BL4 a BQ4 son todas iguales a cero, se formatea la fuente y el fondo de las celdas.
-  '   - Si la hoja activa es "OPTO" y las celdas BD4 a BI4 son todas iguales a cero, se formatea la fuente y el fondo de las celdas.
-  '   - Si la hoja activa es "PSICOSENSOMETRICA" y las celdas I3 a N3 son todas iguales a cero, se formatea la fuente y el fondo de las celdas.
-  '   - Si la hoja activa es "ESPIRO" y las celdas BN4 a BS4 son todas iguales a cero, se formatea la fuente y el fondo de las celdas.
-  '
-  ' Se establece la fuente en negrita y se utiliza el color de tema accent1 con un tono y sombra de -0,5.
-  ' El fondo se establece en un color sólido con valor RGB de 15388336 (un tono de naranja).
-  '
-  ' Nota: Esta función asume que la primera fila del rango seleccionado contiene los encabezados de las columnas.
+  ' * Selecciona un rango y aplica una condicion de formato en funcion del nombre de la hoja activa.
+  ' *
+  ' * El rango a seleccionar comienza desde la celda actualmente seleccionada y se extiende hasta la ultima celda no vacia de la columna.
+  '  * La condicion de formato se agrega en funcion de las siguientes reglas:
+  ' ?  - Si la hoja activa es "AUDIO" y las celdas AT4 a AX4 son todas iguales a cero, se formatea la fuente y el fondo de las celdas.
+  ' ?  - Si la hoja activa es "VISIO" y las celdas BL4 a BQ4 son todas iguales a cero, se formatea la fuente y el fondo de las celdas.
+  ' ?  - Si la hoja activa es "OPTO" y las celdas BD4 a BI4 son todas iguales a cero, se formatea la fuente y el fondo de las celdas.
+  ' ?  - Si la hoja activa es "PSICOSENSOMETRICA" y las celdas I3 a N3 son todas iguales a cero, se formatea la fuente y el fondo de las celdas.
+  ' ?  - Si la hoja activa es "ESPIRO" y las celdas BN4 a BS4 son todas iguales a cero, se formatea la fuente y el fondo de las celdas.
+  ' *
+  ' * Se establece la fuente en negrita y se utiliza el color de tema accent1 con un tono y sombra de -0,5.
+  ' * El fondo se establece en un color solido con valor RGB de 15388336 (un tono de naranja).
+  ' *
+  ' * Nota: Esta funcion asume que la primera fila del rango seleccionado contiene los encabezados de las columnas.
 
   Dim ws As Worksheet
   Dim rng As Range
@@ -87,15 +87,15 @@ Public Sub iqualCero(rngStr As String)
 End Sub
 
 Public Sub meetsfails(startCell As String)
-  ' Seleccione un rango de celdas y aplique un formato condicional para resaltar las celdas que no contienen "CUMPLE" o "NO CUMPLE".
-  '
-  ' Este sub no toma argumentos y no devuelve un valor.
-  '
-  ' Ejemplo:
-  '   meetsfails
-  '
-  ' Esta sub asume que una selección activa de celdas ya ha sido hecha en la hoja de cálculo activa.
-  ' Si no se ha seleccionado un rango de celdas, se producirá un error en tiempo de ejecución.
+  ' * Seleccione un rango de celdas y aplique un formato condicional para resaltar las celdas que no contienen "CUMPLE" o "NO CUMPLE".
+  ' *
+  ' * Este sub no toma argumentos y no devuelve un valor.
+  ' *
+  ' * Ejemplo:
+  ' *  meetsfails
+  ' *
+  ' * Esta sub asume que una seleccion activa de celdas ya ha sido hecha en la hoja de calculo activa.
+  ' * Si no se ha seleccionado un rango de celdas, se producira un error en tiempo de ejecucion.
 
   Dim lastRow As Long
   lastRow = Cells(Rows.Count, Range(startCell).Column).End(xlUp).Row
@@ -119,10 +119,10 @@ Public Sub meetsfails(startCell As String)
 End Sub
 
 Public Sub Risk(startCell As String)
-  'Aplica una regla de formato condicional a un rango seleccionado de celdas.
-  'Las celdas que cumplen la condición especificada en la fórmula de la regla se formatean con fuente en negrita, color de tema xlThemeColorAccent1 y un tono de sombreado específico.
-  'El color de fondo de la celda se establece en un valor específico.
-  'La condición es verdadera si la celda EO5 está vacía y G5 en la hoja TRABAJADORES es PERIODICO, POS INCAPACIDAD, PERIODICO DE SEGUIMIENTO o ESPECIAL.
+  '* Aplica una regla de formato condicional a un rango seleccionado de celdas.
+  '* Las celdas que cumplen la condicion especificada en la formula de la regla se formatean con fuente en negrita, color de tema xlThemeColorAccent1 y un tono de sombreado especifico.
+  '* El color de fondo de la celda se establece en un valor especifico.
+  '* La condicion es verdadera si la celda EO5 esta vacia y G5 en la hoja TRABAJADORES es PERIODICO, POS INCAPACIDAD, PERIODICO DE SEGUIMIENTO o ESPECIAL.
 
   Dim lastRow As Long
   lastRow = Cells(Rows.Count, Range(startCell).Column).End(xlUp).Row
@@ -148,8 +148,8 @@ Public Sub Risk(startCell As String)
 End Sub
 
 Public Sub riskPre_ingreso(startCell As String)
-  'Aplica formato condicional a las celdas seleccionadas que cumplan con la expresión especificada
-  'para trabajadores en pre-ingreso
+  '* Aplica formato condicional a las celdas seleccionadas que cumplan con la expresion especificada
+  '* para trabajadores en pre-ingreso
 
   Dim lastRow As Long
   lastRow = Cells(Rows.Count, Range(startCell).Column).End(xlUp).Row
@@ -174,8 +174,8 @@ Public Sub riskPre_ingreso(startCell As String)
 End Sub
 
 Public Sub formatter(startCell As String)
-  ' Este subrutina formatea la selección en la hoja de cálculo activa
-  ' El formato numérico se establece en "0" y la altura de fila se establece en 40
+  '* Este subrutina formatea la seleccion en la hoja de calculo activa
+  '* El formato numerico se establece en "0" y la altura de fila se establece en 40
 
   Dim lastRow As Long
   lastRow = Cells(Rows.Count, Range(startCell).Column).End(xlUp).Row
@@ -190,9 +190,9 @@ Public Sub formatter(startCell As String)
 End Sub
 
 Public Sub greaterThanOne(rngStr As String)
-  'Este sub selecciona un rango de celdas desde la celda activa hasta la última celda con datos en la columna hacia abajo.
-  'Luego, agrega una condición de formato en función del nombre de la hoja activa y la suma de ciertas celdas del rango seleccionado.
-  'Si la suma es mayor que 1, se aplica un formato de fuente en negrita y color de fondo en naranja.
+  '* Este sub selecciona un rango de celdas desde la celda activa hasta la ultima celda con datos en la columna hacia abajo.
+  '* Luego, agrega una condicion de formato en funcion del nombre de la hoja activa y la suma de ciertas celdas del rango seleccionado.
+  '* Si la suma es mayor que 1, se aplica un formato de fuente en negrita y color de fondo en naranja.
 
   Dim ws As Worksheet
   Dim rng As Range
@@ -239,7 +239,7 @@ Public Sub greaterThanOne(rngStr As String)
 End Sub
 
 Public Sub thisText(startCell As String)
-  ' Este procedimiento selecciona el rango desde la celda activa hacia abajo y agrega una condición de formato para resaltar las celdas que contienen texto en la columna BH.
+  '* Este procedimiento selecciona el rango desde la celda activa hacia abajo y agrega una condicion de formato para resaltar las celdas que contienen texto en la columna BH.
 
   Dim lastRow As Long
   lastRow = Cells(Rows.Count, Range(startCell).Column).End(xlUp).Row
@@ -265,7 +265,7 @@ Public Sub thisText(startCell As String)
 End Sub
 
 Public Sub thisEgreso(startCell As String)
-  'Aplica una condición de formato a la selección actual si el valor de la columna G es "EGRESO".
+  '* Aplica una condicion de formato a la seleccion actual si el valor de la columna G es "EGRESO".
 
   Dim lastRow As Long
   lastRow = Cells(Rows.Count, Range(startCell).Column).End(xlUp).Row
@@ -289,22 +289,22 @@ Public Sub thisEgreso(startCell As String)
 
 End Sub
 
-' Elimina todas las condiciones de formato de la hoja de calculo activa
+'? Elimina todas las condiciones de formato de la hoja de calculo activa
 Public Sub deleteFormatConditions()
-  ' Declarar variables de hoja de calculo y rango
+  '* Declarar variables de hoja de calculo y rango
   Dim ws As Worksheet
   Dim rng As Range
 
-  ' Establece la variable de hoja de calculo en la hoja activa y la variable de rango en todas las celdas de la hoja de calculo
+  '* Establece la variable de hoja de calculo en la hoja activa y la variable de rango en todas las celdas de la hoja de calculo
   Set ws = ActiveSheet
   Set rng = ws.Cells
 
-  ' Desactiva la actualizacion de pantalla para mejorar el rendimiento
+  '* Desactiva la actualizacion de pantalla para mejorar el rendimiento
   Application.ScreenUpdating = False
 
-  ' Elimina todas las condiciones de formato del rango de celdas
+  '* Elimina todas las condiciones de formato del rango de celdas
   rng.FormatConditions.Delete
 
-  ' Vuelve a activar la actualizacion de pantalla
+  '* Vuelve a activar la actualizacion de pantalla
   Application.ScreenUpdating = True
 End Sub

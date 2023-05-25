@@ -1,15 +1,15 @@
 Attribute VB_Name = "DataWorkers"
 Option Explicit
 
-' Workers - En esta subrutina se importan datos de trabajadores desde una hoja de origen a una hoja de destino.
-'------------------------------------------------------------------------------------------------------------------
-' Variables:
-' - workers_dictionary: Un objeto Scripting.Dictionary para almacenar los números de columna de la hoja de destino.
-' - workers_header: Una variable de objeto para almacenar el rango del encabezado de la hoja de destino.
-' - workers_value: Una variable de objeto para almacenar el rango de los datos de trabajadores.
-' - ItemData: Una variable de objeto para almacenar el rango de los datos de trabajadores.
-' - range_active: Una variable numerica para hacer un seguimiento del número de elementos de datos importados.
-'------------------------------------------------------------------------------------------------------------------
+'TODO: Workers - En esta subrutina se importan datos de trabajadores desde una hoja de origen a una hoja de destino.
+'* ------------------------------------------------------------------------------------------------------------------
+'* Variables:
+'* - workers_dictionary: Un objeto Scripting.Dictionary para almacenar los numeros de columna de la hoja de destino.
+'* - workers_header: Una variable de objeto para almacenar el rango del encabezado de la hoja de destino.
+'* - workers_value: Una variable de objeto para almacenar el rango de los datos de trabajadores.
+'* - ItemData: Una variable de objeto para almacenar el rango de los datos de trabajadores.
+'* - range_active: Una variable numerica para hacer un seguimiento del numero de elementos de datos importados.
+'* ------------------------------------------------------------------------------------------------------------------
 Public Sub Workers()
 
   Dim workers_dictionary As Scripting.Dictionary

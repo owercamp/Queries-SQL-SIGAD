@@ -1,12 +1,12 @@
 Attribute VB_Name = "FunctionHeaders"
 Option Explicit
 
-'Función: header_worker
-'Descripción: Esta función devuelve el encabezado correspondiente a la cadena de entrada.
-'Argumentos:
-' - value: Cadena de texto a la que se le está buscando el encabezado correspondiente.
-'Retorno:
-' - Cadena de texto que representa el encabezado correspondiente a la cadena de entrada. Si no se encuentra un encabezado correspondiente, devuelve "SIN DATO".
+'TODO Funcion: header_worker
+'? Descripcion: Esta funcion devuelve el encabezado correspondiente a la cadena de entrada.
+'? Argumentos:
+'? @param value: Cadena de texto a la que se le esta buscando el encabezado correspondiente.
+'? Retorno:
+'? @return header_worker Cadena de texto que representa el encabezado correspondiente a la cadena de entrada. Si no se encuentra un encabezado correspondiente, devuelve "SIN DATO".
 Public Function header_worker(ByVal value As String) As String
   Select Case Trim$(Ucase$(value))
    Case "NOMBRE CONTRATO"
@@ -56,12 +56,12 @@ Public Function header_worker(ByVal value As String) As String
   End Select
 End Function
 
-'Función: emo_headers
-'Descripción: Esta función que devuelve el encabezado emocional correspondiente al valor pasado como parámetro.
-'Argumentos:
-' - value: Cadena de texto que representa el valor a evaluar.
-' Retorno:
-' - emo_headers: Cadena de texto que representa el encabezado emocional correspondiente al valor pasado como parámetro.
+'TODO Funcion: emo_headers
+'? Descripcion: Esta funcion que devuelve el encabezado emocional correspondiente al valor pasado como parametro.
+'? Argumentos:
+'? @param value: Cadena de texto que representa el valor a evaluar.
+'? Retorno:
+'? @return emo_headers Cadena de texto que representa el encabezado emocional correspondiente al valor pasado como parametro.
 Public Function emo_headers(ByVal value As String) As String
   Select Case Trim$(Ucase$(value))
    Case "NRO IDENFICACION", "NRO IDENTIFICACION"
@@ -271,16 +271,16 @@ Public Function emo_headers(ByVal value As String) As String
   End Select
 End Function
 
-'Función: emphasis_headers
-'Resumen: Devuelve una cadena de texto que representa la clave de un encabezado.
-'Parámetros:
-'   - value: cadena de texto que representa el encabezado.
-'Retorno:
-'   - emphasis_headers: cadena de texto que representa la clave de un encabezado.
-'Detalles:
-'   Esta función utiliza un valor de entrada para determinar la clave de un encabezado.
-'   Si el valor de entrada coincide con una de las claves de encabezado, la función devuelve la clave correspondiente.
-'   En caso contrario, la función devuelve la cadena "SIN DATO".
+'TODO Funcion: emphasis_headers
+'? Resumen: Devuelve una cadena de texto que representa la clave de un encabezado.
+'? Parametros:
+'? @param value: cadena de texto que representa el encabezado.
+'? Retorno:
+'? @return emphasis_headers cadena de texto que representa la clave de un encabezado.
+'? Detalles:
+'?   Esta funcion utiliza un valor de entrada para determinar la clave de un encabezado.
+'?   Si el valor de entrada coincide con una de las claves de encabezado, la funcion devuelve la clave correspondiente.
+'?   En caso contrario, la funcion devuelve la cadena "SIN DATO".
 Public Function emphasis_headers(ByVal value As String) As String
   Select Case Trim$(UCase$(value))
    Case "IDENTIFICACION", "NRO IDENFICACION", "NRO IDENTIFICACION"
@@ -299,16 +299,16 @@ Public Function emphasis_headers(ByVal value As String) As String
   End Select
 End Function
 
-'Función: diagnostics_header
-'Resumen: Devuelve una cadena de texto que representa la clave de un encabezado de diagnóstico.
-'Parámetros:
-'   - value: cadena de texto que representa el encabezado de diagnóstico.
-'Retorno:
-'   - diagnostics_header: cadena de texto que representa la clave de un encabezado de diagnóstico.
-'Detalles:
-'   Esta función utiliza un valor de entrada para determinar la clave de un encabezado de diagnóstico.
-'   Si el valor de entrada coincide con una de las claves de encabezado de diagnóstico, la función devuelve la clave correspondiente.
-'   En caso contrario, la función devuelve la cadena "SIN DATO".
+'TODO Funcion: diagnostics_header
+'? Resumen: Devuelve una cadena de texto que representa la clave de un encabezado de diagnostico.
+'? Parametros:
+'? @param value: cadena de texto que representa el encabezado de diagnostico.
+'? Retorno:
+'? @return diagnostics_header cadena de texto que representa la clave de un encabezado de diagnostico.
+'? Detalles:
+'?   Esta funcion utiliza un valor de entrada para determinar la clave de un encabezado de diagnostico.
+'?   Si el valor de entrada coincide con una de las claves de encabezado de diagnostico, la funcion devuelve la clave correspondiente.
+'?   En caso contrario, la funcion devuelve la cadena "SIN DATO".
 Public Function diagnostics_header(ByVal value As String) As String
   Select Case Trim$(UCase$(value))
    Case "IDENTIFICACION", "NRO IDENFICACION", "NRO IDENTIFICACION"
@@ -329,12 +329,12 @@ Public Function diagnostics_header(ByVal value As String) As String
   End Select
 End Function
 
-'Función opto_headers
-'Esta función recibe como parámetro una cadena de texto y devuelve una cadena de texto que representa el encabezado correspondiente según el caso que se cumpla en la estructura select case.
-'Parámetros:
-'   - value: cadena de texto que representa el caso a evaluar en la estructura select case.
-'Retorna:
-'   - Una cadena de texto que representa el encabezado correspondiente según el caso que se cumpla en la estructura select case.
+'TODO Funcion opto_headers
+'? Esta funcion recibe como parametro una cadena de texto y devuelve una cadena de texto que representa el encabezado correspondiente segun el caso que se cumpla en la estructura select case.
+'? Parametros:
+'? @param value: cadena de texto que representa el caso a evaluar en la estructura select case.
+'? Retorna:
+'? @return opto_headers Una cadena de texto que representa el encabezado correspondiente segun el caso que se cumpla en la estructura select case.
 Public Function opto_headers(ByVal value As String) As String
   Select Case Trim$(UCase$(value))
    Case "IDENTIFICACION", "NRO IDENFICACION", "NRO IDENTIFICACION"
@@ -468,13 +468,12 @@ Public Function opto_headers(ByVal value As String) As String
   End Select
 End Function
 
-'Función audio_headers
-'
-'Recibe como parámetro una cadena de texto y devuelve una cadena de texto que representa el encabezado correspondiente según el caso que se cumpla en la estructura select case.
-'Parámetros:
-'   - value: cadena de texto que representa el caso a evaluar en la estructura select case.
-'Retorna:
-'   - Una cadena de texto que representa el encabezado correspondiente según el caso que se cumpla en la estructura select case.
+'TODO Funcion audio_headers
+'? Recibe como parametro una cadena de texto y devuelve una cadena de texto que representa el encabezado correspondiente segun el caso que se cumpla en la estructura select case.
+'? Parametros:
+'? @param value: cadena de texto que representa el caso a evaluar en la estructura select case.
+'? Retorna:
+'? @return audio_headers Una cadena de texto que representa el encabezado correspondiente segun el caso que se cumpla en la estructura select case.
 Public Function audio_headers(ByVal value As String) As String
   Select Case Trim$(UCase$(value))
    Case "NROAIDENFICACION", "NRO IDENFICACION", "NRO IDENTIFICACION", "NRO IDENTFICACION"
@@ -588,14 +587,14 @@ Public Function audio_headers(ByVal value As String) As String
   End Select
 End Function
 
-'Función: visio_headers
-'Parámetros de entrada:
-' - value: Cadena de texto que representa el valor a evaluar en el Select Case.
-'Retorno:
-' - Cadena de texto que representa el encabezado correspondiente al valor ingresado.
-'Descripción:
-' - Esta función devuelve el encabezado correspondiente al valor ingresado en el parámetro "value".
-' - Si el valor ingresado no se corresponde con ninguno de los casos especificados en el Select Case, se devuelve "SIN DATO".
+'TODO Funcion: visio_headers
+'? Parametros de entrada:
+'? - value: Cadena de texto que representa el valor a evaluar en el Select Case.
+'? Retorno:
+'? - Cadena de texto que representa el encabezado correspondiente al valor ingresado.
+'?Descripcion:
+'? - Esta funcion devuelve el encabezado correspondiente al valor ingresado en el parametro "value".
+'? - Si el valor ingresado no se corresponde con ninguno de los casos especificados en el Select Case, se devuelve "SIN DATO".
 Public Function visio_headers(ByVal value As String) As String
   Select Case Trim$(UCase$(value))
    Case "NRO IDENFICACION", "NRO IDENTIFICACION", "NRO IDENTIFICACION"
@@ -743,14 +742,11 @@ Public Function visio_headers(ByVal value As String) As String
   End Select
 End Function
 
-'''Convierte una cadena de texto en el encabezado correspondiente para una espirometría.
-'''Parámetros:
-''' - value: Cadena de texto que representa el encabezado a convertir.
-'''Devuelve:
-''' Una cadena de texto que representa el encabezado correspondiente para una espirometría.
-'''Ejemplo:
-'''    espiro_headers("NRO IDENTIFICACION")
-'''    Devuelve "NRO IDENFICACION"
+'TODO: Convierte una cadena de texto en el encabezado correspondiente para una espirometria.
+'? Parametros:
+'? @param value: Cadena de texto que representa el encabezado a convertir.
+'? Devuelve:
+'? @return espiro_headers Una cadena de texto que representa el encabezado correspondiente para una espirometria.
 Public Function espiro_headers(ByVal value As String) As String
   Select Case Trim$(UCase$(value))
    Case "NRO IDENFICACION", "NRO IDENTIFICACION"
@@ -902,11 +898,11 @@ Public Function espiro_headers(ByVal value As String) As String
   End Select
 End Function
 
-'Función que devuelve el encabezado correspondiente a un valor dado
-'Parámetros:
-' -value: Cadena de texto con el valor a buscar
-'Retorna:
-' -Cadena de texto con el encabezado correspondiente, o "SIN DATO" si no hay coincidencia
+'TODO: Funcion que devuelve el encabezado correspondiente a un valor dado
+'? Parametros:
+'? @param value: Cadena de texto con el valor a buscar
+'? Retorna:
+'? @return Cadena de texto con el encabezado correspondiente, o "SIN DATO" si no hay coincidencia
 Public Function osteo_headers(ByVal value As String) As String
   Select Case Trim$(UCase$(value))
    Case "NRO IDENFICACION", "NRO IDENTIFICACION"
@@ -1028,11 +1024,11 @@ Public Function osteo_headers(ByVal value As String) As String
   End Select
 End Function
 
-'Función que devuelve el encabezado correspondiente a un valor dado
-'Parámetros:
-' -value: Cadena de texto con el valor a buscar
-'Retorna:
-' -Cadena de texto con el encabezado correspondiente, o "SIN DATO" si no hay coincidencia
+'TODO: Funcion que devuelve el encabezado correspondiente a un valor dado
+'?Parametros:
+'? @param value: Cadena de texto con el valor a buscar
+'?Retorna:
+'? @return comple_headers Cadena de texto con el encabezado correspondiente, o "SIN DATO" si no hay coincidencia
 Public Function comple_headers(ByVal value As String) As String
   Select Case Trim$(UCase$(value))
    Case "NRO IDENFICACION", "NRO IDENTIFICACION"
@@ -1060,11 +1056,11 @@ Public Function comple_headers(ByVal value As String) As String
   End Select
 End Function
 
-'Función que devuelve el encabezado correspondiente a un valor dado
-'Parámetros:
-' -value: Cadena de texto con el valor a buscar
-'Retorna:
-' -Cadena de texto con el encabezado correspondiente, o "SIN DATO" si no hay coincidencia
+'TODO: Funcion que devuelve el encabezado correspondiente a un valor dado
+'? Parametros:
+'? @param value: Cadena de texto con el valor a buscar
+'? Retorna:
+'? @return psicotecnica_headers Cadena de texto con el encabezado correspondiente, o "SIN DATO" si no hay coincidencia
 Public Function psicotecnica_headers(ByVal value As String) As String
   Select Case Trim$(UCase$(value))
    Case "NRO IDENFICACION", "NRO IDENTIFICACION"
@@ -1086,11 +1082,11 @@ Public Function psicotecnica_headers(ByVal value As String) As String
   End Select
 End Function
 
-'Función que devuelve el encabezado correspondiente a un valor dado
-'Parámetros:
-' -value: Cadena de texto con el valor a buscar
-'Retorna:
-' -Cadena de texto con el encabezado correspondiente, o "SIN DATO" si no hay coincidencia
+'TODO: Funcion que devuelve el encabezado correspondiente a un valor dado
+'? Parametros:
+'? @param value: Cadena de texto con el valor a buscar
+'? Retorna:
+'? @return psicosensometrica_headers Cadena de texto con el encabezado correspondiente, o "SIN DATO" si no hay coincidencia
 Public Function psicosensometrica_headers(ByVal value As String) As String
   Select Case Trim$(UCase$(value))
    Case "NRO IDENFICACION", "NRO IDENTIFICACION"

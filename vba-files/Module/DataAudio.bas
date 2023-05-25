@@ -1,24 +1,24 @@
 Attribute VB_Name = "DataAudio"
 Option Explicit
 
-' AudioData - Esta subrutina importa datos de audio desde una hoja de origen a una hoja de destino.
-'------------------------------------------------------------------------------------------------------------------
-' Variables:
-' - audio_destiny_dictionary: Un objeto Scripting.Dictionary para almacenar los números de columna de la hoja de destino.
-' - audio_origin_dictionary: Un objeto Scripting.Dictionary para almacenar los números de columna de la hoja de origen.
-' - audio_destiny_header: Una variable de objeto para almacenar el rango del encabezado de la hoja de destino.
-' - audio_origin_header: Una variable de objeto para almacenar el rango del encabezado de la hoja de origen.
-' - audio_origin_value: Una variable de objeto para almacenar el rango de los datos de audio de la hoja de origen.
-' - ItemAudioDestiny: Una variable variante para iterar a traves del rango del encabezado de la hoja de destino.
-' - ItemAudioOrigin: Una variable variante para iterar a traves del rango del encabezado de la hoja de origen.
-' - ItemData: Una variable variante para iterar a traves del rango de datos de audio de la hoja de origen.
-' - numbers: Una variable numerica para hacer un seguimiento del número de elementos de datos importados.
-' - porcentaje: Una variable numerica para calcular el porcentaje de elementos de datos importados.
-' - counts: Una variable numerica para almacenar el número total de elementos de datos de audio.
-' - vals: Una variable numerica para calcular el valor de incremento de la barra de progreso.
-' - oneForOne: Una variable numerica para hacer un seguimiento del progreso de la barra de progreso para cada elemento de datos.
-' - widthOneforOne: Una variable numerica para calcular el ancho de la barra de progreso para cada elemento de datos.
-'------------------------------------------------------------------------------------------------------------------
+'TODO AudioData - Esta subrutina importa datos de audio desde una hoja de origen a una hoja de destino.
+'* ------------------------------------------------------------------------------------------------------------------
+'* Variables:
+'* - audio_destiny_dictionary: Un objeto Scripting.Dictionary para almacenar los numeros de columna de la hoja de destino.
+'* - audio_origin_dictionary: Un objeto Scripting.Dictionary para almacenar los numeros de columna de la hoja de origen.
+'* - audio_destiny_header: Una variable de objeto para almacenar el rango del encabezado de la hoja de destino.
+'* - audio_origin_header: Una variable de objeto para almacenar el rango del encabezado de la hoja de origen.
+'* - audio_origin_value: Una variable de objeto para almacenar el rango de los datos de audio de la hoja de origen.
+'* - ItemAudioDestiny: Una variable variante para iterar a traves del rango del encabezado de la hoja de destino.
+'* - ItemAudioOrigin: Una variable variante para iterar a traves del rango del encabezado de la hoja de origen.
+'* - ItemData: Una variable variante para iterar a traves del rango de datos de audio de la hoja de origen.
+'* - numbers: Una variable numerica para hacer un seguimiento del numero de elementos de datos importados.
+'* - porcentaje: Una variable numerica para calcular el porcentaje de elementos de datos importados.
+'* - counts: Una variable numerica para almacenar el numero total de elementos de datos de audio.
+'* - vals: Una variable numerica para calcular el valor de incremento de la barra de progreso.
+'* - oneForOne: Una variable numerica para hacer un seguimiento del progreso de la barra de progreso para cada elemento de datos.
+'* - widthOneforOne: Una variable numerica para calcular el ancho de la barra de progreso para cada elemento de datos.
+'* ------------------------------------------------------------------------------------------------------------------
 Public Sub AudioData()
 
   Dim audio_destiny_dictionary As Scripting.Dictionary
