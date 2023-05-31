@@ -1,7 +1,7 @@
 Attribute VB_Name = "Initial"
 Option Explicit
 
-''? Variables ?''
+'' Variables ''
 Public origin As Workbook, destiny As Workbook
 Public comple_origin As Worksheet, comple_destiny As Worksheet, osteo_origin As Worksheet, osteo_destiny As Worksheet, senso_destiny As Worksheet, senso_origin As Worksheet, psico_destiny As Worksheet, psico_origin As Worksheet, visio_destiny As Worksheet, visio_origin As Worksheet, espiro_destiny As Worksheet, espiro_origin As Worksheet, opto_origin As Worksheet, opto_destiny As Worksheet, audio_origin As Worksheet, audio_destiny As Worksheet, worker_destiny As Worksheet, emo_destiny As Worksheet, emo_origin As Worksheet, emphasis_destiny As Worksheet, diagnostics_destiny As Worksheet
 Public route As String, nameCompany As String
@@ -12,11 +12,11 @@ Public vals As Double, valsGeneral As Double, porcentaje As Double, porcentajeGe
 Public idOrden As Integer, numbers As Integer, numbersGeneral As Integer, sumOneforOne As Integer, sumGeneral As Integer, x As Integer, i As Integer, number_emphasis As Integer, number_diag As Integer
 Public dateInitials As Date, dateFinals As Date
 
-Public Sub extraerdatos()
+Sub extraerdatos()
 
-  Dim FSO As Object
+  Dim fso As Object
   Dim hora As Integer, min As Integer
-  Set FSO = CreateObject("Scripting.FileSystemObject")
+  Set fso = CreateObject("Scripting.FileSystemObject")
 
   numbers = 1
   numbersGeneral = 1
@@ -25,9 +25,8 @@ Public Sub extraerdatos()
   totalData = 0
   dateInitials = VBA.Date
 
-  On Error Goto NotFound:
-  FSO.DeleteFile(ThisWorkbook.Worksheets("RUTAS").Range("C9").value &"testfile.sql")
-  On Error GoTo 0
+  On Error GoTo NotFound:
+  fso.DeleteFile (ThisWorkbook.Worksheets("RUTAS").range("C9").value & "testfile.sql")
 
   'route = ThisWorkbook.Worksheets("RUTAS").Range("C4").value
 
@@ -37,7 +36,7 @@ Public Sub extraerdatos()
   'Set origin = Workbooks.Open(route)
 
 
-  '! DATOS DESTINO
+  'DATOS DESTINO
 
   Set destiny = Workbooks(ThisWorkbook.Name)
   Set worker_destiny = destiny.Worksheets("TRABAJADORES")
@@ -54,19 +53,16 @@ Public Sub extraerdatos()
   Set diagnostics_destiny = destiny.Worksheets("DIAGNOSTICOS")
 
 
-  '! DATOS ORIGEN
+  'DATOS ORIGEN
 
-  With Application
-    .StatusBar = "Importando informaci" & Chr(243) & "n por favor espere"
-    .ScreenUpdating = False
-    .DisplayAlerts = False
-    .Calculation = xlCalculationManual
-    .EnableEvents = False
-  End With
-
+  Application.StatusBar = "Importando informaci" & Chr(243) & "n por favor espere"
+  Application.ScreenUpdating = False
+  Application.Calculation = xlCalculationManual
+  Application.EnableEvents = False
+  Application.DisplayAlerts = False
   totalData = total(origin)
   For Each variable In origin.Worksheets
-    Select Case Trim$(UCase(variable.Name))
+    Select Case Trim(UCase(variable.Name))
      Case "EMO"
       If (variable.Visible = True) Then
         Call Workers
@@ -123,14 +119,11 @@ Public Sub extraerdatos()
   origin.Close
 
   Worksheets("TRABAJADORES").Select
-
-  With Application
-    .ScreenUpdating = True
-    .DisplayAlerts = True
-    .Calculation = xlCalculationAutomatic
-    .EnableEvents = True
-    .StatusBar = Empty
-  End With
+  Application.ScreenUpdating = True
+  Application.Calculation = xlCalculationAutomatic
+  Application.EnableEvents = True
+  Application.StatusBar = Empty
+  Application.DisplayAlerts = True
   Unload formImports
 
   hora = VBA.Hour(Time)
@@ -141,18 +134,15 @@ Public Sub extraerdatos()
     Call Shell("shutdown /s /t: 30 /f")
     destiny.Close
   Else
-    Application.Wait (Now + TimeValue("0:00:05"))
     MsgBox "Importe de informaci" & Chr(243) & "n terminado", vbInformation + vbOKOnly, "Importaci" & Chr(243) & "n Datos"
   End If
-  Exit Sub
 
- NotFound:
+NotFound:
   Resume Next
 
 End Sub
 
-Public Sub statusActivate(ByVal name_sheet As String)
-  '? Cambia el color de la pestaña a azul celeste en la hoja especificada
+Sub statusActivate(ByVal name_sheet As String)
   Sheets(name_sheet).Select
   With ActiveWorkbook.Sheets(name_sheet).Tab
     .ThemeColor = xlThemeColorAccent1
@@ -160,24 +150,22 @@ Public Sub statusActivate(ByVal name_sheet As String)
   End With
 End Sub
 
-Public Sub statusDesactivate(ByVal name_sheet As String)
-  '? Cambia el color de la pestaña a gris claro en la hoja especificada
+Sub statusDesactivate(ByVal name_sheet As String)
   Sheets(name_sheet).Select
   With ActiveWorkbook.Sheets(name_sheet).Tab
-    .Color = RGB(222,222,222)
+    .Color = RGB(222, 222, 222)
     .TintAndShade = 0
   End With
 End Sub
 
-'TODO: Muestra el formulario "formImports".
-'? No recibe argumentos ni devuelve ningun valor.
-Public Sub info()
-  formImports.Show '* Muestra el formulario "formImports".
+Sub info()
+
+  formImports.Show
+
 End Sub
 
-'TODO: Muestra el formulario "formControl".
-'? No recibe argumentos ni devuelve ningun valor.
-Public Sub config()
-  formControl.Show '* Muestra el formulario "formControl".
-End Sub
+Sub config()
 
+  formControl.Show
+
+End Sub

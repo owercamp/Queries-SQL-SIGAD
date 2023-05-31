@@ -28,17 +28,17 @@ Public Sub DataDiagnosticsEmo()
 
   Set emo_origin = origin.Worksheets("EMO") '' EMO DEL LIBRO ORIGEN ''
   diagnostics_destiny.Select
-  ActiveSheet.Range("A5").Select
+  ActiveSheet.range("A5").Select
 
-  Set diagnostics_destiny_header = diagnostics_destiny.Range("A4", diagnostics_destiny.Range("A4").End(xlToRight))
-  Set emo_origin_header = emo_origin.Range("A1", emo_origin.Range("A1").End(xlToRight))
+  Set diagnostics_destiny_header = diagnostics_destiny.range("A4", diagnostics_destiny.range("A4").End(xlToRight))
+  Set emo_origin_header = emo_origin.range("A1", emo_origin.range("A1").End(xlToRight))
   Set diagnostics_destiny_dictionary = CreateObject("Scripting.Dictionary")
   Set emo_origin_dictionary = CreateObject("Scripting.Dictionary")
 
-  If (emo_origin.Range("A2") <> Empty And emo_origin.Range("A3") <> Empty) Then
-    Set emo_origin_value = emo_origin.Range("A2", emo_origin.Range("A2").End(xlDown))
-  ElseIf (emo_origin.Range("A2") <> Empty And emo_origin.Range("A3") = Empty) Then
-    Set emo_origin_value = emo_origin.Range("A2")
+  If (emo_origin.range("A2") <> Empty And emo_origin.range("A3") <> Empty) Then
+    Set emo_origin_value = emo_origin.range("A2", emo_origin.range("A2").End(xlDown))
+  ElseIf (emo_origin.range("A2") <> Empty And emo_origin.range("A3") = Empty) Then
+    Set emo_origin_value = emo_origin.range("A2")
   End If
 
   ''   En los diccionarios de "diagnostics_destiny_dictionary" y  "emo_origin_dictionary" ''
@@ -89,24 +89,24 @@ Public Sub DataDiagnosticsEmo()
         formImports.porcentageOneoforOne.ForeColor = RGB(0, 0, 0)
       End If
       If (typeExams(charters(ItemData.Offset(, emo_origin_dictionary("TIPO EXAMEN")))) <> "EGRESO") Then
-        With ActiveCell
-          .Offset(, diagnostics_destiny_dictionary("IDENTIFICACION")) = charters(ItemData.Offset(, emo_origin_dictionary("IDENTIFICACION")))
-          .Offset(, diagnostics_destiny_dictionary("CODIGO DIAG PPAL")) = charters(ReplaceNonAlphaNumeric(ItemData.Offset(, emo_origin_dictionary("CODIGO DIAG PPAL"))))
-          .Offset(, diagnostics_destiny_dictionary("DIAG PPAL")) = charters(ItemData.Offset(, emo_origin_dictionary("DIAG PPAL")))
-          For i = 1 To ((emo_origin_dictionary.Count - 5) / 2)
-            .Offset(, diagnostics_destiny_dictionary("CODIGO DIAG REL" & i)) = charters(ReplaceNonAlphaNumeric(ItemData.Offset(, emo_origin_dictionary("CODIGO DIAG REL" & i))))
-            .Offset(, diagnostics_destiny_dictionary("DIAG REL " & i)) = charters(ItemData.Offset(, emo_origin_dictionary("DIAG REL " & i)))
-          Next i
-          .Offset(1, 0).Select
-        End With
+        ActiveCell.Offset(, diagnostics_destiny_dictionary("IDENTIFICACION")) = charters(ItemData.Offset(, emo_origin_dictionary("IDENTIFICACION")))
+        ActiveCell.Offset(, diagnostics_destiny_dictionary("CODIGO DIAG PPAL")) = charters(ItemData.Offset(, emo_origin_dictionary("CODIGO DIAG PPAL")))
+        ActiveCell.Offset(, diagnostics_destiny_dictionary("DIAG PPAL")) = charters(ItemData.Offset(, emo_origin_dictionary("DIAG PPAL")))
+        For i = 1 To ((emo_origin_dictionary.Count - 5) / 2)
+          ActiveCell.Offset(, diagnostics_destiny_dictionary("CODIGO DIAG REL" & i)) = charters(ItemData.Offset(, emo_origin_dictionary("CODIGO DIAG REL" & i)))
+          ActiveCell.Offset(, diagnostics_destiny_dictionary("DIAG REL " & i)) = charters(ItemData.Offset(, emo_origin_dictionary("DIAG REL " & i)))
+        Next i
+        ActiveCell.Offset(1, 0).Select
       End If
       numbers = numbers + 1
       numbersGeneral = numbersGeneral + 1
       DoEvents
     Next ItemData
 
-    Call dataDuplicate("$A5")
-    Call formatter("$A5")
+    range("$A5").Select
+    Call dataDuplicate
+    range("$A5", range("$A5").End(xlDown)).Select
+    Call formatter
 
     Set diagnostics_destiny_header = Nothing
     Set emo_origin_header = Nothing
@@ -116,6 +116,6 @@ Public Sub DataDiagnosticsEmo()
 
     Exit Sub
       
- diagnosticsError:
+diagnosticsError:
     Resume Next
 End Sub

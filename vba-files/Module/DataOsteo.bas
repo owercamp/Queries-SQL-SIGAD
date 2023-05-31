@@ -24,16 +24,16 @@ Public Sub OsteoData()
 
   Set osteo_origin = origin.Worksheets("OSTEO") '' OSTEO DEL LIBRO ORIGEN ''
   osteo_destiny.Select
-  ActiveSheet.Range("A4").Select
-  Set osteo_destiny_header = osteo_destiny.Range("A3", osteo_destiny.Range("A3").End(xlToRight))
-  Set osteo_origin_header = osteo_origin.Range("A1", osteo_origin.Range("A1").End(xlToRight))
+  ActiveSheet.range("A4").Select
+  Set osteo_destiny_header = osteo_destiny.range("A3", osteo_destiny.range("A3").End(xlToRight))
+  Set osteo_origin_header = osteo_origin.range("A1", osteo_origin.range("A1").End(xlToRight))
   Set osteo_destiny_dictionary = CreateObject("Scripting.Dictionary")
   Set osteo_origin_dictionary = CreateObject("Scripting.Dictionary")
 
-  If (osteo_origin.Range("A2") <> Empty And osteo_origin.Range("A3") <> Empty) Then
-    Set osteo_origin_value = osteo_origin.Range("A2", osteo_origin.Range("A2").End(xlDown))
-  ElseIf (osteo_origin.Range("A2") <> Empty And osteo_origin.Range("A3") = Empty) Then
-    Set osteo_origin_value = osteo_origin.Range("A2")
+  If (osteo_origin.range("A2") <> Empty And osteo_origin.range("A3") <> Empty) Then
+    Set osteo_origin_value = osteo_origin.range("A2", osteo_origin.range("A2").End(xlDown))
+  ElseIf (osteo_origin.range("A2") <> Empty And osteo_origin.range("A3") = Empty) Then
+    Set osteo_origin_value = osteo_origin.range("A2")
   End If
 
   ''   En los diccionarios de "osteo_destiny_dictionary" y  "osteo_origin_dictionary" ''
@@ -84,77 +84,77 @@ Public Sub OsteoData()
         formImports.porcentageOneoforOne.ForeColor = RGB(0, 0, 0)
       End If
       If (typeExams(charters(ItemData.Offset(, osteo_origin_dictionary("TIPO EXAMEN")))) <> "EGRESO") Then
-        With ActiveCell
-          .Offset(, osteo_destiny_dictionary("NRO IDENFICACION")) = charters(ItemData.Offset(, osteo_origin_dictionary("NRO IDENFICACION")))
-          .Offset(, osteo_destiny_dictionary("CERVICALGIA")) = charters_empty(ItemData.Offset(, osteo_origin_dictionary("CERVICALGIA")))
-          .Offset(, osteo_destiny_dictionary("CERVICALGIA OBS")) = charters(ItemData.Offset(, osteo_origin_dictionary("CERVICALGIA OBS")))
-          .Offset(, osteo_destiny_dictionary("EPICONDILITIS")) = charters_empty(ItemData.Offset(, osteo_origin_dictionary("EPICONDILITIS")))
-          .Offset(, osteo_destiny_dictionary("EPICONDILITIS OBS")) = charters(ItemData.Offset(, osteo_origin_dictionary("EPICONDILITIS OBS")))
-          .Offset(, osteo_destiny_dictionary("LUMBALGIA")) = charters_empty(ItemData.Offset(, osteo_origin_dictionary("LUMBALGIA")))
-          .Offset(, osteo_destiny_dictionary("LUMBALGIA OBS")) = charters(ItemData.Offset(, osteo_origin_dictionary("LUMBALGIA OBS")))
-          .Offset(, osteo_destiny_dictionary("S_ TUNEL CARPO")) = charters_empty(ItemData.Offset(, osteo_origin_dictionary("S_ TUNEL CARPO")))
-          .Offset(, osteo_destiny_dictionary("S_ TUNEL CARPO OBS")) = charters(ItemData.Offset(, osteo_origin_dictionary("S_ TUNEL CARPO OBS")))
-          .Offset(, osteo_destiny_dictionary("FRACTURAS")) = charters_empty(ItemData.Offset(, osteo_origin_dictionary("FRACTURAS")))
-          .Offset(, osteo_destiny_dictionary("FRACTURAS OBS")) = charters(ItemData.Offset(, osteo_origin_dictionary("FRACTURAS OBS")))
-          .Offset(, osteo_destiny_dictionary("TENDINITIS")) = charters_empty(ItemData.Offset(, osteo_origin_dictionary("TENDINITIS")))
-          .Offset(, osteo_destiny_dictionary("TENDINITIS OBS")) = charters(ItemData.Offset(, osteo_origin_dictionary("TENDINITIS OBS")))
-          .Offset(, osteo_destiny_dictionary("LESION EN MENISCOS OBS")) = charters(ItemData.Offset(, osteo_origin_dictionary("LESION EN MENISCOS OBS")))
-          .Offset(, osteo_destiny_dictionary("LESION EN MENISCOS")) = charters_empty(ItemData.Offset(, osteo_origin_dictionary("LESION EN MENISCOS")))
-          .Offset(, osteo_destiny_dictionary("ESGUINCES")) = charters_empty(ItemData.Offset(, osteo_origin_dictionary("ESGUINCES")))
-          .Offset(, osteo_destiny_dictionary("ESGUINCES OBS")) = charters(ItemData.Offset(, osteo_origin_dictionary("ESGUINCES OBS")))
-          .Offset(, osteo_destiny_dictionary("HOMBRO DOLOROSO")) = charters_empty(ItemData.Offset(, osteo_origin_dictionary("HOMBRO DOLOROSO")))
-          .Offset(, osteo_destiny_dictionary("HOMBRO DOLOROSO OBS")) = charters(ItemData.Offset(, osteo_origin_dictionary("HOMBRO DOLOROSO OBS")))
-          .Offset(, osteo_destiny_dictionary("RADICULOPATIA")) = charters_empty(ItemData.Offset(, osteo_origin_dictionary("RADICULOPATIA")))
-          .Offset(, osteo_destiny_dictionary("RADICULOPATIA OBS")) = charters(ItemData.Offset(, osteo_origin_dictionary("RADICULOPATIA OBS")))
-          .Offset(, osteo_destiny_dictionary("BURSITIS")) = charters_empty(ItemData.Offset(, osteo_origin_dictionary("BURSITIS")))
-          .Offset(, osteo_destiny_dictionary("BURSITIS OBS")) = charters(ItemData.Offset(, osteo_origin_dictionary("BURSITIS OBS")))
-          .Offset(, osteo_destiny_dictionary("ARTROSIS")) = charters_empty(ItemData.Offset(, osteo_origin_dictionary("ARTROSIS")))
-          .Offset(, osteo_destiny_dictionary("ARTROSIS OBS")) = charters(ItemData.Offset(, osteo_origin_dictionary("ARTROSIS OBS")))
-          .Offset(, osteo_destiny_dictionary("ESCOLIOSIS")) = charters_empty(ItemData.Offset(, osteo_origin_dictionary("ESCOLIOSIS")))
-          .Offset(, osteo_destiny_dictionary("ESCOLIOSIS OBS")) = charters(ItemData.Offset(, osteo_origin_dictionary("ESCOLIOSIS OBS")))
-          .Offset(, osteo_destiny_dictionary("RETRACCIONES MUSCULARES")) = charters_empty(ItemData.Offset(, osteo_origin_dictionary("RETRACCIONES MUSCULARES")))
-          .Offset(, osteo_destiny_dictionary("RETRACCIONES MUSCULARES OBS")) = charters(ItemData.Offset(, osteo_origin_dictionary("RETRACCIONES MUSCULARES OBS")))
-          .Offset(, osteo_destiny_dictionary("MALFORMACIONES")) = charters_empty(ItemData.Offset(, osteo_origin_dictionary("MALFORMACIONES")))
-          .Offset(, osteo_destiny_dictionary("MALFORMACIONES OBS")) = charters(ItemData.Offset(, osteo_origin_dictionary("MALFORMACIONES OBS")))
-          .Offset(, osteo_destiny_dictionary("DISCOPATIAS")) = charters_empty(ItemData.Offset(, osteo_origin_dictionary("DISCOPATIAS")))
-          .Offset(, osteo_destiny_dictionary("DISCOPATIAS OBS")) = charters(ItemData.Offset(, osteo_origin_dictionary("DISCOPATIAS OBS")))
-          .Offset(, osteo_destiny_dictionary("FIBROMALGIA")) = charters_empty(ItemData.Offset(, osteo_origin_dictionary("FIBROMALGIA")))
-          .Offset(, osteo_destiny_dictionary("FIBROMALGIA OBS")) = charters(ItemData.Offset(, osteo_origin_dictionary("FIBROMALGIA OBS")))
-          .Offset(, osteo_destiny_dictionary("OTROS ANT_ OSTEOMUSCULARES")) = charters(ItemData.Offset(, osteo_origin_dictionary("OTROS ANT_ OSTEOMUSCULARES")))
-          .Offset(, osteo_destiny_dictionary("PESO")) = charters(ItemData.Offset(, osteo_origin_dictionary("PESO")))
-          .Offset(, osteo_destiny_dictionary("TALLA")) = charters(ItemData.Offset(, osteo_origin_dictionary("TALLA")))
-          .Offset(, osteo_destiny_dictionary("DIAG_ PPAL")) = charters(ItemData.Offset(, osteo_origin_dictionary("DIAG_ PPAL")))
-          .Offset(, osteo_destiny_dictionary("DIAG_ PPAL OBS")) = charters(ItemData.Offset(, osteo_origin_dictionary("DIAG_ PPAL OBS")))
-          .Offset(, osteo_destiny_dictionary("DIAG_ REL 1")) = charters_empty(ItemData.Offset(, osteo_origin_dictionary("DIAG_ REL 1")))
-          .Offset(, osteo_destiny_dictionary("DIAG_ REL 2")) = charters_empty(ItemData.Offset(, osteo_origin_dictionary("DIAG_ REL 2")))
-          .Offset(, osteo_destiny_dictionary("DIAG_ REL 3")) = charters_empty(ItemData.Offset(, osteo_origin_dictionary("DIAG_ REL 3")))
-          .Offset(, osteo_destiny_dictionary("REC/PERS ACT_ FISICA CARDIO 3X/SEMANA")) = charters_empty(ItemData.Offset(, osteo_origin_dictionary("REC/PERS ACT_ FISICA CARDIO 3X/SEMANA")))
-          .Offset(, osteo_destiny_dictionary("REC/PERS FORT_ 15 REPETICIONES/3 SERIES")) = charters_empty(ItemData.Offset(, osteo_origin_dictionary("REC/PERS FORT_ 15 REPETICIONES/3 SERIES")))
-          .Offset(, osteo_destiny_dictionary("REC/PERS EJERC_ ESTIRAMIENTO 20 SEG")) = charters_empty(ItemData.Offset(, osteo_origin_dictionary("REC/PERS EJERC_ ESTIRAMIENTO 20 SEG")))
-          .Offset(, osteo_destiny_dictionary("REC/PERS AUTOCUIDADO")) = charters_empty(ItemData.Offset(, osteo_origin_dictionary("REC/PERS AUTOCUIDADO")))
-          .Offset(, osteo_destiny_dictionary("REC/PERS SEGUIMIENTO MEDICO")) = charters_empty(ItemData.Offset(, osteo_origin_dictionary("REC/PERS SEGUIMIENTO MEDICO")))
-          .Offset(, osteo_destiny_dictionary("REC/OCUP SVE PREVENSION LESIONES")) = charters_empty(ItemData.Offset(, osteo_origin_dictionary("REC/OCUP SVE PREVENSION LESIONES")))
-          .Offset(, osteo_destiny_dictionary("REC/OCUP MANIPULACION DE CARGA")) = charters_empty(ItemData.Offset(, osteo_origin_dictionary("REC/OCUP MANIPULACION DE CARGA")))
-          .Offset(, osteo_destiny_dictionary("REC/OCUP PAUSAS ACTIVAS")) = charters_empty(ItemData.Offset(, osteo_origin_dictionary("REC/OCUP PAUSAS ACTIVAS")))
-          .Offset(, osteo_destiny_dictionary("REC/OCUP ANALISIS ERGONOMICOS")) = charters_empty(ItemData.Offset(, osteo_origin_dictionary("REC/OCUP ANALISIS ERGONOMICOS")))
-          .Offset(, osteo_destiny_dictionary("REC/OCUP EVITAR POSTURAS FORZADAS")) = charters_empty(ItemData.Offset(, osteo_origin_dictionary("REC/OCUP EVITAR POSTURAS FORZADAS")))
-          .Offset(, osteo_destiny_dictionary("RECOM_ OCUPACIONALES")) = charters(ItemData.Offset(, osteo_origin_dictionary("RECOM_ OCUPACIONALES")))
-          .Offset(, osteo_destiny_dictionary("RECOM_ G/RALES")) = charters(ItemData.Offset(, osteo_origin_dictionary("RECOM_ G/RALES")))
-          If (.Row = 4) Then
-            .Offset(, osteo_destiny_dictionary("ID_OSTEOMUSCULAR")) = Trim$(ThisWorkbook.Worksheets("RUTAS").Range("$F$11").value)
-          Else
-            .Offset(, osteo_destiny_dictionary("ID_OSTEOMUSCULAR")) = .Offset(-1, osteo_destiny_dictionary("ID_OSTEOMUSCULAR")) + 1
-          End If
-          .Offset(1, 0).Select
-        End With
+        ActiveCell.Offset(, osteo_destiny_dictionary("NRO IDENFICACION")) = charters(ItemData.Offset(, osteo_origin_dictionary("NRO IDENFICACION")))
+        ActiveCell.Offset(, osteo_destiny_dictionary("CERVICALGIA")) = charters_empty(ItemData.Offset(, osteo_origin_dictionary("CERVICALGIA")))
+        ActiveCell.Offset(, osteo_destiny_dictionary("CERVICALGIA OBS")) = charters(ItemData.Offset(, osteo_origin_dictionary("CERVICALGIA OBS")))
+        ActiveCell.Offset(, osteo_destiny_dictionary("EPICONDILITIS")) = charters_empty(ItemData.Offset(, osteo_origin_dictionary("EPICONDILITIS")))
+        ActiveCell.Offset(, osteo_destiny_dictionary("EPICONDILITIS OBS")) = charters(ItemData.Offset(, osteo_origin_dictionary("EPICONDILITIS OBS")))
+        ActiveCell.Offset(, osteo_destiny_dictionary("LUMBALGIA")) = charters_empty(ItemData.Offset(, osteo_origin_dictionary("LUMBALGIA")))
+        ActiveCell.Offset(, osteo_destiny_dictionary("LUMBALGIA OBS")) = charters(ItemData.Offset(, osteo_origin_dictionary("LUMBALGIA OBS")))
+        ActiveCell.Offset(, osteo_destiny_dictionary("S_ TUNEL CARPO")) = charters_empty(ItemData.Offset(, osteo_origin_dictionary("S_ TUNEL CARPO")))
+        ActiveCell.Offset(, osteo_destiny_dictionary("S_ TUNEL CARPO OBS")) = charters(ItemData.Offset(, osteo_origin_dictionary("S_ TUNEL CARPO OBS")))
+        ActiveCell.Offset(, osteo_destiny_dictionary("FRACTURAS")) = charters_empty(ItemData.Offset(, osteo_origin_dictionary("FRACTURAS")))
+        ActiveCell.Offset(, osteo_destiny_dictionary("FRACTURAS OBS")) = charters(ItemData.Offset(, osteo_origin_dictionary("FRACTURAS OBS")))
+        ActiveCell.Offset(, osteo_destiny_dictionary("TENDINITIS")) = charters_empty(ItemData.Offset(, osteo_origin_dictionary("TENDINITIS")))
+        ActiveCell.Offset(, osteo_destiny_dictionary("TENDINITIS OBS")) = charters(ItemData.Offset(, osteo_origin_dictionary("TENDINITIS OBS")))
+        ActiveCell.Offset(, osteo_destiny_dictionary("LESION EN MENISCOS OBS")) = charters(ItemData.Offset(, osteo_origin_dictionary("LESION EN MENISCOS OBS")))
+        ActiveCell.Offset(, osteo_destiny_dictionary("LESION EN MENISCOS")) = charters_empty(ItemData.Offset(, osteo_origin_dictionary("LESION EN MENISCOS")))
+        ActiveCell.Offset(, osteo_destiny_dictionary("ESGUINCES")) = charters_empty(ItemData.Offset(, osteo_origin_dictionary("ESGUINCES")))
+        ActiveCell.Offset(, osteo_destiny_dictionary("ESGUINCES OBS")) = charters(ItemData.Offset(, osteo_origin_dictionary("ESGUINCES OBS")))
+        ActiveCell.Offset(, osteo_destiny_dictionary("HOMBRO DOLOROSO")) = charters_empty(ItemData.Offset(, osteo_origin_dictionary("HOMBRO DOLOROSO")))
+        ActiveCell.Offset(, osteo_destiny_dictionary("HOMBRO DOLOROSO OBS")) = charters(ItemData.Offset(, osteo_origin_dictionary("HOMBRO DOLOROSO OBS")))
+        ActiveCell.Offset(, osteo_destiny_dictionary("RADICULOPATIA")) = charters_empty(ItemData.Offset(, osteo_origin_dictionary("RADICULOPATIA")))
+        ActiveCell.Offset(, osteo_destiny_dictionary("RADICULOPATIA OBS")) = charters(ItemData.Offset(, osteo_origin_dictionary("RADICULOPATIA OBS")))
+        ActiveCell.Offset(, osteo_destiny_dictionary("BURSITIS")) = charters_empty(ItemData.Offset(, osteo_origin_dictionary("BURSITIS")))
+        ActiveCell.Offset(, osteo_destiny_dictionary("BURSITIS OBS")) = charters(ItemData.Offset(, osteo_origin_dictionary("BURSITIS OBS")))
+        ActiveCell.Offset(, osteo_destiny_dictionary("ARTROSIS")) = charters_empty(ItemData.Offset(, osteo_origin_dictionary("ARTROSIS")))
+        ActiveCell.Offset(, osteo_destiny_dictionary("ARTROSIS OBS")) = charters(ItemData.Offset(, osteo_origin_dictionary("ARTROSIS OBS")))
+        ActiveCell.Offset(, osteo_destiny_dictionary("ESCOLIOSIS")) = charters_empty(ItemData.Offset(, osteo_origin_dictionary("ESCOLIOSIS")))
+        ActiveCell.Offset(, osteo_destiny_dictionary("ESCOLIOSIS OBS")) = charters(ItemData.Offset(, osteo_origin_dictionary("ESCOLIOSIS OBS")))
+        ActiveCell.Offset(, osteo_destiny_dictionary("RETRACCIONES MUSCULARES")) = charters_empty(ItemData.Offset(, osteo_origin_dictionary("RETRACCIONES MUSCULARES")))
+        ActiveCell.Offset(, osteo_destiny_dictionary("RETRACCIONES MUSCULARES OBS")) = charters(ItemData.Offset(, osteo_origin_dictionary("RETRACCIONES MUSCULARES OBS")))
+        ActiveCell.Offset(, osteo_destiny_dictionary("MALFORMACIONES")) = charters_empty(ItemData.Offset(, osteo_origin_dictionary("MALFORMACIONES")))
+        ActiveCell.Offset(, osteo_destiny_dictionary("MALFORMACIONES OBS")) = charters(ItemData.Offset(, osteo_origin_dictionary("MALFORMACIONES OBS")))
+        ActiveCell.Offset(, osteo_destiny_dictionary("DISCOPATIAS")) = charters_empty(ItemData.Offset(, osteo_origin_dictionary("DISCOPATIAS")))
+        ActiveCell.Offset(, osteo_destiny_dictionary("DISCOPATIAS OBS")) = charters(ItemData.Offset(, osteo_origin_dictionary("DISCOPATIAS OBS")))
+        ActiveCell.Offset(, osteo_destiny_dictionary("FIBROMALGIA")) = charters_empty(ItemData.Offset(, osteo_origin_dictionary("FIBROMALGIA")))
+        ActiveCell.Offset(, osteo_destiny_dictionary("FIBROMALGIA OBS")) = charters(ItemData.Offset(, osteo_origin_dictionary("FIBROMALGIA OBS")))
+        ActiveCell.Offset(, osteo_destiny_dictionary("OTROS ANT_ OSTEOMUSCULARES")) = charters(ItemData.Offset(, osteo_origin_dictionary("OTROS ANT_ OSTEOMUSCULARES")))
+        ActiveCell.Offset(, osteo_destiny_dictionary("PESO")) = charters(ItemData.Offset(, osteo_origin_dictionary("PESO")))
+        ActiveCell.Offset(, osteo_destiny_dictionary("TALLA")) = charters(ItemData.Offset(, osteo_origin_dictionary("TALLA")))
+        ActiveCell.Offset(, osteo_destiny_dictionary("DIAG_ PPAL")) = charters(ItemData.Offset(, osteo_origin_dictionary("DIAG_ PPAL")))
+        ActiveCell.Offset(, osteo_destiny_dictionary("DIAG_ PPAL OBS")) = charters(ItemData.Offset(, osteo_origin_dictionary("DIAG_ PPAL OBS")))
+        ActiveCell.Offset(, osteo_destiny_dictionary("DIAG_ REL 1")) = charters_empty(ItemData.Offset(, osteo_origin_dictionary("DIAG_ REL 1")))
+        ActiveCell.Offset(, osteo_destiny_dictionary("DIAG_ REL 2")) = charters_empty(ItemData.Offset(, osteo_origin_dictionary("DIAG_ REL 2")))
+        ActiveCell.Offset(, osteo_destiny_dictionary("DIAG_ REL 3")) = charters_empty(ItemData.Offset(, osteo_origin_dictionary("DIAG_ REL 3")))
+        ActiveCell.Offset(, osteo_destiny_dictionary("REC/PERS ACT_ FISICA CARDIO 3X/SEMANA")) = charters_empty(ItemData.Offset(, osteo_origin_dictionary("REC/PERS ACT_ FISICA CARDIO 3X/SEMANA")))
+        ActiveCell.Offset(, osteo_destiny_dictionary("REC/PERS FORT_ 15 REPETICIONES/3 SERIES")) = charters_empty(ItemData.Offset(, osteo_origin_dictionary("REC/PERS FORT_ 15 REPETICIONES/3 SERIES")))
+        ActiveCell.Offset(, osteo_destiny_dictionary("REC/PERS EJERC_ ESTIRAMIENTO 20 SEG")) = charters_empty(ItemData.Offset(, osteo_origin_dictionary("REC/PERS EJERC_ ESTIRAMIENTO 20 SEG")))
+        ActiveCell.Offset(, osteo_destiny_dictionary("REC/PERS AUTOCUIDADO")) = charters_empty(ItemData.Offset(, osteo_origin_dictionary("REC/PERS AUTOCUIDADO")))
+        ActiveCell.Offset(, osteo_destiny_dictionary("REC/PERS SEGUIMIENTO MEDICO")) = charters_empty(ItemData.Offset(, osteo_origin_dictionary("REC/PERS SEGUIMIENTO MEDICO")))
+        ActiveCell.Offset(, osteo_destiny_dictionary("REC/OCUP SVE PREVENSION LESIONES")) = charters_empty(ItemData.Offset(, osteo_origin_dictionary("REC/OCUP SVE PREVENSION LESIONES")))
+        ActiveCell.Offset(, osteo_destiny_dictionary("REC/OCUP MANIPULACION DE CARGA")) = charters_empty(ItemData.Offset(, osteo_origin_dictionary("REC/OCUP MANIPULACION DE CARGA")))
+        ActiveCell.Offset(, osteo_destiny_dictionary("REC/OCUP PAUSAS ACTIVAS")) = charters_empty(ItemData.Offset(, osteo_origin_dictionary("REC/OCUP PAUSAS ACTIVAS")))
+        ActiveCell.Offset(, osteo_destiny_dictionary("REC/OCUP ANALISIS ERGONOMICOS")) = charters_empty(ItemData.Offset(, osteo_origin_dictionary("REC/OCUP ANALISIS ERGONOMICOS")))
+        ActiveCell.Offset(, osteo_destiny_dictionary("REC/OCUP EVITAR POSTURAS FORZADAS")) = charters_empty(ItemData.Offset(, osteo_origin_dictionary("REC/OCUP EVITAR POSTURAS FORZADAS")))
+        ActiveCell.Offset(, osteo_destiny_dictionary("RECOM_ OCUPACIONALES")) = charters(ItemData.Offset(, osteo_origin_dictionary("RECOM_ OCUPACIONALES")))
+        ActiveCell.Offset(, osteo_destiny_dictionary("RECOM_ G/RALES")) = charters(ItemData.Offset(, osteo_origin_dictionary("RECOM_ G/RALES")))
+        If (ActiveCell.row = 4) Then
+          ActiveCell.Offset(, osteo_destiny_dictionary("ID_OSTEOMUSCULAR")) = Trim(ThisWorkbook.Worksheets("RUTAS").range("$F$11").value)
+        Else
+          ActiveCell.Offset(, osteo_destiny_dictionary("ID_OSTEOMUSCULAR")) = ActiveCell.Offset(-1, osteo_destiny_dictionary("ID_OSTEOMUSCULAR")) + 1
+        End If
+        ActiveCell.Offset(1, 0).Select
       End If
       numbers = numbers + 1
       numbersGeneral = numbersGeneral + 1
       DoEvents
     Next ItemData
 
-    Call dataDuplicate("$A4")
-    Call formatter("$A4")
+    range("$A4").Select
+    Call dataDuplicate
+    range("$A4", range("$A4").End(xlDown)).Select
+    Call formatter
 
     Set osteo_origin_value = Nothing
     Set osteo_destiny_header = Nothing
@@ -164,6 +164,6 @@ Public Sub OsteoData()
 
     Exit Sub
 
- osteoError:
+osteoError:
     Resume Next
 End Sub

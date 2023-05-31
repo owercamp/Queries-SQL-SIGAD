@@ -29,16 +29,16 @@ Public Sub ComplementarioData()
   Set comple_origin = origin.Worksheets("COMPLEMENTARIOS") '' COMPLEMENTARIOS DEL LIBRO ORIGEN ''
 
   comple_destiny.Select
-  ActiveSheet.Range("A4").Select
-  Set comple_destiny_header = comple_destiny.Range("A3", comple_destiny.Range("A3").End(xlToRight))
-  Set comple_origin_header = comple_origin.Range("A1", comple_origin.Range("A1").End(xlToRight))
+  ActiveSheet.range("A4").Select
+  Set comple_destiny_header = comple_destiny.range("A3", comple_destiny.range("A3").End(xlToRight))
+  Set comple_origin_header = comple_origin.range("A1", comple_origin.range("A1").End(xlToRight))
   Set comple_destiny_dictionary = CreateObject("Scripting.Dictionary")
   Set comple_origin_dictionary = CreateObject("Scripting.Dictionary")
 
-  If (comple_origin.Range("A2") <> Empty And comple_origin.Range("A3") <> Empty) Then
-    Set comple_origin_value = comple_origin.Range("A2", comple_origin.Range("A2").End(xlDown))
-  ElseIf (comple_origin.Range("A2") <> Empty And comple_origin.Range("A3") = Empty) Then
-    Set comple_origin_value = comple_origin.Range("A2")
+  If (comple_origin.range("A2") <> Empty And comple_origin.range("A3") <> Empty) Then
+    Set comple_origin_value = comple_origin.range("A2", comple_origin.range("A2").End(xlDown))
+  ElseIf (comple_origin.range("A2") <> Empty And comple_origin.range("A3") = Empty) Then
+    Set comple_origin_value = comple_origin.range("A2")
   End If
 
   ''   En los diccionarios de "comple_destiny_dictionary" y  "comple_origin_dictionary" ''
@@ -90,30 +90,30 @@ Public Sub ComplementarioData()
         formImports.porcentageOneoforOne.ForeColor = RGB(0, 0, 0)
       End If
       If (typeExams(charters(ItemData.Offset(, comple_origin_dictionary("TIPO EXAMEN")))) <> "EGRESO") Then
-        With ActiveCell
-          .Offset(, comple_destiny_dictionary("NRO IDENFICACION")) = charters(ItemData.Offset(, comple_origin_dictionary("NRO IDENFICACION")))
-          .Offset(, comple_destiny_dictionary("PROCEDIMIENTO")) = typeComplements(charters(ReplaceNonAlphaNumeric(ItemData.Offset(, comple_origin_dictionary("PROCEDIMIENTO")))))
-          .Offset(, comple_destiny_dictionary("DIAG_ PPAL")) = charters(ItemData.Offset(, comple_origin_dictionary("DIAG_ PPAL")))
-          .Offset(, comple_destiny_dictionary("DIAG_ PPAL OBS")) = charters(ItemData.Offset(, comple_origin_dictionary("DIAG_ PPAL OBS")))
-          .Offset(, comple_destiny_dictionary("DIAG_ REL/1")) = charters(ItemData.Offset(, comple_origin_dictionary("DIAG_ REL/1")))
-          .Offset(, comple_destiny_dictionary("DIAG_ REL/2")) = charters(ItemData.Offset(, comple_origin_dictionary("DIAG_ REL/2")))
-          .Offset(, comple_destiny_dictionary("DIAG_ REL/3")) = charters(ItemData.Offset(, comple_origin_dictionary("DIAG_ REL/3")))
-          .Offset(, comple_destiny_dictionary("HALLAZGOS")) = charters(ItemData.Offset(, comple_origin_dictionary("HALLAZGOS")))
-          If (.Row = 4) Then
-            .Offset(, comple_destiny_dictionary("ID_COMPLEMENTARIOS")) = Trim$(ThisWorkbook.Worksheets("RUTAS").Range("$F$12").value)
-          Else
-            .Offset(, comple_destiny_dictionary("ID_COMPLEMENTARIOS")) = .Offset(-1, comple_destiny_dictionary("ID_COMPLEMENTARIOS")) + 1
-          End If
-          .Offset(1, 0).Select
-        End With
+        ActiveCell.Offset(, comple_destiny_dictionary("NRO IDENFICACION")) = charters(ItemData.Offset(, comple_origin_dictionary("NRO IDENFICACION")))
+        ActiveCell.Offset(, comple_destiny_dictionary("PROCEDIMIENTO")) = typeComplements(charters(ItemData.Offset(, comple_origin_dictionary("PROCEDIMIENTO"))))
+        ActiveCell.Offset(, comple_destiny_dictionary("DIAG_ PPAL")) = charters(ItemData.Offset(, comple_origin_dictionary("DIAG_ PPAL")))
+        ActiveCell.Offset(, comple_destiny_dictionary("DIAG_ PPAL OBS")) = charters(ItemData.Offset(, comple_origin_dictionary("DIAG_ PPAL OBS")))
+        ActiveCell.Offset(, comple_destiny_dictionary("DIAG_ REL/1")) = charters(ItemData.Offset(, comple_origin_dictionary("DIAG_ REL/1")))
+        ActiveCell.Offset(, comple_destiny_dictionary("DIAG_ REL/2")) = charters(ItemData.Offset(, comple_origin_dictionary("DIAG_ REL/2")))
+        ActiveCell.Offset(, comple_destiny_dictionary("DIAG_ REL/3")) = charters(ItemData.Offset(, comple_origin_dictionary("DIAG_ REL/3")))
+        ActiveCell.Offset(, comple_destiny_dictionary("HALLAZGOS")) = charters(ItemData.Offset(, comple_origin_dictionary("HALLAZGOS")))
+        If (ActiveCell.row = 4) Then
+          ActiveCell.Offset(, comple_destiny_dictionary("ID_COMPLEMENTARIOS")) = Trim(ThisWorkbook.Worksheets("RUTAS").range("$F$12").value)
+        Else
+          ActiveCell.Offset(, comple_destiny_dictionary("ID_COMPLEMENTARIOS")) = ActiveCell.Offset(-1, comple_destiny_dictionary("ID_COMPLEMENTARIOS")) + 1
+        End If
+        ActiveCell.Offset(1, 0).Select
       End If
       numbers = numbers + 1
       numbersGeneral = numbersGeneral + 1
       DoEvents
     Next ItemData
 
-    Call dataDuplicate("$A4")
-    Call formatter("$A4")
+    range("$A4").Select
+    Call dataDuplicate
+    range("$A4", range("$A4").End(xlDown)).Select
+    Call formatter
 
     Set comple_origin_value = Nothing
     Set comple_destiny_header = Nothing
@@ -123,9 +123,9 @@ Public Sub ComplementarioData()
 
     Exit Sub
 
- compleError:
+compleError:
     Resume Next
- com:
+com:
     Set comple_origin = origin.Worksheets("COMPLEMENTARIO")
     Resume Next
 End Sub

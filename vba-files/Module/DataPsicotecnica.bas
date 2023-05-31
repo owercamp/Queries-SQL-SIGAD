@@ -26,16 +26,16 @@ Public Sub PsicotecnicaData()
   Set psico_origin = origin.Worksheets("PSICOTECNICA") '' PSICOTECNICA DEL LIBRO ORIGEN ''
 
   psico_destiny.Select
-  ActiveSheet.Range("A2").Select
-  Set psicotecnica_destiny_header = psico_destiny.Range("A1", psico_destiny.Range("A1").End(xlToRight))
-  Set psicotecnica_origin_header = psico_origin.Range("A1", psico_origin.Range("A1").End(xlToRight))
+  ActiveSheet.range("A2").Select
+  Set psicotecnica_destiny_header = psico_destiny.range("A1", psico_destiny.range("A1").End(xlToRight))
+  Set psicotecnica_origin_header = psico_origin.range("A1", psico_origin.range("A1").End(xlToRight))
   Set psicotecnica_destiny_dictionary = CreateObject("Scripting.Dictionary")
   Set psicotecnica_origin_dictionary = CreateObject("Scripting.Dictionary")
 
-  If (psico_origin.Range("A2") <> Empty And psico_origin.Range("A3") <> Empty) Then
-    Set psicotecnica_origin_value = psico_origin.Range("A2", psico_origin.Range("A2").End(xlDown))
-  ElseIf (psico_origin.Range("A2") <> Empty And psico_origin.Range("A3") = Empty) Then
-    Set psicotecnica_origin_value = psico_origin.Range("A2")
+  If (psico_origin.range("A2") <> Empty And psico_origin.range("A3") <> Empty) Then
+    Set psicotecnica_origin_value = psico_origin.range("A2", psico_origin.range("A2").End(xlDown))
+  ElseIf (psico_origin.range("A2") <> Empty And psico_origin.range("A3") = Empty) Then
+    Set psicotecnica_origin_value = psico_origin.range("A2")
   End If
 
   ''   En los diccionarios de "psicotecnica_destiny_dictionary" y  "psicotecnica_origin_dictionary" ''
@@ -86,27 +86,27 @@ Public Sub PsicotecnicaData()
         formImports.porcentageOneoforOne.ForeColor = RGB(0, 0, 0)
       End If
       If (typeExams(charters(ItemData.Offset(, psicotecnica_origin_dictionary("TIPO EXAMEN")))) <> "EGRESO") Then
-        With ActiveCell
-          .Offset(, psicotecnica_destiny_dictionary("NRO IDENFICACION")) = charters(ItemData.Offset(, psicotecnica_origin_dictionary("NRO IDENFICACION")))
-          .Offset(, psicotecnica_destiny_dictionary("PACIENTE")) = charters(ItemData.Offset(, psicotecnica_origin_dictionary("PACIENTE")))
-          .Offset(, psicotecnica_destiny_dictionary("PRUEBA PSICOTECNICA")) = charters(ItemData.Offset(, psicotecnica_origin_dictionary("PRUEBA PSICOTECNICA")))
-          .Offset(, psicotecnica_destiny_dictionary("DIAGNOSTICO PPAL (CUMPLE, NO CUMPLE)")) = charters(ItemData.Offset(, psicotecnica_origin_dictionary("DIAGNOSTICO PPAL (CUMPLE, NO CUMPLE)")))
-          .Offset(, psicotecnica_destiny_dictionary("DIAGNOSTICO OBS")) = charters(ItemData.Offset(, psicotecnica_origin_dictionary("DIAGNOSTICO OBS")))
-          If (.Row = 2) Then
-            .Offset(, psicotecnica_destiny_dictionary("ID_PSICOTECNICA")) = Trim$(ThisWorkbook.Worksheets("RUTAS").Range("$F$13").value)
-          Else
-            .Offset(, psicotecnica_destiny_dictionary("ID_PSICOTECNICA")) = .Offset(-1, psicotecnica_destiny_dictionary("ID_PSICOTECNICA")) + 1
-          End If
-          .Offset(1, 0).Select
-        End With
+        ActiveCell.Offset(, psicotecnica_destiny_dictionary("NRO IDENFICACION")) = charters(ItemData.Offset(, psicotecnica_origin_dictionary("NRO IDENFICACION")))
+        ActiveCell.Offset(, psicotecnica_destiny_dictionary("PACIENTE")) = charters(ItemData.Offset(, psicotecnica_origin_dictionary("PACIENTE")))
+        ActiveCell.Offset(, psicotecnica_destiny_dictionary("PRUEBA PSICOTECNICA")) = charters(ItemData.Offset(, psicotecnica_origin_dictionary("PRUEBA PSICOTECNICA")))
+        ActiveCell.Offset(, psicotecnica_destiny_dictionary("DIAGNOSTICO PPAL (CUMPLE, NO CUMPLE)")) = charters(ItemData.Offset(, psicotecnica_origin_dictionary("DIAGNOSTICO PPAL (CUMPLE, NO CUMPLE)")))
+        ActiveCell.Offset(, psicotecnica_destiny_dictionary("DIAGNOSTICO OBS")) = charters(ItemData.Offset(, psicotecnica_origin_dictionary("DIAGNOSTICO OBS")))
+        If (ActiveCell.row = 2) Then
+          ActiveCell.Offset(, psicotecnica_destiny_dictionary("ID_PSICOTECNICA")) = Trim(ThisWorkbook.Worksheets("RUTAS").range("$F$13").value)
+        Else
+          ActiveCell.Offset(, psicotecnica_destiny_dictionary("ID_PSICOTECNICA")) = ActiveCell.Offset(-1, psicotecnica_destiny_dictionary("ID_PSICOTECNICA")) + 1
+        End If
+        ActiveCell.Offset(1, 0).Select
       End If
       numbers = numbers + 1
       numbersGeneral = numbersGeneral + 1
       DoEvents
     Next ItemData
 
-    Call meetsfails("$D2")
-    Call formatter("$A2")
+    range("D2").Select
+    Call meetsfails
+    range("$A2", range("$A2").End(xlDown)).Select
+    Call formatter
 
     Set psicotecnica_origin_value = Nothing
     Set psicotecnica_destiny_header = Nothing
@@ -116,10 +116,10 @@ Public Sub PsicotecnicaData()
 
     Exit Sub
 
- psicotecnicaError:
+psicotecnicaError:
     Resume Next
 
- tecnica:
+tecnica:
     Set psico_origin = origin.Worksheets("PSICOLOGIA")
     Resume Next
 End Sub

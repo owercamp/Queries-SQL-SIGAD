@@ -8,7 +8,7 @@ Option Explicit
 '? Retorno:
 '? @return header_worker Cadena de texto que representa el encabezado correspondiente a la cadena de entrada. Si no se encuentra un encabezado correspondiente, devuelve "SIN DATO".
 Public Function header_worker(ByVal value As String) As String
-  Select Case Trim$(Ucase$(value))
+  Select Case Trim(value)
    Case "NOMBRE CONTRATO"
     header_worker = "NOMBRE CONTRATO"
    Case "DESTINO"
@@ -47,9 +47,9 @@ Public Function header_worker(ByVal value As String) As String
     header_worker = "FUENTE"
    Case "TIPO ACTIVIDAD"
     header_worker = "TIPO ACTIVIDAD"
-   Case Trim$(Ucase$("idOrdenListaTrabajadores"))
+   Case "idOrdenListaTrabajadores"
     header_worker = "idOrdenListaTrabajadores"
-   Case Trim$(Ucase$("idOrden"))
+   Case "idOrden"
     header_worker = "idOrden"
    Case Else
     header_worker = "SIN DATO"
@@ -63,7 +63,7 @@ End Function
 '? Retorno:
 '? @return emo_headers Cadena de texto que representa el encabezado emocional correspondiente al valor pasado como parametro.
 Public Function emo_headers(ByVal value As String) As String
-  Select Case Trim$(Ucase$(value))
+  Select Case Trim(value)
    Case "NRO IDENFICACION", "NRO IDENTIFICACION"
     emo_headers = "NRO IDENFICACION"
    Case "TIPO EXAMEN"
@@ -264,7 +264,7 @@ Public Function emo_headers(ByVal value As String) As String
     emo_headers = "AUDITIVO"
    Case "RECOMENDACIONES ESPECIFICAS"
     emo_headers = "RECOMENDACIONES ESPECIFICAS"
-   Case Trim$(UCase$("id_emo"))
+   Case "id_emo"
     emo_headers = "ID_EMO"
    Case Else
     emo_headers = "SIN DATO"
@@ -282,14 +282,14 @@ End Function
 '?   Si el valor de entrada coincide con una de las claves de encabezado, la funcion devuelve la clave correspondiente.
 '?   En caso contrario, la funcion devuelve la cadena "SIN DATO".
 Public Function emphasis_headers(ByVal value As String) As String
-  Select Case Trim$(UCase$(value))
+  Select Case Trim(UCase(value))
    Case "IDENTIFICACION", "NRO IDENFICACION", "NRO IDENTIFICACION"
     emphasis_headers = "IDENTIFICACION"
    Case "TIPO EXAMEN"
     emphasis_headers = "TIPO EXAMEN"
-   Case "ENFASIS_" & x, "ENFASIS " & x,"ENFASIS" & x
+   Case "ENFASIS_" & x, "ENFASIS " & x, "ENFASIS" & x
     emphasis_headers = "ENFASIS_" & x
-   Case "CONCEPTO AL ENFASIS_" & x, "CONCEPTO AL ENFASIS " & x,"CONCEPTO_AL_ENFASIS_" & x
+   Case "CONCEPTO AL ENFASIS_" & x, "CONCEPTO AL ENFASIS " & x, "CONCEPTO_AL_ENFASIS_" & x
     emphasis_headers = "CONCEPTO AL ENFASIS_" & x
    Case "OBSERVACIONES_AL_ENFASIS_" & x, "OBSERVACIONES AL ENFASIS " & x, "OBSERVACIONES AL ENFASIS_" & x, "OBSERVACIONES_AL_ENFASIS " & x
     emphasis_headers = "OBSERVACIONES_AL_ENFASIS_" & x
@@ -310,7 +310,7 @@ End Function
 '?   Si el valor de entrada coincide con una de las claves de encabezado de diagnostico, la funcion devuelve la clave correspondiente.
 '?   En caso contrario, la funcion devuelve la cadena "SIN DATO".
 Public Function diagnostics_header(ByVal value As String) As String
-  Select Case Trim$(UCase$(value))
+  Select Case Trim(UCase(value))
    Case "IDENTIFICACION", "NRO IDENFICACION", "NRO IDENTIFICACION"
     diagnostics_header = "IDENTIFICACION"
    Case "TIPO EXAMEN"
@@ -319,7 +319,7 @@ Public Function diagnostics_header(ByVal value As String) As String
     diagnostics_header = "CODIGO DIAG PPAL"
    Case "DIAG PPAL"
     diagnostics_header = "DIAG PPAL"
-   Case "CODIGO DIAG REL" & x, "CODIGO DIAG REL " & x, "CODIGO DIAG REL" & x, "CODIGO DIAG REL" & x &","
+   Case "CODIGO DIAG REL" & x, "CODIGO DIAG REL " & x, "CODIGO DIAG REL" & x, "CODIGO DIAG REL" & x & ","
     diagnostics_header = "CODIGO DIAG REL" & x
    Case "DIAG REL " & x, "DIAG REL" & x
     diagnostics_header = "DIAG REL " & x
@@ -336,22 +336,22 @@ End Function
 '? Retorna:
 '? @return opto_headers Una cadena de texto que representa el encabezado correspondiente segun el caso que se cumpla en la estructura select case.
 Public Function opto_headers(ByVal value As String) As String
-  Select Case Trim$(UCase$(value))
+  Select Case Trim(UCase(value))
    Case "IDENTIFICACION", "NRO IDENFICACION", "NRO IDENTIFICACION"
     opto_headers = "IDENTIFICACION"
    Case "TIPO EXAMEN"
     opto_headers = "TIPO EXAMEN"
-   Case "VISIO/ANT_ LABORAL ILUMINACION INADECUADA","VISIO/ANT  LABORAL ILUMINACION INADECUADA"
+   Case "VISIO/ANT_ LABORAL ILUMINACION INADECUADA", "VISIO/ANT  LABORAL ILUMINACION INADECUADA"
     opto_headers = "VISIO/ANT_ LABORAL ILUMINACION INADECUADA"
    Case "VISIO/ANT_ LABORAL USUARIO COMPUTADOR", "VISIO/ANT  LABORAL USUARIO COMPUTADOR"
     opto_headers = "VISIO/ANT_ LABORAL USUARIO COMPUTADOR"
-   Case "VISIO/ANT_ LABORALVISIO RADIACIONES UV", "VISIO/ANT_ LABORAL VISIO RADIACIONES UV","VISIO/ANT  LABORAL VISIO RADIACIONES UV"
+   Case "VISIO/ANT_ LABORALVISIO RADIACIONES UV", "VISIO/ANT_ LABORAL VISIO RADIACIONES UV", "VISIO/ANT  LABORAL VISIO RADIACIONES UV"
     opto_headers = "VISIO/ANT_ LABORALVISIO RADIACIONES UV"
-   Case "VISIO/ANT_ LABORAL CAMBIOS TEMPREATURA", "VISIO/ANT_ LABORAL CAMBIOS TEMPERATURA","VISIO/ANT  LABORAL CAMBIOS TEMPERATURA"
+   Case "VISIO/ANT_ LABORAL CAMBIOS TEMPREATURA", "VISIO/ANT_ LABORAL CAMBIOS TEMPERATURA", "VISIO/ANT  LABORAL CAMBIOS TEMPERATURA"
     opto_headers = "VISIO/ANT_ LABORAL CAMBIOS TEMPREATURA"
-   Case "VISIO/ANT_ LABORAL MALA VENTILACION","VISIO/ANT  LABORAL MALA VENTILACION"
+   Case "VISIO/ANT_ LABORAL MALA VENTILACION", "VISIO/ANT  LABORAL MALA VENTILACION"
     opto_headers = "VISIO/ANT_ LABORAL MALA VENTILACION"
-   Case "VISIO/ANT_ LABORAL GASES TOXICOS","VISIO/ANT  LABORAL GASES TOXICOS"
+   Case "VISIO/ANT_ LABORAL GASES TOXICOS", "VISIO/ANT  LABORAL GASES TOXICOS"
     opto_headers = "VISIO/ANT_ LABORAL GASES TOXICOS"
    Case "SINTOMAS FOTOFOBIA"
     opto_headers = "SINTOMAS FOTOFOBIA"
@@ -435,13 +435,13 @@ Public Function opto_headers(ByVal value As String) As String
     opto_headers = "REC LUBRICANTE OCULAR"
    Case "RECOMENDACIONES OBS"
     opto_headers = "RECOMENDACIONES OBS"
-   Case "REM_ VALORACION OFTALM_","REM  VALORACION OFTALM "
+   Case "REM_ VALORACION OFTALM_"
     opto_headers = "REM_ VALORACION OFTALM_"
-   Case "REM_ TOPOGRAFIA CORNEAL","REM  TOPOGRAFIA CORNEAL"
+   Case "REM_ TOPOGRAFIA CORNEAL"
     opto_headers = "REM_ TOPOGRAFIA CORNEAL"
-   Case "REM_ TRATAM_ ORTOPTICA","REM  TRATAM  ORTOPTICA"
+   Case "REM_ TRATAM_ ORTOPTICA"
     opto_headers = "REM_ TRATAM_ ORTOPTICA"
-   Case "REM_ TEST FARNSWORTH","REM  TEST FARNSWORTH"
+   Case "REM_ TEST FARNSWORTH"
     opto_headers = "REM_ TEST FARNSWORTH"
    Case "REALIZAR PRUEBA AMBULATORIA"
     opto_headers = "REALIZAR PRUEBA AMBULATORIA"
@@ -449,7 +449,7 @@ Public Function opto_headers(ByVal value As String) As String
     opto_headers = "REMISIONES OBS"
    Case "CONTROLES MENSUAL"
     opto_headers = "CONTROLES MENSUAL"
-   Case "CONTROLES_BIMESTRALES","CONTROLES BIMESTRALES"
+   Case "CONTROLES_BIMESTRALES"
     opto_headers = "CONTROLES_BIMESTRALES"
    Case "CONTROLES TRIMESTRAL"
     opto_headers = "CONTROLES TRIMESTRAL"
@@ -475,7 +475,7 @@ End Function
 '? Retorna:
 '? @return audio_headers Una cadena de texto que representa el encabezado correspondiente segun el caso que se cumpla en la estructura select case.
 Public Function audio_headers(ByVal value As String) As String
-  Select Case Trim$(UCase$(value))
+  Select Case Trim(UCase(value))
    Case "NROAIDENFICACION", "NRO IDENFICACION", "NRO IDENTIFICACION", "NRO IDENTFICACION"
     audio_headers = "NROAIDENFICACION"
    Case "TIPO EXAMEN"
@@ -488,7 +488,7 @@ Public Function audio_headers(ByVal value As String) As String
     audio_headers = "EPP ESPECIFICO / AUDITIVO INSERCION"
    Case "EPP ESPECIFICO / AUDITIVO DOBLE"
     audio_headers = "EPP ESPECIFICO / AUDITIVO DOBLE"
-   Case "PABELLON AURIC_ OIDO DER_","PABELLON AURIC  OIDO DER"
+   Case "PABELLON AURIC_ OIDO DER_", "PABELLON AURIC  OIDO DER"
     audio_headers = "PABELLON AURIC_ OIDO DER_"
    Case "PABELLON AURIC_ OIDO DER_ OBS", "PABELLON AURIC  OIDO DER  OBS"
     audio_headers = "PABELLON AURIC_ OIDO DER_ OBS"
@@ -566,7 +566,7 @@ Public Function audio_headers(ByVal value As String) As String
     audio_headers = "USO DE EPP AUDITIVO"
    Case "CONTROLES MENSUALES"
     audio_headers = "CONTROLES MENSUALES"
-   Case "CONTROLES_BIMESTRALES","CONTROLES BIMESTRALES"
+   Case "CONTROLES_BIMESTRALES", "CONTROLES BIMESTRALES"
     audio_headers = "CONTROLES_BIMESTRALES"
    Case "CONTROLES TRIMESTRALES"
     audio_headers = "CONTROLES TRIMESTRALES"
@@ -578,7 +578,7 @@ Public Function audio_headers(ByVal value As String) As String
     audio_headers = "DIAG PPAL"
    Case "DIAG INTERNO"
     audio_headers = "DIAG INTERNO"
-   Case "DIAG GATI-SO","DIAG GATISO","DIAG GATI SO"
+   Case "DIAG GATI-SO", "DIAG GATISO", "DIAG GATI SO"
     audio_headers = "DIAG GATI-SO"
    Case "ID_AUDIOMETRIA"
     audio_headers = "ID_AUDIOMETRIA"
@@ -596,7 +596,7 @@ End Function
 '? - Esta funcion devuelve el encabezado correspondiente al valor ingresado en el parametro "value".
 '? - Si el valor ingresado no se corresponde con ninguno de los casos especificados en el Select Case, se devuelve "SIN DATO".
 Public Function visio_headers(ByVal value As String) As String
-  Select Case Trim$(UCase$(value))
+  Select Case Trim(UCase(value))
    Case "NRO IDENFICACION", "NRO IDENTIFICACION", "NRO IDENTIFICACION"
     visio_headers = "NRO IDENFICACION"
    Case "TIPO EXAMEN"
@@ -635,21 +635,21 @@ Public Function visio_headers(ByVal value As String) As String
     visio_headers = "SINTOMAS CEFALEA"
    Case "OTROS SINTOMAS"
     visio_headers = "OTROS SINTOMAS"
-   Case "CABEZA - PARPADOS","CABEZA PARPADOS"
+   Case "CABEZA - PARPADOS", "CABEZA PARPADOS"
     visio_headers = "CABEZA - PARPADOS"
-   Case "CABEZA - PARPADOS OBS","CABEZA PARPADOS OBS"
+   Case "CABEZA - PARPADOS OBS", "CABEZA PARPADOS OBS"
     visio_headers = "CABEZA - PARPADOS OBS"
-   Case "CABEZA - CONJUNTIVAS","CABEZA CONJUNTIVAS"
+   Case "CABEZA - CONJUNTIVAS", "CABEZA CONJUNTIVAS"
     visio_headers = "CABEZA - CONJUNTIVAS"
-   Case "CABEZA - OBS CONJUNTIVAS","CABEZA OBS CONJUNTIVAS"
+   Case "CABEZA - OBS CONJUNTIVAS", "CABEZA OBS CONJUNTIVAS"
     visio_headers = "CABEZA - OBS CONJUNTIVAS"
-   Case "CABEZA - ESCLERAS","CABEZA ESCLERAS"
+   Case "CABEZA - ESCLERAS", "CABEZA ESCLERAS"
     visio_headers = "CABEZA - ESCLERAS"
-   Case "CABEZA - OBS ESCLERAS","CABEZA OBS ESCLERAS"
+   Case "CABEZA - OBS ESCLERAS", "CABEZA OBS ESCLERAS"
     visio_headers = "CABEZA - OBS ESCLERAS"
-   Case "CABEZA - PUPILAS","CABEZA PUPILAS"
+   Case "CABEZA - PUPILAS", "CABEZA PUPILAS"
     visio_headers = "CABEZA - PUPILAS"
-   Case "CABEZA - PUPILAS OBS","CABEZA PUPILAS OBS"
+   Case "CABEZA - PUPILAS OBS", "CABEZA PUPILAS OBS"
     visio_headers = "CABEZA - PUPILAS OBS"
    Case "IMP/DIAG VL0OD NORMAL", "IMP/DIAG VL-OD NORMAL", "IMP/DIAG VL OD NORMAL"
     visio_headers = "IMP/DIAG VL0OD NORMAL"
@@ -691,11 +691,11 @@ Public Function visio_headers(ByVal value As String) As String
     visio_headers = "REC CORRECCION VISUAL PARA TRABAJAR"
    Case "REC USO RX PARA VISION PROX"
     visio_headers = "REC USO RX PARA VISION PROX"
-   Case "REC USO AR VIDEO TRMINAL","REC USO AR VIDEO TERMINAL"
+   Case "REC USO AR VIDEO TRMINAL", "REC USO AR VIDEO TERMINAL"
     visio_headers = "REC USO AR VIDEO TRMINAL"
    Case "REC USO RX DESCANSO"
     visio_headers = "REC USO RX DESCANSO"
-   Case "REC USO LENTES PROT_ SOLAR","REC USO LENTES PROTECCION SOLAR"
+   Case "REC USO LENTES PROT_ SOLAR", "REC USO LENTES PROTECCION SOLAR"
     visio_headers = "REC USO LENTES PROT_ SOLAR"
    Case "REC USO PERMANENTE RX OPTICA"
     visio_headers = "REC USO PERMANENTE RX OPTICA"
@@ -748,48 +748,48 @@ End Function
 '? Devuelve:
 '? @return espiro_headers Una cadena de texto que representa el encabezado correspondiente para una espirometria.
 Public Function espiro_headers(ByVal value As String) As String
-  Select Case Trim$(UCase$(value))
+  Select Case Trim(UCase(value))
    Case "NRO IDENFICACION", "NRO IDENTIFICACION"
     espiro_headers = "NRO IDENFICACION"
    Case "TIPO EXAMEN"
     espiro_headers = "TIPO EXAMEN"
    Case "ALERGIAS"
     espiro_headers = "ALERGIAS"
-   Case "ALERGIAS OBS","ALERGIAS_DESC"
+   Case "ALERGIAS OBS", "ALERGIAS_DESC"
     espiro_headers = "ALERGIAS OBS"
-   Case "TUBERCULOSIS","TUBERCULOSIS DESC"
+   Case "TUBERCULOSIS", "TUBERCULOSIS DESC"
     espiro_headers = "TUBERCULOSIS"
-   Case "TOS CRONICA","TOS_CRONICA_DESC"
+   Case "TOS CRONICA", "TOS_CRONICA_DESC"
     espiro_headers = "TOS CRONICA"
-   Case "GRIPAS FRECUENTES","GRIPAS_FRECUENTES_DESC"
+   Case "GRIPAS FRECUENTES", "GRIPAS_FRECUENTES_DESC"
     espiro_headers = "GRIPAS FRECUENTES"
-   Case "FARINGITIS","FARINGITIS_DESC"
+   Case "FARINGITIS", "FARINGITIS_DESC"
     espiro_headers = "FARINGITIS"
-   Case "FARINGOAMIGDALITIS","FARINGOAMIGDALITIS_DESC"
+   Case "FARINGOAMIGDALITIS", "FARINGOAMIGDALITIS_DESC"
     espiro_headers = "FARINGOAMIGDALITIS"
-   Case "RINITIS","RINITIS_DESC"
+   Case "RINITIS", "RINITIS_DESC"
     espiro_headers = "RINITIS"
-   Case "SINUSITIS","SINUSITIS_DESC"
+   Case "SINUSITIS", "SINUSITIS_DESC"
     espiro_headers = "SINUSITIS"
-   Case "CX TORAX","CIRUGIA_TORAX"
+   Case "CX TORAX", "CIRUGIA_TORAX"
     espiro_headers = "CX TORAX"
-   Case "CX TORAX OBS","CIRUGIA_TORAX_DESC"
+   Case "CX TORAX OBS", "CIRUGIA_TORAX_DESC"
     espiro_headers = "CX TORAX OBS"
-   Case "ASMA BRONQUIAL","ASMA_BRONQUIAL_DESC"
+   Case "ASMA BRONQUIAL", "ASMA_BRONQUIAL_DESC"
     espiro_headers = "ASMA BRONQUIAL"
-   Case "BRONQUITIS","BRONQUITIS_DESC"
+   Case "BRONQUITIS", "BRONQUITIS_DESC"
     espiro_headers = "BRONQUITIS"
-   Case "NEUMONIA","NEUMONIA_DESC"
+   Case "NEUMONIA", "NEUMONIA_DESC"
     espiro_headers = "NEUMONIA"
-   Case "TRAUMA COSTAL","TRAUMA_COSTAL_DESC"
+   Case "TRAUMA COSTAL", "TRAUMA_COSTAL_DESC"
     espiro_headers = "TRAUMA COSTAL"
    Case "CANCER"
     espiro_headers = "CANCER"
-   Case "CANCER OBS","CANCER_DESC"
+   Case "CANCER OBS", "CANCER_DESC"
     espiro_headers = "CANCER OBS"
    Case "OTROS RESPIRATORIOS"
     espiro_headers = "OTROS RESPIRATORIOS"
-   Case "RIESGO QUIMICO / POLVOS","RIESGO_QCO/POLVOS"
+   Case "RIESGO QUIMICO / POLVOS", "RIESGO_QCO/POLVOS"
     espiro_headers = "RIESGO QUIMICO / POLVOS"
    Case "RIESGO QUIMICO / FIBRAS"
     espiro_headers = "RIESGO QUIMICO / FIBRAS"
@@ -799,7 +799,7 @@ Public Function espiro_headers(ByVal value As String) As String
     espiro_headers = "RIESGO QUIMICO /GASES"
    Case "RIESGO QUIMICO / VAPORES"
     espiro_headers = "RIESGO QUIMICO / VAPORES"
-   Case "RIESGO QUIMICO / HUMOS","RIESGO_QCO/HUMOS"
+   Case "RIESGO QUIMICO / HUMOS", "RIESGO_QCO/HUMOS"
     espiro_headers = "RIESGO QUIMICO / HUMOS"
    Case "RIESGO QUIMICO /MATERIAL PARTICULADO", "RIESGO QUIMICO  MATERIAL PARTICULADO"
     espiro_headers = "RIESGO QUIMICO /MATERIAL PARTICULADO"
@@ -809,7 +809,7 @@ Public Function espiro_headers(ByVal value As String) As String
     espiro_headers = "EPP ESPECIFICO / TAPABOCA"
    Case "EPP ESPECIFICO / RESPIRADOR"
     espiro_headers = "EPP ESPECIFICO / RESPIRADOR"
-   Case "ACT_ FISICA","ACTIVIDAD_FISICA"
+   Case "ACT_ FISICA", "ACTIVIDAD_FISICA"
     espiro_headers = "ACT_ FISICA"
    Case "FUMA"
     espiro_headers = "FUMA"
@@ -841,11 +841,11 @@ Public Function espiro_headers(ByVal value As String) As String
     espiro_headers = "PEF PRED DIAG_"
    Case "PEF %TEOR DIAG_"
     espiro_headers = "PEF %TEOR DIAG_"
-   Case "FEF 25-75 PRED DIAG_","FEF 25 75 PRED DIAG_"
+   Case "FEF 25-75 PRED DIAG_", "FEF 25 75 PRED DIAG_"
     espiro_headers = "FEF 25-75 PRED DIAG_"
    Case "FEF 25-75 %TEOR DIAG_", "FEF 25 75 %TEOR DIAG_"
     espiro_headers = "FEF 25-75 %TEOR DIAG_"
-   Case "DIAG_ PPAL","DIAG_PPAL","DIAG. PPAL"
+   Case "DIAG_ PPAL", "DIAG_PPAL"
     espiro_headers = "DIAG_ PPAL"
    Case "DIAG_ OBS"
     espiro_headers = "DIAG_ OBS"
@@ -855,11 +855,11 @@ Public Function espiro_headers(ByVal value As String) As String
     espiro_headers = "DIAG_ REL/2"
    Case "DIAG_ REL/3"
     espiro_headers = "DIAG_ REL/3"
-   Case "TIPO_INTERPRETACION","TIPO INTERPRETACION"
+   Case "TIPO_INTERPRETACION", "TIPO INTERPRETACION"
     espiro_headers = "TIPO_INTERPRETACION"
-   Case "TIPO_GRADO","TIPO GRADO"
+   Case "TIPO_GRADO", "TIPO GRADO"
     espiro_headers = "TIPO_GRADO"
-   Case "RESULTADO_ESPIROMETRIA","RESULTADO ESPIROMETRIA"
+   Case "RESULTADO_ESPIROMETRIA", "RESULTADO ESPIROMETRIA"
     espiro_headers = "RESULTADO_ESPIROMETRIA"
    Case "REC/GRALES DEJAR DE FUMAR"
     espiro_headers = "REC/GRALES DEJAR DE FUMAR"
@@ -877,7 +877,7 @@ Public Function espiro_headers(ByVal value As String) As String
     espiro_headers = "REC/LAB UTILIZAR EPR"
    Case "REC/LAB INGRESAR SVE"
     espiro_headers = "REC/LAB INGRESAR SVE"
-   Case "CONTROLES MENSUAL","CONTROLES","CONTROLES_MENSUALES"
+   Case "CONTROLES MENSUAL", "CONTROLES", "CONTROLES_MENSUALES"
     espiro_headers = "CONTROLES MENSUAL"
    Case "CONTROLES_BIMESTRALES"
     espiro_headers = "CONTROLES_BIMESTRALES"
@@ -904,7 +904,7 @@ End Function
 '? Retorna:
 '? @return Cadena de texto con el encabezado correspondiente, o "SIN DATO" si no hay coincidencia
 Public Function osteo_headers(ByVal value As String) As String
-  Select Case Trim$(UCase$(value))
+  Select Case Trim(UCase(value))
    Case "NRO IDENFICACION", "NRO IDENTIFICACION"
     osteo_headers = "NRO IDENFICACION"
    Case "TIPO EXAMEN"
@@ -1030,7 +1030,7 @@ End Function
 '?Retorna:
 '? @return comple_headers Cadena de texto con el encabezado correspondiente, o "SIN DATO" si no hay coincidencia
 Public Function comple_headers(ByVal value As String) As String
-  Select Case Trim$(UCase$(value))
+  Select Case Trim(UCase(value))
    Case "NRO IDENFICACION", "NRO IDENTIFICACION"
     comple_headers = "NRO IDENFICACION"
    Case "TIPO EXAMEN"
@@ -1047,7 +1047,7 @@ Public Function comple_headers(ByVal value As String) As String
     comple_headers = "DIAG_ REL/2"
    Case "DIAG_ REL/3"
     comple_headers = "DIAG_ REL/3"
-   Case "HALLAZGOS","HALLAZGO"
+   Case "HALLAZGOS", "HALLAZGO"
     comple_headers = "HALLAZGOS"
    Case "ID_COMPLEMENTARIOS"
     comple_headers = "ID_COMPLEMENTARIOS"
@@ -1062,7 +1062,7 @@ End Function
 '? Retorna:
 '? @return psicotecnica_headers Cadena de texto con el encabezado correspondiente, o "SIN DATO" si no hay coincidencia
 Public Function psicotecnica_headers(ByVal value As String) As String
-  Select Case Trim$(UCase$(value))
+  Select Case Trim(UCase(value))
    Case "NRO IDENFICACION", "NRO IDENTIFICACION"
     psicotecnica_headers = "NRO IDENFICACION"
    Case "TIPO EXAMEN"
@@ -1071,7 +1071,7 @@ Public Function psicotecnica_headers(ByVal value As String) As String
     psicotecnica_headers = "PACIENTE"
    Case "PRUEBA PSICOTECNICA", "HCPsico_DXPPal"
     psicotecnica_headers = "PRUEBA PSICOTECNICA"
-   Case "DIAGNOSTICO PPAL (CUMPLE, NO CUMPLE)", "DIAGNOSTICO PPAL","RESULTADO"
+   Case "DIAGNOSTICO PPAL (CUMPLE, NO CUMPLE)", "DIAGNOSTICO PPAL", "RESULTADO"
     psicotecnica_headers = "DIAGNOSTICO PPAL (CUMPLE, NO CUMPLE)"
    Case "DIAGNOSTICO OBS"
     psicotecnica_headers = "DIAGNOSTICO OBS"
@@ -1088,7 +1088,7 @@ End Function
 '? Retorna:
 '? @return psicosensometrica_headers Cadena de texto con el encabezado correspondiente, o "SIN DATO" si no hay coincidencia
 Public Function psicosensometrica_headers(ByVal value As String) As String
-  Select Case Trim$(UCase$(value))
+  Select Case Trim(UCase(value))
    Case "NRO IDENFICACION", "NRO IDENTIFICACION"
     psicosensometrica_headers = "NRO IDENFICACION"
    Case "TIPO EXAMEN"
