@@ -169,3 +169,8 @@ Sub config()
   formControl.Show
 
 End Sub
+
+Sub cleanCaracthers()
+Attribute cleanCaracthers.VB_ProcData.VB_Invoke_Func = "y\n14"
+  formClear.Show
+End Sub

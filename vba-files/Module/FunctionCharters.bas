@@ -11,10 +11,6 @@ Public Function charters(ByVal value As String) As String
 End Function
 
 'TODO: Elimina los espacios al inicio y al final de cada valor y verifica que no sea un campo vacio.
-'TODO: Elimina los espacios al inicio y al final de cada valor y verifica que no sea un campo vacio.
-
-'TODO: Elimina los espacios al inicio y al final de cada valor y verifica que no sea un campo vacio.
-
 '? Parametros:
 '?@param - value: El valor que se va a verificar.
 '? Retorno:
@@ -68,7 +64,7 @@ Public Function city(ByVal value As String) As String
     city = Trim("BOGOTA D.C.")
    Case "CARTAGENA DE INDIAS", "CARTAGENA, BOLIVAR"
     city = Trim("CARTAGENA")
-   Case "BUGA","GUADALAJARA"
+   Case "BUGA", "GUADALAJARA"
     city = Trim("GUADALAJARA DE BUGA")
    Case "MONTEL" & Chr(205) & "BANO"
     city = Trim("MONTELIBANO")
@@ -76,7 +72,7 @@ Public Function city(ByVal value As String) As String
     city = Trim("PUERTO GAITAN")
    Case "PUERTO BOYAC" & Chr(193)
     city = Trim("PUERTO BOYACA")
-   Case "PUERTO AS" & Chr(205) & "S","PUETRTO ASIS"
+   Case "PUERTO AS" & Chr(205) & "S", "PUETRTO ASIS"
     city = Trim("PUERTO ASIS")
    Case "TULU" & Chr(193)
     city = Trim("TULUA")
@@ -348,29 +344,27 @@ End Function
 
 'TODO: Esta macro elimina los caracteres no alfanumericos de una columna
 Public Sub ClearNonAlphaNumeric()
-  Attribute ClearCharter.VB_ProcData.VB_Invoke_Func = "y\n14"
   Dim valor As String
 
-  Application.ScreenUpdating = False
   Application.Calculation = xlCalculationManual
   Application.EnableEvents = False
   Application.DisplayAlerts = False
-  Application.StatusBar = "Limpiando Caracteres Especiales"
+  Application.ScreenUpdating = False
 
   '? Recorrer la columna hasta que se encuentre una celda vacia
-  For Each item In Selection
-    valor = item.value
-    item.value = Trim(ReplaceNonAlphaNumeric(valor))
+  For Each Item In Selection
+    valor = VBA.Replace(Item.value, "  ", " ")
+    Item.value = Trim(ReplaceNonAlphaNumeric(valor))
     DoEvents
-  Next item
+  Next Item
 
   '? Activar la actualizacion de pantalla
   Application.ScreenUpdating = True
   Application.Calculation = xlCalculationAutomatic
   Application.EnableEvents = True
   Application.DisplayAlerts = True
-  Application.StatusBar = "Limpieza terminada"
 
+  formClear.Hide
   MsgBox "Correcciones realizadas, exitosamente!!", vbInformation, "Correcciones"
 
 End Sub

@@ -5,7 +5,7 @@ Attribute VB_Name = "Conditionals"
 ' * Los valores duplicados se resaltan en negrita y color de fondo.
 Public Sub dataDuplicate()
 
-  If Selection(1).Offset(1, 0).Value <> vbNullString Then
+  If Selection(1).Offset(1, 0).value <> vbNullString Then
     range(Selection, Selection.End(xlDown)).Select
   End If
   Selection.FormatConditions.AddUniqueValues
@@ -42,7 +42,7 @@ End Sub
 ' * Nota: Esta funcion asume que la primera fila del rango seleccionado contiene los encabezados de las columnas.
 Public Sub iqualCero()
 
-  If Selection(1).Offset(1, 0).Value <> vbNullString Then
+  If Selection(1).Offset(1, 0).value <> vbNullString Then
     range(Selection, Selection.End(xlDown)).Select
   End If
   Select Case Trim(UCase(ActiveSheet.Name))
@@ -84,7 +84,7 @@ End Sub
 ' * Si no se ha seleccionado un rango de celdas, se producira un error en tiempo de ejecucion.
 Public Sub meetsfails()
 
-  If Selection(1).Offset(1, 0).Value <> vbNullString Then
+  If Selection(1).Offset(1, 0).value <> vbNullString Then
     range(Selection, Selection.End(xlDown)).Select
   End If
   Selection.FormatConditions.Add Type:=xlExpression, Formula1:= _
@@ -111,7 +111,7 @@ End Sub
 '* La condicion es verdadera si la celda EO5 esta vacia y G5 en la hoja TRABAJADORES es PERIODICO, POS INCAPACIDAD, PERIODICO DE SEGUIMIENTO o ESPECIAL.
 Public Sub Risk()
 
-  If Selection(1).Offset(1, 0).Value <> vbNullString Then
+  If Selection(1).Offset(1, 0).value <> vbNullString Then
     range(Selection, Selection.End(xlDown)).Select
   End If
   Selection.FormatConditions.Add Type:=xlExpression, Formula1:= _
@@ -136,7 +136,7 @@ End Sub
 '* para trabajadores en pre-ingreso
 Public Sub riskPre_ingreso()
 
-  If Selection(1).Offset(1, 0).Value <> vbNullString Then
+  If Selection(1).Offset(1, 0).value <> vbNullString Then
     range(Selection, Selection.End(xlDown)).Select
   End If
   Selection.FormatConditions.Add Type:=xlExpression, Formula1:= _
@@ -171,7 +171,7 @@ End Sub
 '* Si la suma es mayor que 1, se aplica un formato de fuente en negrita y color de fondo en naranja.
 Public Sub greaterThanOne()
 
-  If Selection(1).Offset(1, 0).Value <> vbNullString Then
+  If Selection(1).Offset(1, 0).value <> vbNullString Then
     range(Selection, Selection.End(xlDown)).Select
   End If
   Select Case Trim(UCase(ActiveSheet.Name))
@@ -205,7 +205,7 @@ End Sub
 '* Este procedimiento selecciona el rango desde la celda activa hacia abajo y agrega una condicion de formato para resaltar las celdas que contienen texto en la columna BH.
 Public Sub thisText()
 
-  If Selection(1).Offset(1, 0).Value <> vbNullString Then
+  If Selection(1).Offset(1, 0).value <> vbNullString Then
     range(Selection, Selection.End(xlDown)).Select
   End If
   Selection.FormatConditions.Add Type:=xlExpression, Formula1:= _
@@ -229,7 +229,7 @@ End Sub
 '* Aplica una condicion de formato a la seleccion actual si el valor de la columna G es "EGRESO".
 Public Sub thisEgreso()
 
-  If Selection(1).Offset(1, 0).Value <> vbNullString Then
+  If Selection(1).Offset(1, 0).value <> vbNullString Then
     range(Selection, Selection.End(xlDown)).Select
   End If
   Selection.FormatConditions.Add Type:=xlExpression, Formula1:= _

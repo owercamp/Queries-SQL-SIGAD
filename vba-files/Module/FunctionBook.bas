@@ -523,7 +523,7 @@ Public Sub ExportSQL()
               MyFile.WriteLine Item
               num = num - 1
             ElseIf Item <> "" And num = 1 Then
-              MyFile.WriteLine Item & ";"
+              MyFile.WriteLine reemplazarUltimoCaracter(Item)
               num = num - 1
             End If
           Next Item
@@ -539,7 +539,7 @@ Public Sub ExportSQL()
               MyFile.WriteLine Item
               num = num - 1
             ElseIf Item <> "" And num = 1 Then
-              MyFile.WriteLine Item & ";"
+              MyFile.WriteLine reemplazarUltimoCaracter(Item)
               num = num - 1
             End If
           Next Item
@@ -555,7 +555,7 @@ Public Sub ExportSQL()
               MyFile.WriteLine Item
               num = num - 1
             ElseIf Item <> "" And num = 1 Then
-              MyFile.WriteLine Item & ";"
+              MyFile.WriteLine reemplazarUltimoCaracter(Item)
               num = num - 1
             End If
           Next Item
@@ -571,7 +571,7 @@ Public Sub ExportSQL()
               MyFile.WriteLine Item
               num = num - 1
             ElseIf Item <> "" And num = 1 Then
-              MyFile.WriteLine Item & ";"
+              MyFile.WriteLine reemplazarUltimoCaracter(Item)
               num = num - 1
             End If
           Next Item
@@ -587,7 +587,7 @@ Public Sub ExportSQL()
               MyFile.WriteLine Item
               num = num - 1
             ElseIf Item <> "" And num = 1 Then
-              MyFile.WriteLine Item & ";"
+              MyFile.WriteLine reemplazarUltimoCaracter(Item)
               num = num - 1
             End If
           Next Item
@@ -603,7 +603,7 @@ Public Sub ExportSQL()
               MyFile.WriteLine Item
               num = num - 1
             ElseIf Item <> "" And num = 1 Then
-              MyFile.WriteLine Item & ";"
+              MyFile.WriteLine reemplazarUltimoCaracter(Item)
               num = num - 1
             End If
           Next Item
@@ -619,7 +619,7 @@ Public Sub ExportSQL()
               MyFile.WriteLine Item
               num = num - 1
             ElseIf Item <> "" And num = 1 Then
-              MyFile.WriteLine Item & ";"
+              MyFile.WriteLine reemplazarUltimoCaracter(Item)
               num = num - 1
             End If
           Next Item
@@ -636,7 +636,7 @@ Public Sub ExportSQL()
               MyFile.WriteLine Item
               num = num - 1
             ElseIf Item <> "" And num = 1 Then
-              MyFile.WriteLine Item & ";"
+              MyFile.WriteLine reemplazarUltimoCaracter(Item)
               num = num - 1
             End If
           Next Item
@@ -652,7 +652,7 @@ Public Sub ExportSQL()
               MyFile.WriteLine Item
               num = num - 1
             ElseIf Item <> "" And num = 1 Then
-              MyFile.WriteLine Item & ";"
+              MyFile.WriteLine reemplazarUltimoCaracter(Item)
               num = num - 1
             End If
           Next Item
@@ -668,7 +668,7 @@ Public Sub ExportSQL()
               MyFile.WriteLine Item
               num = num - 1
             ElseIf Item <> "" And num = 1 Then
-              MyFile.WriteLine Item & ";"
+              MyFile.WriteLine reemplazarUltimoCaracter(Item)
               num = num - 1
             End If
           Next Item
@@ -685,7 +685,7 @@ Public Sub ExportSQL()
               MyFile.WriteLine Item
               num = num - 1
             ElseIf Item <> "" And num = 1 Then
-              MyFile.WriteLine Item & ";"
+              MyFile.WriteLine reemplazarUltimoCaracter(Item)
               num = num - 1
             End If
           Next Item
@@ -701,7 +701,7 @@ Public Sub ExportSQL()
               MyFile.WriteLine Item
               num = num - 1
             ElseIf Item <> "" And num = 1 Then
-              MyFile.WriteLine Item & ";"
+              MyFile.WriteLine reemplazarUltimoCaracter(Item)
               num = num - 1
             End If
           Next Item
@@ -717,7 +717,7 @@ Public Sub ExportSQL()
               MyFile.WriteLine Item
               num = num - 1
             ElseIf Item <> "" And num = 1 Then
-              MyFile.WriteLine Item & ";"
+              MyFile.WriteLine reemplazarUltimoCaracter(Item)
               num = num - 1
             End If
           Next Item
@@ -733,7 +733,7 @@ Public Sub ExportSQL()
               MyFile.WriteLine Item
               num = num - 1
             ElseIf Item <> "" And num = 1 Then
-              MyFile.WriteLine Item & ";"
+              MyFile.WriteLine reemplazarUltimoCaracter(Item)
               num = num - 1
             End If
           Next Item
@@ -749,7 +749,7 @@ Public Sub ExportSQL()
               MyFile.WriteLine Item
               num = num - 1
             ElseIf Item <> "" And num = 1 Then
-              MyFile.WriteLine Item & ";"
+              MyFile.WriteLine reemplazarUltimoCaracter(Item)
               num = num - 1
             End If
           Next Item
@@ -765,7 +765,7 @@ Public Sub ExportSQL()
               MyFile.WriteLine Item
               num = num - 1
             ElseIf Item <> "" And num = 1 Then
-              MyFile.WriteLine Item & ";"
+              MyFile.WriteLine reemplazarUltimoCaracter(Item)
               num = num - 1
             End If
           Next Item
@@ -781,7 +781,7 @@ Public Sub ExportSQL()
               MyFile.WriteLine Item
               num = num - 1
             ElseIf Item <> "" And num = 1 Then
-              MyFile.WriteLine Item & ";"
+              MyFile.WriteLine reemplazarUltimoCaracter(Item)
               num = num - 1
             End If
           Next Item
@@ -798,7 +798,7 @@ Public Sub ExportSQL()
               MyFile.WriteLine Item
               num = num - 1
             ElseIf Item <> "" And num = 1 Then
-              MyFile.WriteLine Item & ";"
+              MyFile.WriteLine reemplazarUltimoCaracter(Item)
               num = num - 1
             End If
           Next Item
@@ -814,7 +814,7 @@ Public Sub ExportSQL()
               MyFile.WriteLine Item
               num = num - 1
             ElseIf Item <> "" And num = 1 Then
-              MyFile.WriteLine Item & ";"
+              MyFile.WriteLine reemplazarUltimoCaracter(Item)
               num = num - 1
             End If
           Next Item
@@ -830,7 +830,7 @@ Public Sub ExportSQL()
               MyFile.WriteLine Item
               num = num - 1
             ElseIf Item <> "" And num = 1 Then
-              MyFile.WriteLine Item & ";"
+              MyFile.WriteLine reemplazarUltimoCaracter(Item)
               num = num - 1
             End If
           Next Item
@@ -846,7 +846,7 @@ Public Sub ExportSQL()
               MyFile.WriteLine Item
               num = num - 1
             ElseIf Item <> "" And num = 1 Then
-              MyFile.WriteLine Item & ";"
+              MyFile.WriteLine reemplazarUltimoCaracter(Item)
               num = num - 1
             End If
           Next Item
@@ -862,7 +862,7 @@ Public Sub ExportSQL()
               MyFile.WriteLine Item
               num = num - 1
             ElseIf Item <> "" And num = 1 Then
-              MyFile.WriteLine Item & ";"
+              MyFile.WriteLine reemplazarUltimoCaracter(Item)
               num = num - 1
             End If
           Next Item
@@ -878,7 +878,7 @@ Public Sub ExportSQL()
               MyFile.WriteLine Item
               num = num - 1
             ElseIf Item <> "" And num = 1 Then
-              MyFile.WriteLine Item & ";"
+              MyFile.WriteLine reemplazarUltimoCaracter(Item)
               num = num - 1
             End If
           Next Item
@@ -894,7 +894,7 @@ Public Sub ExportSQL()
               MyFile.WriteLine Item
               num = num - 1
             ElseIf Item <> "" And num = 1 Then
-              MyFile.WriteLine Item & ";"
+              MyFile.WriteLine reemplazarUltimoCaracter(Item)
               num = num - 1
             End If
           Next Item
@@ -911,7 +911,7 @@ Public Sub ExportSQL()
               MyFile.WriteLine Item
               num = num - 1
             ElseIf Item <> "" And num = 1 Then
-              MyFile.WriteLine Item & ";"
+              MyFile.WriteLine reemplazarUltimoCaracter(Item)
               num = num - 1
             End If
           Next Item
@@ -927,7 +927,7 @@ Public Sub ExportSQL()
               MyFile.WriteLine Item
               num = num - 1
             ElseIf Item <> "" And num = 1 Then
-              MyFile.WriteLine Item & ";"
+              MyFile.WriteLine reemplazarUltimoCaracter(Item)
               num = num - 1
             End If
           Next Item
@@ -943,7 +943,7 @@ Public Sub ExportSQL()
               MyFile.WriteLine Item
               num = num - 1
             ElseIf Item <> "" And num = 1 Then
-              MyFile.WriteLine Item & ";"
+              MyFile.WriteLine reemplazarUltimoCaracter(Item)
               num = num - 1
             End If
           Next Item
@@ -959,7 +959,7 @@ Public Sub ExportSQL()
               MyFile.WriteLine Item
               num = num - 1
             ElseIf Item <> "" And num = 1 Then
-              MyFile.WriteLine Item & ";"
+              MyFile.WriteLine reemplazarUltimoCaracter(Item)
               num = num - 1
             End If
           Next Item
@@ -975,7 +975,7 @@ Public Sub ExportSQL()
               MyFile.WriteLine Item
               num = num - 1
             ElseIf Item <> "" And num = 1 Then
-              MyFile.WriteLine Item & ";"
+              MyFile.WriteLine reemplazarUltimoCaracter(Item)
               num = num - 1
             End If
           Next Item
@@ -991,7 +991,7 @@ Public Sub ExportSQL()
               MyFile.WriteLine Item
               num = num - 1
             ElseIf Item <> "" And num = 1 Then
-              MyFile.WriteLine Item & ";"
+              MyFile.WriteLine reemplazarUltimoCaracter(Item)
               num = num - 1
             End If
           Next Item
@@ -1008,7 +1008,7 @@ Public Sub ExportSQL()
               MyFile.WriteLine Item
               num = num - 1
             ElseIf Item <> "" And num = 1 Then
-              MyFile.WriteLine Item & ";"
+              MyFile.WriteLine reemplazarUltimoCaracter(Item)
               num = num - 1
             End If
           Next Item
@@ -1024,7 +1024,7 @@ Public Sub ExportSQL()
               MyFile.WriteLine Item
               num = num - 1
             ElseIf Item <> "" And num = 1 Then
-              MyFile.WriteLine Item & ";"
+              MyFile.WriteLine reemplazarUltimoCaracter(Item)
               num = num - 1
             End If
           Next Item
@@ -1040,7 +1040,7 @@ Public Sub ExportSQL()
               MyFile.WriteLine Item
               num = num - 1
             ElseIf Item <> "" And num = 1 Then
-              MyFile.WriteLine Item & ";"
+              MyFile.WriteLine reemplazarUltimoCaracter(Item)
               num = num - 1
             End If
           Next Item
@@ -1056,7 +1056,7 @@ Public Sub ExportSQL()
               MyFile.WriteLine Item
               num = num - 1
             ElseIf Item <> "" And num = 1 Then
-              MyFile.WriteLine Item & ";"
+              MyFile.WriteLine reemplazarUltimoCaracter(Item)
               num = num - 1
             End If
           Next Item
@@ -1073,7 +1073,7 @@ Public Sub ExportSQL()
               MyFile.WriteLine Item
               num = num - 1
             ElseIf Item <> "" And num = 1 Then
-              MyFile.WriteLine Item & ";"
+              MyFile.WriteLine reemplazarUltimoCaracter(Item)
               num = num - 1
             End If
           Next Item
@@ -1089,7 +1089,7 @@ Public Sub ExportSQL()
               MyFile.WriteLine Item
               num = num - 1
             ElseIf Item <> "" And num = 1 Then
-              MyFile.WriteLine Item & ";"
+              MyFile.WriteLine reemplazarUltimoCaracter(Item)
               num = num - 1
             End If
           Next Item
@@ -1106,7 +1106,7 @@ Public Sub ExportSQL()
               MyFile.WriteLine Item
               num = num - 1
             ElseIf Item <> "" And num = 1 Then
-              MyFile.WriteLine Item & ";"
+              MyFile.WriteLine reemplazarUltimoCaracter(Item)
               num = num - 1
             End If
           Next Item
@@ -1123,7 +1123,7 @@ Public Sub ExportSQL()
               MyFile.WriteLine Item
               num = num - 1
             ElseIf Item <> "" And num = 1 Then
-              MyFile.WriteLine Item & ";"
+              MyFile.WriteLine reemplazarUltimoCaracter(Item)
               num = num - 1
             End If
           Next Item
@@ -1139,7 +1139,7 @@ Public Sub ExportSQL()
               MyFile.WriteLine Item
               num = num - 1
             ElseIf Item <> "" And num = 1 Then
-              MyFile.WriteLine Item & ";"
+              MyFile.WriteLine reemplazarUltimoCaracter(Item)
               num = num - 1
             End If
           Next Item
@@ -1155,7 +1155,7 @@ Public Sub ExportSQL()
               MyFile.WriteLine Item
               num = num - 1
             ElseIf Item <> "" And num = 1 Then
-              MyFile.WriteLine Item & ";"
+              MyFile.WriteLine reemplazarUltimoCaracter(Item)
               num = num - 1
             End If
           Next Item
@@ -1167,6 +1167,19 @@ Public Sub ExportSQL()
 
   MsgBox "Se genero el archivo SQL textfile.sql" + vbNewLine + vbNewLine + Chr(32) + "Que se encuentra en la ruta: " + vbNewLine + vbNewLine + ThisWorkbook.Worksheets("RUTAS").range("C9").value
 End Sub
+
+Private Function reemplazarUltimoCaracter(ByVal texto As String) As String
+  Dim ultimoCaracter As String
+
+  ultimoCaracter = ","
+
+  Dim posicion As Integer
+  posicion = InStrRev(texto, ultimoCaracter)
+
+  If posicion > 0 Then
+    reemplazarUltimoCaracter = Left(texto, posicion - 1) & ";" & Right(texto, Len(texto) - posicion)
+  End If
+End Function
 
 'TODO Funcion: isEmptyValue
 '* Descripcion: Esta funcion toma un objeto Ranges como entrada y devuelve el numero de elementos que no estan vacios en el objeto.
