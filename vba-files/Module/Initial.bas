@@ -59,7 +59,6 @@ Sub extraerdatos()
   Application.ScreenUpdating = False
   Application.Calculation = xlCalculationManual
   Application.EnableEvents = False
-  Application.DisplayAlerts = False
   totalData = total(origin)
   For Each variable In origin.Worksheets
     Select Case Trim(UCase(variable.Name))
@@ -123,7 +122,6 @@ Sub extraerdatos()
   Application.Calculation = xlCalculationAutomatic
   Application.EnableEvents = True
   Application.StatusBar = Empty
-  Application.DisplayAlerts = True
   Unload formImports
 
   hora = VBA.Hour(Time)

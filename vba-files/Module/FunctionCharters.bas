@@ -346,10 +346,9 @@ End Function
 Public Sub ClearNonAlphaNumeric()
   Dim valor As String
 
+  Application.ScreenUpdating = False
   Application.Calculation = xlCalculationManual
   Application.EnableEvents = False
-  Application.DisplayAlerts = False
-  Application.ScreenUpdating = False
 
   '? Recorrer la columna hasta que se encuentre una celda vacia
   For Each Item In Selection
@@ -362,7 +361,6 @@ Public Sub ClearNonAlphaNumeric()
   Application.ScreenUpdating = True
   Application.Calculation = xlCalculationAutomatic
   Application.EnableEvents = True
-  Application.DisplayAlerts = True
 
   formClear.Hide
   MsgBox "Correcciones realizadas, exitosamente!!", vbInformation, "Correcciones"
@@ -383,6 +381,7 @@ Public Function ReplaceNonAlphaNumeric(str As String) As String
     regEx.Pattern = "[" & letter & ChrW(AscW(letter) + 1) & "]"
     regEx.Global = True
     str = regEx.Replace(str, Split(accent, ",")(1))
+    DoEvents
   Next accent
 
   '? Define la expresion regular para encontrar valores no alfanumericos

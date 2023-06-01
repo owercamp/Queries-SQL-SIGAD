@@ -111,7 +111,7 @@ End Sub
 '* La condicion es verdadera si la celda EO5 esta vacia y G5 en la hoja TRABAJADORES es PERIODICO, POS INCAPACIDAD, PERIODICO DE SEGUIMIENTO o ESPECIAL.
 Public Sub Risk()
 
-  If Selection(1).Offset(1, 0).value <> vbNullString Then
+  If Selection(1).Offset(1, -134).value <> vbNullString Then
     range(Selection, Selection.End(xlDown)).Select
   End If
   Selection.FormatConditions.Add Type:=xlExpression, Formula1:= _
@@ -136,7 +136,7 @@ End Sub
 '* para trabajadores en pre-ingreso
 Public Sub riskPre_ingreso()
 
-  If Selection(1).Offset(1, 0).value <> vbNullString Then
+  If Selection(1).Offset(1, -134).value <> vbNullString Then
     range(Selection, Selection.End(xlDown)).Select
   End If
   Selection.FormatConditions.Add Type:=xlExpression, Formula1:= _
