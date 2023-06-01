@@ -345,26 +345,36 @@ End Function
 'TODO: Esta macro elimina los caracteres no alfanumericos de una columna
 Public Sub ClearNonAlphaNumeric()
   Dim valor As String
+  Dim data As Variant
+  Dim i As Long, j As Long
 
+  '? Desactivar la actualización de pantalla, el cálculo y los eventos
   Application.ScreenUpdating = False
   Application.Calculation = xlCalculationManual
   Application.EnableEvents = False
 
-  '? Recorrer la columna hasta que se encuentre una celda vacia
-  For Each Item In Selection
-    valor = VBA.Replace(Item.value, "  ", " ")
-    Item.value = Trim(ReplaceNonAlphaNumeric(valor))
-    DoEvents
-  Next Item
+  '? Leer los valores de la selección en una matriz
+  data = Selection.value
 
-  '? Activar la actualizacion de pantalla
+  '? Iterar a través de la matriz y realizar los reemplazos
+  For i = 1 To UBound(data, 1)
+    For j = 1 To UBound(data, 2)
+      valor = VBA.Replace(data(i, j), "  ", " ", , , vbTextCompare)
+      data(i, j) = Trim(ReplaceNonAlphaNumeric(valor))
+    Next j
+    DoEvents
+  Next i
+
+  '? Escribir la matriz de vuelta en la hoja de cálculo
+  Selection.value = data
+
+  '? Activar la actualización de pantalla, el cálculo y los eventos
   Application.ScreenUpdating = True
   Application.Calculation = xlCalculationAutomatic
   Application.EnableEvents = True
 
   formClear.Hide
   MsgBox "Correcciones realizadas, exitosamente!!", vbInformation, "Correcciones"
-
 End Sub
 
 'TODO: Esta funcion reemplaza los caracteres no alfanumericos y las letras con acentos en una cadena de texto
