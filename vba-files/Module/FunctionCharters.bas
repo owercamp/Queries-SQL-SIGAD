@@ -383,7 +383,7 @@ Public Function ReplaceNonAlphaNumeric(str As String) As String
   Dim regEx As Object, letter As String, accent As Variant, accentPairs As Variant
 
   Set regEx = CreateObject("vbscript.regexp")
-  accentPairs = Array(ChrW(192) & ",A", ChrW(200) & ",E", ChrW(204) & ",I", ChrW(210) & ",O", ChrW(217) & ",U", ChrW(193) & ",A", ChrW(201) & ",E", ChrW(205) & ",I", ChrW(211) & ",O", ChrW(218) & ",U")
+  accentPairs = Array(ChrW(192) & ",A", ChrW(200) & ",E", ChrW(204) & ",I", ChrW(210) & ",O", ChrW(217) & ",U", ChrW(193) & ",A", ChrW(201) & ",E", ChrW(205) & ",I", ChrW(211) & ",O", ChrW(218) & ",U", ChrW(46) &",")
 
   '? Recorre el array de pares de acentos y letras, aplicando las expresiones regulares correspondientes
   For Each accent In accentPairs
