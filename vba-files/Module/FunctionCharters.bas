@@ -348,15 +348,15 @@ Public Sub ClearNonAlphaNumeric()
   Dim data As Variant
   Dim i As Long, j As Long
 
-  '? Desactivar la actualización de pantalla, el cálculo y los eventos
+  '? Desactivar la actualizacion de pantalla, el calculo y los eventos
   Application.ScreenUpdating = False
   Application.Calculation = xlCalculationManual
   Application.EnableEvents = False
 
-  '? Leer los valores de la selección en una matriz
+  '? Leer los valores de la seleccion en una matriz
   data = Selection.value
 
-  '? Iterar a través de la matriz y realizar los reemplazos
+  '? Iterar a traves de la matriz y realizar los reemplazos
   For i = 1 To UBound(data, 1)
     For j = 1 To UBound(data, 2)
       valor = VBA.Replace(data(i, j), "  ", " ", , , vbTextCompare)
@@ -365,10 +365,10 @@ Public Sub ClearNonAlphaNumeric()
     DoEvents
   Next i
 
-  '? Escribir la matriz de vuelta en la hoja de cálculo
+  '? Escribir la matriz de vuelta en la hoja de calculo
   Selection.value = data
 
-  '? Activar la actualización de pantalla, el cálculo y los eventos
+  '? Activar la actualizacion de pantalla, el calculo y los eventos
   Application.ScreenUpdating = True
   Application.Calculation = xlCalculationAutomatic
   Application.EnableEvents = True
@@ -383,7 +383,7 @@ Public Function ReplaceNonAlphaNumeric(str As String) As String
   Dim regEx As Object, letter As String, accent As Variant, accentPairs As Variant
 
   Set regEx = CreateObject("vbscript.regexp")
-  accentPairs = Array(ChrW(192) & ",A", ChrW(200) & ",E", ChrW(204) & ",I", ChrW(210) & ",O", ChrW(217) & ",U", ChrW(193) & ",A", ChrW(201) & ",E", ChrW(205) & ",I", ChrW(211) & ",O", ChrW(218) & ",U", ChrW(46) &",")
+  accentPairs = Array(ChrW(192) & ",A", ChrW(200) & ",E", ChrW(204) & ",I", ChrW(210) & ",O", ChrW(217) & ",U", ChrW(193) & ",A", ChrW(201) & ",E", ChrW(205) & ",I", ChrW(211) & ",O", ChrW(218) & ",U")
 
   '? Recorre el array de pares de acentos y letras, aplicando las expresiones regulares correspondientes
   For Each accent In accentPairs
@@ -395,7 +395,7 @@ Public Function ReplaceNonAlphaNumeric(str As String) As String
   Next accent
 
   '? Define la expresion regular para encontrar valores no alfanumericos
-  regEx.Pattern = "[^a-zA-Z0-9/" & ChrW(209) & ChrW(45) & "]"
+  regEx.Pattern = "[^a-zA-Z0-9/" & ChrW(209) & ChrW(45) &"]"
   regEx.Global = True
 
   '? Reemplaza cualquier valor no alfanumerico por un espacio
