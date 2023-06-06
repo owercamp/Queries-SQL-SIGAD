@@ -150,7 +150,7 @@ Public Function typeExams(ByVal value As String) As String
     typeExams = "CAMBIO DE OCUPACION"
    Case "REINTEGRO LABORAL", "OTROS REINTEGROS"
     typeExams = "EGRESO"
-   Case "PRE-INGRESO", "PRE_INGRESO", "INGRESO"
+   Case "PRE-INGRESO", "PRE_INGRESO", "INGRESO","PRE INGRESO"
     typeExams = "PRE-INGRESO"
    Case Else
     typeExams = value
