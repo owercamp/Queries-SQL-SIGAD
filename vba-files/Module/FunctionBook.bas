@@ -389,11 +389,10 @@ Public Sub Modification()
         False, AllowSorting:=True, AllowFiltering:=True, AllowUsingPivotTables:= _
         True
         consolidado.Save
-        consolidado.Close
       End If
       ActiveCell.Offset(1, 0).Select
     Loop
-
+    Windows(consolidado.Name).Activate
     MsgBox prompt:="Se ha registrado la modificaci" & Chr(243) & "n", Buttons:=vbInformation + vbOKOnly, Title:="Registro Exitoso"
 
   End If
