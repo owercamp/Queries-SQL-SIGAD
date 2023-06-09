@@ -1210,6 +1210,12 @@ Public Sub date_accident()
 
   Dim date_cell As Variant, toDate As Variant 'variables para almacenar valores de fecha
 
+  With Application
+    .EnableEvents = False
+    .ScreenUpdating = False
+    .Calculation = xlCalculationManual
+  End With
+  Range("$BC5").Select
   Do Until IsEmpty(ActiveCell.Offset(0, -54)) 'recorrer el rango de celdas hasta encontrar una celda vacia
     On Error GoTo Handler
     date_cell = CDate(VBA.Replace(Trim$(ActiveCell.value), " ", "/")) 'convertir la fecha al formato deseado
@@ -1228,6 +1234,12 @@ Public Sub date_accident()
     ActiveCell.Offset(1, 0).Select 'mover a la siguiente celda
   Loop
 
+  With Application
+    .EnableEvents = True
+    .ScreenUpdating = True
+    .Calculation = xlCalculationAutomatic
+  End With
+
   Exit Sub
 Handler:
   Dim arrayDateStringToNumber As Variant, element As Variant, replace_string As String, separate_array As Variant
@@ -1238,6 +1250,9 @@ Handler:
   replace_string = VBA.Replace(Trim$(ActiveCell.value), " ", "/")
   For Each element In arrayDateStringToNumber
     separate_array = VBA.Split(element, ",")
+    If replace_string = vbNullString Then
+      Exit For
+    End If
     If VBA.UCase$(VBA.Split(Trim$(replace_string), "/")(0)) = VBA.UCase$(separate_array(0)) Then
       date_cell = VBA.Split(Trim$(replace_string), "/")(1) & "/" & separate_array(1) & "/" & VBA.Split(Trim$(replace_string), "/")(2)
       Exit For
