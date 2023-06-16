@@ -1213,6 +1213,7 @@ Public Sub date_accident()
     .EnableEvents = False
     .ScreenUpdating = False
     .Calculation = xlCalculationManual
+    .StatusBar = "Procesando..."
   End With
   Range("$BC5").Select
   Do Until IsEmpty(ActiveCell.Offset(0, -54)) 'recorrer el rango de celdas hasta encontrar una celda vacia
@@ -1237,6 +1238,7 @@ Public Sub date_accident()
     .EnableEvents = True
     .ScreenUpdating = True
     .Calculation = xlCalculationAutomatic
+    .StatusBar = ""
   End With
 
   Exit Sub
@@ -1246,7 +1248,7 @@ Handler:
   arrayDateStringToNumber = Array("Jan,01", "Feb,02", "Mar,03", "Apr,04", "May,05", "Jun,06", "Jul,07", "Aug,08", "Sep,09", "Oct,10", "Nov,11", "Dec,12")
 
   date_cell = CVErr(2000)
-  replace_string = VBA.Replace(Trim$(ActiveCell.value), " ", "/")
+  replace_string = VBA.Replace(VBA.Replace(Trim$(ActiveCell.value), " ", "/"), "  ", " ")
   For Each element In arrayDateStringToNumber
     separate_array = VBA.Split(element, ",")
     If replace_string = vbNullString Then
