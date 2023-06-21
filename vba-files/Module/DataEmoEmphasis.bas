@@ -45,14 +45,16 @@ Public Sub DataEmphasisEmo()
 
   x = 1
   For Each ItemEmphasisDestiny In emphasis_destiny_header
-    On Error GoTo emphasisError
+    On Error Resume Next
     emphasis_destiny_dictionary.Add emphasis_headers(ItemEmphasisDestiny), (ItemEmphasisDestiny.Column - 1)
+    On Error GoTo 0
   Next ItemEmphasisDestiny
 
   x = 1
   For Each ItemEmoOrigin In emo_origin_header
-    On Error GoTo emphasisError
+    On Error Resume Next
     emo_origin_dictionary.Add emphasis_headers(ItemEmoOrigin), (ItemEmoOrigin.Column - 1)
+    On Error GoTo 0
   Next ItemEmoOrigin
 
   numbers = 1
@@ -63,57 +65,60 @@ Public Sub DataEmphasisEmo()
   vals = 1 / counts
   oneForOne = 0
   widthOneforOne = formImports.content_ProgressBarOneforOne.Width / counts
-  For Each ItemData In emo_origin_value
-    oneForOne = oneForOne + widthOneforOne
-    generalAll = generalAll + widthGeneral
-    formImports.lblGeneral.Caption = "importando " & CStr(numbersGeneral) & " de " & CStr(totalData) & "(" & CStr(totalData - numbersGeneral) & ") REGISTROS"
-      formImports.lblDescription.Caption = "importando " & CStr(numbers) & " de " & CStr(counts) & "(" & CStr(counts - numbers) & ") " & emphasis_destiny.Name
+
+  With formImports
+    For Each ItemData In emo_origin_value
+      oneForOne = oneForOne + widthOneforOne
+      generalAll = generalAll + widthGeneral
+      .lblGeneral.Caption = "importando " & CStr(numbersGeneral) & " de " & CStr(totalData) & "(" & CStr(totalData - numbersGeneral) & ") REGISTROS"
+      .lblDescription.Caption = "importando " & CStr(numbers) & " de " & CStr(counts) & "(" & CStr(counts - numbers) & ") " & emphasis_destiny.Name
       porcentaje = porcentaje + vals
       porcentajeGeneral = porcentajeGeneral + valsGeneral
-      formImports.ProgressBarOneforOne.Width = oneForOne
-      formImports.ProgressBarGeneral.Width = generalAll
-      formImports.porcentageGeneral.Caption = CStr(VBA.Round(porcentajeGeneral * 100, 1)) & "%"
-      formImports.porcentageOneoforOne.Caption = CStr(VBA.Round(porcentaje * 100, 1)) & "%"
-      formImports.Caption = CStr(nameCompany)
-      If formImports.ProgressBarGeneral.Width > (formImports.content_ProgressBarGeneral.Width / 2) Then
-        formImports.porcentageGeneral.ForeColor = RGB(255, 255, 255)
+      .ProgressBarOneforOne.Width = oneForOne
+      .ProgressBarGeneral.Width = generalAll
+      .porcentageGeneral.Caption = CStr(VBA.Round(porcentajeGeneral * 100, 1)) & "%"
+      .porcentageOneoforOne.Caption = CStr(VBA.Round(porcentaje * 100, 1)) & "%"
+      
+      If .ProgressBarGeneral.Width > (.content_ProgressBarGeneral.Width / 2) Then
+        .porcentageGeneral.ForeColor = RGB(255, 255, 255)
+      ElseIf .ProgressBarGeneral.Width < (.content_ProgressBarGeneral.Width / 2) Then
+        .porcentageGeneral.ForeColor = RGB(0, 0, 0)
       End If
-      If formImports.ProgressBarGeneral.Width < (formImports.content_ProgressBarGeneral.Width / 2) Then
-        formImports.porcentageGeneral.ForeColor = RGB(0, 0, 0)
+
+      If .ProgressBarOneforOne.Width > (.content_ProgressBarOneforOne.Width / 2) Then
+        .porcentageOneoforOne.ForeColor = RGB(255, 255, 255)
+      ElseIf .ProgressBarOneforOne.Width < (.content_ProgressBarOneforOne.Width / 2) Then
+        .porcentageOneoforOne.ForeColor = RGB(0, 0, 0)
       End If
-      If formImports.ProgressBarOneforOne.Width > (formImports.content_ProgressBarOneforOne.Width / 2) Then
-        formImports.porcentageOneoforOne.ForeColor = RGB(255, 255, 255)
-      End If
-      If formImports.ProgressBarOneforOne.Width < (formImports.content_ProgressBarOneforOne.Width / 2) Then
-        formImports.porcentageOneoforOne.ForeColor = RGB(0, 0, 0)
-      End If
+      
+      .Caption = CStr(nameCompany)
+
       If (typeExams(charters(ItemData.Offset(, emo_origin_dictionary("TIPO EXAMEN")))) <> "EGRESO") Then
-        ActiveCell.Offset(, emphasis_destiny_dictionary("IDENTIFICACION")) = charters(ItemData.Offset(, emo_origin_dictionary("IDENTIFICACION")))
-        For i = 1 To ((emo_origin_dictionary.Count - 2) / 3)
-          ActiveCell.Offset(, emphasis_destiny_dictionary("ENFASIS_" & i)) = charters(ItemData.Offset(, emo_origin_dictionary("ENFASIS_" & i)))
-          ActiveCell.Offset(, emphasis_destiny_dictionary("CONCEPTO AL ENFASIS_" & i)) = emphasisConcepts(charters(ItemData.Offset(, emo_origin_dictionary("CONCEPTO AL ENFASIS_" & i))), charters(ItemData.Offset(, emo_origin_dictionary("ENFASIS_" & i))))
-          ActiveCell.Offset(, emphasis_destiny_dictionary("OBSERVACIONES_AL_ENFASIS_" & i)) = charters(ItemData.Offset(, emo_origin_dictionary("OBSERVACIONES_AL_ENFASIS_" & i)))
-        Next i
-        ActiveCell.Offset(1, 0).Select
+        With ActiveCell  
+          .Offset(, emphasis_destiny_dictionary("IDENTIFICACION")) = charters(ItemData.Offset(, emo_origin_dictionary("IDENTIFICACION")))
+          For i = 1 To ((emo_origin_dictionary.Count - 2) / 3)
+            .Offset(, emphasis_destiny_dictionary("ENFASIS_" & i)) = charters(ItemData.Offset(, emo_origin_dictionary("ENFASIS_" & i)))
+            .Offset(, emphasis_destiny_dictionary("CONCEPTO AL ENFASIS_" & i)) = emphasisConcepts(charters(ItemData.Offset(, emo_origin_dictionary("CONCEPTO AL ENFASIS_" & i))), charters(ItemData.Offset(, emo_origin_dictionary("ENFASIS_" & i))))
+            .Offset(, emphasis_destiny_dictionary("OBSERVACIONES_AL_ENFASIS_" & i)) = charters(ItemData.Offset(, emo_origin_dictionary("OBSERVACIONES_AL_ENFASIS_" & i)))
+          Next i
+          .Offset(1, 0).Select
+        End With
       End If
       numbers = numbers + 1
       numbersGeneral = numbersGeneral + 1
       DoEvents
     Next ItemData
+  End With
 
-    range("$A5").Select
-    Call dataDuplicate
-    range("$A5", range("$A5").End(xlDown)).Select
-    Call formatter
+  range("$A5").Select
+  Call dataDuplicate
+  range("$A5", range("$A5").End(xlDown)).Select
+  Call formatter
 
-    Set emphasis_destiny_header = Nothing
-    Set emo_origin_header = Nothing
-    Set emo_origin_value = Nothing
-    emphasis_destiny_dictionary.RemoveAll
-    emo_origin_dictionary.RemoveAll
+  Set emphasis_destiny_header = Nothing
+  Set emo_origin_header = Nothing
+  Set emo_origin_value = Nothing
+  emphasis_destiny_dictionary.RemoveAll
+  emo_origin_dictionary.RemoveAll
 
-    Exit Sub
-
-emphasisError:
-    Resume Next
 End Sub

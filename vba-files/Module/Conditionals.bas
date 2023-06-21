@@ -5,6 +5,7 @@ Attribute VB_Name = "Conditionals"
 ' * Los valores duplicados se resaltan en negrita y color de fondo.
 Public Sub dataDuplicate()
 
+  Application.Calculate
   If Selection(1).Offset(1, 0).value <> vbNullString Then
     range(Selection, Selection.End(xlDown)).Select
   End If

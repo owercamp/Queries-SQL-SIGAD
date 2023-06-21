@@ -12,7 +12,7 @@ Public vals As Double, valsGeneral As Double, porcentaje As Double, porcentajeGe
 Public idOrden As Integer, numbers As Integer, numbersGeneral As Integer, sumOneforOne As Integer, sumGeneral As Integer, x As Integer, i As Integer, number_emphasis As Integer, number_diag As Integer
 Public dateInitials As Date, dateFinals As Date
 
-Sub extraerdatos()
+Public Sub extraerdatos()
 
   Dim fso As Object
   Dim hora As Integer, min As Integer
@@ -25,8 +25,9 @@ Sub extraerdatos()
   totalData = 0
   dateInitials = VBA.Date
 
-  On Error GoTo NotFound:
+  On Error Resume Next
   fso.DeleteFile (ThisWorkbook.Worksheets("RUTAS").range("C9").value & "testfile.sql")
+  On Error GoTo 0
 
   'route = ThisWorkbook.Worksheets("RUTAS").Range("C4").value
 
@@ -55,10 +56,12 @@ Sub extraerdatos()
 
   'DATOS ORIGEN
 
-  Application.StatusBar = "Importando informaci" & Chr(243) & "n por favor espere"
-  Application.ScreenUpdating = False
-  Application.Calculation = xlCalculationManual
-  Application.EnableEvents = False
+  With Application
+    .StatusBar = "Importando informaci" & Chr(243) & "n por favor espere"
+    .ScreenUpdating = False
+    .Calculation = xlCalculationManual
+    .EnableEvents = False
+  End With
   totalData = total(origin)
   For Each variable In origin.Worksheets
     Select Case Trim(UCase(variable.Name))
@@ -118,10 +121,12 @@ Sub extraerdatos()
   origin.Close
 
   Worksheets("TRABAJADORES").Select
-  Application.ScreenUpdating = True
-  Application.Calculation = xlCalculationAutomatic
-  Application.EnableEvents = True
-  Application.StatusBar = Empty
+  With Application
+    .ScreenUpdating = True
+    .Calculation = xlCalculationAutomatic
+    .EnableEvents = True
+    .StatusBar = Empty
+  End With
   Unload formImports
 
   hora = VBA.Hour(Time)
@@ -135,12 +140,9 @@ Sub extraerdatos()
     MsgBox "Importe de informaci" & Chr(243) & "n terminado", vbInformation + vbOKOnly, "Importaci" & Chr(243) & "n Datos"
   End If
 
-NotFound:
-  Resume Next
-
 End Sub
 
-Sub statusActivate(ByVal name_sheet As String)
+Public Sub statusActivate(ByVal name_sheet As String)
   Sheets(name_sheet).Select
   With ActiveWorkbook.Sheets(name_sheet).Tab
     .ThemeColor = xlThemeColorAccent1
@@ -148,7 +150,7 @@ Sub statusActivate(ByVal name_sheet As String)
   End With
 End Sub
 
-Sub statusDesactivate(ByVal name_sheet As String)
+Public Sub statusDesactivate(ByVal name_sheet As String)
   Sheets(name_sheet).Select
   With ActiveWorkbook.Sheets(name_sheet).Tab
     .Color = RGB(222, 222, 222)
@@ -156,19 +158,19 @@ Sub statusDesactivate(ByVal name_sheet As String)
   End With
 End Sub
 
-Sub info()
+Public Sub info()
 
   formImports.Show
 
 End Sub
 
-Sub config()
+Public Sub config()
 
   formControl.Show
 
 End Sub
 
-Sub cleanCaracthers()
+Public Sub cleanCaracthers()
 Attribute cleanCaracthers.VB_ProcData.VB_Invoke_Func = "y\n14"
   formClear.Show
 End Sub

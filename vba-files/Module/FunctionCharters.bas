@@ -167,7 +167,7 @@ Public Function typeSex(ByVal value As String) As String
   Select Case value
    Case "COBRIZA", "COBRIZO"
     typeSex = Trim("COBRIZA")
-   Case "NEGRA", "NEGRO"
+   Case "NEGRA", "NEGRO","PALENQUERO"
     typeSex = Trim("NEGRA")
    Case "OTRO", "OTRA"
     typeSex = Trim("OTRO")
@@ -357,6 +357,7 @@ Public Sub ClearNonAlphaNumeric()
   data = Selection.value
 
   '? Iterar a traves de la matriz y realizar los reemplazos
+  On Error Resume Next
   For i = 1 To UBound(data, 1)
     For j = 1 To UBound(data, 2)
       valor = VBA.Replace(data(i, j), "  ", " ", , , vbTextCompare)
@@ -364,6 +365,7 @@ Public Sub ClearNonAlphaNumeric()
     Next j
     DoEvents
   Next i
+  On Error GoTo 0
 
   '? Escribir la matriz de vuelta en la hoja de calculo
   Selection.value = data

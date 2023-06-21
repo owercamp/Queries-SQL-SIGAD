@@ -1232,7 +1232,13 @@ Public Sub date_accident()
       ActiveCell = Empty 'establecer la celda en vacio si la fecha no es valida
     End If
     ActiveCell.Offset(1, 0).Select 'mover a la siguiente celda
+    DoEvents
   Loop
+  On Error Resume Next
+  range("$BC5",ActiveCell.offset(-1, 0)).Select
+  Selection.TextToColumns Destination:=range("BC5"), DataType:=xlFixedWidth, _
+        FieldInfo:=Array(Array(0, 4), Array(20, 9)), TrailingMinusNumbers:=True
+  On Error GoTo 0
 
   With Application
     .EnableEvents = True
