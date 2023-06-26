@@ -25,10 +25,12 @@ Public Sub DataEmphasisEmo()
   Dim emo_origin_dictionary As Scripting.Dictionary
   Dim emphasis_destiny_header As Object, emo_origin_header As Object, emo_origin_value As Object
   Dim ItemEmphasisDestiny As Variant, ItemEmoOrigin As Variant, ItemData As Variant
-
+  Dim currenCell As range, aumentFromRow As LongPtr
+  
   Set emo_origin = origin.Worksheets("EMO") '' EMO DEL LIBRO ORIGEN ''
   emphasis_destiny.Select
   ActiveSheet.range("A5").Select
+  Set currenCell = ActiveCell
   Set emphasis_destiny_header = emphasis_destiny.range("A4", emphasis_destiny.range("A4").End(xlToRight))
   Set emo_origin_header = emo_origin.range("A1", emo_origin.range("A1").End(xlToRight))
   Set emphasis_destiny_dictionary = CreateObject("Scripting.Dictionary")
@@ -59,6 +61,7 @@ Public Sub DataEmphasisEmo()
 
   numbers = 1
   porcentaje = 0
+  aumentFromRow = 0
   counts = emo_origin_value.Count
   formImports.ProgressBarOneforOne.Width = 0
   formImports.porcentageOneoforOne = "0%"
@@ -94,18 +97,16 @@ Public Sub DataEmphasisEmo()
       .Caption = CStr(nameCompany)
 
       If (typeExams(charters(ItemData.Offset(, emo_origin_dictionary("TIPO EXAMEN")))) <> "EGRESO") Then
-        With ActiveCell  
-          .Offset(, emphasis_destiny_dictionary("IDENTIFICACION")) = charters(ItemData.Offset(, emo_origin_dictionary("IDENTIFICACION")))
-          For i = 1 To ((emo_origin_dictionary.Count - 2) / 3)
-            .Offset(, emphasis_destiny_dictionary("ENFASIS_" & i)) = charters(ItemData.Offset(, emo_origin_dictionary("ENFASIS_" & i)))
-            .Offset(, emphasis_destiny_dictionary("CONCEPTO AL ENFASIS_" & i)) = emphasisConcepts(charters(ItemData.Offset(, emo_origin_dictionary("CONCEPTO AL ENFASIS_" & i))), charters(ItemData.Offset(, emo_origin_dictionary("ENFASIS_" & i))))
-            .Offset(, emphasis_destiny_dictionary("OBSERVACIONES_AL_ENFASIS_" & i)) = charters(ItemData.Offset(, emo_origin_dictionary("OBSERVACIONES_AL_ENFASIS_" & i)))
-          Next i
-          .Offset(1, 0).Select
-        End With
+        currenCell.Offset(aumentFromRow, emphasis_destiny_dictionary("IDENTIFICACION")) = charters(ItemData.Offset(, emo_origin_dictionary("IDENTIFICACION")))
+        For i = 1 To ((emo_origin_dictionary.Count - 2) / 3)
+          currenCell.Offset(aumentFromRow, emphasis_destiny_dictionary("ENFASIS_" & i)) = charters(ItemData.Offset(, emo_origin_dictionary("ENFASIS_" & i)))
+          currenCell.Offset(aumentFromRow, emphasis_destiny_dictionary("CONCEPTO AL ENFASIS_" & i)) = emphasisConcepts(charters(ItemData.Offset(, emo_origin_dictionary("CONCEPTO AL ENFASIS_" & i))), charters(ItemData.Offset(, emo_origin_dictionary("ENFASIS_" & i))))
+          currenCell.Offset(aumentFromRow, emphasis_destiny_dictionary("OBSERVACIONES_AL_ENFASIS_" & i)) = charters(ItemData.Offset(, emo_origin_dictionary("OBSERVACIONES_AL_ENFASIS_" & i)))
+        Next i
       End If
       numbers = numbers + 1
       numbersGeneral = numbersGeneral + 1
+      aumentFromRow = aumentFromRow + 1
       DoEvents
     Next ItemData
   End With

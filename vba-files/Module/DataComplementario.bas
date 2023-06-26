@@ -24,13 +24,15 @@ Public Sub ComplementarioData()
   Dim comple_origin_dictionary As Scripting.Dictionary
   Dim comple_destiny_header As Object, comple_origin_header As Object, comple_origin_value As Object
   Dim ItemCompleDestiny As Variant, ItemCompleOrigin As Variant, ItemData As Variant
-
+  Dim currenCell As range, aumentFromRow As LongPtr, aumentFromID As LongPtr
+  
   On Error GoTo com:
   Set comple_origin = origin.Worksheets("COMPLEMENTARIOS") '' COMPLEMENTARIOS DEL LIBRO ORIGEN ''
   On Error GoTo 0
-
+  
   comple_destiny.Select
   ActiveSheet.range("A4").Select
+  Set currenCell = ActiveCell
   Set comple_destiny_header = comple_destiny.range("A3", comple_destiny.range("A3").End(xlToRight))
   Set comple_origin_header = comple_origin.range("A1", comple_origin.range("A1").End(xlToRight))
   Set comple_destiny_dictionary = CreateObject("Scripting.Dictionary")
@@ -62,6 +64,8 @@ Public Sub ComplementarioData()
 
   numbers = 1
   porcentaje = 0
+  aumentFromRow = 0
+  aumentFromID = destiny.Worksheets("RUTAS").range("$F$12").value
   counts = comple_origin_value.Count
   formImports.ProgressBarOneforOne.Width = 0
   formImports.porcentageOneoforOne = "0%"
@@ -97,25 +101,24 @@ Public Sub ComplementarioData()
       .Caption = CStr(nameCompany)
 
       If (typeExams(charters(ItemData.Offset(, comple_origin_dictionary("TIPO EXAMEN")))) <> "EGRESO") Then
-        With ActiveCell
-          .Offset(, comple_destiny_dictionary("NRO IDENFICACION")) = charters(ItemData.Offset(, comple_origin_dictionary("NRO IDENFICACION")))
-          .Offset(, comple_destiny_dictionary("PROCEDIMIENTO")) = typeComplements(charters(ItemData.Offset(, comple_origin_dictionary("PROCEDIMIENTO"))))
-          .Offset(, comple_destiny_dictionary("DIAG_ PPAL")) = charters(ItemData.Offset(, comple_origin_dictionary("DIAG_ PPAL")))
-          .Offset(, comple_destiny_dictionary("DIAG_ PPAL OBS")) = charters(ItemData.Offset(, comple_origin_dictionary("DIAG_ PPAL OBS")))
-          .Offset(, comple_destiny_dictionary("DIAG_ REL/1")) = charters(ItemData.Offset(, comple_origin_dictionary("DIAG_ REL/1")))
-          .Offset(, comple_destiny_dictionary("DIAG_ REL/2")) = charters(ItemData.Offset(, comple_origin_dictionary("DIAG_ REL/2")))
-          .Offset(, comple_destiny_dictionary("DIAG_ REL/3")) = charters(ItemData.Offset(, comple_origin_dictionary("DIAG_ REL/3")))
-          .Offset(, comple_destiny_dictionary("HALLAZGOS")) = charters(ItemData.Offset(, comple_origin_dictionary("HALLAZGOS")))
-          If (.row = 4) Then
-            .Offset(, comple_destiny_dictionary("ID_COMPLEMENTARIOS")) = Trim(ThisWorkbook.Worksheets("RUTAS").range("$F$12").value)
-          Else
-            .Offset(, comple_destiny_dictionary("ID_COMPLEMENTARIOS")) = .Offset(-1, comple_destiny_dictionary("ID_COMPLEMENTARIOS")) + 1
-          End If
-          .Offset(1, 0).Select
-        End With
+        currenCell.Offset(aumentFromRow, comple_destiny_dictionary("NRO IDENFICACION")) = charters(ItemData.Offset(, comple_origin_dictionary("NRO IDENFICACION")))
+        currenCell.Offset(aumentFromRow, comple_destiny_dictionary("PROCEDIMIENTO")) = typeComplements(charters(ItemData.Offset(, comple_origin_dictionary("PROCEDIMIENTO"))))
+        currenCell.Offset(aumentFromRow, comple_destiny_dictionary("DIAG_ PPAL")) = charters(ItemData.Offset(, comple_origin_dictionary("DIAG_ PPAL")))
+        currenCell.Offset(aumentFromRow, comple_destiny_dictionary("DIAG_ PPAL OBS")) = charters(ItemData.Offset(, comple_origin_dictionary("DIAG_ PPAL OBS")))
+        currenCell.Offset(aumentFromRow, comple_destiny_dictionary("DIAG_ REL/1")) = charters(ItemData.Offset(, comple_origin_dictionary("DIAG_ REL/1")))
+        currenCell.Offset(aumentFromRow, comple_destiny_dictionary("DIAG_ REL/2")) = charters(ItemData.Offset(, comple_origin_dictionary("DIAG_ REL/2")))
+        currenCell.Offset(aumentFromRow, comple_destiny_dictionary("DIAG_ REL/3")) = charters(ItemData.Offset(, comple_origin_dictionary("DIAG_ REL/3")))
+        currenCell.Offset(aumentFromRow, comple_destiny_dictionary("HALLAZGOS")) = charters(ItemData.Offset(, comple_origin_dictionary("HALLAZGOS")))
+        If (currenCell.Offset(aumentFromRow, 0).row = 4) Then
+          currenCell.Offset(aumentFromRow, comple_destiny_dictionary("ID_COMPLEMENTARIOS")) = Trim(aumentFromID)
+        Else
+          aumentFromID = aumentFromID + 1
+          currenCell.Offset(aumentFromRow, comple_destiny_dictionary("ID_COMPLEMENTARIOS")) = Trim(aumentFromID)
+        End If
       End If
       numbers = numbers + 1
       numbersGeneral = numbersGeneral + 1
+      aumentFromRow = aumentFromRow + 1
       DoEvents
     Next ItemData
   End With

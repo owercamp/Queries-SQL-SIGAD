@@ -1205,65 +1205,60 @@ End Function
 '* Si la conversion es exitosa, se reemplaza el valor de la celda con el nuevo formato.
 '* Si la conversion falla, se establece la celda en vacio.
 '* Si se produce un error, se intenta convertir la fecha utilizando un formato diferente.
-Public Sub date_accident()
-
-  Dim date_cell As Variant, toDate As Variant 'variables para almacenar valores de fecha
-
-  With Application
-    .EnableEvents = False
-    .ScreenUpdating = False
-    .Calculation = xlCalculationManual
-    .StatusBar = "Procesando..."
-  End With
-  Range("$BC5").Select
-  Do Until IsEmpty(ActiveCell.Offset(0, -54)) 'recorrer el rango de celdas hasta encontrar una celda vacia
-    On Error GoTo Handler
-    date_cell = CDate(VBA.Replace(Trim$(ActiveCell.value), " ", "/")) 'convertir la fecha al formato deseado
-    On Error GoTo 0
-
+Public Sub DateAccident()
+  Dim dateRange As range
+  Dim dateCell As range
+  Dim toDate As Date
+  Dim dateString As String
+  Dim arrayDateStringToNumber As Variant
+  Dim element As Variant
+  
+  Application.EnableEvents = False
+  Application.ScreenUpdating = False
+  Application.Calculation = xlCalculationManual
+  Application.StatusBar = "Procesando..."
+  
+  Set dateRange = range("$BC5")
+  Set dateCell = dateRange
+  
+  arrayDateStringToNumber = Array("Jan,01", "Feb,02", "Mar,03", "Apr,04", "May,05", "Jun,06", "Jul,07", "Aug,08", "Sep,09", "Oct,10", "Nov,11", "Dec,12")
+  
+  Do Until IsEmpty(dateCell.Offset(0, -54))
     On Error Resume Next
-    toDate = date_cell
+    dateString = Trim$(dateCell.value)
+    dateString = Replace(Replace(dateString, " ", "/"), "  ", " ")
     On Error GoTo 0
-
-    If isDate(toDate) Then 'verificar si la fecha es valida
-      ActiveCell = Format(CDate(toDate), "dd/mm/yyyy") 'reemplazar el valor de la celda con el nuevo formato
-      ActiveCell.NumberFormat = "dd/mm/yyyy"
+    
+    For Each element In arrayDateStringToNumber
+      If dateString = vbNullString Then
+        Exit For
+      ElseIf IsDate(dateString) Then
+        toDate = dateString
+        Exit For
+      ElseIf UCase(Trim$(Split(dateString, "/")(0))) = UCase(Split(element, ",")(0)) Then
+        toDate = Split(dateString, "/")(1) & "/" & Split(element, ",")(1) & "/" & Split(dateString, "/")(2)
+        Exit For
+      End If
+    Next element
+    
+    If dateString <> vbNullString And IsDate(toDate) Then
+      dateCell.value = Format(CDate(toDate), "dd/mm/yyyy")
+      dateCell.NumberFormat = "dd/mm/yyyy"
     Else
-      ActiveCell = Empty 'establecer la celda en vacio si la fecha no es valida
+      dateCell.value = ""
     End If
-    ActiveCell.Offset(1, 0).Select 'mover a la siguiente celda
+    
+    Set dateCell = dateCell.Offset(1, 0)
     DoEvents
   Loop
+  
   On Error Resume Next
-  range("$BC5",ActiveCell.offset(-1, 0)).Select
-  Selection.TextToColumns Destination:=range("BC5"), DataType:=xlFixedWidth, _
-        FieldInfo:=Array(Array(0, 4), Array(20, 9)), TrailingMinusNumbers:=True
+  dateRange.Resize(dateCell.row - dateRange.row).TextToColumns Destination:=range("BC5"), DataType:=xlFixedWidth, FieldInfo:=Array(Array(0, 4), Array(20, 9)), TrailingMinusNumbers:=True
   On Error GoTo 0
+  
+  Application.EnableEvents = True
+  Application.ScreenUpdating = True
+  Application.Calculation = xlCalculationAutomatic
+  Application.StatusBar = ""
 
-  With Application
-    .EnableEvents = True
-    .ScreenUpdating = True
-    .Calculation = xlCalculationAutomatic
-    .StatusBar = ""
-  End With
-
-  Exit Sub
-Handler:
-  Dim arrayDateStringToNumber As Variant, element As Variant, replace_string As String, separate_array As Variant
-
-  arrayDateStringToNumber = Array("Jan,01", "Feb,02", "Mar,03", "Apr,04", "May,05", "Jun,06", "Jul,07", "Aug,08", "Sep,09", "Oct,10", "Nov,11", "Dec,12")
-
-  date_cell = CVErr(2000)
-  replace_string = VBA.Replace(VBA.Replace(Trim$(ActiveCell.value), " ", "/"), "  ", " ")
-  For Each element In arrayDateStringToNumber
-    separate_array = VBA.Split(element, ",")
-    If replace_string = vbNullString Then
-      Exit For
-    End If
-    If VBA.UCase$(VBA.Split(Trim$(replace_string), "/")(0)) = VBA.UCase$(separate_array(0)) Then
-      date_cell = VBA.Split(Trim$(replace_string), "/")(1) & "/" & separate_array(1) & "/" & VBA.Split(Trim$(replace_string), "/")(2)
-      Exit For
-    End If
-  Next element
-  Resume Next
 End Sub

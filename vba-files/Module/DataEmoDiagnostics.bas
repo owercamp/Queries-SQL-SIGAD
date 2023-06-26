@@ -25,11 +25,13 @@ Public Sub DataDiagnosticsEmo()
   Dim emo_origin_dictionary As Scripting.Dictionary
   Dim diagnostics_destiny_header As Object, emo_origin_header As Object, emo_origin_value As Object
   Dim ItemDiagnosticsDestiny As Variant, ItemEmoOrigin As Variant, ItemData As Variant
-
+  Dim currenCell As range, aumentFromRow As LongPtr
+  
   Set emo_origin = origin.Worksheets("EMO") '' EMO DEL LIBRO ORIGEN ''
   diagnostics_destiny.Select
   ActiveSheet.range("A5").Select
-
+  
+  Set currenCell = ActiveCell
   Set diagnostics_destiny_header = diagnostics_destiny.range("A4", diagnostics_destiny.range("A4").End(xlToRight))
   Set emo_origin_header = emo_origin.range("A1", emo_origin.range("A1").End(xlToRight))
   Set diagnostics_destiny_dictionary = CreateObject("Scripting.Dictionary")
@@ -60,6 +62,7 @@ Public Sub DataDiagnosticsEmo()
 
   numbers = 1
   porcentaje = 0
+  aumentFromRow = 0
   counts = emo_origin_value.Count
   formImports.ProgressBarOneforOne.Width = 0
   formImports.porcentageOneoforOne = "0%"
@@ -95,19 +98,17 @@ Public Sub DataDiagnosticsEmo()
       .Caption = CStr(nameCompany)
 
       If (typeExams(charters(ItemData.Offset(, emo_origin_dictionary("TIPO EXAMEN")))) <> "EGRESO") Then
-        With ActiveCell
-          .Offset(, diagnostics_destiny_dictionary("IDENTIFICACION")) = charters(ItemData.Offset(, emo_origin_dictionary("IDENTIFICACION")))
-          .Offset(, diagnostics_destiny_dictionary("CODIGO DIAG PPAL")) = charters(ItemData.Offset(, emo_origin_dictionary("CODIGO DIAG PPAL")))
-          .Offset(, diagnostics_destiny_dictionary("DIAG PPAL")) = charters(ItemData.Offset(, emo_origin_dictionary("DIAG PPAL")))
-          For i = 1 To ((emo_origin_dictionary.Count - 5) / 2)
-            .Offset(, diagnostics_destiny_dictionary("CODIGO DIAG REL" & i)) = charters(ItemData.Offset(, emo_origin_dictionary("CODIGO DIAG REL" & i)))
-            .Offset(, diagnostics_destiny_dictionary("DIAG REL " & i)) = charters(ItemData.Offset(, emo_origin_dictionary("DIAG REL " & i)))
-          Next i
-          .Offset(1, 0).Select
-        End With
+        currenCell.Offset(aumentFromRow, diagnostics_destiny_dictionary("IDENTIFICACION")) = charters(ItemData.Offset(, emo_origin_dictionary("IDENTIFICACION")))
+        currenCell.Offset(aumentFromRow, diagnostics_destiny_dictionary("CODIGO DIAG PPAL")) = charters(ItemData.Offset(, emo_origin_dictionary("CODIGO DIAG PPAL")))
+        currenCell.Offset(aumentFromRow, diagnostics_destiny_dictionary("DIAG PPAL")) = charters(ItemData.Offset(, emo_origin_dictionary("DIAG PPAL")))
+        For i = 1 To ((emo_origin_dictionary.Count - 5) / 2)
+          currenCell.Offset(aumentFromRow, diagnostics_destiny_dictionary("CODIGO DIAG REL" & i)) = charters(ItemData.Offset(, emo_origin_dictionary("CODIGO DIAG REL" & i)))
+          currenCell.Offset(aumentFromRow, diagnostics_destiny_dictionary("DIAG REL " & i)) = charters(ItemData.Offset(, emo_origin_dictionary("DIAG REL " & i)))
+        Next i
       End If
       numbers = numbers + 1
       numbersGeneral = numbersGeneral + 1
+      aumentFromRow = aumentFromRow + 1
       DoEvents
     Next ItemData
   End With

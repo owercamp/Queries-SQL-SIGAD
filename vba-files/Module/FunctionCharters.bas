@@ -150,7 +150,7 @@ Public Function typeExams(ByVal value As String) As String
     typeExams = "CAMBIO DE OCUPACION"
    Case "REINTEGRO LABORAL", "OTROS REINTEGROS"
     typeExams = "EGRESO"
-   Case "PRE-INGRESO", "PRE_INGRESO", "INGRESO","PRE INGRESO"
+   Case "PRE-INGRESO", "PRE_INGRESO", "INGRESO", "PRE INGRESO"
     typeExams = "PRE-INGRESO"
    Case Else
     typeExams = value
@@ -167,7 +167,7 @@ Public Function typeSex(ByVal value As String) As String
   Select Case value
    Case "COBRIZA", "COBRIZO"
     typeSex = Trim("COBRIZA")
-   Case "NEGRA", "NEGRO","PALENQUERO"
+   Case "NEGRA", "NEGRO", "PALENQUERO"
     typeSex = Trim("NEGRA")
    Case "OTRO", "OTRA"
     typeSex = Trim("OTRO")
@@ -397,7 +397,7 @@ Public Function ReplaceNonAlphaNumeric(str As String) As String
   Next accent
 
   '? Define la expresion regular para encontrar valores no alfanumericos
-  regEx.Pattern = "[^a-zA-Z0-9/" & ChrW(209) & ChrW(45) &"]"
+  regEx.Pattern = "[^a-zA-Z0-9/" & ChrW(209) & ChrW(45) & "]"
   regEx.Global = True
 
   '? Reemplaza cualquier valor no alfanumerico por un espacio

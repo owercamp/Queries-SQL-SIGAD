@@ -21,13 +21,15 @@ Public Sub PsicotecnicaData()
   Dim psicotecnica_origin_dictionary As Scripting.Dictionary
   Dim psicotecnica_destiny_header As Object, psicotecnica_origin_header As Object, psicotecnica_origin_value As Object
   Dim ItemPsicotecnicaDestiny As Variant, ItemPsicotecnicaOrigin As Variant, ItemData As Variant
-
+  Dim currenCell As range, aumentFromRow As LongPtr, aumentFromID As LongPtr
+  
   On Error GoTo tecnica:
   Set psico_origin = origin.Worksheets("PSICOTECNICA") '' PSICOTECNICA DEL LIBRO ORIGEN ''
   On Error GoTo 0
-
+  
   psico_destiny.Select
   ActiveSheet.range("A2").Select
+  Set currenCell = ActiveCell
   Set psicotecnica_destiny_header = psico_destiny.range("A1", psico_destiny.range("A1").End(xlToRight))
   Set psicotecnica_origin_header = psico_origin.range("A1", psico_origin.range("A1").End(xlToRight))
   Set psicotecnica_destiny_dictionary = CreateObject("Scripting.Dictionary")
@@ -58,6 +60,8 @@ Public Sub PsicotecnicaData()
 
   numbers = 1
   porcentaje = 0
+  aumentFromRow = 0
+  aumentFromID = destiny.Worksheets("RUTAS").range("$F$13").value
   counts = psicotecnica_origin_value.Count
   formImports.ProgressBarOneforOne.Width = 0
   formImports.porcentageOneoforOne = "0%"
@@ -93,22 +97,21 @@ Public Sub PsicotecnicaData()
       .Caption = CStr(nameCompany)
       
       If (typeExams(charters(ItemData.Offset(, psicotecnica_origin_dictionary("TIPO EXAMEN")))) <> "EGRESO") Then
-        With ActiveCell
-          .Offset(, psicotecnica_destiny_dictionary("NRO IDENFICACION")) = charters(ItemData.Offset(, psicotecnica_origin_dictionary("NRO IDENFICACION")))
-          .Offset(, psicotecnica_destiny_dictionary("PACIENTE")) = charters(ItemData.Offset(, psicotecnica_origin_dictionary("PACIENTE")))
-          .Offset(, psicotecnica_destiny_dictionary("PRUEBA PSICOTECNICA")) = charters(ItemData.Offset(, psicotecnica_origin_dictionary("PRUEBA PSICOTECNICA")))
-          .Offset(, psicotecnica_destiny_dictionary("DIAGNOSTICO PPAL (CUMPLE, NO CUMPLE)")) = charters(ItemData.Offset(, psicotecnica_origin_dictionary("DIAGNOSTICO PPAL (CUMPLE, NO CUMPLE)")))
-          .Offset(, psicotecnica_destiny_dictionary("DIAGNOSTICO OBS")) = charters(ItemData.Offset(, psicotecnica_origin_dictionary("DIAGNOSTICO OBS")))
-          If (.row = 2) Then
-            .Offset(, psicotecnica_destiny_dictionary("ID_PSICOTECNICA")) = Trim(ThisWorkbook.Worksheets("RUTAS").range("$F$13").value)
-          Else
-            .Offset(, psicotecnica_destiny_dictionary("ID_PSICOTECNICA")) = .Offset(-1, psicotecnica_destiny_dictionary("ID_PSICOTECNICA")) + 1
-          End If
-          .Offset(1, 0).Select
-        End With
+        currenCell.Offset(aumentFromRow, psicotecnica_destiny_dictionary("NRO IDENFICACION")) = charters(ItemData.Offset(, psicotecnica_origin_dictionary("NRO IDENFICACION")))
+        currenCell.Offset(aumentFromRow, psicotecnica_destiny_dictionary("PACIENTE")) = charters(ItemData.Offset(, psicotecnica_origin_dictionary("PACIENTE")))
+        currenCell.Offset(aumentFromRow, psicotecnica_destiny_dictionary("PRUEBA PSICOTECNICA")) = charters(ItemData.Offset(, psicotecnica_origin_dictionary("PRUEBA PSICOTECNICA")))
+        currenCell.Offset(aumentFromRow, psicotecnica_destiny_dictionary("DIAGNOSTICO PPAL (CUMPLE, NO CUMPLE)")) = charters(ItemData.Offset(, psicotecnica_origin_dictionary("DIAGNOSTICO PPAL (CUMPLE, NO CUMPLE)")))
+        currenCell.Offset(aumentFromRow, psicotecnica_destiny_dictionary("DIAGNOSTICO OBS")) = charters(ItemData.Offset(, psicotecnica_origin_dictionary("DIAGNOSTICO OBS")))
+        If (currenCell.Offset(aumentFromRow, 0).row = 2) Then
+          currenCell.Offset(aumentFromRow, psicotecnica_destiny_dictionary("ID_PSICOTECNICA")) = Trim(aumentFromID)
+        Else
+          aumentFromID = aumentFromID + 1
+          currenCell.Offset(aumentFromRow, psicotecnica_destiny_dictionary("ID_PSICOTECNICA")) = Trim(aumentFromID)
+        End If
       End If
       numbers = numbers + 1
       numbersGeneral = numbersGeneral + 1
+      aumentFromRow = aumentFromRow + 1
       DoEvents
     Next ItemData
   End With
