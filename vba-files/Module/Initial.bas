@@ -159,9 +159,9 @@ Public Sub statusDesactivate(ByVal name_sheet As String)
 End Sub
 
 Public Sub info()
-
+  On Error Resume Next
   formImports.Show
-
+  On Error Goto 0
 End Sub
 
 Public Sub config()

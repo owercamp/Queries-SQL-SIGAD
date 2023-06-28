@@ -27,6 +27,11 @@ Private Sub UserForm_Activate()
   '''''''''''''''''''''''''''''''''''''''''''''''''
   '''        APERTURA DEL LIBRO ARCHIVO         '''
   '''''''''''''''''''''''''''''''''''''''''''''''''
+  If route = "Falso" Then
+    Unload Me
+    Exit Sub
+  End If
+  
   Set origin = Workbooks.Open(route)
 
   msg = MsgBox("Advertencia fueron verificadas las cabeceras de las tablas del archivo que se encuentra en:" + _

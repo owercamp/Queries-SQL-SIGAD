@@ -15,7 +15,7 @@ Public Sub Workers()
   Dim emo_dictionary As Scripting.Dictionary
   Dim workers_header As Object, emo_header As Object, workers_value As Object
   Dim ItemWorks As Variant, ItemEmo As Variant, ItemData As Variant
-  Dim range_active As Integer
+  Dim range_active As Integer, company_name As String
   Dim currenCell As range, aumentFromRow As LongPtr, aumentFromID As LongPtr
   
   Set emo_origin = origin.Worksheets("EMO") '' EMO DEL LIBRO ORIGEN ''
@@ -65,6 +65,7 @@ Public Sub Workers()
   widthGeneral = formImports.content_ProgressBarOneforOne.Width / totalData
   vals = 1 / counts
   valsGeneral = 1 / totalData
+  company_name = Application.InputBox(prompt:="ingrese el Nombre del contrato", Title:="Nombre del contrato", Default:="", Type:=2)
   
   With formImports
     For Each ItemData In workers_value
@@ -95,7 +96,7 @@ Public Sub Workers()
       
       If (typeExams(charters(ItemData.Offset(, emo_dictionary("TIPO EXAMEN")))) <> "EGRESO") Then
         currenCell.Offset(aumentFromRow, 0) = "8"
-        currenCell.Offset(aumentFromRow, workers_dictionary("NOMBRE CONTRATO")) = charters(ItemData.Offset(, emo_dictionary("NOMBRE CONTRATO")))
+        currenCell.Offset(aumentFromRow, workers_dictionary("NOMBRE CONTRATO")) = charters(company_name)
         currenCell.Offset(aumentFromRow, workers_dictionary("DESTINO")) = charters(ItemData.Offset(, emo_dictionary("DESTINO")))
         currenCell.Offset(aumentFromRow, workers_dictionary("CIUDAD")) = city(charters(ItemData.Offset(, emo_dictionary("CIUDAD"))))
         currenCell.Offset(aumentFromRow, workers_dictionary("INGRESO REGISTRO")) = charters(ItemData.Offset(, emo_dictionary("INGRESO REGISTRO")))
