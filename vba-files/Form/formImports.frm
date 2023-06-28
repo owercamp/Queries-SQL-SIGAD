@@ -15,6 +15,7 @@ Attribute VB_PredeclaredId = True
 Attribute VB_Exposed = False
 
 
+
 Option Explicit
 
 Public route As String
@@ -22,7 +23,6 @@ Public route As String
 Private Sub UserForm_Activate()
 
   Dim msg As MsoButtonState
-  route = ThisWorkbook.Worksheets("RUTAS").range("C4").value
 
   '''''''''''''''''''''''''''''''''''''''''''''''''
   '''        APERTURA DEL LIBRO ARCHIVO         '''
@@ -46,6 +46,11 @@ Private Sub UserForm_Initialize()
 
   Me.ProgressBarGeneral = 0
   Me.ProgressBarOneforOne = 0
+  route = Application.getOpenFilename
 
+End Sub
+
+Private Sub UserForm_QueryClose(Cancel As Integer, CloseMode As Integer)
+  Unload Me
 End Sub
 
