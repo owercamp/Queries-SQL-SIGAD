@@ -1,5 +1,5 @@
 Attribute VB_Name = "Conditionals"
-
+Option Explicit
 ' * Esta subrutina aplica formato a las celdas de una columna para resaltar valores duplicados.
 ' * Solo se aplica formato a los valores que aparecen mas de una vez en la columna.
 ' * Los valores duplicados se resaltan en negrita y color de fondo.

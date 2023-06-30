@@ -1,5 +1,5 @@
 Attribute VB_Name = "FunctionsConcepts"
-
+Option Explicit
 'TODO: Funcion que valida el concepto de evaluacion de un trabajador
 '? Parametros:
 '? @param value: string con el concepto de evaluacion

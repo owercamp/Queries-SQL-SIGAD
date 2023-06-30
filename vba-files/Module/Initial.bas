@@ -1,6 +1,5 @@
 Attribute VB_Name = "Initial"
 Option Explicit
-
 '' Variables ''
 Public origin As Workbook, destiny As Workbook
 Public comple_origin As Worksheet, comple_destiny As Worksheet, osteo_origin As Worksheet, osteo_destiny As Worksheet, senso_destiny As Worksheet, senso_origin As Worksheet, psico_destiny As Worksheet, psico_origin As Worksheet, visio_destiny As Worksheet, visio_origin As Worksheet, espiro_destiny As Worksheet, espiro_origin As Worksheet, opto_origin As Worksheet, opto_destiny As Worksheet, audio_origin As Worksheet, audio_destiny As Worksheet, worker_destiny As Worksheet, emo_destiny As Worksheet, emo_origin As Worksheet, emphasis_destiny As Worksheet, diagnostics_destiny As Worksheet
@@ -161,7 +160,7 @@ End Sub
 Public Sub info()
   On Error Resume Next
   formImports.Show
-  On Error Goto 0
+  On Error GoTo 0
 End Sub
 
 Public Sub config()
