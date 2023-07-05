@@ -2,9 +2,9 @@ VERSION 5.00
 Begin {C62A69F0-16DC-11CE-9E98-00AA00574A4F} formControl 
    Caption         =   "Config"
    ClientHeight    =   3924
-   ClientLeft      =   48
-   ClientTop       =   396
-   ClientWidth     =   8268.001
+   ClientLeft      =   45
+   ClientTop       =   390
+   ClientWidth     =   8265.001
    OleObjectBlob   =   "formControl.frx":0000
    StartUpPosition =   1  'Centrar en propietario
 End
@@ -13,6 +13,7 @@ Attribute VB_GlobalNameSpace = False
 Attribute VB_Creatable = False
 Attribute VB_PredeclaredId = True
 Attribute VB_Exposed = False
+
 Option Explicit
 
 Private Sub btn_informe_Click()
@@ -130,6 +131,6 @@ Private Sub UserForm_Initialize()
   Me.txt_comple.value = ThisWorkbook.Worksheets("RUTAS").range("$F$12").value
   Me.txt_psico.value = ThisWorkbook.Worksheets("RUTAS").range("$F$13").value
   Me.txt_senso.value = ThisWorkbook.Worksheets("RUTAS").range("$F$14").value
-  Me.MultiPage1.Pages.Item (1)
+  Me.MultiPage1.Pages.item (1)
 
 End Sub

@@ -6,9 +6,9 @@ Public comple_origin As Worksheet, comple_destiny As Worksheet, osteo_origin As 
 Public route As String, nameCompany As String
 Public variable As Object, insertVisio As Object, insertOpto As Object, insertAudio As Object, insertOsteo As Object, insertSenso As Object, inserEspiro As Object, insertComple As Object, insertPsico As Object, insertEmo As Object, dataInsert As Object, ItemTitle As Object, titulos As Object, DatosOsteo As Object, DatosSenso As Object, DatosPsico As Object, DatosComple As Object, DatosOpto As Object, DatosAudio As Object, DatosEmo As Object, DatosEspiro As Object, DatosVisio As Object
 Public ordenListaTrabajador As Long
-Public Item As Variant
+Public item As Variant
 Public vals As Double, valsGeneral As Double, porcentaje As Double, porcentajeGeneral As Double, counts As Double, totalData As Double, generalAll As Double, widthOneforOne As Double, widthGeneral As Double, oneForOne As Double
-Public idOrden As Integer, numbers As Integer, numbersGeneral As Integer, sumOneforOne As Integer, sumGeneral As Integer, x As Integer, i As Integer, number_emphasis As Integer, number_diag As Integer
+Public idOrden As LongPtr, numbers As LongPtr, numbersGeneral As LongPtr, sumOneforOne As LongPtr, sumGeneral As LongPtr, x As LongPtr, i As LongPtr, number_emphasis As LongPtr, number_diag As LongPtr
 Public dateInitials As Date, dateFinals As Date
 
 Public Sub extraerdatos()

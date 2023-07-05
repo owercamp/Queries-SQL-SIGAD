@@ -271,9 +271,9 @@ End Function
 '? @param book: El objeto de libro de Excel que se utilizara para contar el numero de filas en cada hoja de trabajo.
 '? Retorno:
 '? @return Un numero entero que indica el total calculado.
-Public Function total(ByVal book As Object) As Integer
+Public Function total(ByVal book As Object) As LongPtr
 
-  Dim emo As Integer, audio As Integer, opto As Integer, espiro As Integer, visio As Integer, complementarios As Integer, psicotecnica As Integer, psicosensometrica As Integer, osteo As Integer
+  Dim emo As LongPtr, audio As LongPtr, opto As LongPtr, espiro As LongPtr, visio As LongPtr, complementarios As LongPtr, psicotecnica As LongPtr, psicosensometrica As LongPtr, osteo As LongPtr
   Dim Sheet As Object
 
   For Each Sheet In book.Worksheets
@@ -406,14 +406,14 @@ End Function
 
 'TODO: Este Subrutina asigna un numero aleatorio entre 60 y 80 a las celdas vacias en la columna activa, siempre y cuando el valor de la celda no sea "SIN DATO".
 '?Variables:
-'? @param num: Integer - Almacena el numero aleatorio generado.
+'? @param num: longptr - Almacena el numero aleatorio generado.
 '?Instrucciones:
 '?   1. Inicio del bucle hasta que la celda activa en la columna anterior este vacia.
 '?   2. Si la celda activa esta vacia o el valor en mayusculas es "SIN DATO", entonces genera un numero aleatorio entre 60 y 80 y lo asigna a la celda activa.
 '?   3. Selecciona la celda siguiente en la columna activa.
 '?   4. Fin del bucle.
 Public Sub Peso()
-  Dim num As Integer
+  Dim num As LongPtr
 
   Do While Not IsEmpty(ActiveCell.Offset(, -35))
     If IsEmpty(ActiveCell) Or Trim$(UCase$(ActiveCell.value)) = "SIN DATO" Then

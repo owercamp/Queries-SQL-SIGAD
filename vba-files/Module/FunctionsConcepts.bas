@@ -190,7 +190,7 @@ Public Function emphasisConcepts(value, emphasis)
 
     emphasisConcepts = "Apto para seguridad vial"
 
-  ElseIf (No = 0 And status = "APLAZADO" And (activity = "SEGURIDAD VIAL" Or activity = "" Or actibity = Empty) And Trim(UCase(emphasis)) = "SEGURIDAD VIAL") Or (No <> 0 And (status = "CUMPLE" Or status = "APTO") And (activity = "SEGURIDAD VIAL" Or activity = "" Or activity = Empty) And Trim(UCase(emphasis)) = "SEGURIDAD VIAL") Then
+  ElseIf (No = 0 And status = "APLAZADO" And (activity = "SEGURIDAD VIAL" Or activity = "" Or activity = Empty) And Trim(UCase(emphasis)) = "SEGURIDAD VIAL") Or (No <> 0 And (status = "CUMPLE" Or status = "APTO") And (activity = "SEGURIDAD VIAL" Or activity = "" Or activity = Empty) And Trim(UCase(emphasis)) = "SEGURIDAD VIAL") Then
 
     emphasisConcepts = "Aplazado para seguridad vial"
 

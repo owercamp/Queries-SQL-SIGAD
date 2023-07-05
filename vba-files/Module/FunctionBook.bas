@@ -517,15 +517,15 @@ Public Sub ExportSQL()
         num = isEmptyValue(range("tbl_trabajadores[[SCRIPT orden_lista_trabajadores]]"))
         If (num > 0) Then
           MyFile.WriteLine "INSERT INTO orden_lista_trabajadores (`id`, `id_orden`, `estado`, `cedula`, `nombre`, `telefono`, `registro`, `ciudad_id`, `empresa_id`, `digitador_id`, `fecha_ingreso`, `id_cargo`, `fuente`, `edad`, `genero`, `estrato`, `id_raza`, `id_estado_civil`, `hijos`, `id_escolaridad`, `rango_edad`, `duracion`, `antiguedad`, `created_at`, `updated_at`, `id_tipo_actividad`, `id_tipo_examen`) VALUES"
-          For Each Item In range("tbl_trabajadores[[SCRIPT orden_lista_trabajadores]]")
-            If Item <> "" And num <> 1 Then
-              MyFile.WriteLine Item
+          For Each item In range("tbl_trabajadores[[SCRIPT orden_lista_trabajadores]]")
+            If item <> "" And num <> 1 Then
+              MyFile.WriteLine item
               num = num - 1
-            ElseIf Item <> "" And num = 1 Then
-              MyFile.WriteLine reemplazarUltimoCaracter(Item)
+            ElseIf item <> "" And num = 1 Then
+              MyFile.WriteLine reemplazarUltimoCaracter(item)
               num = num - 1
             End If
-          Next Item
+          Next item
         End If
 
         '' paraclinicos
@@ -533,15 +533,15 @@ Public Sub ExportSQL()
         If (num > 0) Then
           MyFile.WriteLine ""
           MyFile.WriteLine "INSERT INTO ordenes_trabajador_paraclinicos (`id_orden_trabajador`, `id_paraclinico`, `estado`) VALUES"
-          For Each Item In range("tbl_trabajadores[[SCRIPT ordenes_trabajador_paraclinicos]]")
-            If Item <> "" And num <> 1 Then
-              MyFile.WriteLine Item
+          For Each item In range("tbl_trabajadores[[SCRIPT ordenes_trabajador_paraclinicos]]")
+            If item <> "" And num <> 1 Then
+              MyFile.WriteLine item
               num = num - 1
-            ElseIf Item <> "" And num = 1 Then
-              MyFile.WriteLine reemplazarUltimoCaracter(Item)
+            ElseIf item <> "" And num = 1 Then
+              MyFile.WriteLine reemplazarUltimoCaracter(item)
               num = num - 1
             End If
-          Next Item
+          Next item
         End If
        Case "EMO"
         '' ics_emo
@@ -549,15 +549,15 @@ Public Sub ExportSQL()
         If (num > 0) Then
           MyFile.WriteLine ""
           MyFile.WriteLine "INSERT INTO ics_emo (`id`, `id_orden_lista_trabajadores`, `id_concepto_evaluacion`, `observaciones`, `accidente_laboral`, `enfermedad_laboral`, `fecha_accidente`, `empresa`, `naturaleza_lesion`, `tipo_accidente`, `parte_afectada`, `dias_incapacidad`, `secuelas`, `enfermedad`, `etapa`, `observaciones_enfermedad`, `actividad_fisica`, `fuma`, `consumo_alcohol`, `peso`, `talla`, `tension_arterial`, `frecuencia_cardiaca`, `perimetro_abominal`, `lateralidad`, `frecuencia_respiratoria`, `imc2`, `clasificacion_imc`, `observacion_recomendacion`, `observacion_diagnostico`) VALUES"
-          For Each Item In range("tbl_emo[[SCRIPT ics_emo]]")
-            If Item <> "" And num <> 1 Then
-              MyFile.WriteLine Item
+          For Each item In range("tbl_emo[[SCRIPT ics_emo]]")
+            If item <> "" And num <> 1 Then
+              MyFile.WriteLine item
               num = num - 1
-            ElseIf Item <> "" And num = 1 Then
-              MyFile.WriteLine reemplazarUltimoCaracter(Item)
+            ElseIf item <> "" And num = 1 Then
+              MyFile.WriteLine reemplazarUltimoCaracter(item)
               num = num - 1
             End If
-          Next Item
+          Next item
         End If
 
         '' ics_emo_riesgos
@@ -565,15 +565,15 @@ Public Sub ExportSQL()
         If (num > 0) Then
           MyFile.WriteLine ""
           MyFile.WriteLine "INSERT INTO ics_emo_riesgos (`id_ics`, `id_riesgo`, `observaciones_otros`) VALUES"
-          For Each Item In range("tbl_emo[[SCRIPT ics_emo_riesgos]]")
-            If Item <> "" And num <> 1 Then
-              MyFile.WriteLine Item
+          For Each item In range("tbl_emo[[SCRIPT ics_emo_riesgos]]")
+            If item <> "" And num <> 1 Then
+              MyFile.WriteLine item
               num = num - 1
-            ElseIf Item <> "" And num = 1 Then
-              MyFile.WriteLine reemplazarUltimoCaracter(Item)
+            ElseIf item <> "" And num = 1 Then
+              MyFile.WriteLine reemplazarUltimoCaracter(item)
               num = num - 1
             End If
-          Next Item
+          Next item
         End If
 
         '' ics_condiciones
@@ -581,15 +581,15 @@ Public Sub ExportSQL()
         If (num > 0) Then
           MyFile.WriteLine ""
           MyFile.WriteLine "INSERT INTO ics_condiciones (`id_ics`, `id_condicion`, `condicion_seguridad`) VALUES"
-          For Each Item In range("tbl_emo[[SCRIPT ics_condiciones]]")
-            If Item <> "" And num <> 1 Then
-              MyFile.WriteLine Item
+          For Each item In range("tbl_emo[[SCRIPT ics_condiciones]]")
+            If item <> "" And num <> 1 Then
+              MyFile.WriteLine item
               num = num - 1
-            ElseIf Item <> "" And num = 1 Then
-              MyFile.WriteLine reemplazarUltimoCaracter(Item)
+            ElseIf item <> "" And num = 1 Then
+              MyFile.WriteLine reemplazarUltimoCaracter(item)
               num = num - 1
             End If
-          Next Item
+          Next item
         End If
 
         '' ics_cie (diagnosticos)
@@ -597,15 +597,15 @@ Public Sub ExportSQL()
         If (num > 0) Then
           MyFile.WriteLine ""
           MyFile.WriteLine "INSERT INTO ics_cie (`id_ics`, `id_cie`) VALUES"
-          For Each Item In range("tbl_emo[[script ics_cie (diagnosticos)]]")
-            If Item <> "" And num <> 1 Then
-              MyFile.WriteLine Item
+          For Each item In range("tbl_emo[[script ics_cie (diagnosticos)]]")
+            If item <> "" And num <> 1 Then
+              MyFile.WriteLine item
               num = num - 1
-            ElseIf Item <> "" And num = 1 Then
-              MyFile.WriteLine reemplazarUltimoCaracter(Item)
+            ElseIf item <> "" And num = 1 Then
+              MyFile.WriteLine reemplazarUltimoCaracter(item)
               num = num - 1
             End If
-          Next Item
+          Next item
         End If
 
         '' ics_enfasis
@@ -613,15 +613,15 @@ Public Sub ExportSQL()
         If (num > 0) Then
           MyFile.WriteLine ""
           MyFile.WriteLine "INSERT INTO ics_enfasis (`id_ics`, `id_enfasis`, `observacion`) VALUES"
-          For Each Item In range("tbl_emo[[SCRIPT ics_enfasis]]")
-            If Item <> "" And num <> 1 Then
-              MyFile.WriteLine Item
+          For Each item In range("tbl_emo[[SCRIPT ics_enfasis]]")
+            If item <> "" And num <> 1 Then
+              MyFile.WriteLine item
               num = num - 1
-            ElseIf Item <> "" And num = 1 Then
-              MyFile.WriteLine reemplazarUltimoCaracter(Item)
+            ElseIf item <> "" And num = 1 Then
+              MyFile.WriteLine reemplazarUltimoCaracter(item)
               num = num - 1
             End If
-          Next Item
+          Next item
         End If
 
        Case "AUDIO"
@@ -630,15 +630,15 @@ Public Sub ExportSQL()
         If (num > 0) Then
           MyFile.WriteLine ""
           MyFile.WriteLine "INSERT INTO au_audiometria (`id`, `emo_id`, `auditivo`, `auditivo_copa`, `auditivo_insercion`, `auditivo_doble`, `diagnostico_interno`, `diagnostico_ppal`, `diagnostico_gati`, `status_obs`) VALUES"
-          For Each Item In range("tbl_audio[[SCRIPT au_audiometria]]")
-            If Item <> "" And num <> 1 Then
-              MyFile.WriteLine Item
+          For Each item In range("tbl_audio[[SCRIPT au_audiometria]]")
+            If item <> "" And num <> 1 Then
+              MyFile.WriteLine item
               num = num - 1
-            ElseIf Item <> "" And num = 1 Then
-              MyFile.WriteLine reemplazarUltimoCaracter(Item)
+            ElseIf item <> "" And num = 1 Then
+              MyFile.WriteLine reemplazarUltimoCaracter(item)
               num = num - 1
             End If
-          Next Item
+          Next item
         End If
 
         '' au_audiometria_recomendacion
@@ -646,15 +646,15 @@ Public Sub ExportSQL()
         If (num > 0) Then
           MyFile.WriteLine ""
           MyFile.WriteLine "INSERT INTO au_audiometria_recomendacion (`audiometria_id`, `recomendacion_id`, `fk_id_control`) VALUES"
-          For Each Item In range("tbl_audio[[SCRIPT au_audiometria_recomendacion]]")
-            If Item <> "" And num <> 1 Then
-              MyFile.WriteLine Item
+          For Each item In range("tbl_audio[[SCRIPT au_audiometria_recomendacion]]")
+            If item <> "" And num <> 1 Then
+              MyFile.WriteLine item
               num = num - 1
-            ElseIf Item <> "" And num = 1 Then
-              MyFile.WriteLine reemplazarUltimoCaracter(Item)
+            ElseIf item <> "" And num = 1 Then
+              MyFile.WriteLine reemplazarUltimoCaracter(item)
               num = num - 1
             End If
-          Next Item
+          Next item
         End If
 
         '' au_oido
@@ -662,15 +662,15 @@ Public Sub ExportSQL()
         If (num > 0) Then
           MyFile.WriteLine ""
           MyFile.WriteLine "INSERT INTO au_oido (`audiometria_id`, `tipo_oido_id`, `pabellon_id`, `auditivo_id`, `membrana_id`, `obs_pabellon`, `obs_auditivo`, `obs_membrana`, `frecuencia`, `pta`) VALUES"
-          For Each Item In range("tbl_audio[[SCRIPT au_oido]]")
-            If Item <> "" And num <> 1 Then
-              MyFile.WriteLine Item
+          For Each item In range("tbl_audio[[SCRIPT au_oido]]")
+            If item <> "" And num <> 1 Then
+              MyFile.WriteLine item
               num = num - 1
-            ElseIf Item <> "" And num = 1 Then
-              MyFile.WriteLine reemplazarUltimoCaracter(Item)
+            ElseIf item <> "" And num = 1 Then
+              MyFile.WriteLine reemplazarUltimoCaracter(item)
               num = num - 1
             End If
-          Next Item
+          Next item
         End If
 
        Case "OPTO"
@@ -679,15 +679,15 @@ Public Sub ExportSQL()
         If (num > 0) Then
           MyFile.WriteLine ""
           MyFile.WriteLine "INSERT INTO op_optometria (`id`, `emo_id`, `parpados`, `obs_parpados`, `conjuntivas`, `obs_conjuntivas`, `escleras`, `obs_escleras`, `pupilas`, `obs_pupilas`, `lejos`, `cerca`, `patologia_ocular`, `estado_correcion_id`, `otros_sintomas`, `recomendacion`, `remision`, `status_dig`) VALUES"
-          For Each Item In range("tbl_opto[[SCRIPT op_optometria]]")
-            If Item <> "" And num <> 1 Then
-              MyFile.WriteLine Item
+          For Each item In range("tbl_opto[[SCRIPT op_optometria]]")
+            If item <> "" And num <> 1 Then
+              MyFile.WriteLine item
               num = num - 1
-            ElseIf Item <> "" And num = 1 Then
-              MyFile.WriteLine reemplazarUltimoCaracter(Item)
+            ElseIf item <> "" And num = 1 Then
+              MyFile.WriteLine reemplazarUltimoCaracter(item)
               num = num - 1
             End If
-          Next Item
+          Next item
         End If
 
         '' op_optometria_riesgos
@@ -695,15 +695,15 @@ Public Sub ExportSQL()
         If (num > 0) Then
           MyFile.WriteLine ""
           MyFile.WriteLine "INSERT INTO op_optometria_riesgos (`optometria_id`, `riesgo_id`) VALUES"
-          For Each Item In range("tbl_opto[[SCRIPT op_optometria_riesgos]]")
-            If Item <> "" And num <> 1 Then
-              MyFile.WriteLine Item
+          For Each item In range("tbl_opto[[SCRIPT op_optometria_riesgos]]")
+            If item <> "" And num <> 1 Then
+              MyFile.WriteLine item
               num = num - 1
-            ElseIf Item <> "" And num = 1 Then
-              MyFile.WriteLine reemplazarUltimoCaracter(Item)
+            ElseIf item <> "" And num = 1 Then
+              MyFile.WriteLine reemplazarUltimoCaracter(item)
               num = num - 1
             End If
-          Next Item
+          Next item
         End If
 
         '' op_optometria_sintomas
@@ -711,15 +711,15 @@ Public Sub ExportSQL()
         If (num > 0) Then
           MyFile.WriteLine ""
           MyFile.WriteLine "INSERT INTO op_optometria_sintomas (`optometria_id`, `sintomas_id`) VALUES"
-          For Each Item In range("tbl_opto[[SCRIPT op_optometria_sintomas]]")
-            If Item <> "" And num <> 1 Then
-              MyFile.WriteLine Item
+          For Each item In range("tbl_opto[[SCRIPT op_optometria_sintomas]]")
+            If item <> "" And num <> 1 Then
+              MyFile.WriteLine item
               num = num - 1
-            ElseIf Item <> "" And num = 1 Then
-              MyFile.WriteLine reemplazarUltimoCaracter(Item)
+            ElseIf item <> "" And num = 1 Then
+              MyFile.WriteLine reemplazarUltimoCaracter(item)
               num = num - 1
             End If
-          Next Item
+          Next item
         End If
 
         '' op_diagnostico
@@ -727,15 +727,15 @@ Public Sub ExportSQL()
         If (num > 0) Then
           MyFile.WriteLine ""
           MyFile.WriteLine "INSERT INTO op_diagnostico (`id`, `optometria_id`, `diagnostico_ppal`, `obs_ppal`) VALUES"
-          For Each Item In range("tbl_opto[[SCRIPT op_diagnostico]]")
-            If Item <> "" And num <> 1 Then
-              MyFile.WriteLine Item
+          For Each item In range("tbl_opto[[SCRIPT op_diagnostico]]")
+            If item <> "" And num <> 1 Then
+              MyFile.WriteLine item
               num = num - 1
-            ElseIf Item <> "" And num = 1 Then
-              MyFile.WriteLine reemplazarUltimoCaracter(Item)
+            ElseIf item <> "" And num = 1 Then
+              MyFile.WriteLine reemplazarUltimoCaracter(item)
               num = num - 1
             End If
-          Next Item
+          Next item
         End If
 
         '' op_diagnostico_cie
@@ -743,15 +743,15 @@ Public Sub ExportSQL()
         If (num > 0) Then
           MyFile.WriteLine ""
           MyFile.WriteLine "INSERT INTO op_diagnostico_cie (`diagnostico_id`, `cie_id`) VALUES"
-          For Each Item In range("tbl_opto[[SCRIPT op_diagnostico_cie]]")
-            If Item <> "" And num <> 1 Then
-              MyFile.WriteLine Item
+          For Each item In range("tbl_opto[[SCRIPT op_diagnostico_cie]]")
+            If item <> "" And num <> 1 Then
+              MyFile.WriteLine item
               num = num - 1
-            ElseIf Item <> "" And num = 1 Then
-              MyFile.WriteLine reemplazarUltimoCaracter(Item)
+            ElseIf item <> "" And num = 1 Then
+              MyFile.WriteLine reemplazarUltimoCaracter(item)
               num = num - 1
             End If
-          Next Item
+          Next item
         End If
 
         '' op_optometria_recomendacion
@@ -759,15 +759,15 @@ Public Sub ExportSQL()
         If (num > 0) Then
           MyFile.WriteLine ""
           MyFile.WriteLine "INSERT INTO op_optometria_recomendacion (`optometria_id`, `recomendacion_id`, `fk_control_id`) VALUES"
-          For Each Item In range("tbl_opto[[SCRIPT op_optometria_recomendacion]]")
-            If Item <> "" And num <> 1 Then
-              MyFile.WriteLine Item
+          For Each item In range("tbl_opto[[SCRIPT op_optometria_recomendacion]]")
+            If item <> "" And num <> 1 Then
+              MyFile.WriteLine item
               num = num - 1
-            ElseIf Item <> "" And num = 1 Then
-              MyFile.WriteLine reemplazarUltimoCaracter(Item)
+            ElseIf item <> "" And num = 1 Then
+              MyFile.WriteLine reemplazarUltimoCaracter(item)
               num = num - 1
             End If
-          Next Item
+          Next item
         End If
 
         '' op_optometria_remision
@@ -775,15 +775,15 @@ Public Sub ExportSQL()
         If (num > 0) Then
           MyFile.WriteLine ""
           MyFile.WriteLine "INSERT INTO op_optometria_remision (`optometria_id`, `remision_id`) VALUES"
-          For Each Item In range("tbl_opto[[SCRIPT op_optometria_remision]]")
-            If Item <> "" And num <> 1 Then
-              MyFile.WriteLine Item
+          For Each item In range("tbl_opto[[SCRIPT op_optometria_remision]]")
+            If item <> "" And num <> 1 Then
+              MyFile.WriteLine item
               num = num - 1
-            ElseIf Item <> "" And num = 1 Then
-              MyFile.WriteLine reemplazarUltimoCaracter(Item)
+            ElseIf item <> "" And num = 1 Then
+              MyFile.WriteLine reemplazarUltimoCaracter(item)
               num = num - 1
             End If
-          Next Item
+          Next item
         End If
 
        Case "VISIO"
@@ -792,15 +792,15 @@ Public Sub ExportSQL()
         If (num > 0) Then
           MyFile.WriteLine ""
           MyFile.WriteLine "INSERT INTO vi_visiometria (`id`, `emo_id`, `parpados`, `obs_parpados`, `conjuntivas`, `obs_conjuntivas`, `escleras`, `obs_escleras`, `pupilas`, `obs_pupilas`, `otros_sintomas`, `resultado`, `obs_resultado`, `recomendacion_general`, `remision`, `status_general`) VALUES"
-          For Each Item In range("tbl_visio[[SCRIPT vi_visiometria]]")
-            If Item <> "" And num <> 1 Then
-              MyFile.WriteLine Item
+          For Each item In range("tbl_visio[[SCRIPT vi_visiometria]]")
+            If item <> "" And num <> 1 Then
+              MyFile.WriteLine item
               num = num - 1
-            ElseIf Item <> "" And num = 1 Then
-              MyFile.WriteLine reemplazarUltimoCaracter(Item)
+            ElseIf item <> "" And num = 1 Then
+              MyFile.WriteLine reemplazarUltimoCaracter(item)
               num = num - 1
             End If
-          Next Item
+          Next item
         End If
 
         '' vi_visiometria_antecedentes
@@ -808,15 +808,15 @@ Public Sub ExportSQL()
         If (num > 0) Then
           MyFile.WriteLine ""
           MyFile.WriteLine "INSERT INTO vi_visiometria_antecedentes (`visiometria_id`, `antecedente_id`) VALUES"
-          For Each Item In range("tbl_visio[[SCRIPT vi_visiometria_antecedentes]]")
-            If Item <> "" And num <> 1 Then
-              MyFile.WriteLine Item
+          For Each item In range("tbl_visio[[SCRIPT vi_visiometria_antecedentes]]")
+            If item <> "" And num <> 1 Then
+              MyFile.WriteLine item
               num = num - 1
-            ElseIf Item <> "" And num = 1 Then
-              MyFile.WriteLine reemplazarUltimoCaracter(Item)
+            ElseIf item <> "" And num = 1 Then
+              MyFile.WriteLine reemplazarUltimoCaracter(item)
               num = num - 1
             End If
-          Next Item
+          Next item
         End If
 
         '' vi_visiometria_sintomas
@@ -824,15 +824,15 @@ Public Sub ExportSQL()
         If (num > 0) Then
           MyFile.WriteLine ""
           MyFile.WriteLine "INSERT INTO vi_visiometria_sintomas (`visiometria_id`, `sintoma_id`) VALUES"
-          For Each Item In range("tbl_visio[[SCRIPT vi_visiometria_sintomas]]")
-            If Item <> "" And num <> 1 Then
-              MyFile.WriteLine Item
+          For Each item In range("tbl_visio[[SCRIPT vi_visiometria_sintomas]]")
+            If item <> "" And num <> 1 Then
+              MyFile.WriteLine item
               num = num - 1
-            ElseIf Item <> "" And num = 1 Then
-              MyFile.WriteLine reemplazarUltimoCaracter(Item)
+            ElseIf item <> "" And num = 1 Then
+              MyFile.WriteLine reemplazarUltimoCaracter(item)
               num = num - 1
             End If
-          Next Item
+          Next item
         End If
 
         '' vi_vl
@@ -840,15 +840,15 @@ Public Sub ExportSQL()
         If (num > 0) Then
           MyFile.WriteLine ""
           MyFile.WriteLine "INSERT INTO vi_vl (`visiometria_id`, `oi`, `od`) VALUES"
-          For Each Item In range("tbl_visio[[SCRIPT vi_vl]]")
-            If Item <> "" And num <> 1 Then
-              MyFile.WriteLine Item
+          For Each item In range("tbl_visio[[SCRIPT vi_vl]]")
+            If item <> "" And num <> 1 Then
+              MyFile.WriteLine item
               num = num - 1
-            ElseIf Item <> "" And num = 1 Then
-              MyFile.WriteLine reemplazarUltimoCaracter(Item)
+            ElseIf item <> "" And num = 1 Then
+              MyFile.WriteLine reemplazarUltimoCaracter(item)
               num = num - 1
             End If
-          Next Item
+          Next item
         End If
 
         '' vi_vp
@@ -856,15 +856,15 @@ Public Sub ExportSQL()
         If (num > 0) Then
           MyFile.WriteLine ""
           MyFile.WriteLine "INSERT INTO vi_vp (`visiometria_id`, `oi`, `od`) VALUES"
-          For Each Item In range("tbl_visio[[SCRIPT vi_vp]]")
-            If Item <> "" And num <> 1 Then
-              MyFile.WriteLine Item
+          For Each item In range("tbl_visio[[SCRIPT vi_vp]]")
+            If item <> "" And num <> 1 Then
+              MyFile.WriteLine item
               num = num - 1
-            ElseIf Item <> "" And num = 1 Then
-              MyFile.WriteLine reemplazarUltimoCaracter(Item)
+            ElseIf item <> "" And num = 1 Then
+              MyFile.WriteLine reemplazarUltimoCaracter(item)
               num = num - 1
             End If
-          Next Item
+          Next item
         End If
 
         '' vi_visiometria_recomendaciones
@@ -872,15 +872,15 @@ Public Sub ExportSQL()
         If (num > 0) Then
           MyFile.WriteLine ""
           MyFile.WriteLine "INSERT INTO vi_visiometria_recomendaciones (`visiometria_id`, `recomendacion_id`, `fk_id_control`) VALUES"
-          For Each Item In range("tbl_visio[[SCRIPT vi_visiometria_recomendaciones]]")
-            If Item <> "" And num <> 1 Then
-              MyFile.WriteLine Item
+          For Each item In range("tbl_visio[[SCRIPT vi_visiometria_recomendaciones]]")
+            If item <> "" And num <> 1 Then
+              MyFile.WriteLine item
               num = num - 1
-            ElseIf Item <> "" And num = 1 Then
-              MyFile.WriteLine reemplazarUltimoCaracter(Item)
+            ElseIf item <> "" And num = 1 Then
+              MyFile.WriteLine reemplazarUltimoCaracter(item)
               num = num - 1
             End If
-          Next Item
+          Next item
         End If
 
         '' vi_visiometria_remisiones
@@ -888,15 +888,15 @@ Public Sub ExportSQL()
         If (num > 0) Then
           MyFile.WriteLine ""
           MyFile.WriteLine "INSERT INTO vi_visiometria_remisiones (`visiometria_id`, `remision_id`) VALUES"
-          For Each Item In range("tbl_visio[[SCRIPT vi_visiometria_remisiones]]")
-            If Item <> "" And num <> 1 Then
-              MyFile.WriteLine Item
+          For Each item In range("tbl_visio[[SCRIPT vi_visiometria_remisiones]]")
+            If item <> "" And num <> 1 Then
+              MyFile.WriteLine item
               num = num - 1
-            ElseIf Item <> "" And num = 1 Then
-              MyFile.WriteLine reemplazarUltimoCaracter(Item)
+            ElseIf item <> "" And num = 1 Then
+              MyFile.WriteLine reemplazarUltimoCaracter(item)
               num = num - 1
             End If
-          Next Item
+          Next item
         End If
 
        Case "ESPIRO"
@@ -905,15 +905,15 @@ Public Sub ExportSQL()
         If (num > 0) Then
           MyFile.WriteLine ""
           MyFile.WriteLine "INSERT INTO espirometria (`id`, `emo_id`, `observaciones_alergias`, `observaciones_cx_torax`, `observaciones_cancer`, `otros_respiratorios`, `otros_riesgos_quimicos`, `actividad_fisica`, `fuma`, `frecuencia_habito`, `numero_cigarrros`, `tiempo_anios`, `interpretaciones`, `tecnica_aceptable`, `calculos_diagnostico`, `diagnostico_ppal`, `observacion_ppal`, `tipo_interpretacion`, `tipo_grado`, `resultado_espiro`, `peso`, `talla`, `imc2`, `clasificacion_imc`) VALUES"
-          For Each Item In range("tbl_espiro_info[[SCRIPT espirometria]]")
-            If Item <> "" And num <> 1 Then
-              MyFile.WriteLine Item
+          For Each item In range("tbl_espiro_info[[SCRIPT espirometria]]")
+            If item <> "" And num <> 1 Then
+              MyFile.WriteLine item
               num = num - 1
-            ElseIf Item <> "" And num = 1 Then
-              MyFile.WriteLine reemplazarUltimoCaracter(Item)
+            ElseIf item <> "" And num = 1 Then
+              MyFile.WriteLine reemplazarUltimoCaracter(item)
               num = num - 1
             End If
-          Next Item
+          Next item
         End If
 
         '' espiro_antecedentes_pivot
@@ -921,15 +921,15 @@ Public Sub ExportSQL()
         If (num > 0) Then
           MyFile.WriteLine ""
           MyFile.WriteLine "INSERT INTO espiro_antecedentes_pivot (`espiro_id`, `id_antecedente`) VALUES"
-          For Each Item In range("tbl_espiro_info[[SCRIPT espiro_antecedentes_pivot]]")
-            If Item <> "" And num <> 1 Then
-              MyFile.WriteLine Item
+          For Each item In range("tbl_espiro_info[[SCRIPT espiro_antecedentes_pivot]]")
+            If item <> "" And num <> 1 Then
+              MyFile.WriteLine item
               num = num - 1
-            ElseIf Item <> "" And num = 1 Then
-              MyFile.WriteLine reemplazarUltimoCaracter(Item)
+            ElseIf item <> "" And num = 1 Then
+              MyFile.WriteLine reemplazarUltimoCaracter(item)
               num = num - 1
             End If
-          Next Item
+          Next item
         End If
 
         '' espiro_quimicos_pivot
@@ -937,15 +937,15 @@ Public Sub ExportSQL()
         If (num > 0) Then
           MyFile.WriteLine ""
           MyFile.WriteLine "INSERT INTO espiro_quimicos_pivot (`espiro_id`, `id_quimicos`) VALUES"
-          For Each Item In range("tbl_espiro_info[[SCRIPT espiro_quimicos_pivot]]")
-            If Item <> "" And num <> 1 Then
-              MyFile.WriteLine Item
+          For Each item In range("tbl_espiro_info[[SCRIPT espiro_quimicos_pivot]]")
+            If item <> "" And num <> 1 Then
+              MyFile.WriteLine item
               num = num - 1
-            ElseIf Item <> "" And num = 1 Then
-              MyFile.WriteLine reemplazarUltimoCaracter(Item)
+            ElseIf item <> "" And num = 1 Then
+              MyFile.WriteLine reemplazarUltimoCaracter(item)
               num = num - 1
             End If
-          Next Item
+          Next item
         End If
 
         '' espiro_riesgos_epp
@@ -953,15 +953,15 @@ Public Sub ExportSQL()
         If (num > 0) Then
           MyFile.WriteLine ""
           MyFile.WriteLine "INSERT INTO espiro_riesgos_epp (`espiro_id`, `tapaboca`, `especifico`, `otro_tapaboca`) VALUES"
-          For Each Item In range("tbl_espiro_info[[SCRIPT espiro_riesgos_epp]]")
-            If Item <> "" And num <> 1 Then
-              MyFile.WriteLine Item
+          For Each item In range("tbl_espiro_info[[SCRIPT espiro_riesgos_epp]]")
+            If item <> "" And num <> 1 Then
+              MyFile.WriteLine item
               num = num - 1
-            ElseIf Item <> "" And num = 1 Then
-              MyFile.WriteLine reemplazarUltimoCaracter(Item)
+            ElseIf item <> "" And num = 1 Then
+              MyFile.WriteLine reemplazarUltimoCaracter(item)
               num = num - 1
             End If
-          Next Item
+          Next item
         End If
 
         '' espiro_recomendaciones_pivot
@@ -969,15 +969,15 @@ Public Sub ExportSQL()
         If (num > 0) Then
           MyFile.WriteLine ""
           MyFile.WriteLine "INSERT INTO espiro_recomendaciones_pivot(`espiro_id`, `recomendaciones_id`, `fk_id_control`) VALUES"
-          For Each Item In range("tbl_espiro_info[[SCRIPT espiro_recomendaciones_pivot]]")
-            If Item <> "" And num <> 1 Then
-              MyFile.WriteLine Item
+          For Each item In range("tbl_espiro_info[[SCRIPT espiro_recomendaciones_pivot]]")
+            If item <> "" And num <> 1 Then
+              MyFile.WriteLine item
               num = num - 1
-            ElseIf Item <> "" And num = 1 Then
-              MyFile.WriteLine reemplazarUltimoCaracter(Item)
+            ElseIf item <> "" And num = 1 Then
+              MyFile.WriteLine reemplazarUltimoCaracter(item)
               num = num - 1
             End If
-          Next Item
+          Next item
         End If
 
         '' espiro_recomendaciones_lab_pivot
@@ -985,15 +985,15 @@ Public Sub ExportSQL()
         If (num > 0) Then
           MyFile.WriteLine ""
           MyFile.WriteLine "INSERT INTO espiro_recomendaciones_lab_pivot (`espiro_id`, `recomendaciones_id`) VALUES"
-          For Each Item In range("tbl_espiro_info[[SCRIPT espiro_recomendaciones_lab_pivot]]")
-            If Item <> "" And num <> 1 Then
-              MyFile.WriteLine Item
+          For Each item In range("tbl_espiro_info[[SCRIPT espiro_recomendaciones_lab_pivot]]")
+            If item <> "" And num <> 1 Then
+              MyFile.WriteLine item
               num = num - 1
-            ElseIf Item <> "" And num = 1 Then
-              MyFile.WriteLine reemplazarUltimoCaracter(Item)
+            ElseIf item <> "" And num = 1 Then
+              MyFile.WriteLine reemplazarUltimoCaracter(item)
               num = num - 1
             End If
-          Next Item
+          Next item
         End If
 
        Case "OSTEO"
@@ -1002,15 +1002,15 @@ Public Sub ExportSQL()
         If (num > 0) Then
           MyFile.WriteLine ""
           MyFile.WriteLine "INSERT INTO osteomuscular (`id`, `emo_id`,`diagnostico_ppal`, `observacion_ppal`, `ocupacionales`, `generales`, `status_ppal`) VALUES"
-          For Each Item In range("tbl_osteo[[SCRIPT osteomuscular]]")
-            If Item <> "" And num <> 1 Then
-              MyFile.WriteLine Item
+          For Each item In range("tbl_osteo[[SCRIPT osteomuscular]]")
+            If item <> "" And num <> 1 Then
+              MyFile.WriteLine item
               num = num - 1
-            ElseIf Item <> "" And num = 1 Then
-              MyFile.WriteLine reemplazarUltimoCaracter(Item)
+            ElseIf item <> "" And num = 1 Then
+              MyFile.WriteLine reemplazarUltimoCaracter(item)
               num = num - 1
             End If
-          Next Item
+          Next item
         End If
 
         '' osteo_antecedentes_pivot
@@ -1018,15 +1018,15 @@ Public Sub ExportSQL()
         If (num > 0) Then
           MyFile.WriteLine ""
           MyFile.WriteLine "INSERT INTO osteo_antecedentes_pivot (`osteo_id`, `id_antecedente_osteo`, `observacion_antecedente_sintoma`) VALUES"
-          For Each Item In range("tbl_osteo[[SCRIPT osteo_antecedentes_pivot]]")
-            If Item <> "" And num <> 1 Then
-              MyFile.WriteLine Item
+          For Each item In range("tbl_osteo[[SCRIPT osteo_antecedentes_pivot]]")
+            If item <> "" And num <> 1 Then
+              MyFile.WriteLine item
               num = num - 1
-            ElseIf Item <> "" And num = 1 Then
-              MyFile.WriteLine reemplazarUltimoCaracter(Item)
+            ElseIf item <> "" And num = 1 Then
+              MyFile.WriteLine reemplazarUltimoCaracter(item)
               num = num - 1
             End If
-          Next Item
+          Next item
         End If
 
         '' osteo_cie_pivot
@@ -1034,15 +1034,15 @@ Public Sub ExportSQL()
         If (num > 0) Then
           MyFile.WriteLine ""
           MyFile.WriteLine "INSERT INTO osteo_cie_pivot (`osteo_id`, `cie_id`) VALUES"
-          For Each Item In range("tbl_osteo[[SCRIPT osteo_cie_pivot]]")
-            If Item <> "" And num <> 1 Then
-              MyFile.WriteLine Item
+          For Each item In range("tbl_osteo[[SCRIPT osteo_cie_pivot]]")
+            If item <> "" And num <> 1 Then
+              MyFile.WriteLine item
               num = num - 1
-            ElseIf Item <> "" And num = 1 Then
-              MyFile.WriteLine reemplazarUltimoCaracter(Item)
+            ElseIf item <> "" And num = 1 Then
+              MyFile.WriteLine reemplazarUltimoCaracter(item)
               num = num - 1
             End If
-          Next Item
+          Next item
         End If
 
         '' osteo_recomendaciones_pivot
@@ -1050,15 +1050,15 @@ Public Sub ExportSQL()
         If (num > 0) Then
           MyFile.WriteLine ""
           MyFile.WriteLine "INSERT INTO osteo_recomendaciones_pivot (`osteo_id`, `id_recomendaciones_osteo`) VALUES"
-          For Each Item In range("tbl_osteo[[SCRIPT osteo_recomendaciones_pivot]]")
-            If Item <> "" And num <> 1 Then
-              MyFile.WriteLine Item
+          For Each item In range("tbl_osteo[[SCRIPT osteo_recomendaciones_pivot]]")
+            If item <> "" And num <> 1 Then
+              MyFile.WriteLine item
               num = num - 1
-            ElseIf Item <> "" And num = 1 Then
-              MyFile.WriteLine reemplazarUltimoCaracter(Item)
+            ElseIf item <> "" And num = 1 Then
+              MyFile.WriteLine reemplazarUltimoCaracter(item)
               num = num - 1
             End If
-          Next Item
+          Next item
         End If
 
        Case "COMPLEMENTARIOS", "COMPLEMENTARIO"
@@ -1067,15 +1067,15 @@ Public Sub ExportSQL()
         If (num > 0) Then
           MyFile.WriteLine ""
           MyFile.WriteLine "INSERT INTO complementarios (`id`, `emo_id`, `procedimiento_id`, `diagnostico_ppal`, `observacion_ppal`, `hallazgo`, `status_ppal`) VALUES"
-          For Each Item In range("tbl_complementarios[[SCRIPT complementarios]]")
-            If Item <> "" And num <> 1 Then
-              MyFile.WriteLine Item
+          For Each item In range("tbl_complementarios[[SCRIPT complementarios]]")
+            If item <> "" And num <> 1 Then
+              MyFile.WriteLine item
               num = num - 1
-            ElseIf Item <> "" And num = 1 Then
-              MyFile.WriteLine reemplazarUltimoCaracter(Item)
+            ElseIf item <> "" And num = 1 Then
+              MyFile.WriteLine reemplazarUltimoCaracter(item)
               num = num - 1
             End If
-          Next Item
+          Next item
         End If
 
         '' complementarios_diagnos_observaciones_pivot
@@ -1083,15 +1083,15 @@ Public Sub ExportSQL()
         If (num > 0) Then
           MyFile.WriteLine ""
           MyFile.WriteLine "INSERT INTO complementarios_diagnos_observaciones_pivot (`complementarios_id`, `diagnostico`) VALUES"
-          For Each Item In range("tbl_complementarios[[SCRIPT complementarios_diagnos_observaciones_pivot]]")
-            If Item <> "" And num <> 1 Then
-              MyFile.WriteLine Item
+          For Each item In range("tbl_complementarios[[SCRIPT complementarios_diagnos_observaciones_pivot]]")
+            If item <> "" And num <> 1 Then
+              MyFile.WriteLine item
               num = num - 1
-            ElseIf Item <> "" And num = 1 Then
-              MyFile.WriteLine reemplazarUltimoCaracter(Item)
+            ElseIf item <> "" And num = 1 Then
+              MyFile.WriteLine reemplazarUltimoCaracter(item)
               num = num - 1
             End If
-          Next Item
+          Next item
         End If
 
        Case "PSICOTECNICA", "PSICOLOGIA"
@@ -1100,15 +1100,15 @@ Public Sub ExportSQL()
         If (num > 0) Then
           MyFile.WriteLine ""
           MyFile.WriteLine "INSERT INTO psicotecnica (`id`, `emo_id`, `prueba`, `id_diagnostico_ppal`, `observacion_ppal`) VALUES"
-          For Each Item In range("tbl_psicotecnica[[SCRIPT psicotecnica]]")
-            If Item <> "" And num <> 1 Then
-              MyFile.WriteLine Item
+          For Each item In range("tbl_psicotecnica[[SCRIPT psicotecnica]]")
+            If item <> "" And num <> 1 Then
+              MyFile.WriteLine item
               num = num - 1
-            ElseIf Item <> "" And num = 1 Then
-              MyFile.WriteLine reemplazarUltimoCaracter(Item)
+            ElseIf item <> "" And num = 1 Then
+              MyFile.WriteLine reemplazarUltimoCaracter(item)
               num = num - 1
             End If
-          Next Item
+          Next item
         End If
 
        Case "PSICOSENSOMETRICA", "PSICOMOTRIZ"
@@ -1117,15 +1117,15 @@ Public Sub ExportSQL()
         If (num > 0) Then
           MyFile.WriteLine ""
           MyFile.WriteLine "INSERT INTO psicosensometrica (`id`, `emo_id`, `prueba`, `id_diagnostico_ppal`, `observacion_ppal`) VALUES"
-          For Each Item In range("tbl_psicosensometrica[[SCRIPT psicosensometrica]]")
-            If Item <> "" And num <> 1 Then
-              MyFile.WriteLine Item
+          For Each item In range("tbl_psicosensometrica[[SCRIPT psicosensometrica]]")
+            If item <> "" And num <> 1 Then
+              MyFile.WriteLine item
               num = num - 1
-            ElseIf Item <> "" And num = 1 Then
-              MyFile.WriteLine reemplazarUltimoCaracter(Item)
+            ElseIf item <> "" And num = 1 Then
+              MyFile.WriteLine reemplazarUltimoCaracter(item)
               num = num - 1
             End If
-          Next Item
+          Next item
         End If
 
         '' psicosenso_diagnos_observaciones_pivot
@@ -1133,15 +1133,15 @@ Public Sub ExportSQL()
         If (num > 0) Then
           MyFile.WriteLine ""
           MyFile.WriteLine "INSERT INTO psicosenso_diagnos_observaciones_pivot (`psicosensometrica_id`, `diagnostico`) VALUES"
-          For Each Item In range("tbl_psicosensometrica[[SCRIPT psicosenso_diagnos_observaciones_pivot]]")
-            If Item <> "" And num <> 1 Then
-              MyFile.WriteLine Item
+          For Each item In range("tbl_psicosensometrica[[SCRIPT psicosenso_diagnos_observaciones_pivot]]")
+            If item <> "" And num <> 1 Then
+              MyFile.WriteLine item
               num = num - 1
-            ElseIf Item <> "" And num = 1 Then
-              MyFile.WriteLine reemplazarUltimoCaracter(Item)
+            ElseIf item <> "" And num = 1 Then
+              MyFile.WriteLine reemplazarUltimoCaracter(item)
               num = num - 1
             End If
-          Next Item
+          Next item
         End If
 
         '' psicosensometricas_recomendaciones_pivot
@@ -1149,15 +1149,15 @@ Public Sub ExportSQL()
         If (num > 0) Then
           MyFile.WriteLine ""
           MyFile.WriteLine "INSERT INTO psicosensometricas_recomendaciones_pivot (`psicosensometrica_id`, `recomendaciones_id`) VALUES"
-          For Each Item In range("tbl_psicosensometrica[[SCRIPT psicosensometricas_recomendaciones_pivot]]")
-            If Item <> "" And num <> 1 Then
-              MyFile.WriteLine Item
+          For Each item In range("tbl_psicosensometrica[[SCRIPT psicosensometricas_recomendaciones_pivot]]")
+            If item <> "" And num <> 1 Then
+              MyFile.WriteLine item
               num = num - 1
-            ElseIf Item <> "" And num = 1 Then
-              MyFile.WriteLine reemplazarUltimoCaracter(Item)
+            ElseIf item <> "" And num = 1 Then
+              MyFile.WriteLine reemplazarUltimoCaracter(item)
               num = num - 1
             End If
-          Next Item
+          Next item
         End If
       End Select
     End If
@@ -1188,14 +1188,14 @@ End Function
 '* @return Un entero que representa el numero de elementos que no estan vacios en Ranges.
 Public Function isEmptyValue(ByVal Ranges As Object) As Integer
   Dim num As Integer
-  Dim Item As Variant
+  Dim item As Variant
 
   num = 0
-  For Each Item In Ranges
-    If (Item <> "") Then
+  For Each item In Ranges
+    If (item <> "") Then
       num = num + 1
     End If
-  Next Item
+  Next item
   isEmptyValue = num
 
 End Function
