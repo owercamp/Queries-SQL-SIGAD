@@ -1,4 +1,5 @@
 Attribute VB_Name = "DataVisio"
+'namespace=vba-files\Module\informations
 Option Explicit
 
 'TODO: VisioData - En esta subrutina se importan datos de audio desde una hoja de origen a una hoja de destino.
@@ -168,10 +169,10 @@ Public Sub VisioData()
           aumentFromID = aumentFromID + 1
           currenCell.Offset(aumentFromRow, visio_destiny_dictionary("ID_VISIOMETRIA")) = Trim(aumentFromID)
         End If
+        aumentFromRow = aumentFromRow + 1
       End If
       numbers = numbers + 1
       numbersGeneral = numbersGeneral + 1
-      aumentFromRow = aumentFromRow + 1
       DoEvents
     Next ItemData
   End With

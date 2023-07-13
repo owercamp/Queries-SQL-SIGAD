@@ -1,4 +1,5 @@
 Attribute VB_Name = "DataAudio"
+'namespace=vba-files\Module\informations
 Option Explicit
 
 'TODO AudioData - Esta subrutina importa datos de audio desde una hoja de origen a una hoja de destino.
@@ -167,10 +168,10 @@ Public Sub AudioData()
           aumentFromID = aumentFromID + 1
           currenCell.Offset(aumentFromRow, audio_destiny_dictionary("ID_AUDIOMETRIA")) = Trim(aumentFromID)
         End If
+        aumentFromRow = aumentFromRow + 1
       End If
       numbers = numbers + 1
       numbersGeneral = numbersGeneral + 1
-      aumentFromRow = aumentFromRow + 1
       DoEvents
     Next ItemData
   End With

@@ -1,4 +1,5 @@
 Attribute VB_Name = "DataComplementario"
+'namespace=vba-files\Module\informations
 Option Explicit
 
 'TODO: ComplementarioData - Esta subrutina importa datos de complementario desde una hoja de origen a una hoja de destino.
@@ -115,10 +116,10 @@ Public Sub ComplementarioData()
           aumentFromID = aumentFromID + 1
           currenCell.Offset(aumentFromRow, comple_destiny_dictionary("ID_COMPLEMENTARIOS")) = Trim(aumentFromID)
         End If
+        aumentFromRow = aumentFromRow + 1
       End If
       numbers = numbers + 1
       numbersGeneral = numbersGeneral + 1
-      aumentFromRow = aumentFromRow + 1
       DoEvents
     Next ItemData
   End With

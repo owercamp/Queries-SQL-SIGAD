@@ -1,4 +1,5 @@
 Attribute VB_Name = "Initial"
+'namespace=vba-files\Module
 Option Explicit
 '' Variables ''
 Public origin As Workbook, destiny As Workbook

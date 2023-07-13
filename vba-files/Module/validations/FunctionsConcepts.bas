@@ -1,4 +1,5 @@
 Attribute VB_Name = "FunctionsConcepts"
+'namespace=vba-files\Module\validations
 Option Explicit
 'TODO: Funcion que valida el concepto de evaluacion de un trabajador
 '? Parametros:

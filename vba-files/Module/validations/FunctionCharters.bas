@@ -1,4 +1,5 @@
 Attribute VB_Name = "FunctionCharters"
+'namespace=vba-files\Module\validations
 Option Explicit
 
 '''? <summary>
@@ -354,7 +355,7 @@ Public Sub ClearNonAlphaNumeric()
   Application.EnableEvents = False
 
   '? Leer los valores de la seleccion en una matriz
-  data = Selection.value
+  data = selection.value
 
   '? Iterar a traves de la matriz y realizar los reemplazos
   On Error Resume Next
@@ -368,7 +369,7 @@ Public Sub ClearNonAlphaNumeric()
   On Error GoTo 0
 
   '? Escribir la matriz de vuelta en la hoja de calculo
-  Selection.value = data
+  selection.value = data
 
   '? Activar la actualizacion de pantalla, el calculo y los eventos
   Application.ScreenUpdating = True

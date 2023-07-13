@@ -1,15 +1,16 @@
-Attribute VB_Name = "DataEmoEmphasis"
+Attribute VB_Name = "DataEmoDiagnostics"
+'namespace=vba-files\Module\informations
 Option Explicit
 
-'TODO: DataEmphasisEmo - En esta subrutina se importan datos de audio desde una hoja de origen a una hoja de destino.
+'TODO: DataDiagnosticsEmo - En esta subrutina se importan datos de audio desde una hoja de origen a una hoja de destino.
 '* ------------------------------------------------------------------------------------------------------------------
 '* Variables:
-'* - emphasis_destiny_dictionary: Un objeto Scripting.Dictionary para almacenar los numeros de columna de la hoja de destino.
+'* - diagnostics_destiny_dictionary: Un objeto Scripting.Dictionary para almacenar los numeros de columna de la hoja de destino.
 '* - emo_origin_dictionary: Un objeto Scripting.Dictionary para almacenar los numeros de columna de la hoja de origen.
-'* - emphasis_destiny_header: Una variable de objeto para almacenar el rango del encabezado de la hoja de destino.
+'* - diagnostics_destiny_header: Una variable de objeto para almacenar el rango del encabezado de la hoja de destino.
 '* - emo_origin_header: Una variable de objeto para almacenar el rango del encabezado de la hoja de origen.
 '* - emo_origin_value: Una variable de objeto para almacenar el rango de los datos de diagnosticos de la hoja de origen.
-'* - ItemEmphasisDestiny: Una variable variante para iterar a traves del rango del encabezado de la hoja de destino.
+'* - ItemDiagnosticsDestiny: Una variable variante para iterar a traves del rango del encabezado de la hoja de destino.
 '* - ItemEmoOrigin: Una variable variante para iterar a traves del rango del encabezado de la hoja de origen.
 '* - ItemData: Una variable variante para iterar a traves del rango de los datos de diagnosticos de la hoja de origen.
 '* - numbers: Una variable numerica para hacer un seguimiento del numero de elementos de datos importados.
@@ -19,21 +20,22 @@ Option Explicit
 '* - oneForOne: Una variable numerica para hacer un seguimiento del progreso de la barra de progreso para cada elemento de datos.
 '* - widthOneforOne: Una variable numerica para calcular el ancho de la barra de progreso para cada elemento de datos.
 '* ------------------------------------------------------------------------------------------------------------------
-Public Sub DataEmphasisEmo()
+Public Sub DataDiagnosticsEmo()
 
-  Dim emphasis_destiny_dictionary As Scripting.Dictionary
+  Dim diagnostics_destiny_dictionary As Scripting.Dictionary
   Dim emo_origin_dictionary As Scripting.Dictionary
-  Dim emphasis_destiny_header As Object, emo_origin_header As Object, emo_origin_value As Object
-  Dim ItemEmphasisDestiny As Variant, ItemEmoOrigin As Variant, ItemData As Variant
+  Dim diagnostics_destiny_header As Object, emo_origin_header As Object, emo_origin_value As Object
+  Dim ItemDiagnosticsDestiny As Variant, ItemEmoOrigin As Variant, ItemData As Variant
   Dim currenCell As range, aumentFromRow As LongPtr
   
   Set emo_origin = origin.Worksheets("EMO") '' EMO DEL LIBRO ORIGEN ''
-  emphasis_destiny.Select
+  diagnostics_destiny.Select
   ActiveSheet.range("A5").Select
+  
   Set currenCell = ActiveCell
-  Set emphasis_destiny_header = emphasis_destiny.range("A4", emphasis_destiny.range("A4").End(xlToRight))
+  Set diagnostics_destiny_header = diagnostics_destiny.range("A4", diagnostics_destiny.range("A4").End(xlToRight))
   Set emo_origin_header = emo_origin.range("A1", emo_origin.range("A1").End(xlToRight))
-  Set emphasis_destiny_dictionary = CreateObject("Scripting.Dictionary")
+  Set diagnostics_destiny_dictionary = CreateObject("Scripting.Dictionary")
   Set emo_origin_dictionary = CreateObject("Scripting.Dictionary")
 
   If (emo_origin.range("A2") <> Empty And emo_origin.range("A3") <> Empty) Then
@@ -42,20 +44,20 @@ Public Sub DataEmphasisEmo()
     Set emo_origin_value = emo_origin.range("A2")
   End If
 
-  ''   En los diccionarios de "emphasis_destiny_dictionary" y  "emo_origin_dictionary" ''
+  ''   En los diccionarios de "diagnostics_destiny_dictionary" y  "emo_origin_dictionary" ''
   ''   se almacena los numeros de la columnas. ''
 
   x = 1
-  For Each ItemEmphasisDestiny In emphasis_destiny_header
+  For Each ItemDiagnosticsDestiny In diagnostics_destiny_header
     On Error Resume Next
-    emphasis_destiny_dictionary.Add emphasis_headers(ItemEmphasisDestiny), (ItemEmphasisDestiny.Column - 1)
+    diagnostics_destiny_dictionary.Add diagnostics_header(ItemDiagnosticsDestiny), (ItemDiagnosticsDestiny.Column - 1)
     On Error GoTo 0
-  Next ItemEmphasisDestiny
+  Next ItemDiagnosticsDestiny
 
   x = 1
   For Each ItemEmoOrigin In emo_origin_header
     On Error Resume Next
-    emo_origin_dictionary.Add emphasis_headers(ItemEmoOrigin), (ItemEmoOrigin.Column - 1)
+    emo_origin_dictionary.Add diagnostics_header(ItemEmoOrigin), (ItemEmoOrigin.Column - 1)
     On Error GoTo 0
   Next ItemEmoOrigin
 
@@ -74,7 +76,7 @@ Public Sub DataEmphasisEmo()
       oneForOne = oneForOne + widthOneforOne
       generalAll = generalAll + widthGeneral
       .lblGeneral.Caption = "importando " & CStr(numbersGeneral) & " de " & CStr(totalData) & "(" & CStr(totalData - numbersGeneral) & ") REGISTROS"
-      .lblDescription.Caption = "importando " & CStr(numbers) & " de " & CStr(counts) & "(" & CStr(counts - numbers) & ") " & emphasis_destiny.Name
+      .lblDescription.Caption = "importando " & CStr(numbers) & " de " & CStr(counts) & "(" & CStr(counts - numbers) & ") " & diagnostics_destiny.Name
       porcentaje = porcentaje + vals
       porcentajeGeneral = porcentajeGeneral + valsGeneral
       .ProgressBarOneforOne.Width = oneForOne
@@ -97,16 +99,17 @@ Public Sub DataEmphasisEmo()
       .Caption = CStr(nameCompany)
 
       If (typeExams(charters(ItemData.Offset(, emo_origin_dictionary("TIPO EXAMEN")))) <> "EGRESO") Then
-        currenCell.Offset(aumentFromRow, emphasis_destiny_dictionary("IDENTIFICACION")) = charters(ItemData.Offset(, emo_origin_dictionary("IDENTIFICACION")))
-        For i = 1 To ((emo_origin_dictionary.Count - 2) / 3)
-          currenCell.Offset(aumentFromRow, emphasis_destiny_dictionary("ENFASIS_" & i)) = charters(ItemData.Offset(, emo_origin_dictionary("ENFASIS_" & i)))
-          currenCell.Offset(aumentFromRow, emphasis_destiny_dictionary("CONCEPTO AL ENFASIS_" & i)) = emphasisConcepts(charters(ItemData.Offset(, emo_origin_dictionary("CONCEPTO AL ENFASIS_" & i))), charters(ItemData.Offset(, emo_origin_dictionary("ENFASIS_" & i))))
-          currenCell.Offset(aumentFromRow, emphasis_destiny_dictionary("OBSERVACIONES_AL_ENFASIS_" & i)) = charters(ItemData.Offset(, emo_origin_dictionary("OBSERVACIONES_AL_ENFASIS_" & i)))
+        currenCell.Offset(aumentFromRow, diagnostics_destiny_dictionary("IDENTIFICACION")) = charters(ItemData.Offset(, emo_origin_dictionary("IDENTIFICACION")))
+        currenCell.Offset(aumentFromRow, diagnostics_destiny_dictionary("CODIGO DIAG PPAL")) = charters(ItemData.Offset(, emo_origin_dictionary("CODIGO DIAG PPAL")))
+        currenCell.Offset(aumentFromRow, diagnostics_destiny_dictionary("DIAG PPAL")) = charters(ItemData.Offset(, emo_origin_dictionary("DIAG PPAL")))
+        For i = 1 To ((emo_origin_dictionary.Count - 5) / 2)
+          currenCell.Offset(aumentFromRow, diagnostics_destiny_dictionary("CODIGO DIAG REL" & i)) = charters(ItemData.Offset(, emo_origin_dictionary("CODIGO DIAG REL" & i)))
+          currenCell.Offset(aumentFromRow, diagnostics_destiny_dictionary("DIAG REL " & i)) = charters(ItemData.Offset(, emo_origin_dictionary("DIAG REL " & i)))
         Next i
+        aumentFromRow = aumentFromRow + 1
       End If
       numbers = numbers + 1
       numbersGeneral = numbersGeneral + 1
-      aumentFromRow = aumentFromRow + 1
       DoEvents
     Next ItemData
   End With
@@ -116,10 +119,10 @@ Public Sub DataEmphasisEmo()
   range("$A5", range("$A5").End(xlDown)).Select
   Call formatter
 
-  Set emphasis_destiny_header = Nothing
+  Set diagnostics_destiny_header = Nothing
   Set emo_origin_header = Nothing
   Set emo_origin_value = Nothing
-  emphasis_destiny_dictionary.RemoveAll
+  diagnostics_destiny_dictionary.RemoveAll
   emo_origin_dictionary.RemoveAll
-
+  
 End Sub

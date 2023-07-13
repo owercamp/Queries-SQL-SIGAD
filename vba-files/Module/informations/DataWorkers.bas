@@ -1,4 +1,5 @@
 Attribute VB_Name = "DataWorkers"
+'namespace=vba-files\Module\informations
 Option Explicit
 
 'TODO: Workers - En esta subrutina se importan datos de trabajadores desde una hoja de origen a una hoja de destino.
@@ -122,11 +123,11 @@ Public Sub Workers()
           currenCell.Offset(aumentFromRow, workers_dictionary("idOrdenListaTrabajadores")) = Trim(aumentFromID)
         End If
         currenCell.Offset(aumentFromRow, workers_dictionary("idOrden")) = idOrden
+        aumentFromRow = aumentFromRow + 1
       End If
 
       numbers = numbers + 1
       numbersGeneral = numbersGeneral + 1
-      aumentFromRow = aumentFromRow + 1
       DoEvents
     Next ItemData
 
@@ -143,8 +144,8 @@ Public Sub Workers()
     range("$J5", range("$J5").End(xlDown)).Select
     Call formatter
     range("$H5").Select
-    range(Selection, Selection.End(xlDown)).Select
-    Selection.TextToColumns Destination:=range("$H5"), DataType:=xlFixedWidth, _
+    range(selection, selection.End(xlDown)).Select
+    selection.TextToColumns Destination:=range("$H5"), DataType:=xlFixedWidth, _
         FieldInfo:=Array(Array(0, 4), Array(15, 9)), TrailingMinusNumbers:=True
     range("tbl_trabajadores[[#Headers],[FECHA INGRESO]]").Select
 

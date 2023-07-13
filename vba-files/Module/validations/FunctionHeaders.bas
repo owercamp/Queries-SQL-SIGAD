@@ -1,4 +1,5 @@
 Attribute VB_Name = "FunctionHeaders"
+'namespace=vba-files\Module\validations
 Option Explicit
 
 'TODO Funcion: header_worker

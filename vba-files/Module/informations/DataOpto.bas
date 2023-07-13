@@ -1,4 +1,5 @@
 Attribute VB_Name = "DataOpto"
+'namespace=vba-files\Module\informations
 Option Explicit
 
 'TODO: OptoData - En esta subrutina se importan datos de audio desde una hoja de origen a una hoja de destino.
@@ -165,10 +166,10 @@ Public Sub OptoData()
           currenCell.Offset(aumentFromRow, opto_destiny_dictionary("ID_OPTOMETRIA")) = Trim(aumentFromIDOpto)
           currenCell.Offset(aumentFromRow, opto_destiny_dictionary("OP_DIAGNOSTICO")) = Trim(aumentFromIDDiagnostic)
         End If
+        aumentFromRow = aumentFromRow + 1
       End If
       numbers = numbers + 1
       numbersGeneral = numbersGeneral + 1
-      aumentFromRow = aumentFromRow + 1
       DoEvents
     Next ItemData
   End With

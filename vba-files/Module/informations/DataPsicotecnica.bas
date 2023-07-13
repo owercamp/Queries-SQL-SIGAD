@@ -1,4 +1,5 @@
 Attribute VB_Name = "DataPsicotecnica"
+'namespace=vba-files\Module\informations
 Option Explicit
 
 'TODO: PsicotecnicaData - En esta subrutina se importan datos de audio desde una hoja de origen a una hoja de destino.
@@ -108,10 +109,10 @@ Public Sub PsicotecnicaData()
           aumentFromID = aumentFromID + 1
           currenCell.Offset(aumentFromRow, psicotecnica_destiny_dictionary("ID_PSICOTECNICA")) = Trim(aumentFromID)
         End If
+        aumentFromRow = aumentFromRow + 1
       End If
       numbers = numbers + 1
       numbersGeneral = numbersGeneral + 1
-      aumentFromRow = aumentFromRow + 1
       DoEvents
     Next ItemData
   End With
