@@ -17,21 +17,16 @@ Option Explicit
 '* - oneForOne: Una variable numerica para hacer un seguimiento del progreso de la barra de progreso para cada elemento de datos.
 '* - widthOneforOne: Una variable numerica para calcular el ancho de la barra de progreso para cada elemento de datos.
 '* ------------------------------------------------------------------------------------------------------------------
+Dim visio_origin_dictionary As Scripting.Dictionary
+Dim aumentFromID As LongPtr
 Public Sub VisioData()
-
-  Dim visio_destiny_dictionary As Scripting.Dictionary
-  Dim visio_origin_dictionary As Scripting.Dictionary
-  Dim visio_destiny_header As Object, visio_origin_header As Object, visio_origin_value As Object
-  Dim ItemVisioDestiny As Variant, ItemVisioOrigin As Variant, ItemData As Variant
-  Dim currenCell As range, aumentFromRow As LongPtr, aumentFromID As LongPtr
+  Dim tbl_visio As Object, visio_origin_header As Object, visio_origin_value As Object
+  Dim ItemVisioOrigin As Variant, ItemData As Variant
   
   Set visio_origin = origin.Worksheets("VISIO") '' VISIO DEL LIBRO ORIGEN ''
   visio_destiny.Select
-  ActiveSheet.range("A4").Select
-  Set currenCell = ActiveCell
-  Set visio_destiny_header = visio_destiny.range("A3", visio_destiny.range("A3").End(xlToRight))
+  Set tbl_visio = ActiveSheet.ListObjects("tbl_visio")
   Set visio_origin_header = visio_origin.range("A1", visio_origin.range("A1").End(xlToRight))
-  Set visio_destiny_dictionary = CreateObject("Scripting.Dictionary")
   Set visio_origin_dictionary = CreateObject("Scripting.Dictionary")
   
   If (visio_origin.range("A2") <> Empty And visio_origin.range("A3") <> Empty) Then
@@ -39,16 +34,6 @@ Public Sub VisioData()
   ElseIf (visio_origin.range("A2") <> Empty And visio_origin.range("A3") = Empty) Then
     Set visio_origin_value = visio_origin.range("A2")
   End If
-
-  ''   En los diccionarios de "visio_destiny_dictionary" y  "visio_origin_dictionary" ''
-  ''   se almacena los numeros de la columnas. ''
-
-  '' CABECERAS DE LA HOJA EMO DEL LIBRO DESTINO ''
-  For Each ItemVisioDestiny In visio_destiny_header
-    On Error Resume Next
-    visio_destiny_dictionary.Add visio_headers(ItemVisioDestiny), (ItemVisioDestiny.Column - 1)
-    On Error GoTo 0
-  Next ItemVisioDestiny
 
   '' CABECERA DE LA HOJA EMO DEL LIBRO ORIGEN ''
   For Each ItemVisioOrigin In visio_origin_header
@@ -59,7 +44,7 @@ Public Sub VisioData()
 
   numbers = 1
   porcentaje = 0
-  aumentFromRow = 0
+  
   aumentFromID = destiny.Worksheets("RUTAS").range("$F$9").value
   counts = visio_origin_value.Count
   formImports.ProgressBarOneforOne.Width = 0
@@ -96,80 +81,13 @@ Public Sub VisioData()
       .Caption = CStr(nameCompany)
       
       If (typeExams(charters(ItemData.Offset(, visio_origin_dictionary("TIPO EXAMEN")))) <> "EGRESO") Then
-        currenCell.Offset(aumentFromRow, visio_destiny_dictionary("NRO IDENFICACION")) = charters(ItemData.Offset(, visio_origin_dictionary("NRO IDENFICACION")))
-        currenCell.Offset(aumentFromRow, visio_destiny_dictionary("VISIO/ANT_ LABORAL ILUMINACION INADECUADA")) = charters_empty(ItemData.Offset(, visio_origin_dictionary("VISIO/ANT_ LABORAL ILUMINACION INADECUADA")))
-        currenCell.Offset(aumentFromRow, visio_destiny_dictionary("VISIO/ANT_ LABORALVISIO RADIACIONES UV")) = charters_empty(ItemData.Offset(, visio_origin_dictionary("VISIO/ANT_ LABORALVISIO RADIACIONES UV")))
-        currenCell.Offset(aumentFromRow, visio_destiny_dictionary("VISIO/ANT_ LABORAL MALA VENTILACION")) = charters_empty(ItemData.Offset(, visio_origin_dictionary("VISIO/ANT_ LABORAL MALA VENTILACION")))
-        currenCell.Offset(aumentFromRow, visio_destiny_dictionary("VISIO/ANT_ LABORAL GASES TOXICOS")) = charters_empty(ItemData.Offset(, visio_origin_dictionary("VISIO/ANT_ LABORAL GASES TOXICOS")))
-        currenCell.Offset(aumentFromRow, visio_destiny_dictionary("SINTOMAS FOTOFOBIA")) = charters_empty(ItemData.Offset(, visio_origin_dictionary("SINTOMAS FOTOFOBIA")))
-        currenCell.Offset(aumentFromRow, visio_destiny_dictionary("SINTOMAS OJO ROJO")) = charters_empty(ItemData.Offset(, visio_origin_dictionary("SINTOMAS OJO ROJO")))
-        currenCell.Offset(aumentFromRow, visio_destiny_dictionary("SINTOMAS LAGRIMEO")) = charters_empty(ItemData.Offset(, visio_origin_dictionary("SINTOMAS LAGRIMEO")))
-        currenCell.Offset(aumentFromRow, visio_destiny_dictionary("SINTOMAS VISION BORROSA")) = charters_empty(ItemData.Offset(, visio_origin_dictionary("SINTOMAS VISION BORROSA")))
-        currenCell.Offset(aumentFromRow, visio_destiny_dictionary("SINTOMAS ARDOR")) = charters_empty(ItemData.Offset(, visio_origin_dictionary("SINTOMAS ARDOR")))
-        currenCell.Offset(aumentFromRow, visio_destiny_dictionary("SINTOMAS VISION DOBLE")) = charters_empty(ItemData.Offset(, visio_origin_dictionary("SINTOMAS VISION DOBLE")))
-        currenCell.Offset(aumentFromRow, visio_destiny_dictionary("SINTOMAS CANSANCIO")) = charters_empty(ItemData.Offset(, visio_origin_dictionary("SINTOMAS CANSANCIO")))
-        currenCell.Offset(aumentFromRow, visio_destiny_dictionary("SINTOMAS MALA VISION CERCANA")) = charters_empty(ItemData.Offset(, visio_origin_dictionary("SINTOMAS MALA VISION CERCANA")))
-        currenCell.Offset(aumentFromRow, visio_destiny_dictionary("SINTOMAS DOLOR")) = charters_empty(ItemData.Offset(, visio_origin_dictionary("SINTOMAS DOLOR")))
-        currenCell.Offset(aumentFromRow, visio_destiny_dictionary("SINTOMAS MALA VISON LEJANA")) = charters_empty(ItemData.Offset(, visio_origin_dictionary("SINTOMAS MALA VISON LEJANA")))
-        currenCell.Offset(aumentFromRow, visio_destiny_dictionary("SINTOMAS SECRECION")) = charters_empty(ItemData.Offset(, visio_origin_dictionary("SINTOMAS SECRECION")))
-        currenCell.Offset(aumentFromRow, visio_destiny_dictionary("SINTOMAS CEFALEA")) = charters_empty(ItemData.Offset(, visio_origin_dictionary("SINTOMAS CEFALEA")))
-        currenCell.Offset(aumentFromRow, visio_destiny_dictionary("OTROS SINTOMAS")) = charters(ItemData.Offset(, visio_origin_dictionary("OTROS SINTOMAS")))
-        currenCell.Offset(aumentFromRow, visio_destiny_dictionary("CABEZA - PARPADOS")) = charters(ItemData.Offset(, visio_origin_dictionary("CABEZA - PARPADOS")))
-        currenCell.Offset(aumentFromRow, visio_destiny_dictionary("CABEZA - PARPADOS OBS")) = charters(ItemData.Offset(, visio_origin_dictionary("CABEZA - PARPADOS OBS")))
-        currenCell.Offset(aumentFromRow, visio_destiny_dictionary("CABEZA - CONJUNTIVAS")) = charters(ItemData.Offset(, visio_origin_dictionary("CABEZA - CONJUNTIVAS")))
-        currenCell.Offset(aumentFromRow, visio_destiny_dictionary("CABEZA - OBS CONJUNTIVAS")) = charters(ItemData.Offset(, visio_origin_dictionary("CABEZA - OBS CONJUNTIVAS")))
-        currenCell.Offset(aumentFromRow, visio_destiny_dictionary("CABEZA - ESCLERAS")) = charters(ItemData.Offset(, visio_origin_dictionary("CABEZA - ESCLERAS")))
-        currenCell.Offset(aumentFromRow, visio_destiny_dictionary("CABEZA - OBS ESCLERAS")) = charters(ItemData.Offset(, visio_origin_dictionary("CABEZA - OBS ESCLERAS")))
-        currenCell.Offset(aumentFromRow, visio_destiny_dictionary("CABEZA - PUPILAS")) = charters(ItemData.Offset(, visio_origin_dictionary("CABEZA - PUPILAS")))
-        currenCell.Offset(aumentFromRow, visio_destiny_dictionary("CABEZA - PUPILAS OBS")) = charters(ItemData.Offset(, visio_origin_dictionary("CABEZA - PUPILAS OBS")))
-        currenCell.Offset(aumentFromRow, visio_destiny_dictionary("IMP/DIAG VL0OD NORMAL")) = charters(ItemData.Offset(, visio_origin_dictionary("IMP/DIAG VL0OD NORMAL")))
-        currenCell.Offset(aumentFromRow, visio_destiny_dictionary("IMP/DIAG VL0OI NORMAL")) = charters(ItemData.Offset(, visio_origin_dictionary("IMP/DIAG VL0OI NORMAL")))
-        currenCell.Offset(aumentFromRow, visio_destiny_dictionary("IMP/DIAG VP0OD NORMAL")) = charters(ItemData.Offset(, visio_origin_dictionary("IMP/DIAG VP0OD NORMAL")))
-        currenCell.Offset(aumentFromRow, visio_destiny_dictionary("IMP/DIAG VP0OI NORMAL")) = charters(ItemData.Offset(, visio_origin_dictionary("IMP/DIAG VP0OI NORMAL")))
-        currenCell.Offset(aumentFromRow, visio_destiny_dictionary("IMP/DIAG VL0OD DISMINUIDO")) = charters(ItemData.Offset(, visio_origin_dictionary("IMP/DIAG VL0OD DISMINUIDO")))
-        currenCell.Offset(aumentFromRow, visio_destiny_dictionary("IMP/DIAG VL0OI DISMINUIDO")) = charters(ItemData.Offset(, visio_origin_dictionary("IMP/DIAG VL0OI DISMINUIDO")))
-        currenCell.Offset(aumentFromRow, visio_destiny_dictionary("IMP/DIAG VP0OD DISMINUIDO")) = charters(ItemData.Offset(, visio_origin_dictionary("IMP/DIAG VP0OD DISMINUIDO")))
-        currenCell.Offset(aumentFromRow, visio_destiny_dictionary("IMP/DIAG VP0OI DISMINUIDO")) = charters(ItemData.Offset(, visio_origin_dictionary("IMP/DIAG VP0OI DISMINUIDO")))
-        currenCell.Offset(aumentFromRow, visio_destiny_dictionary("IMP/DIAG VL0OD NORMAL RX")) = charters(ItemData.Offset(, visio_origin_dictionary("IMP/DIAG VL0OD NORMAL RX")))
-        currenCell.Offset(aumentFromRow, visio_destiny_dictionary("IMP/DIAG VL0OI NORMAL RX")) = charters(ItemData.Offset(, visio_origin_dictionary("IMP/DIAG VL0OI NORMAL RX")))
-        currenCell.Offset(aumentFromRow, visio_destiny_dictionary("IMP/DIAG VP0OD NORMAL RX")) = charters(ItemData.Offset(, visio_origin_dictionary("IMP/DIAG VP0OD NORMAL RX")))
-        currenCell.Offset(aumentFromRow, visio_destiny_dictionary("IMP/DIAG VP0OI NORMAL RX")) = charters(ItemData.Offset(, visio_origin_dictionary("IMP/DIAG VP0OI NORMAL RX")))
-        currenCell.Offset(aumentFromRow, visio_destiny_dictionary("IMP/DIAG VL0OD DISMINUIDO RX")) = charters(ItemData.Offset(, visio_origin_dictionary("IMP/DIAG VL0OD DISMINUIDO RX")))
-        currenCell.Offset(aumentFromRow, visio_destiny_dictionary("IMP/DIAG VL0OI DISMINUIDO RX")) = charters(ItemData.Offset(, visio_origin_dictionary("IMP/DIAG VL0OI DISMINUIDO RX")))
-        currenCell.Offset(aumentFromRow, visio_destiny_dictionary("IMP/DIAG VP0OD DISMINUIDO RX")) = charters(ItemData.Offset(, visio_origin_dictionary("IMP/DIAG VP0OD DISMINUIDO RX")))
-        currenCell.Offset(aumentFromRow, visio_destiny_dictionary("IMP/DIAG VP0OI DISMINUIDO RX")) = charters(ItemData.Offset(, visio_origin_dictionary("IMP/DIAG VP0OI DISMINUIDO RX")))
-        currenCell.Offset(aumentFromRow, visio_destiny_dictionary("IMP/DIAG OBS")) = charters(ItemData.Offset(, visio_origin_dictionary("IMP/DIAG OBS")))
-        currenCell.Offset(aumentFromRow, visio_destiny_dictionary("REC CORRECCION VISUAL PARA TRABAJAR")) = charters(ItemData.Offset(, visio_origin_dictionary("REC CORRECCION VISUAL PARA TRABAJAR")))
-        currenCell.Offset(aumentFromRow, visio_destiny_dictionary("REC USO RX PARA VISION PROX")) = charters(ItemData.Offset(, visio_origin_dictionary("REC USO RX PARA VISION PROX")))
-        currenCell.Offset(aumentFromRow, visio_destiny_dictionary("REC USO AR VIDEO TRMINAL")) = charters(ItemData.Offset(, visio_origin_dictionary("REC USO AR VIDEO TRMINAL")))
-        currenCell.Offset(aumentFromRow, visio_destiny_dictionary("REC USO RX DESCANSO")) = charters(ItemData.Offset(, visio_origin_dictionary("REC USO RX DESCANSO")))
-        currenCell.Offset(aumentFromRow, visio_destiny_dictionary("REC USO LENTES PROT_ SOLAR")) = charters(ItemData.Offset(, visio_origin_dictionary("REC USO LENTES PROT_ SOLAR")))
-        currenCell.Offset(aumentFromRow, visio_destiny_dictionary("REC USO PERMANENTE RX OPTICA")) = charters(ItemData.Offset(, visio_origin_dictionary("REC USO PERMANENTE RX OPTICA")))
-        currenCell.Offset(aumentFromRow, visio_destiny_dictionary("REC USO EPP VISUAL")) = charters(ItemData.Offset(, visio_origin_dictionary("REC USO EPP VISUAL")))
-        currenCell.Offset(aumentFromRow, visio_destiny_dictionary("REC PYP")) = charters(ItemData.Offset(, visio_origin_dictionary("REC PYP")))
-        currenCell.Offset(aumentFromRow, visio_destiny_dictionary("REC PAUSAS ACTIVAS")) = charters(ItemData.Offset(, visio_origin_dictionary("REC PAUSAS ACTIVAS")))
-        currenCell.Offset(aumentFromRow, visio_destiny_dictionary("REC LUBRICANTE OCULAR")) = charters(ItemData.Offset(, visio_origin_dictionary("REC LUBRICANTE OCULAR")))
-        currenCell.Offset(aumentFromRow, visio_destiny_dictionary("RECOMENDACIONES OBS")) = charters(ItemData.Offset(, visio_origin_dictionary("RECOMENDACIONES OBS")))
-        currenCell.Offset(aumentFromRow, visio_destiny_dictionary("REM_ VALORACION OFTALM_")) = charters(ItemData.Offset(, visio_origin_dictionary("REM_ VALORACION OFTALM_")))
-        currenCell.Offset(aumentFromRow, visio_destiny_dictionary("REM_ VALORACION OPTO_ COMPLETA")) = charters(ItemData.Offset(, visio_origin_dictionary("REM_ VALORACION OPTO_ COMPLETA")))
-        currenCell.Offset(aumentFromRow, visio_destiny_dictionary("REM_ TOPOGRAFIA CORNEAL")) = charters(ItemData.Offset(, visio_origin_dictionary("REM_ TOPOGRAFIA CORNEAL")))
-        currenCell.Offset(aumentFromRow, visio_destiny_dictionary("REM_ TRATAM_ ORTOPTICA")) = charters(ItemData.Offset(, visio_origin_dictionary("REM_ TRATAM_ ORTOPTICA")))
-        currenCell.Offset(aumentFromRow, visio_destiny_dictionary("REM_ TEST FARNSWORTH")) = charters(ItemData.Offset(, visio_origin_dictionary("REM_ TEST FARNSWORTH")))
-        currenCell.Offset(aumentFromRow, visio_destiny_dictionary("REALIZAR PRUEBA AMBULATORIA")) = charters(ItemData.Offset(, visio_origin_dictionary("REALIZAR PRUEBA AMBULATORIA")))
-        currenCell.Offset(aumentFromRow, visio_destiny_dictionary("OTRAS REMISIONES")) = charters(ItemData.Offset(, visio_origin_dictionary("OTRAS REMISIONES")))
-        currenCell.Offset(aumentFromRow, visio_destiny_dictionary("CONTROL MENSUAL")) = charters(ItemData.Offset(, visio_origin_dictionary("CONTROL MENSUAL")))
-        currenCell.Offset(aumentFromRow, visio_destiny_dictionary("CONTROLES_BIMESTRALES")) = charters(ItemData.Offset(, visio_origin_dictionary("CONTROLES_BIMESTRALES")))
-        currenCell.Offset(aumentFromRow, visio_destiny_dictionary("CONTROL TRIMESTRAL")) = charters(ItemData.Offset(, visio_origin_dictionary("CONTROL TRIMESTRAL")))
-        currenCell.Offset(aumentFromRow, visio_destiny_dictionary("CONTROL 6 MESES")) = charters(ItemData.Offset(, visio_origin_dictionary("CONTROL 6 MESES")))
-        currenCell.Offset(aumentFromRow, visio_destiny_dictionary("CONTROL 1 ANO")) = charters(ItemData.Offset(, visio_origin_dictionary("CONTROL 1 ANO")))
-        currenCell.Offset(aumentFromRow, visio_destiny_dictionary("CONTROL CONFIRMATORIA")) = charters(ItemData.Offset(, visio_origin_dictionary("CONTROL CONFIRMATORIA")))
-        If (currenCell.Offset(aumentFromRow, 0).row = 4) Then
-          currenCell.Offset(aumentFromRow, visio_destiny_dictionary("ID_VISIOMETRIA")) = Trim(aumentFromID)
-        Else
-          aumentFromID = aumentFromID + 1
-          currenCell.Offset(aumentFromRow, visio_destiny_dictionary("ID_VISIOMETRIA")) = Trim(aumentFromID)
-        End If
-        aumentFromRow = aumentFromRow + 1
+        Select Case numbers
+          Case 1
+            Call addNewRegister(tbl_visio.ListRows(1), aumentFromID, ItemData)
+          Case Else
+            aumentFromID = aumentFromID + 1
+            Call addNewRegister(tbl_visio.ListRows.Add, aumentFromID, ItemData)
+        End Select
       End If
       numbers = numbers + 1
       numbersGeneral = numbersGeneral + 1
@@ -191,9 +109,82 @@ Public Sub VisioData()
   Call formatter
 
   Set visio_origin_value = Nothing
-  Set visio_destiny_header = Nothing
   Set visio_origin_header = Nothing
-  visio_destiny_dictionary.RemoveAll
   visio_origin_dictionary.RemoveAll
+
+End Sub
+
+Private Sub addNewRegister(ByVal table As Object, ByVal autoIncrement As LongPtr, ByVal ItemData As Variant)
+
+  With table
+    .Range(1) = charters(ItemData.Offset(, visio_origin_dictionary("NRO IDENFICACION")))
+    .Range(2) = charters_empty(ItemData.Offset(, visio_origin_dictionary("VISIO/ANT_ LABORAL ILUMINACION INADECUADA")))
+    .Range(3) = charters_empty(ItemData.Offset(, visio_origin_dictionary("VISIO/ANT_ LABORALVISIO RADIACIONES UV")))
+    .Range(4) = charters_empty(ItemData.Offset(, visio_origin_dictionary("VISIO/ANT_ LABORAL MALA VENTILACION")))
+    .Range(5) = charters_empty(ItemData.Offset(, visio_origin_dictionary("VISIO/ANT_ LABORAL GASES TOXICOS")))
+    .Range(6) = charters_empty(ItemData.Offset(, visio_origin_dictionary("SINTOMAS FOTOFOBIA")))
+    .Range(7) = charters_empty(ItemData.Offset(, visio_origin_dictionary("SINTOMAS OJO ROJO")))
+    .Range(8) = charters_empty(ItemData.Offset(, visio_origin_dictionary("SINTOMAS LAGRIMEO")))
+    .Range(9) = charters_empty(ItemData.Offset(, visio_origin_dictionary("SINTOMAS VISION BORROSA")))
+    .Range(10) = charters_empty(ItemData.Offset(, visio_origin_dictionary("SINTOMAS ARDOR")))
+    .Range(11) = charters_empty(ItemData.Offset(, visio_origin_dictionary("SINTOMAS VISION DOBLE")))
+    .Range(12) = charters_empty(ItemData.Offset(, visio_origin_dictionary("SINTOMAS CANSANCIO")))
+    .Range(13) = charters_empty(ItemData.Offset(, visio_origin_dictionary("SINTOMAS MALA VISION CERCANA")))
+    .Range(14) = charters_empty(ItemData.Offset(, visio_origin_dictionary("SINTOMAS DOLOR")))
+    .Range(15) = charters_empty(ItemData.Offset(, visio_origin_dictionary("SINTOMAS MALA VISON LEJANA")))
+    .Range(16) = charters_empty(ItemData.Offset(, visio_origin_dictionary("SINTOMAS SECRECION")))
+    .Range(17) = charters_empty(ItemData.Offset(, visio_origin_dictionary("SINTOMAS CEFALEA")))
+    .Range(18) = charters(ItemData.Offset(, visio_origin_dictionary("OTROS SINTOMAS")))
+    .Range(19) = charters(ItemData.Offset(, visio_origin_dictionary("CABEZA - PARPADOS")))
+    .Range(20) = charters(ItemData.Offset(, visio_origin_dictionary("CABEZA - PARPADOS OBS")))
+    .Range(21) = charters(ItemData.Offset(, visio_origin_dictionary("CABEZA - CONJUNTIVAS")))
+    .Range(22) = charters(ItemData.Offset(, visio_origin_dictionary("CABEZA - OBS CONJUNTIVAS")))
+    .Range(23) = charters(ItemData.Offset(, visio_origin_dictionary("CABEZA - ESCLERAS")))
+    .Range(24) = charters(ItemData.Offset(, visio_origin_dictionary("CABEZA - OBS ESCLERAS")))
+    .Range(25) = charters(ItemData.Offset(, visio_origin_dictionary("CABEZA - PUPILAS")))
+    .Range(26) = charters(ItemData.Offset(, visio_origin_dictionary("CABEZA - PUPILAS OBS")))
+    .Range(27) = charters(ItemData.Offset(, visio_origin_dictionary("IMP/DIAG VL0OD NORMAL")))
+    .Range(28) = charters(ItemData.Offset(, visio_origin_dictionary("IMP/DIAG VL0OI NORMAL")))
+    .Range(29) = charters(ItemData.Offset(, visio_origin_dictionary("IMP/DIAG VP0OD NORMAL")))
+    .Range(30) = charters(ItemData.Offset(, visio_origin_dictionary("IMP/DIAG VP0OI NORMAL")))
+    .Range(31) = charters(ItemData.Offset(, visio_origin_dictionary("IMP/DIAG VL0OD DISMINUIDO")))
+    .Range(32) = charters(ItemData.Offset(, visio_origin_dictionary("IMP/DIAG VL0OI DISMINUIDO")))
+    .Range(33) = charters(ItemData.Offset(, visio_origin_dictionary("IMP/DIAG VP0OD DISMINUIDO")))
+    .Range(34) = charters(ItemData.Offset(, visio_origin_dictionary("IMP/DIAG VP0OI DISMINUIDO")))
+    .Range(35) = charters(ItemData.Offset(, visio_origin_dictionary("IMP/DIAG VL0OD NORMAL RX")))
+    .Range(36) = charters(ItemData.Offset(, visio_origin_dictionary("IMP/DIAG VL0OI NORMAL RX")))
+    .Range(37) = charters(ItemData.Offset(, visio_origin_dictionary("IMP/DIAG VP0OD NORMAL RX")))
+    .Range(38) = charters(ItemData.Offset(, visio_origin_dictionary("IMP/DIAG VP0OI NORMAL RX")))
+    .Range(39) = charters(ItemData.Offset(, visio_origin_dictionary("IMP/DIAG VL0OD DISMINUIDO RX")))
+    .Range(40) = charters(ItemData.Offset(, visio_origin_dictionary("IMP/DIAG VL0OI DISMINUIDO RX")))
+    .Range(41) = charters(ItemData.Offset(, visio_origin_dictionary("IMP/DIAG VP0OD DISMINUIDO RX")))
+    .Range(42) = charters(ItemData.Offset(, visio_origin_dictionary("IMP/DIAG VP0OI DISMINUIDO RX")))
+    .Range(45) = charters(ItemData.Offset(, visio_origin_dictionary("IMP/DIAG OBS")))
+    .Range(46) = charters(ItemData.Offset(, visio_origin_dictionary("REC CORRECCION VISUAL PARA TRABAJAR")))
+    .Range(47) = charters(ItemData.Offset(, visio_origin_dictionary("REC USO RX PARA VISION PROX")))
+    .Range(48) = charters(ItemData.Offset(, visio_origin_dictionary("REC USO AR VIDEO TRMINAL")))
+    .Range(49) = charters(ItemData.Offset(, visio_origin_dictionary("REC USO RX DESCANSO")))
+    .Range(50) = charters(ItemData.Offset(, visio_origin_dictionary("REC USO LENTES PROT_ SOLAR")))
+    .Range(51) = charters(ItemData.Offset(, visio_origin_dictionary("REC USO PERMANENTE RX OPTICA")))
+    .Range(52) = charters(ItemData.Offset(, visio_origin_dictionary("REC USO EPP VISUAL")))
+    .Range(53) = charters(ItemData.Offset(, visio_origin_dictionary("REC PYP")))
+    .Range(54) = charters(ItemData.Offset(, visio_origin_dictionary("REC PAUSAS ACTIVAS")))
+    .Range(55) = charters(ItemData.Offset(, visio_origin_dictionary("REC LUBRICANTE OCULAR")))
+    .Range(56) = charters(ItemData.Offset(, visio_origin_dictionary("RECOMENDACIONES OBS")))
+    .Range(57) = charters(ItemData.Offset(, visio_origin_dictionary("REM_ VALORACION OFTALM_")))
+    .Range(58) = charters(ItemData.Offset(, visio_origin_dictionary("REM_ VALORACION OPTO_ COMPLETA")))
+    .Range(59) = charters(ItemData.Offset(, visio_origin_dictionary("REM_ TOPOGRAFIA CORNEAL")))
+    .Range(60) = charters(ItemData.Offset(, visio_origin_dictionary("REM_ TRATAM_ ORTOPTICA")))
+    .Range(61) = charters(ItemData.Offset(, visio_origin_dictionary("REM_ TEST FARNSWORTH")))
+    .Range(62) = charters(ItemData.Offset(, visio_origin_dictionary("REALIZAR PRUEBA AMBULATORIA")))
+    .Range(63) = charters(ItemData.Offset(, visio_origin_dictionary("OTRAS REMISIONES")))
+    .Range(64) = charters(ItemData.Offset(, visio_origin_dictionary("CONTROL MENSUAL")))
+    .Range(65) = charters(ItemData.Offset(, visio_origin_dictionary("CONTROLES_BIMESTRALES")))
+    .Range(66) = charters(ItemData.Offset(, visio_origin_dictionary("CONTROL TRIMESTRAL")))
+    .Range(67) = charters(ItemData.Offset(, visio_origin_dictionary("CONTROL 6 MESES")))
+    .Range(68) = charters(ItemData.Offset(, visio_origin_dictionary("CONTROL 1 ANO")))
+    .Range(69) = charters(ItemData.Offset(, visio_origin_dictionary("CONTROL CONFIRMATORIA")))
+    .Range(71) = autoIncrement
+  End With
 
 End Sub

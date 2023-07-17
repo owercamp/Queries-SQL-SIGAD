@@ -17,21 +17,16 @@ Option Explicit
 '* - oneForOne: Una variable numerica para hacer un seguimiento del progreso de la barra de progreso para cada elemento de datos.
 '* - widthOneforOne: Una variable numerica para calcular el ancho de la barra de progreso para cada elemento de datos.
 '* ------------------------------------------------------------------------------------------------------------------
+Dim opto_origin_dictionary As Scripting.Dictionary
+Dim aumentFromIDOpto As LongPtr, aumentFromIDDiagnostic As LongPtr
 Public Sub OptoData()
-
-  Dim opto_destiny_dictionary As Scripting.Dictionary
-  Dim opto_origin_dictionary As Scripting.Dictionary
-  Dim opto_destiny_header As Object, opto_origin_header As Object, opto_origin_value As Object
-  Dim ItemOptoDestiny As Variant, ItemOptoOrigin As Variant, ItemData As Variant
-  Dim currenCell As range, aumentFromRow As LongPtr, aumentFromIDOpto As LongPtr, aumentFromIDDiagnostic As LongPtr
+  Dim tbl_opto As Object, opto_origin_header As Object, opto_origin_value As Object
+  Dim ItemOptoOrigin As Variant, ItemData As Variant
   
   Set opto_origin = origin.Worksheets("OPTO") '' OPTO DEL LIBRO ORIGEN ''
   opto_destiny.Select
-  ActiveSheet.range("A4").Select
-  Set currenCell = ActiveCell
-  Set opto_destiny_header = opto_destiny.range("A3", opto_destiny.range("A3").End(xlToRight))
+  Set tbl_opto = ActiveSheet.ListObjects("tbl_opto")
   Set opto_origin_header = opto_origin.range("A1", opto_origin.range("A1").End(xlToRight))
-  Set opto_destiny_dictionary = CreateObject("Scripting.Dictionary")
   Set opto_origin_dictionary = CreateObject("Scripting.Dictionary")
 
   If (opto_origin.range("A2") <> Empty And opto_origin.range("A3") <> Empty) Then
@@ -39,16 +34,6 @@ Public Sub OptoData()
   ElseIf (opto_origin.range("A2") <> Empty And opto_origin.range("A3") = Empty) Then
     Set opto_origin_value = opto_origin.range("A2")
   End If
-
-  ''   En los diccionarios de "opto_destiny_dictionary" y  "opto_origin_dictionary" ''
-  ''   se almacena los numeros de la columnas. ''
-
-  '' CABECERAS DE LA HOJA EMO DEL LIBRO DESTINO ''
-  For Each ItemOptoDestiny In opto_destiny_header
-    On Error Resume Next
-    opto_destiny_dictionary.Add opto_headers(ItemOptoDestiny), (ItemOptoDestiny.Column - 1)
-    On Error GoTo 0
-  Next ItemOptoDestiny
 
   '' CABECERA DE LA HOJA EMO DEL LIBRO ORIGEN ''
   For Each ItemOptoOrigin In opto_origin_header
@@ -59,7 +44,7 @@ Public Sub OptoData()
 
   numbers = 1
   porcentaje = 0
-  aumentFromRow = 0
+  
   aumentFromIDOpto = destiny.Worksheets("RUTAS").range("$F$7").value
   aumentFromIDDiagnostic = destiny.Worksheets("RUTAS").range("$F$8").value
   counts = opto_origin_value.Count
@@ -97,76 +82,14 @@ Public Sub OptoData()
       .Caption = CStr(nameCompany)
       
       If (typeExams(charters(ItemData.Offset(, opto_origin_dictionary("TIPO EXAMEN")))) <> "EGRESO") Then
-        currenCell.Offset(aumentFromRow, opto_destiny_dictionary("IDENTIFICACION")) = charters(ItemData.Offset(, opto_origin_dictionary("IDENTIFICACION")))
-        currenCell.Offset(aumentFromRow, opto_destiny_dictionary("VISIO/ANT_ LABORAL ILUMINACION INADECUADA")) = charters_empty(ItemData.Offset(, opto_origin_dictionary("VISIO/ANT_ LABORAL ILUMINACION INADECUADA")))
-        currenCell.Offset(aumentFromRow, opto_destiny_dictionary("VISIO/ANT_ LABORAL USUARIO COMPUTADOR")) = charters_empty(ItemData.Offset(, opto_origin_dictionary("VISIO/ANT_ LABORAL USUARIO COMPUTADOR")))
-        currenCell.Offset(aumentFromRow, opto_destiny_dictionary("VISIO/ANT_ LABORALVISIO RADIACIONES UV")) = charters_empty(ItemData.Offset(, opto_origin_dictionary("VISIO/ANT_ LABORALVISIO RADIACIONES UV")))
-        currenCell.Offset(aumentFromRow, opto_destiny_dictionary("VISIO/ANT_ LABORAL CAMBIOS TEMPREATURA")) = charters_empty(ItemData.Offset(, opto_origin_dictionary("VISIO/ANT_ LABORAL CAMBIOS TEMPREATURA")))
-        currenCell.Offset(aumentFromRow, opto_destiny_dictionary("VISIO/ANT_ LABORAL MALA VENTILACION")) = charters_empty(ItemData.Offset(, opto_origin_dictionary("VISIO/ANT_ LABORAL MALA VENTILACION")))
-        currenCell.Offset(aumentFromRow, opto_destiny_dictionary("VISIO/ANT_ LABORAL GASES TOXICOS")) = charters_empty(ItemData.Offset(, opto_origin_dictionary("VISIO/ANT_ LABORAL GASES TOXICOS")))
-        currenCell.Offset(aumentFromRow, opto_destiny_dictionary("SINTOMAS FOTOFOBIA")) = charters_empty(ItemData.Offset(, opto_origin_dictionary("SINTOMAS FOTOFOBIA")))
-        currenCell.Offset(aumentFromRow, opto_destiny_dictionary("SINTOMAS OJO ROJO")) = charters_empty(ItemData.Offset(, opto_origin_dictionary("SINTOMAS OJO ROJO")))
-        currenCell.Offset(aumentFromRow, opto_destiny_dictionary("SINTOMAS LAGRIMEO")) = charters_empty(ItemData.Offset(, opto_origin_dictionary("SINTOMAS LAGRIMEO")))
-        currenCell.Offset(aumentFromRow, opto_destiny_dictionary("SINTOMAS VISION BORROSA")) = charters_empty(ItemData.Offset(, opto_origin_dictionary("SINTOMAS VISION BORROSA")))
-        currenCell.Offset(aumentFromRow, opto_destiny_dictionary("SINTOMAS ARDOR")) = charters_empty(ItemData.Offset(, opto_origin_dictionary("SINTOMAS ARDOR")))
-        currenCell.Offset(aumentFromRow, opto_destiny_dictionary("SINTOMAS VISION DOBLE")) = charters_empty(ItemData.Offset(, opto_origin_dictionary("SINTOMAS VISION DOBLE")))
-        currenCell.Offset(aumentFromRow, opto_destiny_dictionary("SINTOMAS CANSANCIO")) = charters_empty(ItemData.Offset(, opto_origin_dictionary("SINTOMAS CANSANCIO")))
-        currenCell.Offset(aumentFromRow, opto_destiny_dictionary("SINTOMAS MALA VISION CERCANA")) = charters_empty(ItemData.Offset(, opto_origin_dictionary("SINTOMAS MALA VISION CERCANA")))
-        currenCell.Offset(aumentFromRow, opto_destiny_dictionary("SINTOMAS DOLOR")) = charters_empty(ItemData.Offset(, opto_origin_dictionary("SINTOMAS DOLOR")))
-        currenCell.Offset(aumentFromRow, opto_destiny_dictionary("SINTOMAS MALA VISON LEJANA")) = charters_empty(ItemData.Offset(, opto_origin_dictionary("SINTOMAS MALA VISON LEJANA")))
-        currenCell.Offset(aumentFromRow, opto_destiny_dictionary("SINTOMAS SECRECION")) = charters_empty(ItemData.Offset(, opto_origin_dictionary("SINTOMAS SECRECION")))
-        currenCell.Offset(aumentFromRow, opto_destiny_dictionary("SINTOMAS CEFALEA")) = charters_empty(ItemData.Offset(, opto_origin_dictionary("SINTOMAS CEFALEA")))
-        currenCell.Offset(aumentFromRow, opto_destiny_dictionary("OTROS SINTOMAS")) = charters(ItemData.Offset(, opto_origin_dictionary("OTROS SINTOMAS")))
-        currenCell.Offset(aumentFromRow, opto_destiny_dictionary("CABEZA - PARPADOS")) = charters(ItemData.Offset(, opto_origin_dictionary("CABEZA - PARPADOS")))
-        currenCell.Offset(aumentFromRow, opto_destiny_dictionary("CABEZA - PARPADOS OBS")) = charters(ItemData.Offset(, opto_origin_dictionary("CABEZA - PARPADOS OBS")))
-        currenCell.Offset(aumentFromRow, opto_destiny_dictionary("CABEZA - CONJUNTIVAS")) = charters(ItemData.Offset(, opto_origin_dictionary("CABEZA - CONJUNTIVAS")))
-        currenCell.Offset(aumentFromRow, opto_destiny_dictionary("CABEZA - OBS CONJUNTIVAS")) = charters(ItemData.Offset(, opto_origin_dictionary("CABEZA - OBS CONJUNTIVAS")))
-        currenCell.Offset(aumentFromRow, opto_destiny_dictionary("CABEZA - ESCLERAS")) = charters(ItemData.Offset(, opto_origin_dictionary("CABEZA - ESCLERAS")))
-        currenCell.Offset(aumentFromRow, opto_destiny_dictionary("CABEZA - OBS ESCLERAS")) = charters(ItemData.Offset(, opto_origin_dictionary("CABEZA - OBS ESCLERAS")))
-        currenCell.Offset(aumentFromRow, opto_destiny_dictionary("CABEZA - PUPILAS")) = charters(ItemData.Offset(, opto_origin_dictionary("CABEZA - PUPILAS")))
-        currenCell.Offset(aumentFromRow, opto_destiny_dictionary("CABEZA - PUPILAS OBS")) = charters(ItemData.Offset(, opto_origin_dictionary("CABEZA - PUPILAS OBS")))
-        currenCell.Offset(aumentFromRow, opto_destiny_dictionary("MOT/OCUL COVERT TEST LEJOS")) = charters(ItemData.Offset(, opto_origin_dictionary("MOT/OCUL COVERT TEST LEJOS")))
-        currenCell.Offset(aumentFromRow, opto_destiny_dictionary("MOT/OCUL COVERT TEST CERCA")) = charters(ItemData.Offset(, opto_origin_dictionary("MOT/OCUL COVERT TEST CERCA")))
-        currenCell.Offset(aumentFromRow, opto_destiny_dictionary("ESTADO DE CORRECCION")) = charters(ItemData.Offset(, opto_origin_dictionary("ESTADO DE CORRECCION")))
-        currenCell.Offset(aumentFromRow, opto_destiny_dictionary("PATOLOGIA OCULAR")) = charters(ItemData.Offset(, opto_origin_dictionary("PATOLOGIA OCULAR")))
-        currenCell.Offset(aumentFromRow, opto_destiny_dictionary("DIAG PPAL")) = charters(ItemData.Offset(, opto_origin_dictionary("DIAG PPAL")))
-        currenCell.Offset(aumentFromRow, opto_destiny_dictionary("DIAG OBS")) = charters(ItemData.Offset(, opto_origin_dictionary("DIAG OBS")))
-        currenCell.Offset(aumentFromRow, opto_destiny_dictionary("DIAG REL/1")) = charters(ItemData.Offset(, opto_origin_dictionary("DIAG REL/1")))
-        currenCell.Offset(aumentFromRow, opto_destiny_dictionary("DIAG REL/2")) = charters(ItemData.Offset(, opto_origin_dictionary("DIAG REL/2")))
-        currenCell.Offset(aumentFromRow, opto_destiny_dictionary("DIAG REL/3")) = charters(ItemData.Offset(, opto_origin_dictionary("DIAG REL/3")))
-        currenCell.Offset(aumentFromRow, opto_destiny_dictionary("REC CORRECCION VISUAL PARA TRABAJAR")) = charters(ItemData.Offset(, opto_origin_dictionary("REC CORRECCION VISUAL PARA TRABAJAR")))
-        currenCell.Offset(aumentFromRow, opto_destiny_dictionary("REC USO AR VIDEO TRMINAL")) = charters(ItemData.Offset(, opto_origin_dictionary("REC USO AR VIDEO TRMINAL")))
-        currenCell.Offset(aumentFromRow, opto_destiny_dictionary("REC USO DE LENTES DE PROTECCION SOLAR")) = charters(ItemData.Offset(, opto_origin_dictionary("REC USO DE LENTES DE PROTECCION SOLAR")))
-        currenCell.Offset(aumentFromRow, opto_destiny_dictionary("REC USO EPP VISUAL")) = charters(ItemData.Offset(, opto_origin_dictionary("REC USO EPP VISUAL")))
-        currenCell.Offset(aumentFromRow, opto_destiny_dictionary("REC PAUSAS ACTIVAS")) = charters(ItemData.Offset(, opto_origin_dictionary("REC PAUSAS ACTIVAS")))
-        currenCell.Offset(aumentFromRow, opto_destiny_dictionary("REC USO RX VISION PROXIMA")) = charters(ItemData.Offset(, opto_origin_dictionary("REC USO RX VISION PROXIMA")))
-        currenCell.Offset(aumentFromRow, opto_destiny_dictionary("REC USO RX DESCANSO")) = charters(ItemData.Offset(, opto_origin_dictionary("REC USO RX DESCANSO")))
-        currenCell.Offset(aumentFromRow, opto_destiny_dictionary("REC USO PERMANENTE RX OPTICA")) = charters(ItemData.Offset(, opto_origin_dictionary("REC USO PERMANENTE RX OPTICA")))
-        currenCell.Offset(aumentFromRow, opto_destiny_dictionary("REC PYP")) = charters(ItemData.Offset(, opto_origin_dictionary("REC PYP")))
-        currenCell.Offset(aumentFromRow, opto_destiny_dictionary("REC LUBRICANTE OCULAR")) = charters(ItemData.Offset(, opto_origin_dictionary("REC LUBRICANTE OCULAR")))
-        currenCell.Offset(aumentFromRow, opto_destiny_dictionary("RECOMENDACIONES OBS")) = charters(ItemData.Offset(, opto_origin_dictionary("RECOMENDACIONES OBS")))
-        currenCell.Offset(aumentFromRow, opto_destiny_dictionary("REM_ VALORACION OFTALM_")) = charters(ItemData.Offset(, opto_origin_dictionary("REM_ VALORACION OFTALM_")))
-        currenCell.Offset(aumentFromRow, opto_destiny_dictionary("REM_ TOPOGRAFIA CORNEAL")) = charters(ItemData.Offset(, opto_origin_dictionary("REM_ TOPOGRAFIA CORNEAL")))
-        currenCell.Offset(aumentFromRow, opto_destiny_dictionary("REM_ TRATAM_ ORTOPTICA")) = charters(ItemData.Offset(, opto_origin_dictionary("REM_ TRATAM_ ORTOPTICA")))
-        currenCell.Offset(aumentFromRow, opto_destiny_dictionary("REM_ TEST FARNSWORTH")) = charters(ItemData.Offset(, opto_origin_dictionary("REM_ TEST FARNSWORTH")))
-        currenCell.Offset(aumentFromRow, opto_destiny_dictionary("REALIZAR PRUEBA AMBULATORIA")) = charters(ItemData.Offset(, opto_origin_dictionary("REALIZAR PRUEBA AMBULATORIA")))
-        currenCell.Offset(aumentFromRow, opto_destiny_dictionary("REMISIONES OBS")) = charters(ItemData.Offset(, opto_origin_dictionary("REMISIONES OBS")))
-        currenCell.Offset(aumentFromRow, opto_destiny_dictionary("CONTROLES MENSUAL")) = charters(ItemData.Offset(, opto_origin_dictionary("CONTROLES MENSUAL")))
-        currenCell.Offset(aumentFromRow, opto_destiny_dictionary("CONTROLES_BIMESTRALES")) = charters(ItemData.Offset(, opto_origin_dictionary("CONTROLES_BIMESTRALES")))
-        currenCell.Offset(aumentFromRow, opto_destiny_dictionary("CONTROLES TRIMESTRAL")) = charters(ItemData.Offset(, opto_origin_dictionary("CONTROLES TRIMESTRAL")))
-        currenCell.Offset(aumentFromRow, opto_destiny_dictionary("CONTROLES 6 MESES")) = charters(ItemData.Offset(, opto_origin_dictionary("CONTROLES 6 MESES")))
-        currenCell.Offset(aumentFromRow, opto_destiny_dictionary("CONTROLES 1 ANO")) = charters(ItemData.Offset(, opto_origin_dictionary("CONTROLES 1 ANO")))
-        currenCell.Offset(aumentFromRow, opto_destiny_dictionary("CONTROLES CONFIRMATORIA")) = charters(ItemData.Offset(, opto_origin_dictionary("CONTROLES CONFIRMATORIA")))
-        If (currenCell.Offset(aumentFromRow, 0).row = 4) Then
-          currenCell.Offset(aumentFromRow, opto_destiny_dictionary("ID_OPTOMETRIA")) = Trim(aumentFromIDOpto)
-          currenCell.Offset(aumentFromRow, opto_destiny_dictionary("OP_DIAGNOSTICO")) = Trim(aumentFromIDDiagnostic)
-        Else
-          aumentFromIDOpto = aumentFromIDOpto + 1
-          aumentFromIDDiagnostic = aumentFromIDDiagnostic + 1
-          currenCell.Offset(aumentFromRow, opto_destiny_dictionary("ID_OPTOMETRIA")) = Trim(aumentFromIDOpto)
-          currenCell.Offset(aumentFromRow, opto_destiny_dictionary("OP_DIAGNOSTICO")) = Trim(aumentFromIDDiagnostic)
-        End If
-        aumentFromRow = aumentFromRow + 1
+        Select Case numbers
+          Case 1
+            Call addNewRegister(tbl_opto.ListRows(1), aumentFromIDOpto, aumentFromIDDiagnostic, ItemData)
+          Case Else
+            aumentFromIDOpto = aumentFromIDOpto + 1
+            aumentFromIDDiagnostic = aumentFromIDDiagnostic + 1
+            Call addNewRegister(tbl_opto.ListRows.Add, aumentFromIDOpto, aumentFromIDDiagnostic, ItemData)
+        End Select
       End If
       numbers = numbers + 1
       numbersGeneral = numbersGeneral + 1
@@ -190,9 +113,76 @@ Public Sub OptoData()
   Call formatter
 
   Set opto_origin_value = Nothing
-  Set opto_destiny_header = Nothing
   Set opto_origin_header = Nothing
-  opto_destiny_dictionary.RemoveAll
   opto_origin_dictionary.RemoveAll
+
+End Sub
+
+Private Sub addNewRegister(ByVal table As Object, ByVal autoIncrementOpto As LongPtr, ByVal autoIncrementDiagnostic As LongPtr, ByVal ItemData As Variant)
+
+  With table
+    .Range(1) = charters(ItemData.Offset(, opto_origin_dictionary("IDENTIFICACION")))
+    .Range(2) = charters_empty(ItemData.Offset(, opto_origin_dictionary("VISIO/ANT_ LABORAL ILUMINACION INADECUADA")))
+    .Range(3) = charters_empty(ItemData.Offset(, opto_origin_dictionary("VISIO/ANT_ LABORAL USUARIO COMPUTADOR")))
+    .Range(4) = charters_empty(ItemData.Offset(, opto_origin_dictionary("VISIO/ANT_ LABORALVISIO RADIACIONES UV")))
+    .Range(5) = charters_empty(ItemData.Offset(, opto_origin_dictionary("VISIO/ANT_ LABORAL CAMBIOS TEMPREATURA")))
+    .Range(6) = charters_empty(ItemData.Offset(, opto_origin_dictionary("VISIO/ANT_ LABORAL MALA VENTILACION")))
+    .Range(7) = charters_empty(ItemData.Offset(, opto_origin_dictionary("VISIO/ANT_ LABORAL GASES TOXICOS")))
+    .Range(8) = charters_empty(ItemData.Offset(, opto_origin_dictionary("SINTOMAS FOTOFOBIA")))
+    .Range(9) = charters_empty(ItemData.Offset(, opto_origin_dictionary("SINTOMAS OJO ROJO")))
+    .Range(10) = charters_empty(ItemData.Offset(, opto_origin_dictionary("SINTOMAS LAGRIMEO")))
+    .Range(11) = charters_empty(ItemData.Offset(, opto_origin_dictionary("SINTOMAS VISION BORROSA")))
+    .Range(12) = charters_empty(ItemData.Offset(, opto_origin_dictionary("SINTOMAS ARDOR")))
+    .Range(13) = charters_empty(ItemData.Offset(, opto_origin_dictionary("SINTOMAS VISION DOBLE")))
+    .Range(14) = charters_empty(ItemData.Offset(, opto_origin_dictionary("SINTOMAS CANSANCIO")))
+    .Range(15) = charters_empty(ItemData.Offset(, opto_origin_dictionary("SINTOMAS MALA VISION CERCANA")))
+    .Range(16) = charters_empty(ItemData.Offset(, opto_origin_dictionary("SINTOMAS DOLOR")))
+    .Range(17) = charters_empty(ItemData.Offset(, opto_origin_dictionary("SINTOMAS MALA VISON LEJANA")))
+    .Range(18) = charters_empty(ItemData.Offset(, opto_origin_dictionary("SINTOMAS SECRECION")))
+    .Range(19) = charters_empty(ItemData.Offset(, opto_origin_dictionary("SINTOMAS CEFALEA")))
+    .Range(20) = charters(ItemData.Offset(, opto_origin_dictionary("OTROS SINTOMAS")))
+    .Range(21) = charters(ItemData.Offset(, opto_origin_dictionary("CABEZA - PARPADOS")))
+    .Range(22) = charters(ItemData.Offset(, opto_origin_dictionary("CABEZA - PARPADOS OBS")))
+    .Range(23) = charters(ItemData.Offset(, opto_origin_dictionary("CABEZA - CONJUNTIVAS")))
+    .Range(24) = charters(ItemData.Offset(, opto_origin_dictionary("CABEZA - OBS CONJUNTIVAS")))
+    .Range(25) = charters(ItemData.Offset(, opto_origin_dictionary("CABEZA - ESCLERAS")))
+    .Range(26) = charters(ItemData.Offset(, opto_origin_dictionary("CABEZA - OBS ESCLERAS")))
+    .Range(27) = charters(ItemData.Offset(, opto_origin_dictionary("CABEZA - PUPILAS")))
+    .Range(28) = charters(ItemData.Offset(, opto_origin_dictionary("CABEZA - PUPILAS OBS")))
+    .Range(29) = charters(ItemData.Offset(, opto_origin_dictionary("MOT/OCUL COVERT TEST LEJOS")))
+    .Range(30) = charters(ItemData.Offset(, opto_origin_dictionary("MOT/OCUL COVERT TEST CERCA")))
+    .Range(31) = charters(ItemData.Offset(, opto_origin_dictionary("ESTADO DE CORRECCION")))
+    .Range(32) = charters(ItemData.Offset(, opto_origin_dictionary("PATOLOGIA OCULAR")))
+    .Range(33) = charters(ItemData.Offset(, opto_origin_dictionary("DIAG PPAL")))
+    .Range(35) = charters(ItemData.Offset(, opto_origin_dictionary("DIAG OBS")))
+    .Range(36) = charters(ItemData.Offset(, opto_origin_dictionary("DIAG REL/1")))
+    .Range(37) = charters(ItemData.Offset(, opto_origin_dictionary("DIAG REL/2")))
+    .Range(38) = charters(ItemData.Offset(, opto_origin_dictionary("DIAG REL/3")))
+    .Range(39) = charters(ItemData.Offset(, opto_origin_dictionary("REC CORRECCION VISUAL PARA TRABAJAR")))
+    .Range(40) = charters(ItemData.Offset(, opto_origin_dictionary("REC USO AR VIDEO TRMINAL")))
+    .Range(41) = charters(ItemData.Offset(, opto_origin_dictionary("REC USO DE LENTES DE PROTECCION SOLAR")))
+    .Range(42) = charters(ItemData.Offset(, opto_origin_dictionary("REC USO EPP VISUAL")))
+    .Range(43) = charters(ItemData.Offset(, opto_origin_dictionary("REC PAUSAS ACTIVAS")))
+    .Range(44) = charters(ItemData.Offset(, opto_origin_dictionary("REC USO RX VISION PROXIMA")))
+    .Range(45) = charters(ItemData.Offset(, opto_origin_dictionary("REC USO RX DESCANSO")))
+    .Range(46) = charters(ItemData.Offset(, opto_origin_dictionary("REC USO PERMANENTE RX OPTICA")))
+    .Range(47) = charters(ItemData.Offset(, opto_origin_dictionary("REC PYP")))
+    .Range(48) = charters(ItemData.Offset(, opto_origin_dictionary("REC LUBRICANTE OCULAR")))
+    .Range(49) = charters(ItemData.Offset(, opto_origin_dictionary("RECOMENDACIONES OBS")))
+    .Range(50) = charters(ItemData.Offset(, opto_origin_dictionary("REM_ VALORACION OFTALM_")))
+    .Range(51) = charters(ItemData.Offset(, opto_origin_dictionary("REM_ TOPOGRAFIA CORNEAL")))
+    .Range(52) = charters(ItemData.Offset(, opto_origin_dictionary("REM_ TRATAM_ ORTOPTICA")))
+    .Range(53) = charters(ItemData.Offset(, opto_origin_dictionary("REM_ TEST FARNSWORTH")))
+    .Range(54) = charters(ItemData.Offset(, opto_origin_dictionary("REALIZAR PRUEBA AMBULATORIA")))
+    .Range(55) = charters(ItemData.Offset(, opto_origin_dictionary("REMISIONES OBS")))
+    .Range(56) = charters(ItemData.Offset(, opto_origin_dictionary("CONTROLES MENSUAL")))
+    .Range(57) = charters(ItemData.Offset(, opto_origin_dictionary("CONTROLES_BIMESTRALES")))
+    .Range(58) = charters(ItemData.Offset(, opto_origin_dictionary("CONTROLES TRIMESTRAL")))
+    .Range(59) = charters(ItemData.Offset(, opto_origin_dictionary("CONTROLES 6 MESES")))
+    .Range(60) = charters(ItemData.Offset(, opto_origin_dictionary("CONTROLES 1 ANO")))
+    .Range(61) = charters(ItemData.Offset(, opto_origin_dictionary("CONTROLES CONFIRMATORIA")))
+    .Range(64) = autoIncrementOpto
+    .Range(65) = autoIncrementDiagnostic
+  End With
 
 End Sub
