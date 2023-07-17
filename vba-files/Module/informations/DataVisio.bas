@@ -185,6 +185,7 @@ Private Sub addNewRegister(ByVal table As Object, ByVal autoIncrement As LongPtr
     .Range(68) = charters(ItemData.Offset(, visio_origin_dictionary("CONTROL 1 ANO")))
     .Range(69) = charters(ItemData.Offset(, visio_origin_dictionary("CONTROL CONFIRMATORIA")))
     .Range(71) = autoIncrement
+    DoEvents
   End With
 
 End Sub

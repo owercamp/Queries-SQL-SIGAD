@@ -93,7 +93,6 @@ Public Sub Workers()
             Call addNewRegister(tbl_workers.ListRows.Add, aumentFromID, ItemData, company_name)
         End Select
       End If
-
       numbers = numbers + 1
       numbersGeneral = numbersGeneral + 1
       DoEvents
@@ -131,7 +130,7 @@ Private Sub addNewRegister(Byval table As Object, Byval autoIncrement As LongPtr
     .Range(4) = charters(ItemData.Offset(, emo_dictionary("DESTINO")))
     .Range(5) = city(charters(ItemData.Offset(, emo_dictionary("CIUDAD"))))
     .Range(6) = charters(ItemData.Offset(, emo_dictionary("INGRESO REGISTRO")))
-    .Range(7) = charters(ItemData.Offset(, emo_dictionary("TIPO EXAMEN")))
+    .Range(7) = typeExams(charters(ItemData.Offset(, emo_dictionary("TIPO EXAMEN"))))
     .Range(8) = charters(ItemData.Offset(, emo_dictionary("FECHA INGRESO")))
     .Range(9) = charters(ItemData.Offset(, emo_dictionary("PACIENTE")))
     .Range(10) = charters(ItemData.Offset(, emo_dictionary("NRO IDENFICACION")))
@@ -148,6 +147,7 @@ Private Sub addNewRegister(Byval table As Object, Byval autoIncrement As LongPtr
     .Range(25) = 1
     .Range(49) = autoIncrement            
     .Range(50) = idOrden
+    DoEvents
   End With
 
 End Sub

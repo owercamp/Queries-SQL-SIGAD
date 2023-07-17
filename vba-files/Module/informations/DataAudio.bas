@@ -188,6 +188,7 @@ Private Sub addNewRegister(ByVal table As Object, ByVal autoIncrement As LongPtr
         .Range(53) = charters(ItemData.Offset(, audio_origin_dictionary("DIAG GATI-SO")))
     End Select
     .Range(59) = autoIncrement
+    DoEvents
   End With
 
 End Sub

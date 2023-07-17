@@ -165,6 +165,7 @@ Private Sub addNewRegister(ByVal table As Object, ByVal autoIncrement As LongPtr
     .Range(56) = charters(ItemData.Offset(, osteo_origin_dictionary("RECOM_ OCUPACIONALES")))
     .Range(57) = charters(ItemData.Offset(, osteo_origin_dictionary("RECOM_ G/RALES")))
     .Range(59) = autoIncrement
+    DoEvents
   End With
 
 End Sub

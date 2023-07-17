@@ -123,6 +123,7 @@ Private Sub addNewRegister(ByVal table As Object, ByVal autoIncrement As LongPtr
     .Range(4) = charters(ItemData.Offset(, psicotecnica_origin_dictionary("DIAGNOSTICO PPAL (CUMPLE, NO CUMPLE)")))
     .Range(5) = charters(ItemData.Offset(, psicotecnica_origin_dictionary("DIAGNOSTICO OBS")))
     .Range(7) = autoIncrement
+    DoEvents
   End With
 
 End Sub

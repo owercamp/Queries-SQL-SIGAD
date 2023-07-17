@@ -129,6 +129,7 @@ Private Sub addNewRegister(ByVal table As Object, ByVal autoIncrement As LongPtr
     .Range(7) = charters(ItemData.Offset(, comple_origin_dictionary("DIAG_ REL/3")))
     .Range(8) = charters(ItemData.Offset(, comple_origin_dictionary("HALLAZGOS")))
     .Range(10) = autoIncrement
+    DoEvents
   End With
 
 End Sub

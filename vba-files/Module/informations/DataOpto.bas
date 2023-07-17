@@ -183,6 +183,7 @@ Private Sub addNewRegister(ByVal table As Object, ByVal autoIncrementOpto As Lon
     .Range(61) = charters(ItemData.Offset(, opto_origin_dictionary("CONTROLES CONFIRMATORIA")))
     .Range(64) = autoIncrementOpto
     .Range(65) = autoIncrementDiagnostic
+    DoEvents
   End With
 
 End Sub

@@ -186,6 +186,7 @@ Private Sub addNewRegister(ByVal table As Object, ByVal autoIncrement As LongPtr
     .Range(71) = charters_empty(ItemData.Offset(, espiro_origin_dictionary("CONTROLES CONFIRMATORIA")))
     .Range(72) = charters(ItemData.Offset(, espiro_origin_dictionary("TECNICA ACEPTABLE")))
     .Range(78) = autoIncrement
+    DoEvents
   End With
 
 End Sub

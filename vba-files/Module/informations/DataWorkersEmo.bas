@@ -215,6 +215,7 @@ Private Sub addNewRegister(ByVal table As Object, ByVal autoIncrement As LongPtr
     .Range(131) = "0"
     .Range(132) = "0"
     .Range(142) = Trim(aumentFromID)
+    DoEvents
   End With
 
 End Sub
