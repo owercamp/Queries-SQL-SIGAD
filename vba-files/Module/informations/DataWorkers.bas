@@ -142,7 +142,7 @@ Private Sub addNewRegister(Byval table As Object, Byval autoIncrement As LongPtr
     .Range(18) = typeCivil(charters(ItemData.Offset(, emo_dictionary("ESTADO CIVIL"))))
     .Range(19) = school(charters(ItemData.Offset(, emo_dictionary("ESCOLARIDAD"))))
     .Range(20) = charters(ItemData.Offset(, emo_dictionary("CARGO USUARIO")))
-    .Range(22) = charters(ItemData.Offset(, emo_dictionary("LAB DURACION EN ANOS")))
+    .Range(22) = IIf(charters(ItemData.Offset(, emo_dictionary("LAB DURACION EN ANOS"))) = "SIN DATO", "", charters(ItemData.Offset(, emo_dictionary("LAB DURACION EN ANOS"))))
     .Range(24) = "ARMYWEB"
     .Range(25) = 1
     .Range(49) = autoIncrement            

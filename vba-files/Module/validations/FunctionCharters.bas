@@ -79,7 +79,7 @@ Public Function city(ByVal value As String) As String
     city = Trim("TULUA")
    Case "POPAY" & Chr(193) & "N"
     city = Trim("POPAYAN")
-   Case "SAN JOSE DE GUAVIARE"
+   Case "SAN JOSE DE GUAVIARE","SAN JOS" & ChrW(201) & " DEL GUAVIARE"
     city = Trim("SAN JOSE DEL GUAVIARE")
    Case "MANIZALEZ"
     city = Trim("MANIZALES")
@@ -128,6 +128,8 @@ Public Function school(ByVal value As String) As String
     school = "SECUNDARIA"
    Case "MAGISTER"
     school = "MAESTRIA"
+   Case "TECNOLOGICO"
+    school = "TECNOLOGO"
    Case Else
     school = value
   End Select
