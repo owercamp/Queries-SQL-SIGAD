@@ -125,7 +125,6 @@ Private Sub addNewRegister(ByVal table As Object, ByVal numberMaxEmphasis As Lon
           numberMaxEmphasis = numberMaxEmphasis - 1
       End Select
     Next i
-    DoEvents
   End With
 
 End Sub
