@@ -147,7 +147,6 @@ Private Sub addNewRegister(Byval table As Object, Byval autoIncrement As LongPtr
     .Range(25) = 1
     .Range(49) = autoIncrement            
     .Range(50) = idOrden
-    DoEvents
   End With
 
 End Sub
