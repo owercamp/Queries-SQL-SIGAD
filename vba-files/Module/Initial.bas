@@ -133,7 +133,7 @@ Public Sub extraerdatos()
   min = VBA.Minute(Time)
   dateFinals = VBA.Date
   destiny.Save
-  If (hora >= 17 And min >= 45) Or (dateInitials <> dateFinals) Then
+  If (hora >= 17 And min >= 15) Or (dateInitials <> dateFinals) Then
     Call Shell("shutdown /s /t: 30 /f")
     destiny.Close
   Else
