@@ -138,7 +138,7 @@ Public Sub clearContents()
     If (ActiveCell <> Empty Or ActiveCell <> vbNullString) And (ActiveCell.Offset(1, 0) <> Empty Or ActiveCell.Offset(1, 0) <> vbNullString) Then
       Application.StatusBar = "Limpiando trabajadores por favor espere..."
       rng = range("A5", range("A5").End(xlDown)).Count - 2
-      DoEvents
+      
       range("A5", range("A5").Offset(rng, 0)).Select
       selection.EntireRow.Delete shift:=xlUp
       ThisWorkbook.Worksheets("RUTAS").range("$F$4") = CLngPtr(Trim(range("$AW$5").value)) + 1
@@ -152,7 +152,7 @@ Public Sub clearContents()
     If (ActiveCell <> Empty Or ActiveCell <> vbNullString) And (ActiveCell.Offset(1, 0) <> Empty Or ActiveCell.Offset(1, 0) <> vbNullString) Then
       Application.StatusBar = "Limpiando enfasis por favor espere..."
       rng = range("A5", range("A5").End(xlDown)).Count - 2
-      DoEvents
+      
       range("A5", range("A5").Offset(rng, 0)).Select
       selection.EntireRow.Delete shift:=xlUp
       range("tbl_enfasis[[ENFASIS_1]:[OBSERVACIONES_AL_ENFASIS_1]]").clearContents
@@ -181,7 +181,7 @@ Public Sub clearContents()
     If (ActiveCell <> Empty Or ActiveCell <> vbNullString) And (ActiveCell.Offset(1, 0) <> Empty Or ActiveCell.Offset(1, 0) <> vbNullString) Then
       Application.StatusBar = "Limpiando diagnosticos por favor espere..."
       rng = range("A5", range("A5").End(xlDown)).Count - 2
-      DoEvents
+      
       range("A5", range("A5").Offset(rng, 0)).Select
       selection.EntireRow.Delete shift:=xlUp
       range("tbl_diagnosticos[[CODIGO DIAG PPAL]:[DIAG REL 20]]").clearContents
@@ -193,7 +193,7 @@ Public Sub clearContents()
     If (ActiveCell <> Empty Or ActiveCell <> vbNullString) And (ActiveCell.Offset(1, 0) <> Empty Or ActiveCell.Offset(1, 0) <> vbNullString) Then
       Application.StatusBar = "Limpiando emo por favor espere..."
       rng = range("A5", range("A5").End(xlDown)).Count - 2
-      DoEvents
+      
       range("A5", range("A5").Offset(rng, 0)).Select
       selection.EntireRow.Delete shift:=xlUp
       ThisWorkbook.Worksheets("RUTAS").range("$F$5") = CLngPtr(Trim(range("$EL$5").value)) + 1
@@ -207,7 +207,7 @@ Public Sub clearContents()
     If (ActiveCell <> Empty Or ActiveCell <> vbNullString) And (ActiveCell.Offset(1, 0) <> Empty Or ActiveCell.Offset(1, 0) <> vbNullString) Then
       Application.StatusBar = "Limpiando audio por favor espere..."
       rng = range("A4", range("A4").End(xlDown)).Count - 2
-      DoEvents
+      
       range("A4", range("A4").Offset(rng, 0)).Select
       selection.EntireRow.Delete shift:=xlUp
       ThisWorkbook.Worksheets("RUTAS").range("$F$6") = CLngPtr(Trim(range("$BG$4").value)) + 1
@@ -221,7 +221,7 @@ Public Sub clearContents()
     If (ActiveCell <> Empty Or ActiveCell <> vbNullString) And (ActiveCell.Offset(1, 0) <> Empty Or ActiveCell.Offset(1, 0) <> vbNullString) Then
       Application.StatusBar = "Limpiando opto por favor espere..."
       rng = range("A4", range("A4").End(xlDown)).Count - 2
-      DoEvents
+      
       range("A4", range("A4").Offset(rng, 0)).Select
       selection.EntireRow.Delete shift:=xlUp
       ThisWorkbook.Worksheets("RUTAS").range("$F$7") = CLngPtr(Trim(range("$BL$4").value)) + 1
@@ -237,7 +237,7 @@ Public Sub clearContents()
     If (ActiveCell <> Empty Or ActiveCell <> vbNullString) And (ActiveCell.Offset(1, 0) <> Empty Or ActiveCell.Offset(1, 0) <> vbNullString) Then
       Application.StatusBar = "Limpiando visio por favor espere..."
       rng = range("A4", range("A4").End(xlDown)).Count - 2
-      DoEvents
+      
       range("A4", range("A4").Offset(rng, 0)).Select
       selection.EntireRow.Delete shift:=xlUp
       ThisWorkbook.Worksheets("RUTAS").range("$F$9") = CLngPtr(Trim(range("$BS$4").value)) + 1
@@ -251,7 +251,7 @@ Public Sub clearContents()
     If (ActiveCell <> Empty Or ActiveCell <> vbNullString) And (ActiveCell.Offset(1, 0) <> Empty Or ActiveCell.Offset(1, 0) <> vbNullString) Then
       Application.StatusBar = "Limpiando espiro por favor espere..."
       rng = range("A4", range("A4").End(xlDown)).Count - 2
-      DoEvents
+      
       range("A4", range("A4").Offset(rng, 0)).Select
       selection.EntireRow.Delete shift:=xlUp
       ThisWorkbook.Worksheets("RUTAS").range("$F$10") = CLngPtr(Trim(range("$BZ$4").value)) + 1
@@ -265,7 +265,7 @@ Public Sub clearContents()
     If (ActiveCell <> Empty Or ActiveCell <> vbNullString) And (ActiveCell.Offset(1, 0) <> Empty Or ActiveCell.Offset(1, 0) <> vbNullString) Then
       Application.StatusBar = "Limpiando osteo por favor espere..."
       rng = range("A4", range("A4").End(xlDown)).Count - 2
-      DoEvents
+      
       range("A4", range("A4").Offset(rng, 0)).Select
       selection.EntireRow.Delete shift:=xlUp
       ThisWorkbook.Worksheets("RUTAS").range("$F$11") = CLngPtr(Trim(range("$BG$4").value)) + 1
@@ -279,7 +279,7 @@ Public Sub clearContents()
     If (ActiveCell <> Empty Or ActiveCell <> vbNullString) And (ActiveCell.Offset(1, 0) <> Empty Or ActiveCell.Offset(1, 0) <> vbNullString) Then
       Application.StatusBar = "Limpiando complementarios por favor espere..."
       rng = range("A4", range("A4").End(xlDown)).Count - 2
-      DoEvents
+      
       range("A4", range("A4").Offset(rng, 0)).Select
       selection.EntireRow.Delete shift:=xlUp
       ThisWorkbook.Worksheets("RUTAS").range("$F$12") = CLngPtr(Trim(range("$J$4").value)) + 1
@@ -293,7 +293,7 @@ Public Sub clearContents()
     If (ActiveCell <> Empty Or ActiveCell <> vbNullString) And (ActiveCell.Offset(1, 0) <> Empty Or ActiveCell.Offset(1, 0) <> vbNullString) Then
       Application.StatusBar = "Limpiando psicotecnica por favor espere..."
       rng = range("A2", range("A2").End(xlDown)).Count - 2
-      DoEvents
+      
       range("A2", range("A2").Offset(rng, 0)).Select
       selection.EntireRow.Delete shift:=xlUp
       ThisWorkbook.Worksheets("RUTAS").range("$F$13") = CLngPtr(Trim(range("$G$2").value)) + 1
@@ -307,7 +307,7 @@ Public Sub clearContents()
     If (ActiveCell <> Empty Or ActiveCell <> vbNullString) And (ActiveCell.Offset(1, 0) <> Empty Or ActiveCell.Offset(1, 0) <> vbNullString) Then
       Application.StatusBar = "Limpiando psicosensometrica por favor espere..."
       rng = range("A3", range("A3").End(xlDown)).Count - 2
-      DoEvents
+      
       range("A3", range("A3").Offset(rng, 0)).Select
       selection.EntireRow.Delete shift:=xlUp
       ThisWorkbook.Worksheets("RUTAS").range("$F$14") = CLngPtr(Trim(range("$Q$3").value)) + 1
