@@ -85,15 +85,16 @@ Public Sub OptoData()
         Select Case numbers
           Case 1
             Call addNewRegister(tbl_opto.ListRows(1), aumentFromIDOpto, aumentFromIDDiagnostic, ItemData)
+            DoEvents
           Case Else
             aumentFromIDOpto = aumentFromIDOpto + 1
             aumentFromIDDiagnostic = aumentFromIDDiagnostic + 1
             Call addNewRegister(tbl_opto.ListRows.Add, aumentFromIDOpto, aumentFromIDDiagnostic, ItemData)
+            DoEvents
         End Select
       End If
       numbers = numbers + 1
       numbersGeneral = numbersGeneral + 1
-      DoEvents
     Next ItemData
   End With
 
