@@ -20,36 +20,28 @@ Option Explicit
 Dim psicotecnica_origin_dictionary As Scripting.Dictionary
 Dim aumentFromID As LongPtr
 Public Sub PsicotecnicaData()
-  Dim tbl_psicotecnica As Object, psicotecnica_origin_header As Object, psicotecnica_origin_value As Object
-  Dim ItemPsicotecnicaOrigin As Variant, ItemData As Variant
+  Dim tbl_psicotecnica As Object, xNumber As Long, psico_origin As Variant
   
   On Error GoTo tecnica:
-  Set psico_origin = origin.Worksheets("PSICOTECNICA") '' PSICOTECNICA DEL LIBRO ORIGEN ''
+  psico_origin = origin.Worksheets("PSICOTECNICA").Range("A1").CurrentRegion.value '' PSICOTECNICA DEL LIBRO ORIGEN ''
   On Error GoTo 0
   
   psico_destiny.Select
   Set tbl_psicotecnica = ActiveSheet.ListObjects("tbl_psicotecnica")
-  Set psicotecnica_origin_header = psico_origin.range("A1", psico_origin.range("A1").End(xlToRight))
   Set psicotecnica_origin_dictionary = CreateObject("Scripting.Dictionary")
 
-  If (psico_origin.range("A2") <> Empty And psico_origin.range("A3") <> Empty) Then
-    Set psicotecnica_origin_value = psico_origin.range("A2", psico_origin.range("A2").End(xlDown))
-  ElseIf (psico_origin.range("A2") <> Empty And psico_origin.range("A3") = Empty) Then
-    Set psicotecnica_origin_value = psico_origin.range("A2")
-  End If
-
   '' CABECERA DE LA HOJA EMO DEL LIBRO ORIGEN ''
-  For Each ItemPsicotecnicaOrigin In psicotecnica_origin_header
+  For xNumber = 1 To Ubound(psico_origin, 2)
     On Error Resume Next
-    psicotecnica_origin_dictionary.Add psicotecnica_headers(ItemPsicotecnicaOrigin), (ItemPsicotecnicaOrigin.Column - 1)
-    On Error GoTo 0
-  Next ItemPsicotecnicaOrigin
+    psicotecnica_origin_dictionary.Add psicotecnica_headers(psico_origin(1, xNumber)), xNumber
+    On Error GoTo 0    
+  Next xNumber
 
   numbers = 1
   porcentaje = 0
   
   aumentFromID = destiny.Worksheets("RUTAS").range("$F$13").value
-  counts = psicotecnica_origin_value.Count
+  counts = Ubound(psico_origin, 1) - 1
   formImports.ProgressBarOneforOne.Width = 0
   formImports.porcentageOneoforOne = "0%"
   vals = 1 / counts
@@ -57,7 +49,7 @@ Public Sub PsicotecnicaData()
   widthOneforOne = formImports.content_ProgressBarOneforOne.Width / counts
 
   With formImports
-    For Each ItemData In psicotecnica_origin_value
+    For xNumber = 2 To Ubound(psico_origin, 1)
       oneForOne = oneForOne + widthOneforOne
       generalAll = generalAll + widthGeneral
       .lblGeneral.Caption = "importando " & CStr(numbersGeneral) & " de " & CStr(totalData) & "(" & CStr(totalData - numbersGeneral) & ") REGISTROS"
@@ -83,20 +75,20 @@ Public Sub PsicotecnicaData()
       
       .Caption = CStr(nameCompany)
       
-      If (typeExams(charters(ItemData.Offset(, psicotecnica_origin_dictionary("TIPO EXAMEN")))) <> "EGRESO") Then
+      If (typeExams(charters(psico_origin(xNumber, psicotecnica_origin_dictionary("TIPO EXAMEN")))) <> "EGRESO") Then
         Select Case numbers
           Case 1
-            Call addNewRegister(tbl_psicotecnica.ListRows(1), aumentFromID, ItemData)
+            Call addNewRegister(tbl_psicotecnica.ListRows(1), aumentFromID, psico_origin, xNumber)
             DoEvents
           Case Else
             aumentFromID = aumentFromID + 1
-            Call addNewRegister(tbl_psicotecnica.ListRows.Add, aumentFromID, ItemData)
+            Call addNewRegister(tbl_psicotecnica.ListRows.Add, aumentFromID, psico_origin, xNumber)
             DoEvents
         End Select
       End If
       numbers = numbers + 1
       numbersGeneral = numbersGeneral + 1
-    Next ItemData
+    Next xNumber
   End With
 
   range("D2").Select
@@ -104,25 +96,24 @@ Public Sub PsicotecnicaData()
   range("$A2", range("$A2").End(xlDown)).Select
   Call formatter
 
-  Set psicotecnica_origin_value = Nothing
-  Set psicotecnica_origin_header = Nothing
+  Set psicotecnica_origin = Nothing
   psicotecnica_origin_dictionary.RemoveAll
 
   Exit Sub
 
 tecnica:
-  Set psico_origin = origin.Worksheets("PSICOLOGIA")
+  psico_origin = origin.Worksheets("PSICOLOGIA").Range("A1").CurrentRegion.value
   Resume Next
 End Sub
 
-Private Sub addNewRegister(ByVal table As Object, ByVal autoIncrement As LongPtr, ByVal ItemData As Variant)
+Private Sub addNewRegister(ByVal table As Object, ByVal autoIncrement As LongPtr, ByVal information As Variant, ByVal x As Long)
 
   With table
-    .Range(1) = charters(ItemData.Offset(, psicotecnica_origin_dictionary("NRO IDENFICACION")))
-    .Range(2) = charters(ItemData.Offset(, psicotecnica_origin_dictionary("PACIENTE")))
-    .Range(3) = charters(ItemData.Offset(, psicotecnica_origin_dictionary("PRUEBA PSICOTECNICA")))
-    .Range(4) = charters(ItemData.Offset(, psicotecnica_origin_dictionary("DIAGNOSTICO PPAL (CUMPLE, NO CUMPLE)")))
-    .Range(5) = charters(ItemData.Offset(, psicotecnica_origin_dictionary("DIAGNOSTICO OBS")))
+    .Range(1) = charters(information(x, psicotecnica_origin_dictionary("NRO IDENFICACION")))
+    .Range(2) = charters(information(x, psicotecnica_origin_dictionary("PACIENTE")))
+    .Range(3) = charters(information(x, psicotecnica_origin_dictionary("PRUEBA PSICOTECNICA")))
+    .Range(4) = charters(information(x, psicotecnica_origin_dictionary("DIAGNOSTICO PPAL (CUMPLE, NO CUMPLE)")))
+    .Range(5) = charters(information(x, psicotecnica_origin_dictionary("DIAGNOSTICO OBS")))
     .Range(7) = autoIncrement
   End With
 
