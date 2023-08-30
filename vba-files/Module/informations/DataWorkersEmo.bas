@@ -17,41 +17,33 @@ Option Explicit
 Dim emo_origin_dictionary As Scripting.Dictionary
 Dim aumentFromID As LongPtr
 Public Sub DataEmoWorkers()
-  Dim tbl_emo As Object, emo_origin_header As Object, emo_origin_value As Object
-  Dim ItemEmoOrigin As Variant, ItemData As Variant
+  Dim tbl_emo As Object, xNumber As Long, emo_origin As Variant
 
-  Set emo_origin = origin.Worksheets("EMO") '' EMO DEL LIBRO ORIGEN ''
+  emo_origin = origin.Worksheets("EMO").Range("A1").CurrentRegion.value '' EMO DEL LIBRO ORIGEN ''
   emo_destiny.Select
   Set tbl_emo = ActiveSheet.ListObjects("tbl_emo")
-  Set emo_origin_header = emo_origin.range("A1", emo_origin.range("A1").End(xlToRight))
   Set emo_origin_dictionary = CreateObject("Scripting.Dictionary")
 
-  If (emo_origin.range("A2") <> Empty And emo_origin.range("A3") <> Empty) Then
-    Set emo_origin_value = emo_origin.range("A2", emo_origin.range("A2").End(xlDown))
-  Elseif (emo_origin.range("A2") <> Empty And emo_origin.range("A3") = Empty) Then
-    Set emo_origin_value = emo_origin.range("A2")
-  End If
-
   '' CABECERA DE LA HOJA EMO DEL LIBRO ORIGEN ''
-  For Each ItemEmoOrigin In emo_origin_header
+  For xNumber = 1 To Ubound(emo_origin, 2)
     On Error Resume Next
-    emo_origin_dictionary.Add emo_headers(ItemEmoOrigin), (ItemEmoOrigin.Column - 1)
-    On Error Goto 0
-  Next ItemEmoOrigin
+    emo_origin_dictionary.Add emo_headers(emo_origin(1, xNumber)), xNumber
+    On Error GoTo 0    
+  Next xNumber
 
   numbers = 1
   oneForOne = 0
   porcentaje = 0
   
   aumentFromID = destiny.Worksheets("RUTAS").range("$F$5").value
-  counts = emo_origin_value.Count
+  counts = Ubound(emo_origin, 1) - 1
   formImports.ProgressBarOneforOne.Width = 0
   formImports.porcentageOneoforOne = "0%"
   vals = 1 / counts
   widthOneforOne = formImports.content_ProgressBarOneforOne.Width / counts
 
   With formImports
-    For Each ItemData In emo_origin_value
+    For xNumber = 2 To Ubound(emo_origin, 1)
       oneForOne = oneForOne + widthOneforOne
       generalAll = generalAll + widthGeneral
       .lblGeneral.Caption = "importando " & CStr(numbersGeneral) & " de " & CStr(totalData) & "(" & CStr(totalData - numbersGeneral) & ") REGISTROS"
@@ -77,20 +69,20 @@ Public Sub DataEmoWorkers()
 
       .Caption = CStr(nameCompany)
 
-      If (typeExams(charters(ItemData.Offset(, emo_origin_dictionary("TIPO EXAMEN")))) <> "EGRESO") Then
+      If (typeExams(charters(emo_origin(xNumber, emo_origin_dictionary("TIPO EXAMEN")))) <> "EGRESO") Then
         Select Case numbers
           Case 1
-            Call addNewRegister(tbl_emo.ListRows(1), aumentFromID, ItemData)
+            Call addNewRegister(tbl_emo.ListRows(1), aumentFromID, emo_origin, xNumber)
             DoEvents
           Case Else
             aumentFromID = aumentFromID + 1
-            Call addNewRegister(tbl_emo.ListRows.Add, aumentFromID, ItemData)
+            Call addNewRegister(tbl_emo.ListRows.Add, aumentFromID, emo_origin, xNumber)
             DoEvents
         End Select
       End If
       numbers = numbers + 1
       numbersGeneral = numbersGeneral + 1
-    Next ItemData
+    Next xNumber
   End With
 
   range("$BH5").Select
@@ -107,93 +99,92 @@ Public Sub DataEmoWorkers()
   range("$A5", range("$A5").End(xlDown)).Select
   Call formatter
 
-  Set emo_origin_value = Nothing
-  Set emo_origin_header = Nothing
+  Set emo_origin = Nothing
   emo_origin_dictionary.RemoveAll
 
 End Sub
 
-Private Sub addNewRegister(ByVal table As Object, ByVal autoIncrement As LongPtr, ByVal ItemData As Variant)
+Private Sub addNewRegister(ByVal table As Object, ByVal autoIncrement As LongPtr, ByVal information As Variant, ByVal x As Long)
 
   With table
-    .Range(1) = charters(ItemData.Offset(, emo_origin_dictionary("NRO IDENFICACION")))
-    .Range(2) = charters_empty(ItemData.Offset(, emo_origin_dictionary("RIESGO FISICO / RUIDO")))
-    .Range(3) = charters_empty(ItemData.Offset(, emo_origin_dictionary("RIESGO FISICO / ILUMINACION")))
-    .Range(4) = charters_empty(ItemData.Offset(, emo_origin_dictionary("RIESGO FISICO / VIBRACION")))
-    .Range(5) = charters_empty(ItemData.Offset(, emo_origin_dictionary("RIESGO FISICO / TEMP EXTREMAS")))
-    .Range(6) = charters_empty(ItemData.Offset(, emo_origin_dictionary("RIESGO FISICO / PRES ATMOSFERICA")))
-    .Range(7) = charters_empty(ItemData.Offset(, emo_origin_dictionary("RIESGO FISICO / RAD IONIZANTES")))
-    .Range(8) = charters_empty(ItemData.Offset(, emo_origin_dictionary("RIESGO FISICO / RAD NO IONIZANTES")))
-    .Range(9) = charters_empty(ItemData.Offset(, emo_origin_dictionary("RIESGO DE OTROS FACTORES FISICOS")))
-    .Range(10) = charters_empty(ItemData.Offset(, emo_origin_dictionary("RIESGO BIOLOGICO / VIRUS")))
-    .Range(11) = charters_empty(ItemData.Offset(, emo_origin_dictionary("RIESGO BIOLOGICO / BACTERIAS")))
-    .Range(12) = charters_empty(ItemData.Offset(, emo_origin_dictionary("RIESGO BIOLOGICO / HONGOS")))
-    .Range(13) = charters_empty(ItemData.Offset(, emo_origin_dictionary("RIESGO BIOLOGICO / RICKETSIAS")))
-    .Range(14) = charters_empty(ItemData.Offset(, emo_origin_dictionary("RIESGO BIOLOGICO / PARASITOS")))
-    .Range(15) = charters_empty(ItemData.Offset(, emo_origin_dictionary("RIESGO BIOLOGICO / FLUIDOS")))
-    .Range(16) = charters_empty(ItemData.Offset(, emo_origin_dictionary("RIESGO BIOLOGICO / PICADURAS")))
-    .Range(17) = charters_empty(ItemData.Offset(, emo_origin_dictionary("RIESGO BIOLOGICO / MORDEDURAS")))
-    .Range(18) = charters_empty(ItemData.Offset(, emo_origin_dictionary("OTROS RIESGOS BIOLOGICOS")))
-    .Range(19) = charters_empty(ItemData.Offset(, emo_origin_dictionary("RIESGO QUIMICO / POLVOS")))
-    .Range(20) = charters_empty(ItemData.Offset(, emo_origin_dictionary("RIESGO QUIMICO / FIBRAS")))
-    .Range(21) = charters_empty(ItemData.Offset(, emo_origin_dictionary("RIESGO QUIMICO / LIQUIDOS")))
-    .Range(22) = charters_empty(ItemData.Offset(, emo_origin_dictionary("RIESGO QUIMICO /GASES")))
-    .Range(23) = charters_empty(ItemData.Offset(, emo_origin_dictionary("RIESGO QUIMICO / VAPORES")))
-    .Range(24) = charters_empty(ItemData.Offset(, emo_origin_dictionary("RIESGO QUIMICO / HUMOS")))
-    .Range(25) = charters_empty(ItemData.Offset(, emo_origin_dictionary("RIESGO QUIMICO /MATERIAL PARTICULADO")))
-    .Range(26) = charters_empty(ItemData.Offset(, emo_origin_dictionary("OTROS RIESGOS QUIMICOS")))
-    .Range(27) = charters_empty(ItemData.Offset(, emo_origin_dictionary("RIESGO PSICO / GESTION ORGANIZACIONAL")))
-    .Range(28) = charters_empty(ItemData.Offset(, emo_origin_dictionary("RIESGO PSICO / CARACT DEL GRUPO")))
-    .Range(29) = charters_empty(ItemData.Offset(, emo_origin_dictionary("RIESGO PSICO / INTERFACES TAREA")))
-    .Range(30) = charters_empty(ItemData.Offset(, emo_origin_dictionary("RIESGO PSICO / CARACT ORGANIZACION")))
-    .Range(31) = charters_empty(ItemData.Offset(, emo_origin_dictionary("RIESGO PSICO / CONDICIONES")))
-    .Range(32) = charters_empty(ItemData.Offset(, emo_origin_dictionary("RIESGO PSICO / JORNADA")))
-    .Range(33) = charters_empty(ItemData.Offset(, emo_origin_dictionary("OTROS PSICO LABORAL")))
-    .Range(34) = charters_empty(ItemData.Offset(, emo_origin_dictionary("RIESGO_BIOMECANICO_POSTURA")))
-    .Range(35) = charters_empty(ItemData.Offset(, emo_origin_dictionary("RIESGO_BIOMECANICO_ESFUERZO")))
-    .Range(36) = charters_empty(ItemData.Offset(, emo_origin_dictionary("RIESGO_BIOMECANICO_MOVREPETITIVO")))
-    .Range(37) = charters_empty(ItemData.Offset(, emo_origin_dictionary("RIESGO_BIOMECANICO_MANIPULACION_CARGA")))
-    .Range(38) = charters_empty(ItemData.Offset(, emo_origin_dictionary("OTROS RIESGOS BIOMECANICOS")))
-    .Range(39) = charters_empty(ItemData.Offset(, emo_origin_dictionary("CONDICIONES DE SEGURIDAD / MECANICOS")))
-    .Range(40) = charters_empty(ItemData.Offset(, emo_origin_dictionary("CONDICIONES DE SEGURIDAD / ELECTRICOS")))
-    .Range(41) = charters_empty(ItemData.Offset(, emo_origin_dictionary("CONDICIONES DE SEGURIDAD / LOCATIVO")))
-    .Range(42) = charters_empty(ItemData.Offset(, emo_origin_dictionary("CONDICIONES DE SEGURIDAD / TECNOLOGICO")))
-    .Range(43) = charters_empty(ItemData.Offset(, emo_origin_dictionary("CONDICIONES DE SEGURIDAD / ACC DE TRANSITO")))
-    .Range(44) = charters_empty(ItemData.Offset(, emo_origin_dictionary("CONDICIONES DE SEGURIDAD / PUBLICOS")))
-    .Range(45) = charters_empty(ItemData.Offset(, emo_origin_dictionary("CONDICIONES DE SEGURIDAD / TRABAJO EN ALTURAS")))
-    .Range(46) = charters_empty(ItemData.Offset(, emo_origin_dictionary("CONDICIONES DE SEGURIDAD / ESPACIOS CONFINADOS")))
-    .Range(47) = charters_empty(ItemData.Offset(, emo_origin_dictionary("CONDICIONES DE SEGURIDAD / OTROS DE SEGURIDAD")))
-    .Range(48) = charters_empty(ItemData.Offset(, emo_origin_dictionary("FENOMENOS NATURALES / SISMO")))
-    .Range(49) = charters_empty(ItemData.Offset(, emo_origin_dictionary("FENOMENOS NATURALES / TERREMOTO")))
-    .Range(50) = charters_empty(ItemData.Offset(, emo_origin_dictionary("FENOMENOS NATURALES / VENDAVAL")))
-    .Range(51) = charters_empty(ItemData.Offset(, emo_origin_dictionary("FENOMENOS NATURALES / INUNDACION")))
-    .Range(52) = charters_empty(ItemData.Offset(, emo_origin_dictionary("FENOMENOS NATURALES / DERRUMBE")))
-    .Range(53) = charters_empty(ItemData.Offset(, emo_origin_dictionary("FENOMENOS NATURALES / PRECIPITACIONES")))
-    .Range(54) = charters_empty(ItemData.Offset(, emo_origin_dictionary("FENOMENOS NATURALES / OTROS NATURALES")))
-    .Range(55) = charters(ItemData.Offset(, emo_origin_dictionary("FECHA ACCIDENTE")))
-    .Range(56) = charters(ItemData.Offset(, emo_origin_dictionary("ACCIDENTE_PASO_EN_EMPRESA")))
-    .Range(57) = charters(ItemData.Offset(, emo_origin_dictionary("TIPO ACCIDENTE")))
-    .Range(58) = charters(ItemData.Offset(, emo_origin_dictionary("NATURALEZA LESION")))
-    .Range(59) = charters(ItemData.Offset(, emo_origin_dictionary("PARTE AFECTADA")))
-    .Range(60) = charters(ItemData.Offset(, emo_origin_dictionary("INCAPACIDAD")))
-    .Range(61) = charters(ItemData.Offset(, emo_origin_dictionary("SECUELAS")))
-    .Range(62) = charters(ItemData.Offset(, emo_origin_dictionary("NOMBRE ENFERMEDAD")))
-    .Range(63) = charters(ItemData.Offset(, emo_origin_dictionary("ETAPA")))
-    .Range(64) = charters(ItemData.Offset(, emo_origin_dictionary("OBSERVACIONES DE ENFERMEDAD")))
-    .Range(65) = typeActivity(charters(ItemData.Offset(, emo_origin_dictionary("ACT_ FISICA"))))
-    .Range(66) = typeSmoke(charters(ItemData.Offset(, emo_origin_dictionary("FUMA"))))
-    .Range(67) = charters(ItemData.Offset(, emo_origin_dictionary("CONSUMO DE ALCOHOL")))
-    .Range(68) = charters(ItemData.Offset(, emo_origin_dictionary("PESO")))
-    .Range(69) = charters(ItemData.Offset(, emo_origin_dictionary("TALLA")))
-    .Range(72) = charters(ItemData.Offset(, emo_origin_dictionary("TENSION ARTERIAL")))
-    .Range(73) = charters(ItemData.Offset(, emo_origin_dictionary("FREC_ CARDIACA")))
-    .Range(74) = charters(ItemData.Offset(, emo_origin_dictionary("FREC_ RESPIRATORIA")))
-    .Range(75) = charters(ItemData.Offset(, emo_origin_dictionary("PERIMETRO ABDOMINAL")))
-    .Range(76) = charters(ItemData.Offset(, emo_origin_dictionary("LATERALIDAD")))
-    .Range(97) = charters(ItemData.Offset(, emo_origin_dictionary("OBS DIAGS")))
-    .Range(98) = validateConcepts(charters(ItemData.Offset(, emo_origin_dictionary("CONCEPTO DE EVALUACION"))))
-    .Range(99) = charters(ItemData.Offset(, emo_origin_dictionary("OBSERVACIONES DEL CONCEPTO")))
-    .Range(133) = charters(ItemData.Offset(, emo_origin_dictionary("RECOMENDACIONES ESPECIFICAS")))
+    .Range(1) = charters(information(x, emo_origin_dictionary("NRO IDENFICACION")))
+    .Range(2) = charters_empty(information(x, emo_origin_dictionary("RIESGO FISICO / RUIDO")))
+    .Range(3) = charters_empty(information(x, emo_origin_dictionary("RIESGO FISICO / ILUMINACION")))
+    .Range(4) = charters_empty(information(x, emo_origin_dictionary("RIESGO FISICO / VIBRACION")))
+    .Range(5) = charters_empty(information(x, emo_origin_dictionary("RIESGO FISICO / TEMP EXTREMAS")))
+    .Range(6) = charters_empty(information(x, emo_origin_dictionary("RIESGO FISICO / PRES ATMOSFERICA")))
+    .Range(7) = charters_empty(information(x, emo_origin_dictionary("RIESGO FISICO / RAD IONIZANTES")))
+    .Range(8) = charters_empty(information(x, emo_origin_dictionary("RIESGO FISICO / RAD NO IONIZANTES")))
+    .Range(9) = charters_empty(information(x, emo_origin_dictionary("RIESGO DE OTROS FACTORES FISICOS")))
+    .Range(10) = charters_empty(information(x, emo_origin_dictionary("RIESGO BIOLOGICO / VIRUS")))
+    .Range(11) = charters_empty(information(x, emo_origin_dictionary("RIESGO BIOLOGICO / BACTERIAS")))
+    .Range(12) = charters_empty(information(x, emo_origin_dictionary("RIESGO BIOLOGICO / HONGOS")))
+    .Range(13) = charters_empty(information(x, emo_origin_dictionary("RIESGO BIOLOGICO / RICKETSIAS")))
+    .Range(14) = charters_empty(information(x, emo_origin_dictionary("RIESGO BIOLOGICO / PARASITOS")))
+    .Range(15) = charters_empty(information(x, emo_origin_dictionary("RIESGO BIOLOGICO / FLUIDOS")))
+    .Range(16) = charters_empty(information(x, emo_origin_dictionary("RIESGO BIOLOGICO / PICADURAS")))
+    .Range(17) = charters_empty(information(x, emo_origin_dictionary("RIESGO BIOLOGICO / MORDEDURAS")))
+    .Range(18) = charters_empty(information(x, emo_origin_dictionary("OTROS RIESGOS BIOLOGICOS")))
+    .Range(19) = charters_empty(information(x, emo_origin_dictionary("RIESGO QUIMICO / POLVOS")))
+    .Range(20) = charters_empty(information(x, emo_origin_dictionary("RIESGO QUIMICO / FIBRAS")))
+    .Range(21) = charters_empty(information(x, emo_origin_dictionary("RIESGO QUIMICO / LIQUIDOS")))
+    .Range(22) = charters_empty(information(x, emo_origin_dictionary("RIESGO QUIMICO /GASES")))
+    .Range(23) = charters_empty(information(x, emo_origin_dictionary("RIESGO QUIMICO / VAPORES")))
+    .Range(24) = charters_empty(information(x, emo_origin_dictionary("RIESGO QUIMICO / HUMOS")))
+    .Range(25) = charters_empty(information(x, emo_origin_dictionary("RIESGO QUIMICO /MATERIAL PARTICULADO")))
+    .Range(26) = charters_empty(information(x, emo_origin_dictionary("OTROS RIESGOS QUIMICOS")))
+    .Range(27) = charters_empty(information(x, emo_origin_dictionary("RIESGO PSICO / GESTION ORGANIZACIONAL")))
+    .Range(28) = charters_empty(information(x, emo_origin_dictionary("RIESGO PSICO / CARACT DEL GRUPO")))
+    .Range(29) = charters_empty(information(x, emo_origin_dictionary("RIESGO PSICO / INTERFACES TAREA")))
+    .Range(30) = charters_empty(information(x, emo_origin_dictionary("RIESGO PSICO / CARACT ORGANIZACION")))
+    .Range(31) = charters_empty(information(x, emo_origin_dictionary("RIESGO PSICO / CONDICIONES")))
+    .Range(32) = charters_empty(information(x, emo_origin_dictionary("RIESGO PSICO / JORNADA")))
+    .Range(33) = charters_empty(information(x, emo_origin_dictionary("OTROS PSICO LABORAL")))
+    .Range(34) = charters_empty(information(x, emo_origin_dictionary("RIESGO_BIOMECANICO_POSTURA")))
+    .Range(35) = charters_empty(information(x, emo_origin_dictionary("RIESGO_BIOMECANICO_ESFUERZO")))
+    .Range(36) = charters_empty(information(x, emo_origin_dictionary("RIESGO_BIOMECANICO_MOVREPETITIVO")))
+    .Range(37) = charters_empty(information(x, emo_origin_dictionary("RIESGO_BIOMECANICO_MANIPULACION_CARGA")))
+    .Range(38) = charters_empty(information(x, emo_origin_dictionary("OTROS RIESGOS BIOMECANICOS")))
+    .Range(39) = charters_empty(information(x, emo_origin_dictionary("CONDICIONES DE SEGURIDAD / MECANICOS")))
+    .Range(40) = charters_empty(information(x, emo_origin_dictionary("CONDICIONES DE SEGURIDAD / ELECTRICOS")))
+    .Range(41) = charters_empty(information(x, emo_origin_dictionary("CONDICIONES DE SEGURIDAD / LOCATIVO")))
+    .Range(42) = charters_empty(information(x, emo_origin_dictionary("CONDICIONES DE SEGURIDAD / TECNOLOGICO")))
+    .Range(43) = charters_empty(information(x, emo_origin_dictionary("CONDICIONES DE SEGURIDAD / ACC DE TRANSITO")))
+    .Range(44) = charters_empty(information(x, emo_origin_dictionary("CONDICIONES DE SEGURIDAD / PUBLICOS")))
+    .Range(45) = charters_empty(information(x, emo_origin_dictionary("CONDICIONES DE SEGURIDAD / TRABAJO EN ALTURAS")))
+    .Range(46) = charters_empty(information(x, emo_origin_dictionary("CONDICIONES DE SEGURIDAD / ESPACIOS CONFINADOS")))
+    .Range(47) = charters_empty(information(x, emo_origin_dictionary("CONDICIONES DE SEGURIDAD / OTROS DE SEGURIDAD")))
+    .Range(48) = charters_empty(information(x, emo_origin_dictionary("FENOMENOS NATURALES / SISMO")))
+    .Range(49) = charters_empty(information(x, emo_origin_dictionary("FENOMENOS NATURALES / TERREMOTO")))
+    .Range(50) = charters_empty(information(x, emo_origin_dictionary("FENOMENOS NATURALES / VENDAVAL")))
+    .Range(51) = charters_empty(information(x, emo_origin_dictionary("FENOMENOS NATURALES / INUNDACION")))
+    .Range(52) = charters_empty(information(x, emo_origin_dictionary("FENOMENOS NATURALES / DERRUMBE")))
+    .Range(53) = charters_empty(information(x, emo_origin_dictionary("FENOMENOS NATURALES / PRECIPITACIONES")))
+    .Range(54) = charters_empty(information(x, emo_origin_dictionary("FENOMENOS NATURALES / OTROS NATURALES")))
+    .Range(55) = charters(information(x, emo_origin_dictionary("FECHA ACCIDENTE")))
+    .Range(56) = charters(information(x, emo_origin_dictionary("ACCIDENTE_PASO_EN_EMPRESA")))
+    .Range(57) = charters(information(x, emo_origin_dictionary("TIPO ACCIDENTE")))
+    .Range(58) = charters(information(x, emo_origin_dictionary("NATURALEZA LESION")))
+    .Range(59) = charters(information(x, emo_origin_dictionary("PARTE AFECTADA")))
+    .Range(60) = charters(information(x, emo_origin_dictionary("INCAPACIDAD")))
+    .Range(61) = charters(information(x, emo_origin_dictionary("SECUELAS")))
+    .Range(62) = charters(information(x, emo_origin_dictionary("NOMBRE ENFERMEDAD")))
+    .Range(63) = charters(information(x, emo_origin_dictionary("ETAPA")))
+    .Range(64) = charters(information(x, emo_origin_dictionary("OBSERVACIONES DE ENFERMEDAD")))
+    .Range(65) = typeActivity(charters(information(x, emo_origin_dictionary("ACT_ FISICA"))))
+    .Range(66) = typeSmoke(charters(information(x, emo_origin_dictionary("FUMA"))))
+    .Range(67) = charters(information(x, emo_origin_dictionary("CONSUMO DE ALCOHOL")))
+    .Range(68) = charters(information(x, emo_origin_dictionary("PESO")))
+    .Range(69) = charters(information(x, emo_origin_dictionary("TALLA")))
+    .Range(72) = charters(information(x, emo_origin_dictionary("TENSION ARTERIAL")))
+    .Range(73) = charters(information(x, emo_origin_dictionary("FREC_ CARDIACA")))
+    .Range(74) = charters(information(x, emo_origin_dictionary("FREC_ RESPIRATORIA")))
+    .Range(75) = charters(information(x, emo_origin_dictionary("PERIMETRO ABDOMINAL")))
+    .Range(76) = charters(information(x, emo_origin_dictionary("LATERALIDAD")))
+    .Range(97) = charters(information(x, emo_origin_dictionary("OBS DIAGS")))
+    .Range(98) = validateConcepts(charters(information(x, emo_origin_dictionary("CONCEPTO DE EVALUACION"))))
+    .Range(99) = charters(information(x, emo_origin_dictionary("OBSERVACIONES DEL CONCEPTO")))
+    .Range(133) = charters(information(x, emo_origin_dictionary("RECOMENDACIONES ESPECIFICAS")))
     .Range(112) = "0"
     .Range(113) = "0"
     .Range(114) = "0"
