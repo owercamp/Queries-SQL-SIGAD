@@ -20,33 +20,25 @@ Option Explicit
 Dim osteo_origin_dictionary As Scripting.Dictionary
 Dim aumentFromID As LongPtr
 Public Sub OsteoData()
-  Dim tbl_osteo As Object, osteo_origin_header As Object, osteo_origin_value As Object
-  Dim ItemOsteoOrigin As Variant, ItemData As Variant
+  Dim tbl_osteo As Object, xNumber As Long, osteo_origin As Variant
   
-  Set osteo_origin = origin.Worksheets("OSTEO") '' OSTEO DEL LIBRO ORIGEN ''
+  osteo_origin = origin.Worksheets("OSTEO").Range("A1").CurrentRegion.value '' OSTEO DEL LIBRO ORIGEN ''
   osteo_destiny.Select
   Set tbl_osteo = ActiveSheet.ListObjects("tbl_osteo")
-  Set osteo_origin_header = osteo_origin.range("A1", osteo_origin.range("A1").End(xlToRight))
   Set osteo_origin_dictionary = CreateObject("Scripting.Dictionary")
 
-  If (osteo_origin.range("A2") <> Empty And osteo_origin.range("A3") <> Empty) Then
-    Set osteo_origin_value = osteo_origin.range("A2", osteo_origin.range("A2").End(xlDown))
-  ElseIf (osteo_origin.range("A2") <> Empty And osteo_origin.range("A3") = Empty) Then
-    Set osteo_origin_value = osteo_origin.range("A2")
-  End If
-
   '' CABECERA DE LA HOJA EMO DEL LIBRO ORIGEN ''
-  For Each ItemOsteoOrigin In osteo_origin_header
+  For xNumber = 1 To Ubound(osteo_origin, 2)
     On Error Resume Next
-    osteo_origin_dictionary.Add osteo_headers(ItemOsteoOrigin), (ItemOsteoOrigin.Column - 1)
-    On Error GoTo 0
-  Next ItemOsteoOrigin
+    osteo_origin_dictionary.Add osteo_headers(osteo_origin(1, xNumber)), xNumber
+    On Error GoTo 0    
+  Next xNumber
 
   numbers = 1
   porcentaje = 0
   
   aumentFromID = destiny.Worksheets("RUTAS").range("$F$11").value
-  counts = osteo_origin_value.Count
+  counts = Ubound(osteo_origin, 1) - 1
   formImports.ProgressBarOneforOne.Width = 0
   formImports.porcentageOneoforOne = "0%"
   vals = 1 / counts
@@ -54,7 +46,7 @@ Public Sub OsteoData()
   widthOneforOne = formImports.content_ProgressBarOneforOne.Width / counts
 
   With formImports
-    For Each ItemData In osteo_origin_value
+    For xNumber = 2 To Ubound(osteo_origin, 1)
       oneForOne = oneForOne + widthOneforOne
       generalAll = generalAll + widthGeneral
       .lblGeneral.Caption = "importando " & CStr(numbersGeneral) & " de " & CStr(totalData) & "(" & CStr(totalData - numbersGeneral) & ") REGISTROS"
@@ -80,20 +72,20 @@ Public Sub OsteoData()
       
       .Caption = CStr(nameCompany)
 
-      If (typeExams(charters(ItemData.Offset(, osteo_origin_dictionary("TIPO EXAMEN")))) <> "EGRESO") Then
+      If (typeExams(charters(osteo_origin(xNumber, osteo_origin_dictionary("TIPO EXAMEN")))) <> "EGRESO") Then
         Select Case numbers
           Case 1
-            Call addNewRegister(tbl_osteo.ListRows(1), aumentFromID, ItemData)
+            Call addNewRegister(tbl_osteo.ListRows(1), aumentFromID, osteo_origin, xNumber)
             DoEvents
           Case Else
             aumentFromID = aumentFromID + 1
-            Call addNewRegister(tbl_osteo.ListRows.Add, aumentFromID, ItemData)
+            Call addNewRegister(tbl_osteo.ListRows.Add, aumentFromID, osteo_origin, xNumber)
             DoEvents
         End Select
       End If
       numbers = numbers + 1
       numbersGeneral = numbersGeneral + 1
-    Next ItemData
+    Next xNumber
   End With
 
   range("$A4").Select
@@ -101,70 +93,69 @@ Public Sub OsteoData()
   range("$A4", range("$A4").End(xlDown)).Select
   Call formatter
 
-  Set osteo_origin_value = Nothing
-  Set osteo_origin_header = Nothing
+  Set osteo_origin = Nothing
   osteo_origin_dictionary.RemoveAll
 
 End Sub
 
-Private Sub addNewRegister(ByVal table As Object, ByVal autoIncrement As LongPtr, ByVal ItemData As Variant)
+Private Sub addNewRegister(ByVal table As Object, ByVal autoIncrement As LongPtr, ByVal information As Variant, ByVal x As Long)
 
   With table
-    .Range(1) = charters(ItemData.Offset(, osteo_origin_dictionary("NRO IDENFICACION")))
-    .Range(2) = charters_empty(ItemData.Offset(, osteo_origin_dictionary("CERVICALGIA")))
-    .Range(3) = charters(ItemData.Offset(, osteo_origin_dictionary("CERVICALGIA OBS")))
-    .Range(4) = charters_empty(ItemData.Offset(, osteo_origin_dictionary("EPICONDILITIS")))
-    .Range(5) = charters(ItemData.Offset(, osteo_origin_dictionary("EPICONDILITIS OBS")))
-    .Range(6) = charters_empty(ItemData.Offset(, osteo_origin_dictionary("LUMBALGIA")))
-    .Range(7) = charters(ItemData.Offset(, osteo_origin_dictionary("LUMBALGIA OBS")))
-    .Range(8) = charters_empty(ItemData.Offset(, osteo_origin_dictionary("S_ TUNEL CARPO")))
-    .Range(9) = charters(ItemData.Offset(, osteo_origin_dictionary("S_ TUNEL CARPO OBS")))
-    .Range(10) = charters_empty(ItemData.Offset(, osteo_origin_dictionary("FRACTURAS")))
-    .Range(11) = charters(ItemData.Offset(, osteo_origin_dictionary("FRACTURAS OBS")))
-    .Range(12) = charters_empty(ItemData.Offset(, osteo_origin_dictionary("TENDINITIS")))
-    .Range(13) = charters(ItemData.Offset(, osteo_origin_dictionary("TENDINITIS OBS")))
-    .Range(14) = charters(ItemData.Offset(, osteo_origin_dictionary("LESION EN MENISCOS OBS")))
-    .Range(15) = charters_empty(ItemData.Offset(, osteo_origin_dictionary("LESION EN MENISCOS")))
-    .Range(16) = charters_empty(ItemData.Offset(, osteo_origin_dictionary("ESGUINCES")))
-    .Range(17) = charters(ItemData.Offset(, osteo_origin_dictionary("ESGUINCES OBS")))
-    .Range(18) = charters_empty(ItemData.Offset(, osteo_origin_dictionary("HOMBRO DOLOROSO")))
-    .Range(19) = charters(ItemData.Offset(, osteo_origin_dictionary("HOMBRO DOLOROSO OBS")))
-    .Range(20) = charters_empty(ItemData.Offset(, osteo_origin_dictionary("RADICULOPATIA")))
-    .Range(21) = charters(ItemData.Offset(, osteo_origin_dictionary("RADICULOPATIA OBS")))
-    .Range(22) = charters_empty(ItemData.Offset(, osteo_origin_dictionary("BURSITIS")))
-    .Range(23) = charters(ItemData.Offset(, osteo_origin_dictionary("BURSITIS OBS")))
-    .Range(24) = charters_empty(ItemData.Offset(, osteo_origin_dictionary("ARTROSIS")))
-    .Range(25) = charters(ItemData.Offset(, osteo_origin_dictionary("ARTROSIS OBS")))
-    .Range(26) = charters_empty(ItemData.Offset(, osteo_origin_dictionary("ESCOLIOSIS")))
-    .Range(27) = charters(ItemData.Offset(, osteo_origin_dictionary("ESCOLIOSIS OBS")))
-    .Range(28) = charters_empty(ItemData.Offset(, osteo_origin_dictionary("RETRACCIONES MUSCULARES")))
-    .Range(29) = charters(ItemData.Offset(, osteo_origin_dictionary("RETRACCIONES MUSCULARES OBS")))
-    .Range(30) = charters_empty(ItemData.Offset(, osteo_origin_dictionary("MALFORMACIONES")))
-    .Range(31) = charters(ItemData.Offset(, osteo_origin_dictionary("MALFORMACIONES OBS")))
-    .Range(32) = charters_empty(ItemData.Offset(, osteo_origin_dictionary("DISCOPATIAS")))
-    .Range(33) = charters(ItemData.Offset(, osteo_origin_dictionary("DISCOPATIAS OBS")))
-    .Range(34) = charters_empty(ItemData.Offset(, osteo_origin_dictionary("FIBROMALGIA")))
-    .Range(35) = charters(ItemData.Offset(, osteo_origin_dictionary("FIBROMALGIA OBS")))
-    .Range(36) = charters(ItemData.Offset(, osteo_origin_dictionary("OTROS ANT_ OSTEOMUSCULARES")))
-    .Range(37) = charters(ItemData.Offset(, osteo_origin_dictionary("PESO")))
-    .Range(38) = charters(ItemData.Offset(, osteo_origin_dictionary("TALLA")))
-    .Range(41) = charters(ItemData.Offset(, osteo_origin_dictionary("DIAG_ PPAL")))
-    .Range(42) = charters(ItemData.Offset(, osteo_origin_dictionary("DIAG_ PPAL OBS")))
-    .Range(43) = charters_empty(ItemData.Offset(, osteo_origin_dictionary("DIAG_ REL 1")))
-    .Range(44) = charters_empty(ItemData.Offset(, osteo_origin_dictionary("DIAG_ REL 2")))
-    .Range(45) = charters_empty(ItemData.Offset(, osteo_origin_dictionary("DIAG_ REL 3")))
-    .Range(46) = charters_empty(ItemData.Offset(, osteo_origin_dictionary("REC/PERS ACT_ FISICA CARDIO 3X/SEMANA")))
-    .Range(47) = charters_empty(ItemData.Offset(, osteo_origin_dictionary("REC/PERS FORT_ 15 REPETICIONES/3 SERIES")))
-    .Range(48) = charters_empty(ItemData.Offset(, osteo_origin_dictionary("REC/PERS EJERC_ ESTIRAMIENTO 20 SEG")))
-    .Range(49) = charters_empty(ItemData.Offset(, osteo_origin_dictionary("REC/PERS AUTOCUIDADO")))
-    .Range(50) = charters_empty(ItemData.Offset(, osteo_origin_dictionary("REC/PERS SEGUIMIENTO MEDICO")))
-    .Range(51) = charters_empty(ItemData.Offset(, osteo_origin_dictionary("REC/OCUP SVE PREVENSION LESIONES")))
-    .Range(52) = charters_empty(ItemData.Offset(, osteo_origin_dictionary("REC/OCUP MANIPULACION DE CARGA")))
-    .Range(53) = charters_empty(ItemData.Offset(, osteo_origin_dictionary("REC/OCUP PAUSAS ACTIVAS")))
-    .Range(54) = charters_empty(ItemData.Offset(, osteo_origin_dictionary("REC/OCUP ANALISIS ERGONOMICOS")))
-    .Range(55) = charters_empty(ItemData.Offset(, osteo_origin_dictionary("REC/OCUP EVITAR POSTURAS FORZADAS")))
-    .Range(56) = charters(ItemData.Offset(, osteo_origin_dictionary("RECOM_ OCUPACIONALES")))
-    .Range(57) = charters(ItemData.Offset(, osteo_origin_dictionary("RECOM_ G/RALES")))
+    .Range(1) = charters(information(x, osteo_origin_dictionary("NRO IDENFICACION")))
+    .Range(2) = charters_empty(information(x, osteo_origin_dictionary("CERVICALGIA")))
+    .Range(3) = charters(information(x, osteo_origin_dictionary("CERVICALGIA OBS")))
+    .Range(4) = charters_empty(information(x, osteo_origin_dictionary("EPICONDILITIS")))
+    .Range(5) = charters(information(x, osteo_origin_dictionary("EPICONDILITIS OBS")))
+    .Range(6) = charters_empty(information(x, osteo_origin_dictionary("LUMBALGIA")))
+    .Range(7) = charters(information(x, osteo_origin_dictionary("LUMBALGIA OBS")))
+    .Range(8) = charters_empty(information(x, osteo_origin_dictionary("S_ TUNEL CARPO")))
+    .Range(9) = charters(information(x, osteo_origin_dictionary("S_ TUNEL CARPO OBS")))
+    .Range(10) = charters_empty(information(x, osteo_origin_dictionary("FRACTURAS")))
+    .Range(11) = charters(information(x, osteo_origin_dictionary("FRACTURAS OBS")))
+    .Range(12) = charters_empty(information(x, osteo_origin_dictionary("TENDINITIS")))
+    .Range(13) = charters(information(x, osteo_origin_dictionary("TENDINITIS OBS")))
+    .Range(14) = charters(information(x, osteo_origin_dictionary("LESION EN MENISCOS OBS")))
+    .Range(15) = charters_empty(information(x, osteo_origin_dictionary("LESION EN MENISCOS")))
+    .Range(16) = charters_empty(information(x, osteo_origin_dictionary("ESGUINCES")))
+    .Range(17) = charters(information(x, osteo_origin_dictionary("ESGUINCES OBS")))
+    .Range(18) = charters_empty(information(x, osteo_origin_dictionary("HOMBRO DOLOROSO")))
+    .Range(19) = charters(information(x, osteo_origin_dictionary("HOMBRO DOLOROSO OBS")))
+    .Range(20) = charters_empty(information(x, osteo_origin_dictionary("RADICULOPATIA")))
+    .Range(21) = charters(information(x, osteo_origin_dictionary("RADICULOPATIA OBS")))
+    .Range(22) = charters_empty(information(x, osteo_origin_dictionary("BURSITIS")))
+    .Range(23) = charters(information(x, osteo_origin_dictionary("BURSITIS OBS")))
+    .Range(24) = charters_empty(information(x, osteo_origin_dictionary("ARTROSIS")))
+    .Range(25) = charters(information(x, osteo_origin_dictionary("ARTROSIS OBS")))
+    .Range(26) = charters_empty(information(x, osteo_origin_dictionary("ESCOLIOSIS")))
+    .Range(27) = charters(information(x, osteo_origin_dictionary("ESCOLIOSIS OBS")))
+    .Range(28) = charters_empty(information(x, osteo_origin_dictionary("RETRACCIONES MUSCULARES")))
+    .Range(29) = charters(information(x, osteo_origin_dictionary("RETRACCIONES MUSCULARES OBS")))
+    .Range(30) = charters_empty(information(x, osteo_origin_dictionary("MALFORMACIONES")))
+    .Range(31) = charters(information(x, osteo_origin_dictionary("MALFORMACIONES OBS")))
+    .Range(32) = charters_empty(information(x, osteo_origin_dictionary("DISCOPATIAS")))
+    .Range(33) = charters(information(x, osteo_origin_dictionary("DISCOPATIAS OBS")))
+    .Range(34) = charters_empty(information(x, osteo_origin_dictionary("FIBROMALGIA")))
+    .Range(35) = charters(information(x, osteo_origin_dictionary("FIBROMALGIA OBS")))
+    .Range(36) = charters(information(x, osteo_origin_dictionary("OTROS ANT_ OSTEOMUSCULARES")))
+    .Range(37) = charters(information(x, osteo_origin_dictionary("PESO")))
+    .Range(38) = charters(information(x, osteo_origin_dictionary("TALLA")))
+    .Range(41) = charters(information(x, osteo_origin_dictionary("DIAG_ PPAL")))
+    .Range(42) = charters(information(x, osteo_origin_dictionary("DIAG_ PPAL OBS")))
+    .Range(43) = charters_empty(information(x, osteo_origin_dictionary("DIAG_ REL 1")))
+    .Range(44) = charters_empty(information(x, osteo_origin_dictionary("DIAG_ REL 2")))
+    .Range(45) = charters_empty(information(x, osteo_origin_dictionary("DIAG_ REL 3")))
+    .Range(46) = charters_empty(information(x, osteo_origin_dictionary("REC/PERS ACT_ FISICA CARDIO 3X/SEMANA")))
+    .Range(47) = charters_empty(information(x, osteo_origin_dictionary("REC/PERS FORT_ 15 REPETICIONES/3 SERIES")))
+    .Range(48) = charters_empty(information(x, osteo_origin_dictionary("REC/PERS EJERC_ ESTIRAMIENTO 20 SEG")))
+    .Range(49) = charters_empty(information(x, osteo_origin_dictionary("REC/PERS AUTOCUIDADO")))
+    .Range(50) = charters_empty(information(x, osteo_origin_dictionary("REC/PERS SEGUIMIENTO MEDICO")))
+    .Range(51) = charters_empty(information(x, osteo_origin_dictionary("REC/OCUP SVE PREVENSION LESIONES")))
+    .Range(52) = charters_empty(information(x, osteo_origin_dictionary("REC/OCUP MANIPULACION DE CARGA")))
+    .Range(53) = charters_empty(information(x, osteo_origin_dictionary("REC/OCUP PAUSAS ACTIVAS")))
+    .Range(54) = charters_empty(information(x, osteo_origin_dictionary("REC/OCUP ANALISIS ERGONOMICOS")))
+    .Range(55) = charters_empty(information(x, osteo_origin_dictionary("REC/OCUP EVITAR POSTURAS FORZADAS")))
+    .Range(56) = charters(information(x, osteo_origin_dictionary("RECOM_ OCUPACIONALES")))
+    .Range(57) = charters(information(x, osteo_origin_dictionary("RECOM_ G/RALES")))
     .Range(59) = autoIncrement
   End With
 
