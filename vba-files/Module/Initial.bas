@@ -3,7 +3,7 @@ Attribute VB_Name = "Initial"
 Option Explicit
 '' Variables ''
 Public origin As Workbook, destiny As Workbook
-Public comple_origin As Worksheet, comple_destiny As Worksheet, osteo_origin As Worksheet, osteo_destiny As Worksheet, senso_destiny As Worksheet, senso_origin As Worksheet, psico_destiny As Worksheet, psico_origin As Worksheet, visio_destiny As Worksheet, visio_origin As Worksheet, espiro_destiny As Worksheet, espiro_origin As Worksheet, opto_origin As Worksheet, opto_destiny As Worksheet, audio_origin As Worksheet, audio_destiny As Worksheet, worker_destiny As Worksheet, emo_destiny As Worksheet, emo_origin As Worksheet, emphasis_destiny As Worksheet, diagnostics_destiny As Worksheet
+Public comple_destiny As Worksheet, osteo_destiny As Worksheet, senso_destiny As Worksheet, psico_destiny As Worksheet, visio_destiny As Worksheet, espiro_destiny As Worksheet, opto_destiny As Worksheet, audio_destiny As Worksheet, worker_destiny As Worksheet, emo_destiny As Worksheet, emphasis_destiny As Worksheet, diagnostics_destiny As Worksheet
 Public route As String, nameCompany As String
 Public variable As Object, insertVisio As Object, insertOpto As Object, insertAudio As Object, insertOsteo As Object, insertSenso As Object, inserEspiro As Object, insertComple As Object, insertPsico As Object, insertEmo As Object, dataInsert As Object, ItemTitle As Object, titulos As Object, DatosOsteo As Object, DatosSenso As Object, DatosPsico As Object, DatosComple As Object, DatosOpto As Object, DatosAudio As Object, DatosEmo As Object, DatosEspiro As Object, DatosVisio As Object
 Public ordenListaTrabajador As Long
