@@ -79,15 +79,14 @@ Public Sub PsicotecnicaData()
         Select Case numbers
           Case 1
             Call addNewRegister(tbl_psicotecnica.ListRows(1), aumentFromID, psico_origin, xNumber)
-            DoEvents
           Case Else
             aumentFromID = aumentFromID + 1
             Call addNewRegister(tbl_psicotecnica.ListRows.Add, aumentFromID, psico_origin, xNumber)
-            DoEvents
         End Select
       End If
       numbers = numbers + 1
       numbersGeneral = numbersGeneral + 1
+      DoEvents
     Next xNumber
   End With
 
