@@ -78,14 +78,13 @@ Public Sub DataDiagnosticsEmo()
         Select Case numbers
         Case 1
           Call addNewRegister(tbl_diagnostics.ListRows(1), counter, emo_origin, xNumber)
-          DoEvents
         Case Else
           Call addNewRegister(tbl_diagnostics.ListRows.Add, counter, emo_origin, xNumber)
-          DoEvents
       End Select
       End If
       numbers = numbers + 1
       numbersGeneral = numbersGeneral + 1
+      DoEvents
     Next xNumber
   End With
 
