@@ -76,15 +76,14 @@ Public Sub OsteoData()
         Select Case numbers
           Case 1
             Call addNewRegister(tbl_osteo.ListRows(1), aumentFromID, osteo_origin, xNumber)
-            DoEvents
           Case Else
             aumentFromID = aumentFromID + 1
             Call addNewRegister(tbl_osteo.ListRows.Add, aumentFromID, osteo_origin, xNumber)
-            DoEvents
         End Select
       End If
       numbers = numbers + 1
       numbersGeneral = numbersGeneral + 1
+      DoEvents
     Next xNumber
   End With
 
