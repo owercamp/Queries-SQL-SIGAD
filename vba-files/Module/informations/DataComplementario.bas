@@ -82,15 +82,14 @@ Public Sub ComplementarioData()
         Select Case numbers
           Case 1
             Call addNewRegister(tbl_complementarios.ListRows(1), aumentFromID, comple_origin, xNumber)
-            DoEvents
           Case Else
             aumentFromID = aumentFromID + 1
             Call addNewRegister(tbl_complementarios.ListRows.Add, aumentFromID, comple_origin, xNumber)
-            DoEvents
         End Select
       End If
       numbers = numbers + 1
       numbersGeneral = numbersGeneral + 1
+      DoEvents
     Next xNumber
   End With
 
