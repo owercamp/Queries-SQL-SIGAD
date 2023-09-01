@@ -61,7 +61,7 @@ End Function
 '? @return Cadena de texto representando una version estandarizada del nombre de ciudad.
 Public Function city(ByVal value As String) As String
   Select Case value
-   Case "BOGOTA", "BOGOTA, D.C.", "BOGOT" & Chr(193) & ", D.C.", "BOGOTA, D.C", "BOGOTA D.C", "BOGOT" & Chr(193), "BOGOTA  D.C", "BOGOTA, BOGOTA D.C", "BOGOTA,D,C", "BOGOTA  D C", "BOGOTa, D,C,", "BOGOTA,D.C", "BOGOTA, DC","BOGOTA, D.C."
+   Case "BOGOTA", "BOGOTA, D.C.", "BOGOT" & Chr(193) & ", D.C.", "BOGOTA, D.C", "BOGOTA D.C", "BOGOT" & Chr(193), "BOGOTA  D.C", "BOGOTA, BOGOTA D.C", "BOGOTA,D,C", "BOGOTA  D C", "BOGOTa, D,C,", "BOGOTA,D.C", "BOGOTA, DC","BOGOTA, D.C.","BOGOT" & Chr(193) & ", D.C"
     city = Trim("BOGOTA D.C.")
    Case "CARTAGENA DE INDIAS", "CARTAGENA, BOLIVAR"
     city = Trim("CARTAGENA")
