@@ -89,7 +89,7 @@ Public Sub ComplementarioData()
       End If
       numbers = numbers + 1
       numbersGeneral = numbersGeneral + 1
-      DoEvents
+      Call addTimer
     Next xNumber
   End With
 

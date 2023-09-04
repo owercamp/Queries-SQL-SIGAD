@@ -86,7 +86,7 @@ Public Sub PsicosensometricaData()
       End If
       numbers = numbers + 1
       numbersGeneral = numbersGeneral + 1
-      DoEvents
+      Call addTimer
     Next xNumber
   End With
 
@@ -97,7 +97,7 @@ Public Sub PsicosensometricaData()
   range("$A3", range("$A3").End(xlDown)).Select
   Call formatter
 
-  Set psicosensometrica_origin = Nothing
+  Set senso_origin = Nothing
   psicosensometrica_origin_dictionary.RemoveAll
 
   Exit Sub

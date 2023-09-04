@@ -86,7 +86,7 @@ Public Sub PsicotecnicaData()
       End If
       numbers = numbers + 1
       numbersGeneral = numbersGeneral + 1
-      DoEvents
+      Call addTimer
     Next xNumber
   End With
 
@@ -95,7 +95,7 @@ Public Sub PsicotecnicaData()
   range("$A2", range("$A2").End(xlDown)).Select
   Call formatter
 
-  Set psicotecnica_origin = Nothing
+  Set psico_origin = Nothing
   psicotecnica_origin_dictionary.RemoveAll
 
   Exit Sub

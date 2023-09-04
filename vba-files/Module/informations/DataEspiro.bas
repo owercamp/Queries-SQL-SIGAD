@@ -49,7 +49,7 @@ Public Sub EspiroData()
   widthOneforOne = formImports.content_ProgressBarOneforOne.Width / counts
 
   With formImports
-    For xNumber = 2 To Ubound(espiro_origin, 2)
+    For xNumber = 2 To Ubound(espiro_origin, 1)
       oneForOne = oneForOne + widthOneforOne
       generalAll = generalAll + widthGeneral
       .lblGeneral.Caption = "importando " & CStr(numbersGeneral) & " de " & CStr(totalData) & "(" & CStr(totalData - numbersGeneral) & ") REGISTROS"
@@ -86,7 +86,7 @@ Public Sub EspiroData()
       End If
       numbers = numbers + 1
       numbersGeneral = numbersGeneral + 1
-      DoEvents
+      Call addTimer
     Next xNumber
   End With
 

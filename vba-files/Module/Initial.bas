@@ -175,3 +175,12 @@ Public Sub cleanCaracthers()
 Attribute cleanCaracthers.VB_ProcData.VB_Invoke_Func = "y\n14"
   formClear.Show
 End Sub
+
+Public Sub addTimer()
+
+  If Timer > initialTimer + 5 Then
+    DoEvents
+    initialTimer = Timer
+  End If
+  
+End Sub
