@@ -10,7 +10,7 @@ Public ordenListaTrabajador As Long
 Public item As Variant
 Public vals As Double, valsGeneral As Double, porcentaje As Double, porcentajeGeneral As Double, counts As Double, totalData As Double, generalAll As Double, widthOneforOne As Double, widthGeneral As Double, oneForOne As Double
 Public idOrden As LongPtr, numbers As LongPtr, numbersGeneral As LongPtr, sumOneforOne As LongPtr, sumGeneral As LongPtr, x As LongPtr, i As LongPtr, number_emphasis As LongPtr, number_diag As LongPtr
-Public dateInitials As Date, dateFinals As Date
+Public dateInitials As Date, dateFinals As Date, initialTimer As Single
 
 Public Sub extraerdatos()
 
@@ -24,6 +24,7 @@ Public Sub extraerdatos()
   porcentajeGeneral = 0
   totalData = 0
   dateInitials = VBA.Date
+  initialTimer = Timer
 
   On Error Resume Next
   fso.DeleteFile (ThisWorkbook.Worksheets("RUTAS").range("C9").value & "testfile.sql")
