@@ -79,14 +79,15 @@ Public Sub PsicosensometricaData()
         Select Case numbers
           Case 1
             Call addNewRegister(tbl_psicosensometrica.ListRows(1), aumentFromID, senso_origin, xNumber)
+            DoEvents
           Case Else
             aumentFromID = aumentFromID + 1
             Call addNewRegister(tbl_psicosensometrica.ListRows.Add, aumentFromID, senso_origin, xNumber)
+            DoEvents
         End Select
       End If
       numbers = numbers + 1
       numbersGeneral = numbersGeneral + 1
-      Call addTimer
     Next xNumber
   End With
 
