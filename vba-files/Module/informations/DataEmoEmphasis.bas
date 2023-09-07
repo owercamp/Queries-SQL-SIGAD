@@ -78,13 +78,14 @@ Public Sub DataEmphasisEmo()
         Select Case numbers
         Case 1
           Call addNewRegister(tbl_emphasis.ListRows(1), counter, emo_origin, xNumber)
+          DoEvents
         Case Else
           Call addNewRegister(tbl_emphasis.ListRows.Add, counter, emo_origin, xNumber)
+          DoEvents
       End Select
       End If
       numbers = numbers + 1
       numbersGeneral = numbersGeneral + 1
-      Call addTimer
     Next xNumber
   End With
 
