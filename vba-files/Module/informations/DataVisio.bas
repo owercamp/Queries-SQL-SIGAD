@@ -76,14 +76,15 @@ Public Sub VisioData()
         Select Case numbers
           Case 1
             Call addNewRegister(tbl_visio.ListRows(1), aumentFromID, visio_origin, xNumber)
+            DoEvents
           Case Else
             aumentFromID = aumentFromID + 1
             Call addNewRegister(tbl_visio.ListRows.Add, aumentFromID, visio_origin, xNumber)
+            DoEvents
         End Select
       End If
       numbers = numbers + 1
       numbersGeneral = numbersGeneral + 1
-      Call addTimer
     Next xNumber
   End With
 
