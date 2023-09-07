@@ -5,12 +5,10 @@ Option Explicit
 Public origin As Workbook, destiny As Workbook
 Public comple_destiny As Worksheet, osteo_destiny As Worksheet, senso_destiny As Worksheet, psico_destiny As Worksheet, visio_destiny As Worksheet, espiro_destiny As Worksheet, opto_destiny As Worksheet, audio_destiny As Worksheet, worker_destiny As Worksheet, emo_destiny As Worksheet, emphasis_destiny As Worksheet, diagnostics_destiny As Worksheet
 Public route As String, nameCompany As String
-Public variable As Object, insertVisio As Object, insertOpto As Object, insertAudio As Object, insertOsteo As Object, insertSenso As Object, inserEspiro As Object, insertComple As Object, insertPsico As Object, insertEmo As Object, dataInsert As Object, ItemTitle As Object, titulos As Object, DatosOsteo As Object, DatosSenso As Object, DatosPsico As Object, DatosComple As Object, DatosOpto As Object, DatosAudio As Object, DatosEmo As Object, DatosEspiro As Object, DatosVisio As Object
-Public ordenListaTrabajador As Long
-Public item As Variant
+Public variable As Object,ordenListaTrabajador As Long, item As Variant
 Public vals As Double, valsGeneral As Double, porcentaje As Double, porcentajeGeneral As Double, counts As Double, totalData As Double, generalAll As Double, widthOneforOne As Double, widthGeneral As Double, oneForOne As Double
 Public idOrden As LongPtr, numbers As LongPtr, numbersGeneral As LongPtr, sumOneforOne As LongPtr, sumGeneral As LongPtr, x As LongPtr, i As LongPtr, number_emphasis As LongPtr, number_diag As LongPtr
-Public dateInitials As Date, dateFinals As Date, initialTimer As Single
+Public dateInitials As Date, dateFinals As Date
 
 Public Sub extraerdatos()
 
@@ -24,7 +22,6 @@ Public Sub extraerdatos()
   porcentajeGeneral = 0
   totalData = 0
   dateInitials = VBA.Date
-  initialTimer = Timer
 
   On Error Resume Next
   fso.DeleteFile (ThisWorkbook.Worksheets("RUTAS").range("C9").value & "testfile.sql")
@@ -174,13 +171,4 @@ End Sub
 Public Sub cleanCaracthers()
 Attribute cleanCaracthers.VB_ProcData.VB_Invoke_Func = "y\n14"
   formClear.Show
-End Sub
-
-Public Sub addTimer()
-
-  If Timer > initialTimer + 5 Then
-    DoEvents
-    initialTimer = Timer
-  End If
-  
 End Sub
