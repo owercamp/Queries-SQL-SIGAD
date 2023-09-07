@@ -74,14 +74,15 @@ Public Sub Workers()
         Select Case numbers
           Case 1
             Call addNewRegister(tbl_workers.ListRows(1), aumentFromID, emo_origin, company_name, xNumber)
+            DoEvents
           Case Else
             aumentFromID = aumentFromID + 1
             Call addNewRegister(tbl_workers.ListRows.Add, aumentFromID, emo_origin, company_name, xNumber)
+            DoEvents
         End Select
       End If
       numbers = numbers + 1
       numbersGeneral = numbersGeneral + 1
-      Call addTimer
     Next xNumber
   End With
 
