@@ -36,3 +36,30 @@ Public Sub verifiedEmpty()
   selection.EntireRow.Delete shift:=xlUp
 
 End Sub
+
+Public Sub correctionAntiquity()
+
+  Dim valor As Integer
+
+  With Application
+    .ScreenUpdating = False
+    .EnableEvents = False
+    .Calculation = xlCalculationManual  
+  End With
+
+  Do Until IsEmpty(ActiveCell.Offset(, -2).value)
+    valor = Len(ActiveCell.value)
+    If valor > 3 Then
+      ActiveCell = VBA.Mid$(ActiveCell.value, 1, 2)
+      ActiveCell = VBA.Replace(ActiveCell, ",", "")
+    End If
+    ActiveCell.Offset(1, 0).Select
+  Loop
+
+  With Application
+    .ScreenUpdating = True
+    .EnableEvents = True
+    .Calculation = xlCalculationAutomatic
+  End With
+
+End Sub
