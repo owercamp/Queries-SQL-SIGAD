@@ -159,6 +159,27 @@ Public Sub riskPre_ingreso()
 
 End Sub
 
+Public Sub withoutRisk()
+  If selection(1).Offset(1, 0).value <> vbNullString Then
+    range(selection, selection.End(xlDown)).Select
+  End If
+  selection.FormatConditions.Add Type:=xlExpression, Formula1:= _
+  "=SI($A$1<>"""";SI(HALLAR($A$1;BUSCARV($A5;TRABAJADORES!$J$5:$T$10000;11;FALSO);1);""Verdadero"";""Falso"") =""Verdadero"")"
+  selection.FormatConditions(selection.FormatConditions.Count).SetFirstPriority
+  With selection.FormatConditions(1).Font
+    .Bold = True
+    .Italic = True
+    .ThemeColor = xlThemeColorAccent6
+    .TintAndShade = -0.499984740745262
+  End With
+  With selection.FormatConditions(1).Interior
+    .PatternColorIndex = xlAutomatic
+    .ThemeColor = xlThemeColorAccent6
+    .TintAndShade = 0.799981688894314
+  End With
+  selection.FormatConditions(1).StopIfTrue = False
+End Sub
+
 '* Este subrutina formatea la seleccion en la hoja de calculo activa
 '* El formato numerico se establece en "0" y la altura de fila se establece en 40
 Public Sub formatter()
