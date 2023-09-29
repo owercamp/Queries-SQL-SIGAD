@@ -1261,5 +1261,6 @@ Public Sub DateAccident()
   Application.ScreenUpdating = True
   Application.Calculation = xlCalculationAutomatic
   Application.StatusBar = ""
+  MsgBox "Success",,"Success" 
 
 End Sub
