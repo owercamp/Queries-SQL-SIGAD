@@ -433,6 +433,7 @@ Public Sub AddRecordToGoogleSheet(ByVal Company As String, ByVal sigad As String
 
   On Error Resume Next
   HttpReq.send (requestBody)
+  On Error GoTo 0
 
   If HttpReq.status = 200 Then
     MsgBox "Record added successfully:" + vbNewLine + vbNewLine + Chr(32) + "code:" & HttpReq.status & "" + vbNewLine + Chr(32) + "status:" & HttpReq.statusText
@@ -474,6 +475,7 @@ Public Sub UpdateGoogleSheetRecord(ByVal rowData As Integer, ByVal textModify As
 
   On Error Resume Next
   httpObject.send (requestBody)
+  On Error GoTo 0
 
   If (httpObject.status = 200) Then
     MsgBox "Record updated successfully:" + vbNewLine + vbNewLine + Chr(32) + "code:" & httpObject.status & "" + vbNewLine + Chr(32) + "status:" & httpObject.statusText
