@@ -263,6 +263,8 @@ Public Function typeComplements(ByVal value As String) As String
   Select Case value
    Case "ENCUESTA RESPIRATORIA", "ENCUESTA DE SINTOMAS RESPIRATORIOS"
     typeComplements = "VALORACION RESPIRATORIA"
+   Case "ELECTROCARDIOGRAMA"
+    typeComplements = "ELECTROCARDIOGRAMA DE RITMO O DE SUPERFICIE SOD EKG"
    Case Else
     typeComplements = value
   End Select
