@@ -511,7 +511,7 @@ Public Sub ExportSQL()
   Set senso_origin = origin.Worksheets("PSICOSENSOMETRICA")
   Set comple_origin = origin.Worksheets("COMPLEMENTARIOS")
 
-  Set MyFile = fso.OpenTextFile(ThisWorkbook.Worksheets("RUTAS").range("C9").value & "testfile.sql", ForAppending, True, TristateTrue)
+  Set MyFile = fso.OpenTextFile(ThisWorkbook.Worksheets("RUTAS").range("C9").value & "/testfile.sql", ForAppending, True, TristateTrue)
   For Each sh In origin.Worksheets
     If ActiveWorkbook.Sheets(sh.Name).Tab.ThemeColor = xlThemeColorAccent1 Then
       Select Case Trim(UCase(sh.Name))
