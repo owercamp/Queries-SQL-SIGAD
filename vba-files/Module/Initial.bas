@@ -24,7 +24,7 @@ Public Sub extraerdatos()
   dateInitials = VBA.Date
 
   On Error Resume Next
-  fso.DeleteFile (ThisWorkbook.Worksheets("RUTAS").range("C9").value & "testfile.sql")
+  fso.DeleteFile (ThisWorkbook.Worksheets("RUTAS").range("C9").value & "/testfile.sql")
   On Error GoTo 0
 
   'route = ThisWorkbook.Worksheets("RUTAS").Range("C4").value
