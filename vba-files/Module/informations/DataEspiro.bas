@@ -23,25 +23,25 @@ Option Explicit
 Dim espiro_origin_dictionary As Scripting.Dictionary
 Dim aumentFromID As LongPtr
 Public Sub EspiroData()
-  Dim tbl_espiro As Object, xNumber As Long, espiro_origin As Variant
+  Dim tbl_espiro As Object, espiro_origin As Object
   
-  espiro_origin = origin.Worksheets("ESPIRO").Range("A1").CurrentRegion.value '' ESPIRO DEL LIBRO ORIGEN ''
-  espiro_destiny.Select
-  Set tbl_espiro = ActiveSheet.ListObjects("tbl_espiro_info")
+  Set espiro_origin = origin.Worksheets("ESPIRO").Range("A1") '' ESPIRO DEL LIBRO ORIGEN ''
+  
+  Set tbl_espiro = espiro_destiny.ListObjects("tbl_espiro_info")
   Set espiro_origin_dictionary = CreateObject("Scripting.Dictionary")
 
   '' CABECERA DE LA HOJA EMO DEL LIBRO ORIGEN ''
-  For xNumber = 1 To Ubound(espiro_origin, 2)
-    On Error Resume Next
-    espiro_origin_dictionary.Add espiro_headers(espiro_origin(1, xNumber)), xNumber
-    On Error GoTo 0
-  Next xNumber
+  For Each item In Range(espiro_origin, espiro_origin.End(xlToRight))
+    If espiro_origin_dictionary.Exists(espiro_headers(item)) = False Then
+      espiro_origin_dictionary.Add espiro_headers(item), item.Column
+    End If
+  Next item
 
   numbers = 1
   porcentaje = 0
   
   aumentFromID = destiny.Worksheets("RUTAS").range("$F$10").value
-  counts = Ubound(espiro_origin, 1) - 1
+  counts = Ubound(origin.Worksheets("ESPIRO").Range("A1").CurrentRegion.Value, 1) - 1
   formImports.ProgressBarOneforOne.Width = 0
   formImports.porcentageOneoforOne = "0%"
   vals = 1 / counts
@@ -49,7 +49,7 @@ Public Sub EspiroData()
   widthOneforOne = formImports.content_ProgressBarOneforOne.Width / counts
 
   With formImports
-    For xNumber = 2 To Ubound(espiro_origin, 1)
+    For Each item In Range(espiro_origin.offset(1, 0), espiro_origin.offset(1, 0).End(xlDown))
       oneForOne = oneForOne + widthOneforOne
       generalAll = generalAll + widthGeneral
       .lblGeneral.Caption = "importando " & CStr(numbersGeneral) & " de " & CStr(totalData) & "(" & CStr(totalData - numbersGeneral) & ") REGISTROS"
@@ -75,20 +75,21 @@ Public Sub EspiroData()
       
       .Caption = CStr(nameCompany)
 
-      If (typeExams(charters(espiro_origin(xNumber, espiro_origin_dictionary("TIPO EXAMEN")))) <> "EGRESO") Then
-        Select Case numbers
-          Case 1
-            Call addNewRegister(tbl_espiro.ListRows(1), aumentFromID, espiro_origin, xNumber)
-            DoEvents
-          Case Else
-            aumentFromID = aumentFromID + 1
-            Call addNewRegister(tbl_espiro.ListRows.Add, aumentFromID, espiro_origin, xNumber)
-            DoEvents
-        End Select
+      If (typeExams(charters(item.Offset(, espiro_origin_dictionary("TIPO EXAMEN") - 1))) <> "EGRESO") Then
+        If item.value <> "" And item.Row = 2 Then
+          Call addNewRegister(tbl_espiro.ListRows(1), aumentFromID, item)
+          DoEvents
+        ElseIf item.value <> "" And item.Row > 2 Then
+          aumentFromID = aumentFromID + 1
+          Call addNewRegister(tbl_espiro.ListRows.Add, aumentFromID, item)
+          DoEvents
+        ElseIf item.value = "" Or item.value = VbNullString Then
+          Exit For
+        End If
+        numbers = numbers + 1
+        numbersGeneral = numbersGeneral + 1
       End If
-      numbers = numbers + 1
-      numbersGeneral = numbersGeneral + 1
-    Next xNumber
+    Next item
   End With
 
   range("$A4").Select
@@ -105,78 +106,78 @@ Public Sub EspiroData()
 
 End Sub
 
-Private Sub addNewRegister(ByVal table As Object, ByVal autoIncrement As LongPtr, ByVal information As Variant, ByVal x As Long)
+Private Sub addNewRegister(ByVal table As Object, ByVal autoIncrement As LongPtr, ByVal information As Object)
 
   With table
-    .Range(1) = charters(information(x, espiro_origin_dictionary("NRO IDENFICACION")))
-    .Range(2) = charters_empty(information(x, espiro_origin_dictionary("ALERGIAS")))
-    .Range(3) = charters(information(x, espiro_origin_dictionary("ALERGIAS OBS")))
-    .Range(4) = charters_empty(information(x, espiro_origin_dictionary("TUBERCULOSIS")))
-    .Range(5) = charters_empty(information(x, espiro_origin_dictionary("TOS CRONICA")))
-    .Range(6) = charters_empty(information(x, espiro_origin_dictionary("GRIPAS FRECUENTES")))
-    .Range(7) = charters_empty(information(x, espiro_origin_dictionary("FARINGITIS")))
-    .Range(8) = charters_empty(information(x, espiro_origin_dictionary("FARINGOAMIGDALITIS")))
-    .Range(9) = charters_empty(information(x, espiro_origin_dictionary("RINITIS")))
-    .Range(10) = charters_empty(information(x, espiro_origin_dictionary("SINUSITIS")))
-    .Range(11) = charters_empty(information(x, espiro_origin_dictionary("CX TORAX")))
-    .Range(12) = charters(information(x, espiro_origin_dictionary("CX TORAX OBS")))
-    .Range(13) = charters_empty(information(x, espiro_origin_dictionary("ASMA BRONQUIAL")))
-    .Range(14) = charters_empty(information(x, espiro_origin_dictionary("BRONQUITIS")))
-    .Range(15) = charters_empty(information(x, espiro_origin_dictionary("NEUMONIA")))
-    .Range(16) = charters_empty(information(x, espiro_origin_dictionary("TRAUMA COSTAL")))
-    .Range(17) = charters_empty(information(x, espiro_origin_dictionary("CANCER")))
-    .Range(18) = charters(information(x, espiro_origin_dictionary("CANCER OBS")))
-    .Range(19) = charters(information(x, espiro_origin_dictionary("OTROS RESPIRATORIOS")))
-    .Range(20) = charters_empty(information(x, espiro_origin_dictionary("RIESGO QUIMICO / POLVOS")))
-    .Range(21) = charters_empty(information(x, espiro_origin_dictionary("RIESGO QUIMICO / FIBRAS")))
-    .Range(22) = charters_empty(information(x, espiro_origin_dictionary("RIESGO QUIMICO / LIQUIDOS")))
-    .Range(23) = charters_empty(information(x, espiro_origin_dictionary("RIESGO QUIMICO /GASES")))
-    .Range(24) = charters_empty(information(x, espiro_origin_dictionary("RIESGO QUIMICO / VAPORES")))
-    .Range(25) = charters_empty(information(x, espiro_origin_dictionary("RIESGO QUIMICO / HUMOS")))
-    .Range(26) = charters_empty(information(x, espiro_origin_dictionary("RIESGO QUIMICO /MATERIAL PARTICULADO")))
-    .Range(27) = charters_empty(information(x, espiro_origin_dictionary("OTROS RIESGOS QUIMICOS")))
-    .Range(28) = charters_empty(information(x, espiro_origin_dictionary("EPP ESPECIFICO / TAPABOCA")))
-    .Range(29) = charters_empty(information(x, espiro_origin_dictionary("EPP ESPECIFICO / RESPIRADOR")))
-    .Range(30) = typeActivity(charters(information(x, espiro_origin_dictionary("ACT_ FISICA"))))
-    .Range(31) = typeSmoke(charters(information(x, espiro_origin_dictionary("FUMA"))))
-    .Range(32) = charters(information(x, espiro_origin_dictionary("CIGARRILLOS DIA")))
-    .Range(33) = charters(information(x, espiro_origin_dictionary("FRECUENCIA")))
-    .Range(34) = charters(information(x, espiro_origin_dictionary("TIEMPO EN ANOS")))
-    .Range(35) = charters(information(x, espiro_origin_dictionary("INTERPRETACION")))
-    .Range(36) = charters(information(x, espiro_origin_dictionary("PESO")))
-    .Range(37) = charters(information(x, espiro_origin_dictionary("TALLA")))
-    .Range(40) = charters(information(x, espiro_origin_dictionary("FVC PRED DIAG_")))
-    .Range(41) = charters(information(x, espiro_origin_dictionary("FVC %TEOR DIAG_")))
-    .Range(42) = charters(information(x, espiro_origin_dictionary("FEV1 PRED DIAG_")))
-    .Range(43) = charters(information(x, espiro_origin_dictionary("FEV1 %TEOR DIAG_")))
-    .Range(44) = charters(information(x, espiro_origin_dictionary("FEV1/FVC PRED DIAG_")))
-    .Range(45) = charters(information(x, espiro_origin_dictionary("FEV1/FVC %TEOR DIAG_")))
-    .Range(46) = charters(information(x, espiro_origin_dictionary("PEF PRED DIAG_")))
-    .Range(47) = charters(information(x, espiro_origin_dictionary("PEF %TEOR DIAG_")))
-    .Range(48) = charters(information(x, espiro_origin_dictionary("FEF 25-75 PRED DIAG_")))
-    .Range(49) = charters(information(x, espiro_origin_dictionary("FEF 25-75 %TEOR DIAG_")))
-    .Range(50) = charters(information(x, espiro_origin_dictionary("DIAG_ PPAL")))
-    .Range(51) = charters(information(x, espiro_origin_dictionary("DIAG_ OBS")))
-    .Range(52) = charters(information(x, espiro_origin_dictionary("DIAG_ REL/1")))
-    .Range(53) = charters(information(x, espiro_origin_dictionary("DIAG_ REL/2")))
-    .Range(54) = charters(information(x, espiro_origin_dictionary("DIAG_ REL/3")))
-    .Range(55) = charters(information(x, espiro_origin_dictionary("TIPO_INTERPRETACION")))
-    .Range(56) = charters(information(x, espiro_origin_dictionary("TIPO_GRADO")))
-    .Range(58) = charters_empty(information(x, espiro_origin_dictionary("REC/GRALES DEJAR DE FUMAR")))
-    .Range(59) = charters_empty(information(x, espiro_origin_dictionary("REC/GRALES CONTINUAR CONTROLES EPS")))
-    .Range(60) = charters_empty(information(x, espiro_origin_dictionary("REC/GRALES BAJAR DE PESO")))
-    .Range(61) = charters_empty(information(x, espiro_origin_dictionary("REC/GRALES TOMAR RAYOS X TORAX")))
-    .Range(62) = charters_empty(information(x, espiro_origin_dictionary("REC/GRALES REALIZAR EJERC_ 3X SEMANA")))
-    .Range(63) = charters_empty(information(x, espiro_origin_dictionary("REC/GRALES VALORAC_ EPS X NEUMOLOGIA")))
-    .Range(64) = charters_empty(information(x, espiro_origin_dictionary("REC/LAB UTILIZAR EPR")))
-    .Range(65) = charters_empty(information(x, espiro_origin_dictionary("REC/LAB INGRESAR SVE")))
-    .Range(66) = charters_empty(information(x, espiro_origin_dictionary("CONTROLES MENSUAL")))
-    .Range(67) = charters_empty(information(x, espiro_origin_dictionary("CONTROLES_BIMESTRALES")))
-    .Range(68) = charters_empty(information(x, espiro_origin_dictionary("CONTROLES TRIMESTRAL")))
-    .Range(69) = charters_empty(information(x, espiro_origin_dictionary("CONTROLES SEMESTRAL")))
-    .Range(70) = charters_empty(information(x, espiro_origin_dictionary("CONTROLES ANUAL")))
-    .Range(71) = charters_empty(information(x, espiro_origin_dictionary("CONTROLES CONFIRMATORIA")))
-    .Range(72) = charters(information(x, espiro_origin_dictionary("TECNICA ACEPTABLE")))
+    .Range(1) = charters(information(, espiro_origin_dictionary("NRO IDENFICACION")))
+    .Range(2) = charters_empty(information(, espiro_origin_dictionary("ALERGIAS")))
+    .Range(3) = charters(information(, espiro_origin_dictionary("ALERGIAS OBS")))
+    .Range(4) = charters_empty(information(, espiro_origin_dictionary("TUBERCULOSIS")))
+    .Range(5) = charters_empty(information(, espiro_origin_dictionary("TOS CRONICA")))
+    .Range(6) = charters_empty(information(, espiro_origin_dictionary("GRIPAS FRECUENTES")))
+    .Range(7) = charters_empty(information(, espiro_origin_dictionary("FARINGITIS")))
+    .Range(8) = charters_empty(information(, espiro_origin_dictionary("FARINGOAMIGDALITIS")))
+    .Range(9) = charters_empty(information(, espiro_origin_dictionary("RINITIS")))
+    .Range(10) = charters_empty(information(, espiro_origin_dictionary("SINUSITIS")))
+    .Range(11) = charters_empty(information(, espiro_origin_dictionary("CX TORAX")))
+    .Range(12) = charters(information(, espiro_origin_dictionary("CX TORAX OBS")))
+    .Range(13) = charters_empty(information(, espiro_origin_dictionary("ASMA BRONQUIAL")))
+    .Range(14) = charters_empty(information(, espiro_origin_dictionary("BRONQUITIS")))
+    .Range(15) = charters_empty(information(, espiro_origin_dictionary("NEUMONIA")))
+    .Range(16) = charters_empty(information(, espiro_origin_dictionary("TRAUMA COSTAL")))
+    .Range(17) = charters_empty(information(, espiro_origin_dictionary("CANCER")))
+    .Range(18) = charters(information(, espiro_origin_dictionary("CANCER OBS")))
+    .Range(19) = charters(information(, espiro_origin_dictionary("OTROS RESPIRATORIOS")))
+    .Range(20) = charters_empty(information(, espiro_origin_dictionary("RIESGO QUIMICO / POLVOS")))
+    .Range(21) = charters_empty(information(, espiro_origin_dictionary("RIESGO QUIMICO / FIBRAS")))
+    .Range(22) = charters_empty(information(, espiro_origin_dictionary("RIESGO QUIMICO / LIQUIDOS")))
+    .Range(23) = charters_empty(information(, espiro_origin_dictionary("RIESGO QUIMICO /GASES")))
+    .Range(24) = charters_empty(information(, espiro_origin_dictionary("RIESGO QUIMICO / VAPORES")))
+    .Range(25) = charters_empty(information(, espiro_origin_dictionary("RIESGO QUIMICO / HUMOS")))
+    .Range(26) = charters_empty(information(, espiro_origin_dictionary("RIESGO QUIMICO /MATERIAL PARTICULADO")))
+    .Range(27) = charters_empty(information(, espiro_origin_dictionary("OTROS RIESGOS QUIMICOS")))
+    .Range(28) = charters_empty(information(, espiro_origin_dictionary("EPP ESPECIFICO / TAPABOCA")))
+    .Range(29) = charters_empty(information(, espiro_origin_dictionary("EPP ESPECIFICO / RESPIRADOR")))
+    .Range(30) = typeActivity(charters(information(, espiro_origin_dictionary("ACT_ FISICA"))))
+    .Range(31) = typeSmoke(charters(information(, espiro_origin_dictionary("FUMA"))))
+    .Range(32) = charters(information(, espiro_origin_dictionary("CIGARRILLOS DIA")))
+    .Range(33) = charters(information(, espiro_origin_dictionary("FRECUENCIA")))
+    .Range(34) = charters(information(, espiro_origin_dictionary("TIEMPO EN ANOS")))
+    .Range(35) = charters(information(, espiro_origin_dictionary("INTERPRETACION")))
+    .Range(36) = charters(information(, espiro_origin_dictionary("PESO")))
+    .Range(37) = charters(information(, espiro_origin_dictionary("TALLA")))
+    .Range(40) = charters(information(, espiro_origin_dictionary("FVC PRED DIAG_")))
+    .Range(41) = charters(information(, espiro_origin_dictionary("FVC %TEOR DIAG_")))
+    .Range(42) = charters(information(, espiro_origin_dictionary("FEV1 PRED DIAG_")))
+    .Range(43) = charters(information(, espiro_origin_dictionary("FEV1 %TEOR DIAG_")))
+    .Range(44) = charters(information(, espiro_origin_dictionary("FEV1/FVC PRED DIAG_")))
+    .Range(45) = charters(information(, espiro_origin_dictionary("FEV1/FVC %TEOR DIAG_")))
+    .Range(46) = charters(information(, espiro_origin_dictionary("PEF PRED DIAG_")))
+    .Range(47) = charters(information(, espiro_origin_dictionary("PEF %TEOR DIAG_")))
+    .Range(48) = charters(information(, espiro_origin_dictionary("FEF 25-75 PRED DIAG_")))
+    .Range(49) = charters(information(, espiro_origin_dictionary("FEF 25-75 %TEOR DIAG_")))
+    .Range(50) = charters(information(, espiro_origin_dictionary("DIAG_ PPAL")))
+    .Range(51) = charters(information(, espiro_origin_dictionary("DIAG_ OBS")))
+    .Range(52) = charters(information(, espiro_origin_dictionary("DIAG_ REL/1")))
+    .Range(53) = charters(information(, espiro_origin_dictionary("DIAG_ REL/2")))
+    .Range(54) = charters(information(, espiro_origin_dictionary("DIAG_ REL/3")))
+    .Range(55) = charters(information(, espiro_origin_dictionary("TIPO_INTERPRETACION")))
+    .Range(56) = charters(information(, espiro_origin_dictionary("TIPO_GRADO")))
+    .Range(58) = charters_empty(information(, espiro_origin_dictionary("REC/GRALES DEJAR DE FUMAR")))
+    .Range(59) = charters_empty(information(, espiro_origin_dictionary("REC/GRALES CONTINUAR CONTROLES EPS")))
+    .Range(60) = charters_empty(information(, espiro_origin_dictionary("REC/GRALES BAJAR DE PESO")))
+    .Range(61) = charters_empty(information(, espiro_origin_dictionary("REC/GRALES TOMAR RAYOS X TORAX")))
+    .Range(62) = charters_empty(information(, espiro_origin_dictionary("REC/GRALES REALIZAR EJERC_ 3X SEMANA")))
+    .Range(63) = charters_empty(information(, espiro_origin_dictionary("REC/GRALES VALORAC_ EPS X NEUMOLOGIA")))
+    .Range(64) = charters_empty(information(, espiro_origin_dictionary("REC/LAB UTILIZAR EPR")))
+    .Range(65) = charters_empty(information(, espiro_origin_dictionary("REC/LAB INGRESAR SVE")))
+    .Range(66) = charters_empty(information(, espiro_origin_dictionary("CONTROLES MENSUAL")))
+    .Range(67) = charters_empty(information(, espiro_origin_dictionary("CONTROLES_BIMESTRALES")))
+    .Range(68) = charters_empty(information(, espiro_origin_dictionary("CONTROLES TRIMESTRAL")))
+    .Range(69) = charters_empty(information(, espiro_origin_dictionary("CONTROLES SEMESTRAL")))
+    .Range(70) = charters_empty(information(, espiro_origin_dictionary("CONTROLES ANUAL")))
+    .Range(71) = charters_empty(information(, espiro_origin_dictionary("CONTROLES CONFIRMATORIA")))
+    .Range(72) = charters(information(, espiro_origin_dictionary("TECNICA ACEPTABLE")))
     .Range(78) = autoIncrement
   End With
 
