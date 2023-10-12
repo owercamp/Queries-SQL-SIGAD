@@ -23,28 +23,28 @@ Option Explicit
 Dim comple_origin_dictionary As Scripting.Dictionary
 Dim  aumentFromID As LongPtr
 Public Sub ComplementarioData()
-  Dim tbl_complementarios As Object, xNumber As Long, comple_origin As Variant
+  Dim tbl_complementarios As Object, comple_origin As Object, SheetName As String
   
+  SheetName = "COMPLEMENTARIOS"
   On Error GoTo com:
-  comple_origin = origin.Worksheets("COMPLEMENTARIOS").Range("A1").CurrentRegion.value '' COMPLEMENTARIOS DEL LIBRO ORIGEN ''
+  Set comple_origin = origin.Worksheets(SheetName).Range("A1") '' COMPLEMENTARIOS DEL LIBRO ORIGEN ''
   On Error GoTo 0
   
-  comple_destiny.Select
-  Set tbl_complementarios = ActiveSheet.ListObjects("tbl_complementarios")
+  Set tbl_complementarios = comple_destiny.ListObjects("tbl_complementarios")
   Set comple_origin_dictionary = CreateObject("Scripting.Dictionary")
 
   '' CABECERA DE LA HOJA EMO DEL LIBRO ORIGEN ''
-  For xNumber = 1 To Ubound(comple_origin, 2)
-    On Error Resume Next
-    comple_origin_dictionary.Add comple_headers(comple_origin(1, xNumber)), xNumber
-    On Error GoTo 0
-  Next xNumber
+  For Each item In Range(comple_origin, comple_origin.End(xlToRight))
+    If comple_origin_dictionary.Exists(comple_headers(item)) = False Then
+      comple_origin_dictionary.Add comple_headers(item), item.Column
+    End If
+  Next item
 
   numbers = 1
   porcentaje = 0
   
   aumentFromID = destiny.Worksheets("RUTAS").range("$F$12").value
-  counts = Ubound(comple_origin, 1) - 1
+  counts = Ubound(origin.Worksheets(SheetName).Range("A1").CurrentRegion.Value, 1) - 1
   formImports.ProgressBarOneforOne.Width = 0
   formImports.porcentageOneoforOne = "0%"
   vals = 1 / counts
@@ -52,7 +52,7 @@ Public Sub ComplementarioData()
   widthOneforOne = formImports.content_ProgressBarOneforOne.Width / counts
 
   With formImports
-    For xNumber = 2 To Ubound(comple_origin, 1)
+    For Each item In Range(comple_origin.offset(1, 0), comple_origin.offset(1, 0).End(xlDown))
       oneForOne = oneForOne + widthOneforOne
       generalAll = generalAll + widthGeneral
       .lblGeneral.Caption = "importando " & CStr(numbersGeneral) & " de " & CStr(totalData) & "(" & CStr(totalData - numbersGeneral) & ") REGISTROS"
@@ -78,20 +78,21 @@ Public Sub ComplementarioData()
       
       .Caption = CStr(nameCompany)
 
-      If (typeExams(charters(comple_origin(xNumber, comple_origin_dictionary("TIPO EXAMEN")))) <> "EGRESO") Then
-        Select Case numbers
-          Case 1
-            Call addNewRegister(tbl_complementarios.ListRows(1), aumentFromID, comple_origin, xNumber)
-            DoEvents
-          Case Else
-            aumentFromID = aumentFromID + 1
-            Call addNewRegister(tbl_complementarios.ListRows.Add, aumentFromID, comple_origin, xNumber)
-            DoEvents
-        End Select
+      If (typeExams(charters(item.Offset(, comple_origin_dictionary("TIPO EXAMEN") - 1))) <> "EGRESO") Then
+        If item.value <> "" And item.Row = 2 Then
+          Call addNewRegister(tbl_complementarios.ListRows(1), aumentFromID, item)
+          DoEvents
+        ElseIf item.value <> "" And item.Row > 2 Then
+          aumentFromID = aumentFromID + 1
+          Call addNewRegister(tbl_complementarios.ListRows.Add, aumentFromID, item)
+          DoEvents
+        ElseIf item.value = "" Or item.value = VbNullString Then
+          Exit For
+        End If
+        numbers = numbers + 1
+        numbersGeneral = numbersGeneral + 1
       End If
-      numbers = numbers + 1
-      numbersGeneral = numbersGeneral + 1
-    Next xNumber
+    Next item
   End With
 
   range("$A4").Select
@@ -105,21 +106,22 @@ Public Sub ComplementarioData()
   Exit Sub
 
 com:
-  comple_origin = origin.Worksheets("COMPLEMENTARIO").Range("A1").CurrentRegion.value
+  SheetName = "COMPLEMENTARIO"
+  comple_origin = origin.Worksheets(SheetName).Range("A1")
   Resume Next
 End Sub
 
-Private Sub addNewRegister(ByVal table As Object, ByVal autoIncrement As LongPtr, ByVal information As Variant, ByVal x As Long)
+Private Sub addNewRegister(ByVal table As Object, ByVal autoIncrement As LongPtr, ByVal information As Object)
 
   With table
-    .Range(1) = charters(information(x, comple_origin_dictionary("NRO IDENFICACION")))
-    .Range(2) = typeComplements(charters(information(x, comple_origin_dictionary("PROCEDIMIENTO"))))
-    .Range(3) = charters(information(x, comple_origin_dictionary("DIAG_ PPAL")))
-    .Range(4) = charters(information(x, comple_origin_dictionary("DIAG_ PPAL OBS")))
-    .Range(5) = charters(information(x, comple_origin_dictionary("DIAG_ REL/1")))
-    .Range(6) = charters(information(x, comple_origin_dictionary("DIAG_ REL/2")))
-    .Range(7) = charters(information(x, comple_origin_dictionary("DIAG_ REL/3")))
-    .Range(8) = charters(information(x, comple_origin_dictionary("HALLAZGOS")))
+    .Range(1) = charters(information(, comple_origin_dictionary("NRO IDENFICACION")))
+    .Range(2) = typeComplements(charters(information(, comple_origin_dictionary("PROCEDIMIENTO"))))
+    .Range(3) = charters(information(, comple_origin_dictionary("DIAG_ PPAL")))
+    .Range(4) = charters(information(, comple_origin_dictionary("DIAG_ PPAL OBS")))
+    .Range(5) = charters(information(, comple_origin_dictionary("DIAG_ REL/1")))
+    .Range(6) = charters(information(, comple_origin_dictionary("DIAG_ REL/2")))
+    .Range(7) = charters(information(, comple_origin_dictionary("DIAG_ REL/3")))
+    .Range(8) = charters(information(, comple_origin_dictionary("HALLAZGOS")))
     .Range(10) = autoIncrement
   End With
 
