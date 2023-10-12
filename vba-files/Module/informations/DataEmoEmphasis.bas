@@ -22,24 +22,24 @@ Option Explicit
 '* ------------------------------------------------------------------------------------------------------------------
 Dim emo_origin_dictionary As Scripting.Dictionary
 Public Sub DataEmphasisEmo()
-  Dim tbl_emphasis As Object, xNumber As Long, emo_origin As Variant, counter As LongPtr
+  Dim tbl_emphasis As Object, emo_origin As Object, counter As LongPtr
   
-  emo_origin = origin.Worksheets("EMO").Range("A1").CurrentRegion.value '' EMO DEL LIBRO ORIGEN ''
-  emphasis_destiny.Select
-  Set tbl_emphasis = ActiveSheet.ListObjects("tbl_enfasis")
+  Set emo_origin = origin.Worksheets("EMO").Range("A1") '' EMO DEL LIBRO ORIGEN ''
+  
+  Set tbl_emphasis = emphasis_destiny.ListObjects("tbl_enfasis")
   Set emo_origin_dictionary = CreateObject("Scripting.Dictionary")
 
   x = 1
-  For xNumber = 1 To Ubound(emo_origin, 2)
-    On Error Resume Next
-    emo_origin_dictionary.Add emphasis_headers(emo_origin(1, xNumber)), xNumber
-    On Error GoTo 0
-  Next xNumber
+  For Each item In Range(emo_origin, emo_origin.End(xlToRight))
+    If emo_origin_dictionary.Exists(emphasis_headers(item)) = False Then
+      emo_origin_dictionary.Add emphasis_headers(item), item.Column
+    End If
+  Next item
 
   numbers = 1
   porcentaje = 0
   
-  counts = Ubound(emo_origin, 1) - 1
+  counts = Ubound(origin.Worksheets("EMO").Range("A1").CurrentRegion.Value, 1) - 1
   formImports.ProgressBarOneforOne.Width = 0
   formImports.porcentageOneoforOne = "0%"
   vals = 1 / counts
@@ -47,7 +47,7 @@ Public Sub DataEmphasisEmo()
   widthOneforOne = formImports.content_ProgressBarOneforOne.Width / counts
 
   With formImports
-    For xNumber = 2 To Ubound(emo_origin, 1)
+    For Each item In Range(emo_origin.offset(1, 0), emo_origin.offset(1, 0).End(xlDown))
       oneForOne = oneForOne + widthOneforOne
       generalAll = generalAll + widthGeneral
       .lblGeneral.Caption = "importando " & CStr(numbersGeneral) & " de " & CStr(totalData) & "(" & CStr(totalData - numbersGeneral) & ") REGISTROS"
@@ -74,19 +74,20 @@ Public Sub DataEmphasisEmo()
       .Caption = CStr(nameCompany)
 
       counter = (emo_origin_dictionary.Count - 2) / 3
-      If (typeExams(charters(emo_origin(xNumber, emo_origin_dictionary("TIPO EXAMEN")))) <> "EGRESO") Then
-        Select Case numbers
-        Case 1
-          Call addNewRegister(tbl_emphasis.ListRows(1), counter, emo_origin, xNumber)
+      If (typeExams(charters(item.Offset(, emo_origin_dictionary("TIPO EXAMEN") - 1))) <> "EGRESO") Then
+        If item.Value <> "" And item.Row = 2 Then
+          Call addNewRegister(tbl_emphasis.ListRows(1), counter, item)
           DoEvents
-        Case Else
-          Call addNewRegister(tbl_emphasis.ListRows.Add, counter, emo_origin, xNumber)
+        ElseIf item.Value <> "" And item.Row > 2 Then
+          Call addNewRegister(tbl_emphasis.ListRows.Add, counter, item)
           DoEvents
-      End Select
+        ElseIf item.Value = "" Or item.Value = VbNullString Then
+          Exit For
+        End If
+        numbers = numbers + 1
+        numbersGeneral = numbersGeneral + 1
       End If
-      numbers = numbers + 1
-      numbersGeneral = numbersGeneral + 1
-    Next xNumber
+    Next item
   End With
 
   range("$A5").Select
@@ -99,20 +100,20 @@ Public Sub DataEmphasisEmo()
 
 End Sub
 
-Private Sub addNewRegister(ByVal table As Object, ByVal numberMaxEmphasis As LongPtr, ByVal information As Variant, ByVal x As Long)
+Private Sub addNewRegister(ByVal table As Object, ByVal numberMaxEmphasis As LongPtr, ByVal information As Object)
 
   Dim numberEmphasis As LongPtr
   numberEmphasis = 1
   With table
-    .Range(1) = charters(information(x, emo_origin_dictionary("IDENTIFICACION")))
+    .Range(1) = charters(information(, emo_origin_dictionary("IDENTIFICACION")))
     For i = 3 to 71 Step 4
       Select Case numberMaxEmphasis
         Case 0
           Exit For
         Case Is > 0
-          .Range(i) = charters(information(x, emo_origin_dictionary("ENFASIS_" & numberEmphasis)))
-          .Range(i + 1) = emphasisConcepts(charters(information(x, emo_origin_dictionary("CONCEPTO AL ENFASIS_" & numberEmphasis))), charters(information(x, emo_origin_dictionary("ENFASIS_" & numberEmphasis))))
-          .Range(i + 2) = charters(information(x, emo_origin_dictionary("OBSERVACIONES_AL_ENFASIS_" & numberEmphasis)))
+          .Range(i) = charters(information(, emo_origin_dictionary("ENFASIS_" & numberEmphasis)))
+          .Range(i + 1) = emphasisConcepts(charters(information(, emo_origin_dictionary("CONCEPTO AL ENFASIS_" & numberEmphasis))), charters(information(, emo_origin_dictionary("ENFASIS_" & numberEmphasis))))
+          .Range(i + 2) = charters(information(, emo_origin_dictionary("OBSERVACIONES_AL_ENFASIS_" & numberEmphasis)))
           numberEmphasis = numberEmphasis + 1
           numberMaxEmphasis = numberMaxEmphasis - 1
       End Select
