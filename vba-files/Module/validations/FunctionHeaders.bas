@@ -52,8 +52,6 @@ Public Function header_worker(ByVal value As String) As String
     header_worker = "idOrdenListaTrabajadores"
    Case "idOrden"
     header_worker = "idOrden"
-   Case Else
-    header_worker = "SIN DATO"
   End Select
 End Function
 
@@ -267,8 +265,6 @@ Public Function emo_headers(ByVal value As String) As String
     emo_headers = "RECOMENDACIONES ESPECIFICAS"
    Case "id_emo"
     emo_headers = "ID_EMO"
-   Case Else
-    emo_headers = "SIN DATO"
   End Select
 End Function
 
@@ -295,8 +291,6 @@ Public Function emphasis_headers(ByVal value As String) As String
    Case "OBSERVACIONES_AL_ENFASIS_" & x, "OBSERVACIONES AL ENFASIS " & x, "OBSERVACIONES AL ENFASIS_" & x, "OBSERVACIONES_AL_ENFASIS " & x
     emphasis_headers = "OBSERVACIONES_AL_ENFASIS_" & x
     x = x + 1
-   Case Else
-    emphasis_headers = "SIN DATO"
   End Select
 End Function
 
@@ -325,8 +319,6 @@ Public Function diagnostics_header(ByVal value As String) As String
    Case "DIAG REL " & x, "DIAG REL" & x
     diagnostics_header = "DIAG REL " & x
     x = x + 1
-   Case Else
-    diagnostics_header = "SIN DATO"
   End Select
 End Function
 
@@ -464,8 +456,6 @@ Public Function opto_headers(ByVal value As String) As String
     opto_headers = "ID_OPTOMETRIA"
    Case "OP_DIAGNOSTICO"
     opto_headers = "OP_DIAGNOSTICO"
-   Case Else
-    opto_headers = "SIN DATO"
   End Select
 End Function
 
@@ -583,8 +573,6 @@ Public Function audio_headers(ByVal value As String) As String
     audio_headers = "DIAG GATI-SO"
    Case "ID_AUDIOMETRIA"
     audio_headers = "ID_AUDIOMETRIA"
-   Case Else
-    audio_headers = "SIN DATO"
   End Select
 End Function
 
@@ -738,8 +726,6 @@ Public Function visio_headers(ByVal value As String) As String
     visio_headers = "CONTROL CONFIRMATORIA"
    Case "ID_VISIOMETRIA"
     visio_headers = "ID_VISIOMETRIA"
-   Case Else
-    visio_headers = "SIN DATO"
   End Select
 End Function
 
@@ -894,8 +880,6 @@ Public Function espiro_headers(ByVal value As String) As String
     espiro_headers = "TECNICA ACEPTABLE"
    Case "ID_ESPIROMETRIA"
     espiro_headers = "ID_ESPIROMETRIA"
-   Case Else
-    espiro_headers = "SIN DATO"
   End Select
 End Function
 
@@ -1020,8 +1004,6 @@ Public Function osteo_headers(ByVal value As String) As String
     osteo_headers = "RECOM_ G/RALES"
    Case "ID_OSTEOMUSCULAR"
     osteo_headers = "ID_OSTEOMUSCULAR"
-   Case Else
-    osteo_headers = "SIN DATO"
   End Select
 End Function
 
@@ -1052,8 +1034,6 @@ Public Function comple_headers(ByVal value As String) As String
     comple_headers = "HALLAZGOS"
    Case "ID_COMPLEMENTARIOS"
     comple_headers = "ID_COMPLEMENTARIOS"
-   Case Else
-    comple_headers = "SIN DATO"
   End Select
 End Function
 
@@ -1078,8 +1058,6 @@ Public Function psicotecnica_headers(ByVal value As String) As String
     psicotecnica_headers = "DIAGNOSTICO OBS"
    Case "ID_PSICOTECNICA"
     psicotecnica_headers = "ID_PSICOTECNICA"
-   Case Else
-    psicotecnica_headers = "SIN DATO"
   End Select
 End Function
 
@@ -1122,7 +1100,5 @@ Public Function psicosensometrica_headers(ByVal value As String) As String
     psicosensometrica_headers = "CONTROLES CONFIRMATORIA"
    Case "ID_PSICOSENSOMETRICA"
     psicosensometrica_headers = "ID_PSICOSENSOMETRICA"
-   Case Else
-    psicosensometrica_headers = "SIN DATO"
   End Select
 End Function
