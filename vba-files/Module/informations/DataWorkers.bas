@@ -12,12 +12,11 @@ Option Explicit
 Dim emo_dictionary As Scripting.Dictionary
 Dim aumentFromID As LongPtr
 Public Sub Workers()
-  Dim tbl_workers As Object, company_name As String, xNumber As Long, emo_origin As Variant
+  Dim tbl_workers As Object, company_name As String, emo_origin As Object
 
-  emo_origin = origin.Worksheets("EMO").Range("A1").CurrentRegion.value '' EMO DEL LIBRO ORIGEN ''
-  Windows(destiny.Name).Activate
-  worker_destiny.Select
-  Set tbl_workers = ActiveSheet.ListObjects("tbl_trabajadores")
+  Set emo_origin = origin.Worksheets("EMO").Range("A1") '' EMO DEL LIBRO ORIGEN ''
+
+  Set tbl_workers = worker_destiny.ListObjects("tbl_trabajadores")
   Set emo_dictionary = CreateObject("Scripting.Dictionary")
 
   formMix.lblMsg.Caption = "Por favor ingrese el numero ID correspondiente a la orden en SIGAD"
@@ -26,17 +25,17 @@ Public Sub Workers()
   formMix.txt_cantidad.SetFocus
 
   '' CABECERA DE LA HOJA EMO DEL LIBRO ORIGEN ''
-  For xNumber = 1 To Ubound(emo_origin, 2)
-    On Error Resume Next
-    emo_dictionary.Add header_worker(emo_origin(1, xNumber)), xNumber
-    On Error GoTo 0
-  Next xNumber
+  For Each item In Range(emo_origin, emo_origin.End(xlToRight))
+    If emo_dictionary.Exists(header_worker(item)) = False Then
+      emo_dictionary.Add header_worker(item), item.Column
+    End If
+  Next item
 
   oneForOne = 0
   generalAll = 0
   
   aumentFromID = destiny.Worksheets("RUTAS").range("$F$4").value
-  counts = Ubound(emo_origin, 1) - 1
+  counts = Ubound(origin.Worksheets("EMO").Range("A1").CurrentRegion.Value, 1) - 1
   widthOneforOne = formImports.content_ProgressBarOneforOne.Width / counts
   widthGeneral = formImports.content_ProgressBarOneforOne.Width / totalData
   vals = 1 / counts
@@ -44,7 +43,7 @@ Public Sub Workers()
   company_name = Application.InputBox(prompt:="ingrese el Nombre del contrato", Title:="Nombre del contrato", Default:="", Type:=2)
 
   With formImports
-    For xNumber = 2 To Ubound(emo_origin, 1)
+    For Each item In Range(emo_origin.offset(1, 0), emo_origin.offset(1, 0).End(xlDown))
       oneForOne = oneForOne + widthOneforOne
       generalAll = generalAll + widthGeneral
       .lblGeneral.Caption = "importando " & CStr(numbers) & " de " & CStr(totalData) & "(" & CStr(totalData - numbers) & ") REGISTROS"
@@ -70,20 +69,21 @@ Public Sub Workers()
 
       .Caption = CStr(nameCompany)
 
-      If (typeExams(charters(emo_origin(xNumber, emo_dictionary("TIPO EXAMEN")))) <> "EGRESO") Then
-        Select Case numbers
-          Case 1
-            Call addNewRegister(tbl_workers.ListRows(1), aumentFromID, emo_origin, company_name, xNumber)
-            DoEvents
-          Case Else
-            aumentFromID = aumentFromID + 1
-            Call addNewRegister(tbl_workers.ListRows.Add, aumentFromID, emo_origin, company_name, xNumber)
-            DoEvents
-        End Select
+      If (typeExams(charters(item.Offset(, emo_dictionary("TIPO EXAMEN") - 1))) <> "EGRESO") Then
+        If item.value <> "" And item.Row = 2 Then
+          Call addNewRegister(tbl_workers.ListRows(1), aumentFromID, item, company_name)
+          DoEvents
+        ElseIf item.value <> "" And item.Row > 2 Then
+          aumentFromID = aumentFromID + 1
+          Call addNewRegister(tbl_workers.ListRows.Add, aumentFromID, item, company_name)
+          DoEvents
+        ElseIf item.value = "" Or item.value = VbNullString Then
+          Exit For
+        End If
+        numbers = numbers + 1
+        numbersGeneral = numbersGeneral + 1
       End If
-      numbers = numbers + 1
-      numbersGeneral = numbersGeneral + 1
-    Next xNumber
+    Next item
   End With
 
   range("$F5").Select
@@ -108,27 +108,27 @@ Public Sub Workers()
   emo_dictionary.RemoveAll
 End Sub
 
-Private Sub addNewRegister(ByVal table As Object, ByVal autoIncrement As LongPtr, ByVal information As Variant, ByVal company_name As String, ByVal x As Long)
+Private Sub addNewRegister(ByVal table As Object, ByVal autoIncrement As LongPtr, ByVal information As Object, ByVal company_name As String)
 
   With table
     .Range(1) = "8"
     .Range(2) = charters(company_name)
-    .Range(4) = charters(information(x, emo_dictionary("DESTINO")))
-    .Range(5) = city(charters(information(x, emo_dictionary("CIUDAD"))))
-    .Range(6) = charters(information(x, emo_dictionary("INGRESO REGISTRO")))
-    .Range(7) = typeExams(charters(information(x, emo_dictionary("TIPO EXAMEN"))))
-    .Range(8) = charters(information(x, emo_dictionary("FECHA INGRESO")))
-    .Range(9) = charters(information(x, emo_dictionary("PACIENTE")))
-    .Range(10) = charters(information(x, emo_dictionary("NRO IDENFICACION")))
-    .Range(11) = charters(information(x, emo_dictionary("EDAD")))
-    .Range(13) = charters(information(x, emo_dictionary("ESTRATO")))
-    .Range(14) = charters(information(x, emo_dictionary("GENERO")))
-    .Range(15) = charters(information(x, emo_dictionary("NRO HIJOS")))
-    .Range(17) = typeSex(charters(information(x, emo_dictionary("RAZA"))))
-    .Range(18) = typeCivil(charters(information(x, emo_dictionary("ESTADO CIVIL"))))
-    .Range(19) = school(charters(information(x, emo_dictionary("ESCOLARIDAD"))))
-    .Range(20) = charters(information(x, emo_dictionary("CARGO USUARIO")))
-    .Range(22) = IIf(charters(information(x, emo_dictionary("LAB DURACION EN ANOS"))) = "SIN DATO", "", charters(information(x, emo_dictionary("LAB DURACION EN ANOS"))))
+    .Range(4) = charters(information(, emo_dictionary("DESTINO")))
+    .Range(5) = city(charters(information(, emo_dictionary("CIUDAD"))))
+    .Range(6) = charters(information(, emo_dictionary("INGRESO REGISTRO")))
+    .Range(7) = typeExams(charters(information(, emo_dictionary("TIPO EXAMEN"))))
+    .Range(8) = charters(information(, emo_dictionary("FECHA INGRESO")))
+    .Range(9) = charters(information(, emo_dictionary("PACIENTE")))
+    .Range(10) = charters(information(, emo_dictionary("NRO IDENFICACION")))
+    .Range(11) = charters(information(, emo_dictionary("EDAD")))
+    .Range(13) = charters(information(, emo_dictionary("ESTRATO")))
+    .Range(14) = charters(information(, emo_dictionary("GENERO")))
+    .Range(15) = charters(information(, emo_dictionary("NRO HIJOS")))
+    .Range(17) = typeSex(charters(information(, emo_dictionary("RAZA"))))
+    .Range(18) = typeCivil(charters(information(, emo_dictionary("ESTADO CIVIL"))))
+    .Range(19) = school(charters(information(, emo_dictionary("ESCOLARIDAD"))))
+    .Range(20) = charters(information(, emo_dictionary("CARGO USUARIO")))
+    .Range(22) = IIf(charters(information(, emo_dictionary("LAB DURACION EN ANOS"))) = "SIN DATO", "", charters(information(, emo_dictionary("LAB DURACION EN ANOS"))))
     .Range(24) = "ARMYWEB"
     .Range(25) = 1
     .Range(49) = autoIncrement            
