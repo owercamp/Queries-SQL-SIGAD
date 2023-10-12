@@ -20,28 +20,28 @@ Option Explicit
 Dim psicotecnica_origin_dictionary As Scripting.Dictionary
 Dim aumentFromID As LongPtr
 Public Sub PsicotecnicaData()
-  Dim tbl_psicotecnica As Object, xNumber As Long, psico_origin As Variant
+  Dim tbl_psicotecnica As Object, psico_origin As Object, SheetName As String
   
+  SheetName = "PSICOTECNICA"
   On Error GoTo tecnica:
-  psico_origin = origin.Worksheets("PSICOTECNICA").Range("A1").CurrentRegion.value '' PSICOTECNICA DEL LIBRO ORIGEN ''
+  Set psico_origin = origin.Worksheets(SheetName).Range("A1") '' PSICOTECNICA DEL LIBRO ORIGEN ''
   On Error GoTo 0
   
-  psico_destiny.Select
-  Set tbl_psicotecnica = ActiveSheet.ListObjects("tbl_psicotecnica")
+  Set tbl_psicotecnica = psico_destiny.ListObjects("tbl_psicotecnica")
   Set psicotecnica_origin_dictionary = CreateObject("Scripting.Dictionary")
 
   '' CABECERA DE LA HOJA EMO DEL LIBRO ORIGEN ''
-  For xNumber = 1 To Ubound(psico_origin, 2)
-    On Error Resume Next
-    psicotecnica_origin_dictionary.Add psicotecnica_headers(psico_origin(1, xNumber)), xNumber
-    On Error GoTo 0    
-  Next xNumber
+  For Each item In Range(psico_origin, psico_origin.End(xlToRight))
+    If psicotecnica_origin_dictionary.Exists(psicotecnica_headers(item)) = False Then
+      psicotecnica_origin_dictionary.Add psicotecnica_headers(item), item.Column
+    End If
+  Next item
 
   numbers = 1
   porcentaje = 0
   
   aumentFromID = destiny.Worksheets("RUTAS").range("$F$13").value
-  counts = Ubound(psico_origin, 1) - 1
+  counts = Ubound(origin.Worksheets(SheetName).Range("A1").CurrentRegion.Value, 1) - 1
   formImports.ProgressBarOneforOne.Width = 0
   formImports.porcentageOneoforOne = "0%"
   vals = 1 / counts
@@ -49,7 +49,7 @@ Public Sub PsicotecnicaData()
   widthOneforOne = formImports.content_ProgressBarOneforOne.Width / counts
 
   With formImports
-    For xNumber = 2 To Ubound(psico_origin, 1)
+    For Each item In Range(psico_origin.offset(1, 0), psico_origin.offset(1, 0).End(xlDown))
       oneForOne = oneForOne + widthOneforOne
       generalAll = generalAll + widthGeneral
       .lblGeneral.Caption = "importando " & CStr(numbersGeneral) & " de " & CStr(totalData) & "(" & CStr(totalData - numbersGeneral) & ") REGISTROS"
@@ -75,20 +75,21 @@ Public Sub PsicotecnicaData()
       
       .Caption = CStr(nameCompany)
       
-      If (typeExams(charters(psico_origin(xNumber, psicotecnica_origin_dictionary("TIPO EXAMEN")))) <> "EGRESO") Then
-        Select Case numbers
-          Case 1
-            Call addNewRegister(tbl_psicotecnica.ListRows(1), aumentFromID, psico_origin, xNumber)
-            DoEvents
-          Case Else
-            aumentFromID = aumentFromID + 1
-            Call addNewRegister(tbl_psicotecnica.ListRows.Add, aumentFromID, psico_origin, xNumber)
-            DoEvents
-        End Select
+      If (typeExams(charters(item.Offset(, psicotecnica_origin_dictionary("TIPO EXAMEN") - 1))) <> "EGRESO") Then
+        If item.value <> "" And item.Row = 2 Then
+          Call addNewRegister(tbl_psicotecnica.ListRows(1), aumentFromID, item)
+          DoEvents
+        ElseIf item.value <> "" And item.Row > 2 Then
+          aumentFromID = aumentFromID + 1
+          Call addNewRegister(tbl_psicotecnica.ListRows.Add, aumentFromID, item)
+          DoEvents
+        ElseIf item.value = "" Or item.value = VbNullString Then
+          Exit For
+        End If
+        numbers = numbers + 1
+        numbersGeneral = numbersGeneral + 1
       End If
-      numbers = numbers + 1
-      numbersGeneral = numbersGeneral + 1
-    Next xNumber
+    Next item
   End With
 
   range("D2").Select
@@ -102,18 +103,19 @@ Public Sub PsicotecnicaData()
   Exit Sub
 
 tecnica:
-  psico_origin = origin.Worksheets("PSICOLOGIA").Range("A1").CurrentRegion.value
+  SheetName = "PSICOLOGIA"
+  psico_origin = origin.Worksheets(SheetName).Range("A1")
   Resume Next
 End Sub
 
-Private Sub addNewRegister(ByVal table As Object, ByVal autoIncrement As LongPtr, ByVal information As Variant, ByVal x As Long)
+Private Sub addNewRegister(ByVal table As Object, ByVal autoIncrement As LongPtr, ByVal information As Object)
 
   With table
-    .Range(1) = charters(information(x, psicotecnica_origin_dictionary("NRO IDENFICACION")))
-    .Range(2) = charters(information(x, psicotecnica_origin_dictionary("PACIENTE")))
-    .Range(3) = charters(information(x, psicotecnica_origin_dictionary("PRUEBA PSICOTECNICA")))
-    .Range(4) = charters(information(x, psicotecnica_origin_dictionary("DIAGNOSTICO PPAL (CUMPLE, NO CUMPLE)")))
-    .Range(5) = charters(information(x, psicotecnica_origin_dictionary("DIAGNOSTICO OBS")))
+    .Range(1) = charters(information(, psicotecnica_origin_dictionary("NRO IDENFICACION")))
+    .Range(2) = charters(information(, psicotecnica_origin_dictionary("PACIENTE")))
+    .Range(3) = charters(information(, psicotecnica_origin_dictionary("PRUEBA PSICOTECNICA")))
+    .Range(4) = charters(information(, psicotecnica_origin_dictionary("DIAGNOSTICO PPAL (CUMPLE, NO CUMPLE)")))
+    .Range(5) = charters(information(, psicotecnica_origin_dictionary("DIAGNOSTICO OBS")))
     .Range(7) = autoIncrement
   End With
 
