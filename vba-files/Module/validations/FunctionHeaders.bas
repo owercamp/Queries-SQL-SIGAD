@@ -290,7 +290,6 @@ Public Function emphasis_headers(ByVal value As String) As String
     emphasis_headers = "CONCEPTO AL ENFASIS_" & x
    Case "OBSERVACIONES_AL_ENFASIS_" & x, "OBSERVACIONES AL ENFASIS " & x, "OBSERVACIONES AL ENFASIS_" & x, "OBSERVACIONES_AL_ENFASIS " & x
     emphasis_headers = "OBSERVACIONES_AL_ENFASIS_" & x
-    x = x + 1
   End Select
 End Function
 
@@ -318,7 +317,6 @@ Public Function diagnostics_header(ByVal value As String) As String
     diagnostics_header = "CODIGO DIAG REL" & x
    Case "DIAG REL " & x, "DIAG REL" & x
     diagnostics_header = "DIAG REL " & x
-    x = x + 1
   End Select
 End Function
 
