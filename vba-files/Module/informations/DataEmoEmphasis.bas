@@ -33,6 +33,9 @@ Public Sub DataEmphasisEmo()
   For Each item In Range(emo_origin, emo_origin.End(xlToRight))
     If emo_origin_dictionary.Exists(emphasis_headers(item)) = False Then
       emo_origin_dictionary.Add emphasis_headers(item), item.Column
+      If emo_origin_dictionary.Exists("OBSERVACIONES_AL_ENFASIS_" & x) = True Then
+        x = x + 1
+      End If
     End If
   Next item
 
@@ -76,10 +79,10 @@ Public Sub DataEmphasisEmo()
       counter = (emo_origin_dictionary.Count - 2) / 3
       If (typeExams(charters(item.Offset(, emo_origin_dictionary("TIPO EXAMEN") - 1))) <> "EGRESO") Then
         If item.Value <> "" And item.Row = 2 Then
-          Call addNewRegister(tbl_emphasis.ListRows(1), counter, item)
+          Call addNewRegister(tbl_emphasis.ListRows(1), counter - 1, item)
           DoEvents
         ElseIf item.Value <> "" And item.Row > 2 Then
-          Call addNewRegister(tbl_emphasis.ListRows.Add, counter, item)
+          Call addNewRegister(tbl_emphasis.ListRows.Add, counter - 1, item)
           DoEvents
         ElseIf item.Value = "" Or item.Value = VbNullString Then
           Exit For
