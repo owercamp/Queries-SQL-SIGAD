@@ -33,6 +33,9 @@ Public Sub DataDiagnosticsEmo()
   For Each item In Range(emo_origin, emo_origin.End(xlToRight))
     If emo_origin_dictionary.Exists(diagnostics_header(item)) = False Then
       emo_origin_dictionary.Add diagnostics_header(item), item.Column
+      If emo_origin_dictionary.Exists("DIAG REL " & x) = True Then
+        x = x + 1
+      End If
     End If
   Next item
 
@@ -76,10 +79,10 @@ Public Sub DataDiagnosticsEmo()
       counter = (emo_origin_dictionary.Count - 5) / 2
       If (typeExams(charters(item.Offset(, emo_origin_dictionary("TIPO EXAMEN") - 1))) <> "EGRESO") Then
         If item.Value <> "" And item.Row = 2 Then
-          Call addNewRegister(tbl_diagnostics.ListRows(1), counter, item)
+          Call addNewRegister(tbl_diagnostics.ListRows(1), counter - 1, item)
           DoEvents
         ElseIf item.Value <> "" And item.Row > 2 Then
-          Call addNewRegister(tbl_diagnostics.ListRows.Add, counter, item)
+          Call addNewRegister(tbl_diagnostics.ListRows.Add, counter - 1, item)
           DoEvents
         ElseIf item.Value = "" Or item.Value = VbNullString Then
           Exit For
