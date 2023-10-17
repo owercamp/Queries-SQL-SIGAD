@@ -32,10 +32,8 @@ Public Sub AudioData()
 
   '' CABECERA DE LA HOJA EMO DEL LIBRO ORIGEN ''
   For Each item In Range(audio_origin, audio_origin.End(xlToRight))
-    If item.value <> "" And item.Row = 2 Then
-      If audio_origin_dictionary.Exists(audio_headers(item)) = False Then
-        audio_origin_dictionary.Add audio_headers(item), item.Column
-      End If
+    If audio_origin_dictionary.Exists(audio_headers(item)) = False Then
+      audio_origin_dictionary.Add audio_headers(item), item.Column
     End If
   Next item
 
