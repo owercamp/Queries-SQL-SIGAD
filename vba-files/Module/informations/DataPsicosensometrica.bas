@@ -92,12 +92,9 @@ Public Sub PsicosensometricaData()
     Next item
   End With
 
-  range("$I3:$N3").Select
-  Call greaterThanOne
-  range("$I3:$N3").Select
-  Call iqualCero
-  range("$A3", range("$A3").End(xlDown)).Select
-  Call formatter
+  Call greaterThanOne(senso_destiny.Range("tbl_psicosensometrica[[CONTROLES MENSUALES]:[CONTROLES CONFIRMATORIA]]"), "PSICOSENSOMETRICA")
+  Call iqualCero(senso_destiny.Range("tbl_psicosensometrica[[CONTROLES MENSUALES]:[CONTROLES CONFIRMATORIA]]"), "PSICOSENSOMETRICA")
+  Call formatter(senso_destiny.Range("tbl_psicosensometrica[[#Data],[NRO IDENFICACION]]"))
 
   Set senso_origin = Nothing
   psicosensometrica_origin_dictionary.RemoveAll
