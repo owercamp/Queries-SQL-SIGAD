@@ -93,10 +93,8 @@ Public Sub DataEmphasisEmo()
     Next item
   End With
 
-  range("$A5").Select
-  Call dataDuplicate
-  range("$A5", range("$A5").End(xlDown)).Select
-  Call formatter
+  Call dataDuplicate(emphasis_destiny.Range("tbl_enfasis[[#Data],[IDENTIFICACION]]"))
+  Call formatter(emphasis_destiny.Range("tbl_enfasis[[#Data],[IDENTIFICACION]]"))
 
   Set emo_origin = Nothing
   emo_origin_dictionary.RemoveAll
