@@ -86,23 +86,12 @@ Public Sub Workers()
     Next item
   End With
 
-  range("$F5").Select
-  Call dataDuplicate
-  range("$J5").Select
-  Call dataDuplicate
-  range("$I5").Select
-  Call dataDuplicate
-  range("$T5").Select
-  Call dataDuplicate
-  range("$AW5").Select
-  Call dataDuplicate
-  range("$J5", range("$J5").End(xlDown)).Select
-  Call formatter
-  range("$H5").Select
-  range(selection, selection.End(xlDown)).Select
-  selection.TextToColumns Destination:=range("$H5"), DataType:=xlFixedWidth, _
-  FieldInfo:=Array(Array(0, 4), Array(15, 9)), TrailingMinusNumbers:=True
-  range("tbl_trabajadores[[#Headers],[FECHA INGRESO]]").Select
+  Call dataDuplicate(worker_destiny.Range("tbl_trabajadores[[#Data],[INGRESO]]"))
+  Call dataDuplicate(worker_destiny.Range("tbl_trabajadores[[#Data],[NRO IDENFICACION]]"))
+  Call dataDuplicate(worker_destiny.Range("tbl_trabajadores[[#Data],[PACIENTE]]"))
+  Call dataDuplicate(worker_destiny.Range("tbl_trabajadores[[#Data],[CARGO USUARIO]]"))
+  Call dataDuplicate(worker_destiny.Range("tbl_trabajadores[[#Data],[idOrdenListaTrabajadores]]"))
+  Call formatter(worker_destiny.Range("tbl_trabajadores[[#Data],[NRO IDENFICACION]]"))
 
   Set emo_origin = Nothing
   emo_dictionary.RemoveAll
