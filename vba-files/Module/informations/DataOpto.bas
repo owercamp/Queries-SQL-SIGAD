@@ -91,20 +91,10 @@ Public Sub OptoData()
     Next item
   End With
 
-  range("$A4").Select
-  Call dataDuplicate
-  range("$BD4:$BI4").Select
-  Call greaterThanOne
-  range("$BD4:$BI4").Select
-  Call iqualCero
-  range("$BK4").Select
-  Call dataDuplicate
-  range("$BL4").Select
-  Call dataDuplicate
-  range("$BM4").Select
-  Call dataDuplicate
-  range("$A4", range("$A4").End(xlDown)).Select
-  Call formatter
+  Call dataDuplicate(opto_destiny.Range("tbl_opto[[#Data],[NRO IDENFICACION]]"))
+  Call greaterThanOne(opto_destiny.Range("tbl_opto[[CONTROLES MENSUAL]:[CONTROLES CONFIRMATORIA]]"), "OPTO")
+  Call iqualCero(opto_destiny.Range("tbl_opto[[CONTROLES MENSUAL]:[CONTROLES CONFIRMATORIA]]"), "OPTO")
+  Call formatter(opto_destiny.Range("tbl_opto[[#Data],[NRO IDENFICACION]]"))
 
   Set opto_origin = Nothing
   opto_origin_dictionary.RemoveAll
