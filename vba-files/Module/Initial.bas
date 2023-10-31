@@ -23,9 +23,9 @@ Public Sub extraerdatos()
   totalData = 0
   dateInitials = VBA.Date
 
-  On Error Resume Next
-  fso.DeleteFile (ThisWorkbook.Worksheets("RUTAS").range("C9").value & "/testfile.sql")
-  On Error GoTo 0
+  If fso.FileExists(ThisWorkbook.Worksheets("RUTAS").range("C9").value & "/testfile.sql") Then
+    fso.DeleteFile (ThisWorkbook.Worksheets("RUTAS").range("C9").value & "/testfile.sql")
+  End If
 
   'route = ThisWorkbook.Worksheets("RUTAS").Range("C4").value
 
@@ -118,6 +118,7 @@ Public Sub extraerdatos()
   origin.Save
   origin.Close
 
+  Windows(destiny.Name).Activate
   Worksheets("TRABAJADORES").Select
   With Application
     .ScreenUpdating = True
@@ -141,8 +142,7 @@ Public Sub extraerdatos()
 End Sub
 
 Public Sub statusActivate(ByVal name_sheet As String)
-  Sheets(name_sheet).Select
-  With ActiveWorkbook.Sheets(name_sheet).Tab
+  With Workbooks("Queries SQL SIGAD.xlsb").Sheets(name_sheet).Tab
     .ThemeColor = xlThemeColorAccent1
     .TintAndShade = -0.249977111117893
   End With
@@ -157,9 +157,7 @@ Public Sub statusDesactivate(ByVal name_sheet As String)
 End Sub
 
 Public Sub info()
-  On Error Resume Next
   formImports.Show
-  On Error GoTo 0
 End Sub
 
 Public Sub config()
