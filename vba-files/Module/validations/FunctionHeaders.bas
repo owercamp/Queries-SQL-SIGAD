@@ -330,7 +330,7 @@ Public Function opto_headers(ByVal value As String) As String
   Select Case Trim(UCase(value))
    Case "IDENTIFICACION", "NRO IDENFICACION", "NRO IDENTIFICACION"
     opto_headers = "IDENTIFICACION"
-   Case "TIPO EXAMEN"
+   Case "TIPO EXAMEN","TIPO DE EXAMEN"
     opto_headers = "TIPO EXAMEN"
    Case "VISIO/ANT_ LABORAL ILUMINACION INADECUADA", "VISIO/ANT  LABORAL ILUMINACION INADECUADA"
     opto_headers = "VISIO/ANT_ LABORAL ILUMINACION INADECUADA"
@@ -473,7 +473,7 @@ Public Function audio_headers(ByVal value As String) As String
     audio_headers = "EPP ESPECIFICO / AUDITIVO"
    Case "EPP ESPECIFICO / AUDITIVO COPA", "TIPO EPP"
     audio_headers = "EPP ESPECIFICO / AUDITIVO COPA"
-   Case "EPP ESPECIFICO / AUDITIVO INSERCION"
+   Case "EPP ESPECIFICO / AUDITIVO INSERCION","EPP ESPECIFICO / AUDITIVO  INSERCION"
     audio_headers = "EPP ESPECIFICO / AUDITIVO INSERCION"
    Case "EPP ESPECIFICO / AUDITIVO DOBLE"
     audio_headers = "EPP ESPECIFICO / AUDITIVO DOBLE"
