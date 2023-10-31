@@ -89,18 +89,10 @@ Public Sub VisioData()
     Next item
   End With
 
-  range("$A4").Select
-  Call dataDuplicate
-  range("$BL4:$BQ4").Select
-  Call greaterThanOne
-  range("$BL4:$BQ4").Select
-  Call iqualCero
-  range("$BR4").Select
-  Call dataDuplicate
-  range("$BS4").Select
-  Call dataDuplicate
-  range("$A4", range("$A4").End(xlDown)).Select
-  Call formatter
+  Call dataDuplicate(visio_destiny.Range("tbl_visio[[#Data],[NRO IDENFICACION]]"))
+  Call greaterThanOne(visio_destiny.Range("tbl_visio[[CONTROL MENSUAL]:[CONTROL CONFIRMATORIA]]"), "VISIO")
+  Call iqualCero(visio_destiny.Range("tbl_visio[[CONTROL MENSUAL]:[CONTROL CONFIRMATORIA]]"), "VISIO")
+  Call formatter(visio_destiny.Range("tbl_visio[[#Data],[NRO IDENFICACION]]"))
 
   Set visio_origin = Nothing
   visio_origin_dictionary.RemoveAll
