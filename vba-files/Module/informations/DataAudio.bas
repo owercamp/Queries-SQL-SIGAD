@@ -92,18 +92,10 @@ Public Sub AudioData()
     Next item
   End With
 
-  range("$A4").Select
-  Call dataDuplicate
-  range("$AT4:$AX4").Select
-  Call greaterThanOne
-  range("$AT4:$AX4").Select
-  Call iqualCero
-  range("$BF4").Select
-  Call dataDuplicate
-  range("$BG4").Select
-  Call dataDuplicate
-  range("$A4", range("$A4").End(xlDown)).Select
-  Call formatter
+  Call dataDuplicate(audio_destiny.Range("tbl_audio[[#Data],[NROAIDENFICACION]]"))
+  Call greaterThanOne(audio_destiny.Range("tbl_audio[[CONTROLES MENSUALES]:[CONTROLES 1 A" & ChrW(209) & "O]]"),"AUDIO")
+  Call iqualCero(audio_destiny.Range("tbl_audio[[CONTROLES MENSUALES]:[CONTROLES 1 A" & ChrW(209) & "O]]"), "AUDIO")
+  Call formatter(audio_destiny.Range("tbl_audio[[#Data],[NROAIDENFICACION]]"))
 
   Set audio_origin = Nothing
   audio_origin_dictionary.RemoveAll
