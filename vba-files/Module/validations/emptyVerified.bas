@@ -49,7 +49,7 @@ Public Sub correctionAntiquity()
 
   Do Until IsEmpty(ActiveCell.Offset(, -2).value)
     valor = Len(ActiveCell.value)
-    If valor > 3 Then
+    If valor > 5 Then
       ActiveCell = VBA.Mid$(ActiveCell.value, 1, 2)
       ActiveCell = VBA.Replace(ActiveCell, ",", "")
     End If
