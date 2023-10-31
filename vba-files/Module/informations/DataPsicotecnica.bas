@@ -93,9 +93,8 @@ Public Sub PsicotecnicaData()
   End With
 
   range("D2").Select
-  Call meetsfails
-  range("$A2", range("$A2").End(xlDown)).Select
-  Call formatter
+  Call meetsfails(psico_destiny.Range("tbl_psicotecnica[[#Data],[DIAGNOSTICO PPAL (CUMPLE, NO CUMPLE)]]"))
+  Call formatter(psico_destiny.Range("tbl_psicotecnica[[#Data],[NRO IDENFICACION]]"))
 
   Set psico_origin = Nothing
   psicotecnica_origin_dictionary.RemoveAll
