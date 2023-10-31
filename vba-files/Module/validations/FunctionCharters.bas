@@ -62,7 +62,7 @@ End Function
 Public Function city(ByVal value As String) As String
   Select Case value
    Case "BOGOTA", "BOGOTA, D.C.", "BOGOT" & Chr(193) & ", D.C.", "BOGOTA, D.C", "BOGOTA D.C", "BOGOT" & Chr(193), "BOGOTA  D.C", "BOGOTA, BOGOTA D.C", "BOGOTA,D,C", "BOGOTA  D C", "BOGOTa, D,C,", "BOGOTA,D.C", "BOGOTA, DC","BOGOTA, D.C.","BOGOT" & Chr(193) & ", D.C"
-    city = Trim("BOGOTA D.C.")
+    city = Trim("BOGOTA D C")
    Case "CARTAGENA DE INDIAS", "CARTAGENA, BOLIVAR"
     city = Trim("CARTAGENA")
    Case "BUGA", "GUADALAJARA"
@@ -143,7 +143,7 @@ End Function
 '? @return Cadena de texto representando una version estandarizada del tipo de examen.
 Public Function typeExams(ByVal value As String) As String
   Select Case value
-   Case "POST INCAPACIDAD", "POST-INCAPACIDAD"
+   Case "POST INCAPACIDAD", "POST-INCAPACIDAD","REINTEGRO"
     typeExams = "POS INCAPACIDAD"
    Case "PERIODICO SEG"
     typeExams = "PERIODICO"
@@ -153,7 +153,7 @@ Public Function typeExams(ByVal value As String) As String
     typeExams = "CAMBIO DE OCUPACION"
    Case "REINTEGRO LABORAL", "OTROS REINTEGROS"
     typeExams = "EGRESO"
-   Case "PRE-INGRESO", "PRE_INGRESO", "INGRESO", "PRE INGRESO"
+   Case "PRE-INGRESO", "PRE_INGRESO", "INGRESO", "PRE INGRESO","LEVANTAR APLAZAMIENTO"
     typeExams = "PRE-INGRESO"
    Case Else
     typeExams = value
@@ -452,4 +452,24 @@ Public Sub ajustarTallas()
     '? Selecciona la celda siguiente
     ActiveCell.Offset(1, 0).Select
   Loop
+End Sub
+
+public Sub disabilityNumber()
+
+  Dim value As Integer
+
+  Do Until IsEmpty(ActiveCell.Offset(0, -59))
+    On Error GoTo ChangeValue
+    value = CInt(ActiveCell.value)
+    On Error GoTo 0
+    ActiveCell.Offset(1, 0).Select
+  Loop
+
+  Exit Sub
+
+ChangeValue:
+  ActiveCell.Offset(,1) = ActiveCell.value
+  ActiveCell = vbNullString
+  Resume Next
+    
 End Sub
