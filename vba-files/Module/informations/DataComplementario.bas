@@ -95,10 +95,8 @@ Public Sub ComplementarioData()
     Next item
   End With
 
-  range("$A4").Select
-  Call dataDuplicate
-  range("$A4", range("$A4").End(xlDown)).Select
-  Call formatter
+  Call dataDuplicate(comple_destiny.Range("tbl_complementarios[[#Data],[NRO IDENFICACION]]"))
+  Call formatter(comple_destiny.Range("tbl_complementarios[[#Data],[NRO IDENFICACION]]"))
 
   Set comple_origin = Nothing
   comple_origin_dictionary.RemoveAll
