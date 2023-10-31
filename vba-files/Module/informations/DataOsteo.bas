@@ -89,10 +89,8 @@ Public Sub OsteoData()
     Next item
   End With
 
-  range("$A4").Select
-  Call dataDuplicate
-  range("$A4", range("$A4").End(xlDown)).Select
-  Call formatter
+  Call dataDuplicate(osteo_destiny.Range("tbl_osteo[[#Data],[NRO IDENFICACION]]"))
+  Call formatter(osteo_destiny.Range("tbl_osteo[[#Data],[NRO IDENFICACION]]"))
 
   Set osteo_origin = Nothing
   osteo_origin_dictionary.RemoveAll
