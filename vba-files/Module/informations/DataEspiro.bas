@@ -92,14 +92,10 @@ Public Sub EspiroData()
     Next item
   End With
 
-  range("$A4").Select
-  Call dataDuplicate
-  range("$A4", range("$A4").End(xlDown)).Select
-  Call formatter
-  range("$BN4:$BS4").Select
-  Call greaterThanOne
-  range("$BN4:$BS4").Select
-  Call iqualCero
+  Call dataDuplicate(espiro_destiny.Range("tbl_espiro_info[[#Data],[NRO IDENFICACION]]"))
+  Call formatter(espiro_destiny.Range("tbl_espiro_info[[#Data],[NRO IDENFICACION]]"))
+  Call greaterThanOne(espiro_destiny.Range("tbl_espiro_info[[CONTROLES MENSUAL]:[CONTROLES CONFIRMATORIA]]"), "ESPIRO")
+  Call iqualCero(espiro_destiny.Range("tbl_espiro_info[[CONTROLES MENSUAL]:[CONTROLES CONFIRMATORIA]]"), "ESPIRO")
 
   Set espiro_origin = Nothing
   espiro_origin_dictionary.RemoveAll
