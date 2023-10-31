@@ -86,19 +86,13 @@ Public Sub DataEmoWorkers()
     Next item
   End With
 
-  range("$BH5").Select
-  Call thisText
-  range("$EK5").Select
-  Call dataDuplicate
-  range("$EL5").Select
-  Call dataDuplicate
-  range("$A5").Select
-  Call dataDuplicate
-  range("$EO5").Select
-  Call Risk
-  Call riskPre_ingreso
-  range("$A5", range("$A5").End(xlDown)).Select
-  Call formatter
+  Call thisText(emo_destiny.Range("tbl_emo[[#Data],[INCAPACIDAD]]"))
+  Call dataDuplicate(emo_destiny.Range("tbl_emo[[#Data],[orden_lista_trabajadoresid]]"))
+  Call dataDuplicate(emo_destiny.Range("tbl_emo[[#Data],[id_emo]]"))
+  Call dataDuplicate(emo_destiny.Range("tbl_emo[[#Data],[NRO IDENTIFICACION]]"))
+  Call Risk(emo_destiny.Range("tbl_emo[[#Data],[SCRIPT ics_emo_riesgos]]"))
+  Call riskPre_ingreso(emo_destiny.Range("tbl_emo[[#Data],[SCRIPT ics_emo_riesgos]]"))
+  Call formatter(emo_destiny.Range("tbl_emo[[#Data],[NRO IDENTIFICACION]]"))
 
   Set emo_origin = Nothing
   emo_origin_dictionary.RemoveAll
