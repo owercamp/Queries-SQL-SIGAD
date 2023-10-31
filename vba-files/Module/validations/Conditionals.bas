@@ -4,12 +4,9 @@ Option Explicit
 ' * Esta subrutina aplica formato a las celdas de una columna para resaltar valores duplicados.
 ' * Solo se aplica formato a los valores que aparecen mas de una vez en la columna.
 ' * Los valores duplicados se resaltan en negrita y color de fondo.
-Public Sub dataDuplicate()
+Public Sub dataDuplicate(ByVal selection As Object)
 
   Application.Calculate
-  If selection(1).Offset(1, 0).value <> vbNullString Then
-    range(selection, selection.End(xlDown)).Select
-  End If
   selection.FormatConditions.AddUniqueValues
   selection.FormatConditions(selection.FormatConditions.Count).SetFirstPriority
   selection.FormatConditions(1).DupeUnique = xlDuplicate
@@ -42,12 +39,9 @@ End Sub
 ' * El fondo se establece en un color solido con valor RGB de 15388336 (un tono de naranja).
 ' *
 ' * Nota: Esta funcion asume que la primera fila del rango seleccionado contiene los encabezados de las columnas.
-Public Sub iqualCero()
+Public Sub iqualCero(ByVal selection As Object, ByVal SheetName As String)
 
-  If selection(1).Offset(1, 0).value <> vbNullString Then
-    range(selection, selection.End(xlDown)).Select
-  End If
-  Select Case Trim(UCase(ActiveSheet.Name))
+  Select Case Trim(SheetName)
    Case "AUDIO"
     selection.FormatConditions.Add Type:=xlExpression, Formula1:="=Y($AT4=0;$AU4=0;$AV4=0;$AW4=0;$AX4=0)"
    Case "VISIO"
@@ -84,11 +78,8 @@ End Sub
 ' *
 ' * Esta sub asume que una seleccion activa de celdas ya ha sido hecha en la hoja de calculo activa.
 ' * Si no se ha seleccionado un rango de celdas, se producira un error en tiempo de ejecucion.
-Public Sub meetsfails()
+Public Sub meetsfails(ByVal selection As Object)
 
-  If selection(1).Offset(1, 0).value <> vbNullString Then
-    range(selection, selection.End(xlDown)).Select
-  End If
   selection.FormatConditions.Add Type:=xlExpression, Formula1:= _
   "=Y($D2<>""CUMPLE"";$D2<>""NO CUMPLE"")"
   selection.FormatConditions(selection.FormatConditions.Count).SetFirstPriority
@@ -111,11 +102,8 @@ End Sub
 '* Las celdas que cumplen la condicion especificada en la formula de la regla se formatean con fuente en negrita, color de tema xlThemeColorAccent1 y un tono de sombreado especifico.
 '* El color de fondo de la celda se establece en un valor especifico.
 '* La condicion es verdadera si la celda EO5 esta vacia y G5 en la hoja TRABAJADORES es PERIODICO, POS INCAPACIDAD, PERIODICO DE SEGUIMIENTO o ESPECIAL.
-Public Sub Risk()
+Public Sub Risk(ByVal selection As Object)
 
-  If selection(1).Offset(1, -134).value <> vbNullString Then
-    range(selection, selection.End(xlDown)).Select
-  End If
   selection.FormatConditions.Add Type:=xlExpression, Formula1:= _
   "=Y($EO5="""";O(TRABAJADORES!$G5=""PERIODICO"";TRABAJADORES!$G5=""POS INCAPACIDAD"";TRABAJADORES!$G5=""PERIODICO DE SEGUIMIENTO"";TRABAJADORES!$G5=""ESPECIAL""))"
   selection.FormatConditions(selection.FormatConditions.Count).SetFirstPriority
@@ -136,11 +124,8 @@ End Sub
 
 '* Aplica formato condicional a las celdas seleccionadas que cumplan con la expresion especificada
 '* para trabajadores en pre-ingreso
-Public Sub riskPre_ingreso()
+Public Sub riskPre_ingreso(ByVal selection As Object)
 
-  If selection(1).Offset(1, -134).value <> vbNullString Then
-    range(selection, selection.End(xlDown)).Select
-  End If
   selection.FormatConditions.Add Type:=xlExpression, Formula1:= _
   "=Y($EO5<>"""";TRABAJADORES!$G5=""PRE-INGRESO"")"
   selection.FormatConditions(selection.FormatConditions.Count).SetFirstPriority
@@ -159,10 +144,8 @@ Public Sub riskPre_ingreso()
 
 End Sub
 
-Public Sub withoutRisk()
-  If selection(1).Offset(1, 0).value <> vbNullString Then
-    range(selection, selection.End(xlDown)).Select
-  End If
+Public Sub withoutRisk(ByVal selection As Object)
+  
   selection.FormatConditions.Add Type:=xlExpression, Formula1:= _
   "=SI($A$1<>"""";SI(HALLAR($A$1;BUSCARV($A5;TRABAJADORES!$J$5:$T$10000;11;FALSO);1);""Verdadero"";""Falso"") =""Verdadero"")"
   selection.FormatConditions(selection.FormatConditions.Count).SetFirstPriority
@@ -182,7 +165,7 @@ End Sub
 
 '* Este subrutina formatea la seleccion en la hoja de calculo activa
 '* El formato numerico se establece en "0" y la altura de fila se establece en 40
-Public Sub formatter()
+Public Sub formatter(ByVal selection As Object)
 
   selection.NumberFormat = "0"
   selection.RowHeight = 40
@@ -192,12 +175,9 @@ End Sub
 '* Este sub selecciona un rango de celdas desde la celda activa hasta la ultima celda con datos en la columna hacia abajo.
 '* Luego, agrega una condicion de formato en funcion del nombre de la hoja activa y la suma de ciertas celdas del rango seleccionado.
 '* Si la suma es mayor que 1, se aplica un formato de fuente en negrita y color de fondo en naranja.
-Public Sub greaterThanOne()
+Public Sub greaterThanOne(ByVal selection As Object, ByVal SheetName As String)
 
-  If selection(1).Offset(1, 0).value <> vbNullString Then
-    range(selection, selection.End(xlDown)).Select
-  End If
-  Select Case Trim(UCase(ActiveSheet.Name))
+  Select Case Trim(SheetName)
    Case "AUDIO"
     selection.FormatConditions.Add Type:=xlExpression, Formula1:="=SUMA($AT4;$AU4;$AV4;$AW4;$AX4)>1"
    Case "VISIO"
@@ -226,11 +206,8 @@ Public Sub greaterThanOne()
 End Sub
 
 '* Este procedimiento selecciona el rango desde la celda activa hacia abajo y agrega una condicion de formato para resaltar las celdas que contienen texto en la columna BH.
-Public Sub thisText()
+Public Sub thisText(ByVal selection As Object)
 
-  If selection(1).Offset(1, 0).value <> vbNullString Then
-    range(selection, selection.End(xlDown)).Select
-  End If
   selection.FormatConditions.Add Type:=xlExpression, Formula1:= _
   "=ESTEXTO($BH5)"
   selection.FormatConditions(selection.FormatConditions.Count).SetFirstPriority
@@ -250,11 +227,8 @@ Public Sub thisText()
 End Sub
 
 '* Aplica una condicion de formato a la seleccion actual si el valor de la columna G es "EGRESO".
-Public Sub thisEgreso()
+Public Sub thisEgreso(ByVal selection As Object)
 
-  If selection(1).Offset(1, 0).value <> vbNullString Then
-    range(selection, selection.End(xlDown)).Select
-  End If
   selection.FormatConditions.Add Type:=xlExpression, Formula1:= _
   "=$G5=""EGRESO"""
   selection.FormatConditions(selection.FormatConditions.Count).SetFirstPriority
