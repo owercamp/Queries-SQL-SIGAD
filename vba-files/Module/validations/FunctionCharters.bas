@@ -2,15 +2,6 @@ Attribute VB_Name = "FunctionCharters"
 'namespace=vba-files\Module\validations
 Option Explicit
 
-'''? <summary>
-'''? Esta funcion convierte una cadena de texto a mayusculas y elimina los espacios en blanco alrededor del valor de entrada.
-'''? </summary>
-'''? @param <param name="value">El valor de entrada como cadena de texto.</param>
-'''? @return <returns>El valor de entrada en mayusculas y sin espacios en blanco.</returns>
-Public Function charters(ByVal value As String) As String
-  charters = Trim(UCase(value))
-End Function
-
 'TODO: Elimina los espacios al inicio y al final de cada valor y verifica que no sea un campo vacio.
 '? Parametros:
 '?@param - value: El valor que se va a verificar.
@@ -18,14 +9,12 @@ End Function
 '? @return - Si el valor es un campo vacio o una cadena vacia o "NO", devuelve "0".
 '? @return - Si el valor es "OCASIONAL" o "SI", devuelve "1".
 '? @return - En cualquier otro caso, devuelve el valor sin espacios al inicio y al final en mayusculas.
-Public Function charters_empty(value)
+Public Function charters_empty(ByVal value As String) As String
   Select Case Trim(UCase(value))
-   Case IsEmpty(Trim(UCase(value))), "", "NO"
+   Case IsEmpty(Trim(UCase(value))), "", "NO","0"
     charters_empty = "0"
-   Case "OCASIONAL", "SI"
+   Case "OCASIONAL", "SI","1"
     charters_empty = "1"
-   Case Else
-    charters_empty = Trim(UCase(value))
   End Select
 End Function
 
@@ -37,7 +26,7 @@ End Function
 '? @param padCharacter: El caracter utilizado para rellenar a la izquierda el texto.
 '? Devuelve:
 '? @return Una cadena de caracteres con el texto proporcionado rellenado a la izquierda con el caracter de relleno especificado hasta alcanzar la longitud total especificada.
-Public Function PadLeft(text As Variant, totalLength As Integer, padCharacter As String) As String
+Public Function PadLeft(ByVal text As String,ByVal totalLength As Integer,ByVal padCharacter As String) As String
   PadLeft = String(totalLength - Len(CStr(text)), padCharacter) & CStr(text)
 End Function
 
@@ -49,7 +38,7 @@ End Function
 '? @param padCharacter: El caracter utilizado para rellenar a la derecha el texto.
 '? Devuelve:
 '? @return Una cadena de caracteres con el texto proporcionado rellenado a la derecha con el caracter de relleno especificado hasta alcanzar la longitud total especificada.
-Public Function PadRight(text As Variant, totalLength As Integer, padCharacter As String) As String
+Public Function PadRight(ByVal text As String,ByVal totalLength As Integer,ByVal padCharacter As String) As String
   PadRight = CStr(text) & String(totalLength - Len(CStr(text)), padCharacter)
 End Function
 
@@ -62,7 +51,7 @@ End Function
 Public Function city(ByVal value As String) As String
   Select Case value
    Case "BOGOTA", "BOGOTA, D.C.", "BOGOT" & Chr(193) & ", D.C.", "BOGOTA, D.C", "BOGOTA D.C", "BOGOT" & Chr(193), "BOGOTA  D.C", "BOGOTA, BOGOTA D.C", "BOGOTA,D,C", "BOGOTA  D C", "BOGOTa, D,C,", "BOGOTA,D.C", "BOGOTA, DC","BOGOTA, D.C.","BOGOT" & Chr(193) & ", D.C"
-    city = Trim("BOGOTA D C")
+    city = Trim("BOGOTA D.C.")
    Case "CARTAGENA DE INDIAS", "CARTAGENA, BOLIVAR"
     city = Trim("CARTAGENA")
    Case "BUGA", "GUADALAJARA"
@@ -143,7 +132,7 @@ End Function
 '? @return Cadena de texto representando una version estandarizada del tipo de examen.
 Public Function typeExams(ByVal value As String) As String
   Select Case value
-   Case "POST INCAPACIDAD", "POST-INCAPACIDAD","REINTEGRO"
+   Case "POST INCAPACIDAD", "POST-INCAPACIDAD"
     typeExams = "POS INCAPACIDAD"
    Case "PERIODICO SEG"
     typeExams = "PERIODICO"
@@ -408,51 +397,6 @@ Public Function ReplaceNonAlphaNumeric(str As String) As String
   '? Reemplaza cualquier valor no alfanumerico por un espacio
   ReplaceNonAlphaNumeric = regEx.Replace(str, " ")
 End Function
-
-'TODO: Este Subrutina asigna un numero aleatorio entre 60 y 80 a las celdas vacias en la columna activa, siempre y cuando el valor de la celda no sea "SIN DATO".
-'?Variables:
-'? @param num: longptr - Almacena el numero aleatorio generado.
-'?Instrucciones:
-'?   1. Inicio del bucle hasta que la celda activa en la columna anterior este vacia.
-'?   2. Si la celda activa esta vacia o el valor en mayusculas es "SIN DATO", entonces genera un numero aleatorio entre 60 y 80 y lo asigna a la celda activa.
-'?   3. Selecciona la celda siguiente en la columna activa.
-'?   4. Fin del bucle.
-Public Sub Peso()
-  Dim num As LongPtr
-
-  Do While Not IsEmpty(ActiveCell.Offset(, -35))
-    If IsEmpty(ActiveCell) Or Trim$(UCase$(ActiveCell.value)) = "SIN DATO" Then
-      num = Int((80 - 60 + 1) * Rnd + 60)
-      ActiveCell.value = num
-    End If
-    ActiveCell.Offset(1, 0).Select
-  Loop
-
-End Sub
-
-'TODO: ajustarTallas ajusta la informacion de altura en la columna activa.
-'? Las celdas vacias o con el valor "sin dato" se reemplazan con una altura aleatoria entre 1.6 y 1.8 metros.
-'? Las celdas que contienen un numero entero se dividen por 100 para convertirlos a metros.
-'? Este subrutina continua hasta que se encuentra una celda vacia en la columna -36.
-Public Sub ajustarTallas()
-  Dim talla As Double
-
-  '? Recorre todas las celdas hacia abajo hasta encontrar una vacia en la columna -36
-  Do While Not IsEmpty(ActiveCell.Offset(0, -36))
-    If Trim$(ActiveCell.value) = "" Or Trim$(UCase$(ActiveCell.value)) = "SIN DATO" Then
-      '? Genera una talla aleatoria entre 1.6 y 1.8 metros
-      talla = CDec((Int((180 - 160 + 1) * Rnd + 160)) / 100)
-      ActiveCell.value = talla
-    ElseIf ActiveCell.value = Int(ActiveCell.value) Then
-      '? Divide el numero entero de la celda por 100
-      talla = CDec(ActiveCell.value / 100)
-      ActiveCell.value = talla
-    End If
-
-    '? Selecciona la celda siguiente
-    ActiveCell.Offset(1, 0).Select
-  Loop
-End Sub
 
 public Sub disabilityNumber()
 

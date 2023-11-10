@@ -1,7 +1,7 @@
 Attribute VB_Name = "FunctionBook"
 'namespace=vba-files\Module\validations
 Option Explicit
-Public sigad As Variant
+Public sigad As String
 Public trabajadores As Worksheet, emo As Worksheet, audio As Worksheet, visio As Worksheet, opto As Worksheet, espiro As Worksheet, osteo As Worksheet, complementarios As Worksheet, psicotecnica As Worksheet, psicosensometrica As Worksheet, enfasis As Worksheet, diag As Worksheet
 
 '''? <summary>
@@ -390,10 +390,10 @@ Public Sub Modification()
         False, AllowSorting:=True, AllowFiltering:=True, AllowUsingPivotTables:= _
         True
         consolidado.Save
+        consolidado.Close
       End If
       ActiveCell.Offset(1, 0).Select
     Loop
-    Windows(consolidado.Name).Activate
     MsgBox prompt:="Se ha registrado la modificaci" & Chr(243) & "n", Buttons:=vbInformation + vbOKOnly, Title:="Registro Exitoso"
 
   End If
@@ -412,7 +412,7 @@ Public Sub AddRecordToGoogleSheet(ByVal Company As String, ByVal sigad As String
 
   '' ya funciona usa el token oAuth2 ''
 
-  Dim HttpReq As Variant
+  Dim HttpReq As Object
   Dim Json As Object
   Dim monthNow As Integer, yearNow As Integer
   Dim fullDate As String, dateNow As String, bearerToken As String

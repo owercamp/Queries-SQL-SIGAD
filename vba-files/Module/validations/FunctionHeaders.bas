@@ -278,15 +278,15 @@ End Function
 '?   Esta funcion utiliza un valor de entrada para determinar la clave de un encabezado.
 '?   Si el valor de entrada coincide con una de las claves de encabezado, la funcion devuelve la clave correspondiente.
 '?   En caso contrario, la funcion devuelve la cadena "SIN DATO".
-Public Function emphasis_headers(ByVal value As String) As String
+Public Function emphasis_headers(ByVal value As String, ByVal x As Long) As String
   Select Case Trim(UCase(value))
    Case "IDENTIFICACION", "NRO IDENFICACION", "NRO IDENTIFICACION"
     emphasis_headers = "IDENTIFICACION"
    Case "TIPO EXAMEN"
     emphasis_headers = "TIPO EXAMEN"
-   Case "ENFASIS_" & x, "ENFASIS " & x, "ENFASIS" & x
+   Case "ENFASIS_" & x, "ENFASIS " & x,"ENFASIS" & x
     emphasis_headers = "ENFASIS_" & x
-   Case "CONCEPTO AL ENFASIS_" & x, "CONCEPTO AL ENFASIS " & x, "CONCEPTO_AL_ENFASIS_" & x
+   Case "CONCEPTO AL ENFASIS_" & x, "CONCEPTO AL ENFASIS " & x,"CONCEPTO_AL_ENFASIS_" & x
     emphasis_headers = "CONCEPTO AL ENFASIS_" & x
    Case "OBSERVACIONES_AL_ENFASIS_" & x, "OBSERVACIONES AL ENFASIS " & x, "OBSERVACIONES AL ENFASIS_" & x, "OBSERVACIONES_AL_ENFASIS " & x
     emphasis_headers = "OBSERVACIONES_AL_ENFASIS_" & x
@@ -303,7 +303,7 @@ End Function
 '?   Esta funcion utiliza un valor de entrada para determinar la clave de un encabezado de diagnostico.
 '?   Si el valor de entrada coincide con una de las claves de encabezado de diagnostico, la funcion devuelve la clave correspondiente.
 '?   En caso contrario, la funcion devuelve la cadena "SIN DATO".
-Public Function diagnostics_header(ByVal value As String) As String
+Public Function diagnostics_header(ByVal value As String, ByVal x As Long) As String
   Select Case Trim(UCase(value))
    Case "IDENTIFICACION", "NRO IDENFICACION", "NRO IDENTIFICACION"
     diagnostics_header = "IDENTIFICACION"
@@ -313,7 +313,7 @@ Public Function diagnostics_header(ByVal value As String) As String
     diagnostics_header = "CODIGO DIAG PPAL"
    Case "DIAG PPAL"
     diagnostics_header = "DIAG PPAL"
-   Case "CODIGO DIAG REL" & x, "CODIGO DIAG REL " & x, "CODIGO DIAG REL" & x, "CODIGO DIAG REL" & x & ","
+   Case "CODIGO DIAG REL" & x, "CODIGO DIAG REL " & x, "CODIGO DIAG REL" & x, "CODIGO DIAG REL" & x &","
     diagnostics_header = "CODIGO DIAG REL" & x
    Case "DIAG REL " & x, "DIAG REL" & x
     diagnostics_header = "DIAG REL " & x

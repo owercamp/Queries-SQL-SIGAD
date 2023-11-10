@@ -20,36 +20,58 @@ Option Explicit
 '* - oneForOne: Una variable numerica para hacer un seguimiento del progreso de la barra de progreso para cada elemento de datos.
 '* - widthOneforOne: Una variable numerica para calcular el ancho de la barra de progreso para cada elemento de datos.
 '* ------------------------------------------------------------------------------------------------------------------
-Dim audio_origin_dictionary As Scripting.Dictionary
 Dim aumentFromID As LongPtr
-Public Sub AudioData()
-  Dim tbl_audio As Object, audio_origin As Object
+Public Sub AudioData(ByVal name_sheet As String)
+  Dim audio_destiny_dictionary As Scripting.Dictionary
+  Dim audio_origin_dictionary As Scripting.Dictionary
+  Dim audio_destiny_header As Object, audio_origin_header As Object, audio_origin_value As Object
+  Dim ItemAudioDestiny As Object, ItemAudioOrigin As Object, ItemData As Object, audio_origin As Object
 
-  Set audio_origin = origin.Worksheets("AUDIO").Range("A1") '' AUDIO DEL LIBRO ORIGEN ''
-  
-  Set tbl_audio = audio_destiny.ListObjects("tbl_audio")
+  Set audio_origin = origin.Worksheets(name_sheet) '' AUDIO DEL LIBRO ORIGEN ''
+  audio_destiny.Select
+  audio_destiny.Range("$A4").Select
+  Set audio_destiny_header = audio_destiny.Range("$A3", audio_destiny.Range("$A3").End(xlToRight))
+  Set audio_origin_header = audio_origin.Range("$A1", audio_origin.Range("$A1").End(xlToRight))
+  Set audio_destiny_dictionary = CreateObject("Scripting.Dictionary")
   Set audio_origin_dictionary = CreateObject("Scripting.Dictionary")
 
-  '' CABECERA DE LA HOJA EMO DEL LIBRO ORIGEN ''
-  For Each item In Range(audio_origin, audio_origin.End(xlToRight))
-    If audio_origin_dictionary.Exists(audio_headers(item)) = False Then
-      audio_origin_dictionary.Add audio_headers(item), item.Column
+  If (audio_origin.Range("$A2") <> Empty And audio_origin.Range("$A3") <> Empty) Then
+    Set audio_origin_value = audio_origin.Range("$A2", audio_origin.Range("$A2").End(xlDown))
+  ElseIf (audio_origin.Range("$A2") <> Empty And audio_origin.Range("$A3") = Empty) Then
+    Set audio_origin_value = audio_origin.Range("$A2")
+  End If
+
+  '' CABECERAS DE LA HOJA EMO DEL LIBRO DESTINO ''
+  Dim value_data As String
+  For Each ItemAudioDestiny In audio_destiny_header
+    value_data = audio_headers(ItemAudioDestiny)
+    If audio_destiny_dictionary.Exists(value_data) = False And value_data <> Empty Then
+      audio_destiny_dictionary.Add value_data, (ItemAudioDestiny.Column - 1)
     End If
-  Next item
+  Next ItemAudioDestiny
+  
+  '' CABECERA DE LA HOJA EMO DEL LIBRO ORIGEN ''
+  For Each ItemAudioOrigin In audio_origin_header
+    value_data = audio_headers(ItemAudioOrigin)
+    If audio_origin_dictionary.Exists(value_data) = False And value_data <> Empty Then
+      audio_origin_dictionary.Add value_data, (ItemAudioOrigin.Column - 1)
+    End If
+  Next ItemAudioOrigin
 
   numbers = 1
   porcentaje = 0
   
   aumentFromID = destiny.Worksheets("RUTAS").range("$F$6").value
-  counts = Ubound(origin.Worksheets("AUDIO").Range("A1").CurrentRegion.Value, 1) - 1
+  counts = audio_origin_value.Count
   formImports.ProgressBarOneforOne.Width = 0
   formImports.porcentageOneoforOne = "0%"
   vals = 1 / counts
   oneForOne = 0
   widthOneforOne = formImports.content_ProgressBarOneforOne.Width / counts
 
+  Dim type_exam As String
   With formImports
-    For Each item In Range(audio_origin.offset(1, 0), audio_origin.offset(1, 0).End(xlDown))
+    For Each ItemData In audio_origin_value
       oneForOne = oneForOne + widthOneforOne
       generalAll = generalAll + widthGeneral
       .lblGeneral.Caption = "importando " & CStr(numbersGeneral) & " de " & CStr(totalData) & "(" & CStr(totalData - numbersGeneral) & ") REGISTROS"
@@ -75,21 +97,81 @@ Public Sub AudioData()
 
       .Caption = CStr(nameCompany)
 
-      If (typeExams(charters(item.Offset(, audio_origin_dictionary("TIPO EXAMEN") - 1))) <> "EGRESO") Then
-        If item.value <> "" And item.Row = 2 Then
-          Call addNewRegister(tbl_audio.ListRows(1), aumentFromID, item)
-          DoEvents
-        ElseIf item.value <> "" And item.Row > 2 Then
-          aumentFromID = aumentFromID + 1
-          Call addNewRegister(tbl_audio.ListRows.Add, aumentFromID, item)
-          DoEvents
-        ElseIf item.value = "" Or item.value = VbNullString Then
-          Exit For
+      type_exam = typeExams(Trim(ItemData.Offset(, audio_origin_dictionary("TIPO EXAMEN"))))
+      If (type_exam <> "EGRESO") Then
+        ActiveCell.Offset(, audio_destiny_dictionary("NROAIDENFICACION")) = Trim(ItemData.Offset(, audio_origin_dictionary("NROAIDENFICACION")))
+        ActiveCell.Offset(, audio_destiny_dictionary("EPP ESPECIFICO / AUDITIVO")) = charters_empty(ItemData.Offset(, audio_origin_dictionary("EPP ESPECIFICO / AUDITIVO")))
+        ActiveCell.Offset(, audio_destiny_dictionary("EPP ESPECIFICO / AUDITIVO COPA")) = charters_empty(ItemData.Offset(, audio_origin_dictionary("EPP ESPECIFICO / AUDITIVO COPA")))
+        ActiveCell.Offset(, audio_destiny_dictionary("EPP ESPECIFICO / AUDITIVO INSERCION")) = charters_empty(ItemData.Offset(, audio_origin_dictionary("EPP ESPECIFICO / AUDITIVO INSERCION")))
+        ActiveCell.Offset(, audio_destiny_dictionary("EPP ESPECIFICO / AUDITIVO DOBLE")) = charters_empty(ItemData.Offset(, audio_origin_dictionary("EPP ESPECIFICO / AUDITIVO DOBLE")))
+        ActiveCell.Offset(, audio_destiny_dictionary("PABELLON AURIC_ OIDO DER_")) = Trim(UCase(ItemData.Offset(, audio_origin_dictionary("PABELLON AURIC_ OIDO DER_"))))
+        ActiveCell.Offset(, audio_destiny_dictionary("PABELLON AURIC_ OIDO DER_ OBS")) = Trim(UCase(ItemData.Offset(, audio_origin_dictionary("PABELLON AURIC_ OIDO DER_ OBS"))))
+        ActiveCell.Offset(, audio_destiny_dictionary("PABELLON AURIC_ OIDO IZQ_")) = Trim(UCase(ItemData.Offset(, audio_origin_dictionary("PABELLON AURIC_ OIDO IZQ_"))))
+        ActiveCell.Offset(, audio_destiny_dictionary("PABELLON AURIC_ OIDO IZQ_ OBS")) = Trim(UCase(ItemData.Offset(, audio_origin_dictionary("PABELLON AURIC_ OIDO IZQ_ OBS"))))
+        ActiveCell.Offset(, audio_destiny_dictionary("CONDUCTO AUDIT_ OIDO DER_")) = Trim(UCase(ItemData.Offset(, audio_origin_dictionary("CONDUCTO AUDIT_ OIDO DER_"))))
+        ActiveCell.Offset(, audio_destiny_dictionary("CONDUCTO AUDIT_ OIDO DER_ OBS")) = Trim(UCase(ItemData.Offset(, audio_origin_dictionary("CONDUCTO AUDIT_ OIDO DER_ OBS"))))
+        ActiveCell.Offset(, audio_destiny_dictionary("CONDUCTO AUDIT_ OIDO IZQ_")) = Trim(UCase(ItemData.Offset(, audio_origin_dictionary("CONDUCTO AUDIT_ OIDO IZQ_"))))
+        ActiveCell.Offset(, audio_destiny_dictionary("CONDUCTO AUDIT_ OIDO IZQ_ OBS")) = Trim(UCase(ItemData.Offset(, audio_origin_dictionary("CONDUCTO AUDIT_ OIDO IZQ_ OBS"))))
+        ActiveCell.Offset(, audio_destiny_dictionary("MEMBRANA TIMP_ OIDO DER")) = Trim(UCase(ItemData.Offset(, audio_origin_dictionary("MEMBRANA TIMP_ OIDO DER"))))
+        ActiveCell.Offset(, audio_destiny_dictionary("MEMBRANA TIMP_ OIDO DER_ OBS")) = Trim(UCase(ItemData.Offset(, audio_origin_dictionary("MEMBRANA TIMP_ OIDO DER_ OBS"))))
+        ActiveCell.Offset(, audio_destiny_dictionary("MEMBRANA TIMP_ OIDO IZQ")) = Trim(UCase(ItemData.Offset(, audio_origin_dictionary("MEMBRANA TIMP_ OIDO IZQ"))))
+        ActiveCell.Offset(, audio_destiny_dictionary("MEMBRANA TIMP_ OIDO IZQ_ OBS")) = Trim(ItemData.Offset(, audio_origin_dictionary("MEMBRANA TIMP_ OIDO IZQ_ OBS")))
+        ActiveCell.Offset(, audio_destiny_dictionary("TIPO DE EXAMEN")) = Trim(UCase(ItemData.Offset(, audio_origin_dictionary("TIPO DE EXAMEN"))))
+        ActiveCell.Offset(, audio_destiny_dictionary("OD 500")) = Trim(ItemData.Offset(, audio_origin_dictionary("OD 500")))
+        ActiveCell.Offset(, audio_destiny_dictionary("OD 1000")) = Trim(ItemData.Offset(, audio_origin_dictionary("OD 1000")))
+        ActiveCell.Offset(, audio_destiny_dictionary("OD 2000")) = Trim(ItemData.Offset(, audio_origin_dictionary("OD 2000")))
+        ActiveCell.Offset(, audio_destiny_dictionary("OD 3000")) = Trim(ItemData.Offset(, audio_origin_dictionary("OD 3000")))
+        ActiveCell.Offset(, audio_destiny_dictionary("OD 4000")) = Trim(ItemData.Offset(, audio_origin_dictionary("OD 4000")))
+        ActiveCell.Offset(, audio_destiny_dictionary("OD 6000")) = Trim(ItemData.Offset(, audio_origin_dictionary("OD 6000")))
+        ActiveCell.Offset(, audio_destiny_dictionary("OD 8000")) = Trim(ItemData.Offset(, audio_origin_dictionary("OD 8000")))
+        ActiveCell.Offset(, audio_destiny_dictionary("OI 500")) = Trim(ItemData.Offset(, audio_origin_dictionary("OI 500")))
+        ActiveCell.Offset(, audio_destiny_dictionary("OI 1000")) = Trim(ItemData.Offset(, audio_origin_dictionary("OI 1000")))
+        ActiveCell.Offset(, audio_destiny_dictionary("OI 2000")) = Trim(ItemData.Offset(, audio_origin_dictionary("OI 2000")))
+        ActiveCell.Offset(, audio_destiny_dictionary("OI 3000")) = Trim(ItemData.Offset(, audio_origin_dictionary("OI 3000")))
+        ActiveCell.Offset(, audio_destiny_dictionary("OI 4000")) = Trim(ItemData.Offset(, audio_origin_dictionary("OI 4000")))
+        ActiveCell.Offset(, audio_destiny_dictionary("OI 6000")) = Trim(ItemData.Offset(, audio_origin_dictionary("OI 6000")))
+        ActiveCell.Offset(, audio_destiny_dictionary("OI 8000")) = Trim(ItemData.Offset(, audio_origin_dictionary("OI 8000")))
+        ActiveCell.Offset(, audio_destiny_dictionary("CONTROL SEGUN PVE")) = charters_empty(ItemData.Offset(, audio_origin_dictionary("CONTROL SEGUN PVE")))
+        ActiveCell.Offset(, audio_destiny_dictionary("CONFIRMATORIA")) = charters_empty(ItemData.Offset(, audio_origin_dictionary("CONFIRMATORIA")))
+        ActiveCell.Offset(, audio_destiny_dictionary("REMISION ORL")) = charters_empty(ItemData.Offset(, audio_origin_dictionary("REMISION ORL")))
+        ActiveCell.Offset(, audio_destiny_dictionary("PRUEBAS COMPLEMENTARIAS")) = charters_empty(ItemData.Offset(, audio_origin_dictionary("PRUEBAS COMPLEMENTARIAS")))
+        ActiveCell.Offset(, audio_destiny_dictionary("LIMPIEZA DE OIDO")) = charters_empty(ItemData.Offset(, audio_origin_dictionary("LIMPIEZA DE OIDO")))
+        ActiveCell.Offset(, audio_destiny_dictionary("LIMPIEZA OD")) = charters_empty(ItemData.Offset(, audio_origin_dictionary("LIMPIEZA OD")))
+        ActiveCell.Offset(, audio_destiny_dictionary("LIMPIEZA OI")) = charters_empty(ItemData.Offset(, audio_origin_dictionary("LIMPIEZA OI")))
+        ActiveCell.Offset(, audio_destiny_dictionary("REPOSO AUDITIVO EXTRALAB")) = charters_empty(ItemData.Offset(, audio_origin_dictionary("REPOSO AUDITIVO EXTRALAB")))
+        ActiveCell.Offset(, audio_destiny_dictionary("ROTAR DIADEMA TELEFONICA")) = charters_empty(ItemData.Offset(, audio_origin_dictionary("ROTAR DIADEMA TELEFONICA")))
+        ActiveCell.Offset(, audio_destiny_dictionary("CONDUCIR CON VENTANAS CERRADAS")) = charters_empty(ItemData.Offset(, audio_origin_dictionary("CONDUCIR CON VENTANAS CERRADAS")))
+        ActiveCell.Offset(, audio_destiny_dictionary("USO DE EPP AUDITIVO")) = charters_empty(ItemData.Offset(, audio_origin_dictionary("USO DE EPP AUDITIVO")))
+        ActiveCell.Offset(, audio_destiny_dictionary("CONTROLES MENSUALES")) = Trim(ItemData.Offset(, audio_origin_dictionary("CONTROLES MENSUALES")))
+        ActiveCell.Offset(, audio_destiny_dictionary("CONTROLES_BIMESTRALES")) = Trim(ItemData.Offset(, audio_origin_dictionary("CONTROLES_BIMESTRALES")))
+        ActiveCell.Offset(, audio_destiny_dictionary("CONTROLES TRIMESTRALES")) = Trim(ItemData.Offset(, audio_origin_dictionary("CONTROLES TRIMESTRALES")))
+        ActiveCell.Offset(, audio_destiny_dictionary("CONTROLES 6 MESES")) = Trim(ItemData.Offset(, audio_origin_dictionary("CONTROLES 6 MESES")))
+        ActiveCell.Offset(, audio_destiny_dictionary("CONTROLES 1 ANO")) = Trim(ItemData.Offset(, audio_origin_dictionary("CONTROLES 1 ANO")))
+        If (Trim(ItemData.Offset(, audio_origin_dictionary("DIAG PPAL"))) = "NO REFIERE") Then
+          ActiveCell.Offset(, audio_destiny_dictionary("DIAG PPAL")) = "#N/A"
+        Else
+          ActiveCell.Offset(, audio_destiny_dictionary("DIAG PPAL")) = Trim(UCase(ItemData.Offset(, audio_origin_dictionary("DIAG PPAL"))))
         End If
+        If (Trim(ItemData.Offset(, audio_origin_dictionary("DIAG INTERNO"))) = "NO REFIERE") Then
+          ActiveCell.Offset(, audio_destiny_dictionary("DIAG INTERNO")) = "#N/A"
+        Else
+          ActiveCell.Offset(, audio_destiny_dictionary("DIAG INTERNO")) = Trim(UCase(ItemData.Offset(, audio_origin_dictionary("DIAG INTERNO"))))
+        End If
+        If (Trim(ItemData.Offset(, audio_origin_dictionary("DIAG GATI-SO"))) = "NO REFIERE") Then
+          ActiveCell.Offset(, audio_destiny_dictionary("DIAG GATI-SO")) ="#N/A"
+        Else
+          ActiveCell.Offset(, audio_destiny_dictionary("DIAG GATI-SO")) = Trim(UCase(ItemData.Offset(, audio_origin_dictionary("DIAG GATI-SO"))))
+        End If
+        If (ActiveCell.Row <> 4) Then
+          aumentFromID = aumentFromID + 1
+        End If
+        ActiveCell.Offset(, audio_destiny_dictionary("ID_AUDIOMETRIA")) = aumentFromID
+        ActiveCell.Offset(1, 0).Select
         numbers = numbers + 1
-        numbersGeneral = numbersGeneral + 1      
+        numbersGeneral = numbersGeneral + 1
+        DoEvents     
       End If
-    Next item
+    Next ItemData
   End With
 
   Call dataDuplicate(audio_destiny.Range("tbl_audio[[#Data],[NROAIDENFICACION]]"))
@@ -97,82 +179,10 @@ Public Sub AudioData()
   Call iqualCero(audio_destiny.Range("tbl_audio[[CONTROLES MENSUALES]:[CONTROLES 1 A" & ChrW(209) & "O]]"), "AUDIO")
   Call formatter(audio_destiny.Range("tbl_audio[[#Data],[NROAIDENFICACION]]"))
 
-  Set audio_origin = Nothing
+  Set audio_origin_value = Nothing
+  Set audio_destiny_header = Nothing
+  Set audio_origin_header = Nothing
+  audio_destiny_dictionary.RemoveAll
   audio_origin_dictionary.RemoveAll
-
-End Sub
-
-Private Sub addNewRegister(ByVal table As Object, ByVal autoIncrement As LongPtr, ByVal information As Object)
-
-  With table
-    .Range(1) = charters(information(, audio_origin_dictionary("NROAIDENFICACION")))
-    .Range(2) = charters_empty(information(, audio_origin_dictionary("EPP ESPECIFICO / AUDITIVO")))
-    .Range(3) = charters_empty(information(, audio_origin_dictionary("EPP ESPECIFICO / AUDITIVO COPA")))
-    .Range(4) = charters_empty(information(, audio_origin_dictionary("EPP ESPECIFICO / AUDITIVO INSERCION")))
-    .Range(5) = charters_empty(information(, audio_origin_dictionary("EPP ESPECIFICO / AUDITIVO DOBLE")))
-    .Range(6) = charters(information(, audio_origin_dictionary("PABELLON AURIC_ OIDO DER_")))
-    .Range(7) = charters(information(, audio_origin_dictionary("PABELLON AURIC_ OIDO DER_ OBS")))
-    .Range(8) = charters(information(, audio_origin_dictionary("PABELLON AURIC_ OIDO IZQ_")))
-    .Range(9) = charters(information(, audio_origin_dictionary("PABELLON AURIC_ OIDO IZQ_ OBS")))
-    .Range(10) = charters(information(, audio_origin_dictionary("CONDUCTO AUDIT_ OIDO DER_")))
-    .Range(11) = charters(information(, audio_origin_dictionary("CONDUCTO AUDIT_ OIDO DER_ OBS")))
-    .Range(12) = charters(information(, audio_origin_dictionary("CONDUCTO AUDIT_ OIDO IZQ_")))
-    .Range(13) = charters(information(, audio_origin_dictionary("CONDUCTO AUDIT_ OIDO IZQ_ OBS")))
-    .Range(14) = charters(information(, audio_origin_dictionary("MEMBRANA TIMP_ OIDO DER")))
-    .Range(15) = charters(information(, audio_origin_dictionary("MEMBRANA TIMP_ OIDO DER_ OBS")))
-    .Range(16) = charters(information(, audio_origin_dictionary("MEMBRANA TIMP_ OIDO IZQ")))
-    .Range(17) = charters(information(, audio_origin_dictionary("MEMBRANA TIMP_ OIDO IZQ_ OBS")))
-    .Range(18) = charters(information(, audio_origin_dictionary("TIPO DE EXAMEN")))
-    .Range(19) = charters(information(, audio_origin_dictionary("OD 500")))
-    .Range(20) = charters(information(, audio_origin_dictionary("OD 1000")))
-    .Range(21) = charters(information(, audio_origin_dictionary("OD 2000")))
-    .Range(22) = charters(information(, audio_origin_dictionary("OD 3000")))
-    .Range(23) = charters(information(, audio_origin_dictionary("OD 4000")))
-    .Range(24) = charters(information(, audio_origin_dictionary("OD 6000")))
-    .Range(25) = charters(information(, audio_origin_dictionary("OD 8000")))
-    .Range(27) = charters(information(, audio_origin_dictionary("OI 500")))
-    .Range(28) = charters(information(, audio_origin_dictionary("OI 1000")))
-    .Range(29) = charters(information(, audio_origin_dictionary("OI 2000")))
-    .Range(30) = charters(information(, audio_origin_dictionary("OI 3000")))
-    .Range(31) = charters(information(, audio_origin_dictionary("OI 4000")))
-    .Range(32) = charters(information(, audio_origin_dictionary("OI 6000")))
-    .Range(33) = charters(information(, audio_origin_dictionary("OI 8000")))
-    .Range(35) = charters_empty(information(, audio_origin_dictionary("CONTROL SEGUN PVE")))
-    .Range(36) = charters_empty(information(, audio_origin_dictionary("CONFIRMATORIA")))
-    .Range(37) = charters_empty(information(, audio_origin_dictionary("REMISION ORL")))
-    .Range(38) = charters_empty(information(, audio_origin_dictionary("PRUEBAS COMPLEMENTARIAS")))
-    .Range(39) = charters_empty(information(, audio_origin_dictionary("LIMPIEZA DE OIDO")))
-    .Range(40) = charters_empty(information(, audio_origin_dictionary("LIMPIEZA OD")))
-    .Range(41) = charters_empty(information(, audio_origin_dictionary("LIMPIEZA OI")))
-    .Range(42) = charters_empty(information(, audio_origin_dictionary("REPOSO AUDITIVO EXTRALAB")))
-    .Range(43) = charters_empty(information(, audio_origin_dictionary("ROTAR DIADEMA TELEFONICA")))
-    .Range(44) = charters_empty(information(, audio_origin_dictionary("CONDUCIR CON VENTANAS CERRADAS")))
-    .Range(45) = charters_empty(information(, audio_origin_dictionary("USO DE EPP AUDITIVO")))
-    .Range(46) = charters(information(, audio_origin_dictionary("CONTROLES MENSUALES")))
-    .Range(47) = charters(information(, audio_origin_dictionary("CONTROLES_BIMESTRALES")))
-    .Range(48) = charters(information(, audio_origin_dictionary("CONTROLES TRIMESTRALES")))
-    .Range(49) = charters(information(, audio_origin_dictionary("CONTROLES 6 MESES")))
-    .Range(50) = charters(information(, audio_origin_dictionary("CONTROLES 1 ANO")))
-
-    Select Case charters(information(, audio_origin_dictionary("DIAG PPAL")))
-      Case "NO REFIERE"
-        .Range(51) = "#N/A"
-      Case Else
-        .Range(51) = charters(information(, audio_origin_dictionary("DIAG PPAL")))
-    End Select
-    Select Case charters(information(, audio_origin_dictionary("DIAG INTERNO")))
-      Case "NO REFIERE"
-        .Range(52) = "#N/A"
-      Case Else
-        .Range(52) = charters(information(, audio_origin_dictionary("DIAG INTERNO")))
-    End Select
-    Select Case charters(information(, audio_origin_dictionary("DIAG GATI-SO")))
-      Case "NO REFIERE"
-        .Range(53) = "#N/A"
-      Case Else
-        .Range(53) = charters(information(, audio_origin_dictionary("DIAG GATI-SO")))
-    End Select
-    .Range(59) = autoIncrement
-  End With
 
 End Sub

@@ -19,7 +19,10 @@ Attribute VB_Exposed = False
 Option Explicit
 
 Private Sub btn_informe_Click()
-  If (Trim(Me.txt_informes.value) <> Trim(ThisWorkbook.Worksheets("RUTAS").range("$C$4").value)) Then: ThisWorkbook.Worksheets("RUTAS").range("$C$4") = Trim(Me.txt_informes.value)
+  If (Trim(Me.txt_informes.value) <> Trim(ThisWorkbook.Worksheets("RUTAS").range("$C$4").value)) Then
+    ThisWorkbook.Worksheets("RUTAS").range("$C$4") = Trim(Me.txt_informes.value)
+    ThisWorkbook.Worksheets("RUTAS").range("$C$9") = Trim(Me.txt_informes.value)
+  End If
 End Sub
 
 Private Sub btn_consolidado_Click()

@@ -65,51 +65,51 @@ Public Sub extraerdatos()
     Select Case Trim(UCase(variable.Name))
      Case "EMO"
       If (variable.Visible = True) Then
-        Call Workers
+        Call Workers(variable.Name)
         Call statusActivate(worker_destiny.Name)
-        Call DataEmoWorkers
+        Call DataDiagnosticsEmo(variable.Name)
+        Call DataEmphasisEmo(variable.Name)
+        Call DataEmoWorkers(variable.Name)
         Call statusActivate(emo_destiny.Name)
-        Call DataEmphasisEmo
-        Call DataDiagnosticsEmo
       End If
      Case "AUDIO"
       If (variable.Visible = True) Then
-        Call AudioData
+        Call AudioData(variable.Name)
         Call statusActivate(audio_destiny.Name)
       End If
      Case "OPTO"
       If (variable.Visible = True) Then
-        Call OptoData
+        Call OptoData(variable.Name)
         Call statusActivate(opto_destiny.Name)
       End If
      Case "VISIO"
       If (variable.Visible = True) Then
-        Call VisioData
+        Call VisioData(variable.Name)
         Call statusActivate(visio_destiny.Name)
       End If
      Case "ESPIRO"
       If (variable.Visible = True) Then
-        Call EspiroData
+        Call EspiroData(variable.Name)
         Call statusActivate(espiro_destiny.Name)
       End If
      Case "OSTEO"
       If (variable.Visible = True) Then
-        Call OsteoData
+        Call OsteoData(variable.Name)
         Call statusActivate(osteo_destiny.Name)
       End If
      Case "COMPLEMENTARIO", "COMPLEMENTARIOS"
       If (variable.Visible = True) Then
-        Call ComplementarioData
+        Call ComplementarioData(variable.Name)
         Call statusActivate(comple_destiny.Name)
       End If
      Case "PSICOTECNICA", "PSICOLOGIA", "PSICO"
       If (variable.Visible = True) Then
-        Call PsicotecnicaData
+        Call PsicotecnicaData(variable.Name)
         Call statusActivate(psico_destiny.Name)
       End If
      Case "PSICOSENSOMETRICA", "PSICOMOTRIZ", "MOTRIZ"
       If (variable.Visible = True) Then
-        Call PsicosensometricaData
+        Call PsicosensometricaData(variable.Name)
         Call statusActivate(senso_destiny.Name)
       End If
     End Select

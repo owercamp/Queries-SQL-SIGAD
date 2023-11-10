@@ -20,39 +20,59 @@ Option Explicit
 '* - oneForOne: Una variable numerica para hacer un seguimiento del progreso de la barra de progreso para cada elemento de datos.
 '* - widthOneforOne: Una variable numerica para calcular el ancho de la barra de progreso para cada elemento de datos.
 '* ------------------------------------------------------------------------------------------------------------------
-Dim comple_origin_dictionary As Scripting.Dictionary
 Dim  aumentFromID As LongPtr
-Public Sub ComplementarioData()
-  Dim tbl_complementarios As Object, comple_origin As Object, SheetName As String
-  
-  SheetName = "COMPLEMENTARIOS"
-  On Error GoTo com:
-  Set comple_origin = origin.Worksheets(SheetName).Range("A1") '' COMPLEMENTARIOS DEL LIBRO ORIGEN ''
-  On Error GoTo 0
-  
-  Set tbl_complementarios = comple_destiny.ListObjects("tbl_complementarios")
+Public Sub ComplementarioData(ByVal name_sheet As String)
+  Dim comple_destiny_dictionary As Scripting.Dictionary
+  Dim comple_origin_dictionary As Scripting.Dictionary
+  Dim comple_destiny_header As Object, comple_origin_header As Object, comple_origin_value As Object
+  Dim ItemCompleDestiny As Object, ItemCompleOrigin As Object, ItemData As Object, comple_origin As Object
+
+  Set comple_origin = origin.Worksheets(name_sheet) '' COMPLEMENTARIOS DEL LIBRO ORIGEN ''
+
+  comple_destiny.Select
+  comple_destiny.Range("$A4").Select
+  Set comple_destiny_header = comple_destiny.Range("$A3", comple_destiny.Range("$A3").End(xlToRight))
+  Set comple_origin_header = comple_origin.Range("$A1", comple_origin.Range("$A1").End(xlToRight))
+  Set comple_destiny_dictionary = CreateObject("Scripting.Dictionary")
   Set comple_origin_dictionary = CreateObject("Scripting.Dictionary")
 
-  '' CABECERA DE LA HOJA EMO DEL LIBRO ORIGEN ''
-  For Each item In Range(comple_origin, comple_origin.End(xlToRight))
-    If comple_origin_dictionary.Exists(comple_headers(item)) = False Then
-      comple_origin_dictionary.Add comple_headers(item), item.Column
+  If (comple_origin.Range("$A2") <> Empty And comple_origin.Range("$A3") <> Empty) Then
+    Set comple_origin_value = comple_origin.Range("$A2", comple_origin.Range("$A2").End(xlDown))
+  ElseIf (comple_origin.Range("$A2") <> Empty And comple_origin.Range("$A3") = Empty) Then
+    Set comple_origin_value = comple_origin.Range("$A2")
+  End If
+
+  '' CABECERAS DE LA HOJA EMO DEL LIBRO DESTINO ''
+  Dim value_data As String
+  For Each ItemCompleDestiny In comple_destiny_header
+    value_data = comple_headers(ItemCompleDestiny)
+    If comple_destiny_dictionary.Exists(value_data) = False And value_data <> Empty Then
+      comple_destiny_dictionary.Add value_data, (ItemCompleDestiny.Column - 1)
     End If
-  Next item
+  Next ItemCompleDestiny
+  
+  '' CABECERA DE LA HOJA EMO DEL LIBRO ORIGEN ''
+  For Each ItemCompleOrigin In comple_origin_header
+    value_data = comple_headers(ItemCompleOrigin)
+    If comple_origin_dictionary.Exists(value_data) = False And value_data <> Empty Then
+      comple_origin_dictionary.Add value_data, (ItemCompleOrigin.Column - 1)
+    End If
+  Next ItemCompleOrigin
 
   numbers = 1
   porcentaje = 0
   
   aumentFromID = destiny.Worksheets("RUTAS").range("$F$12").value
-  counts = Ubound(origin.Worksheets(SheetName).Range("A1").CurrentRegion.Value, 1) - 1
+  counts = comple_origin_value.Count
   formImports.ProgressBarOneforOne.Width = 0
   formImports.porcentageOneoforOne = "0%"
   vals = 1 / counts
   oneForOne = 0
   widthOneforOne = formImports.content_ProgressBarOneforOne.Width / counts
 
+  Dim type_exam As String
   With formImports
-    For Each item In Range(comple_origin.offset(1, 0), comple_origin.offset(1, 0).End(xlDown))
+    For Each ItemData In comple_origin_value
       oneForOne = oneForOne + widthOneforOne
       generalAll = generalAll + widthGeneral
       .lblGeneral.Caption = "importando " & CStr(numbersGeneral) & " de " & CStr(totalData) & "(" & CStr(totalData - numbersGeneral) & ") REGISTROS"
@@ -78,49 +98,35 @@ Public Sub ComplementarioData()
       
       .Caption = CStr(nameCompany)
 
-      If (typeExams(charters(item.Offset(, comple_origin_dictionary("TIPO EXAMEN") - 1))) <> "EGRESO") Then
-        If item.value <> "" And item.Row = 2 Then
-          Call addNewRegister(tbl_complementarios.ListRows(1), aumentFromID, item)
-          DoEvents
-        ElseIf item.value <> "" And item.Row > 2 Then
+      type_exam = typeExams(Trim(ItemData.Offset(, comple_origin_dictionary("TIPO EXAMEN"))))
+      If (type_exam <> "EGRESO") Then
+        ActiveCell.Offset(, comple_destiny_dictionary("NRO IDENFICACION")) = Trim(ItemData.Offset(, comple_origin_dictionary("NRO IDENFICACION")))
+        ActiveCell.Offset(, comple_destiny_dictionary("PROCEDIMIENTO")) = typeComplements(Trim(UCase(ItemData.Offset(, comple_origin_dictionary("PROCEDIMIENTO")))))
+        ActiveCell.Offset(, comple_destiny_dictionary("DIAG_ PPAL")) = Trim(UCase(ItemData.Offset(, comple_origin_dictionary("DIAG_ PPAL"))))
+        ActiveCell.Offset(, comple_destiny_dictionary("DIAG_ PPAL OBS")) = Trim(UCase(ItemData.Offset(, comple_origin_dictionary("DIAG_ PPAL OBS"))))
+        ActiveCell.Offset(, comple_destiny_dictionary("DIAG_ REL/1")) = Trim(ItemData.Offset(, comple_origin_dictionary("DIAG_ REL/1")))
+        ActiveCell.Offset(, comple_destiny_dictionary("DIAG_ REL/2")) = Trim(ItemData.Offset(, comple_origin_dictionary("DIAG_ REL/2")))
+        ActiveCell.Offset(, comple_destiny_dictionary("DIAG_ REL/3")) = Trim(ItemData.Offset(, comple_origin_dictionary("DIAG_ REL/3")))
+        ActiveCell.Offset(, comple_destiny_dictionary("HALLAZGOS")) = Trim(ItemData.Offset(, comple_origin_dictionary("HALLAZGOS")))
+        If (ActiveCell.Row <> 4) Then
           aumentFromID = aumentFromID + 1
-          Call addNewRegister(tbl_complementarios.ListRows.Add, aumentFromID, item)
-          DoEvents
-        ElseIf item.value = "" Or item.value = VbNullString Then
-          Exit For
         End If
+        ActiveCell.Offset(, comple_destiny_dictionary("ID_COMPLEMENTARIOS")) = aumentFromID
+        ActiveCell.Offset(1, 0).Select
         numbers = numbers + 1
         numbersGeneral = numbersGeneral + 1
+        DoEvents
       End If
-    Next item
+    Next ItemData
   End With
 
   Call dataDuplicate(comple_destiny.Range("tbl_complementarios[[#Data],[NRO IDENFICACION]]"))
   Call formatter(comple_destiny.Range("tbl_complementarios[[#Data],[NRO IDENFICACION]]"))
 
-  Set comple_origin = Nothing
+  Set comple_origin_value = Nothing
+  Set comple_destiny_header = Nothing
+  Set comple_origin_header = Nothing
+  comple_destiny_dictionary.RemoveAll
   comple_origin_dictionary.RemoveAll
-
-  Exit Sub
-
-com:
-  SheetName = "COMPLEMENTARIO"
-  comple_origin = origin.Worksheets(SheetName).Range("A1")
-  Resume Next
-End Sub
-
-Private Sub addNewRegister(ByVal table As Object, ByVal autoIncrement As LongPtr, ByVal information As Object)
-
-  With table
-    .Range(1) = charters(information(, comple_origin_dictionary("NRO IDENFICACION")))
-    .Range(2) = typeComplements(charters(information(, comple_origin_dictionary("PROCEDIMIENTO"))))
-    .Range(3) = charters(information(, comple_origin_dictionary("DIAG_ PPAL")))
-    .Range(4) = charters(information(, comple_origin_dictionary("DIAG_ PPAL OBS")))
-    .Range(5) = charters(information(, comple_origin_dictionary("DIAG_ REL/1")))
-    .Range(6) = charters(information(, comple_origin_dictionary("DIAG_ REL/2")))
-    .Range(7) = charters(information(, comple_origin_dictionary("DIAG_ REL/3")))
-    .Range(8) = charters(information(, comple_origin_dictionary("HALLAZGOS")))
-    .Range(10) = autoIncrement
-  End With
 
 End Sub

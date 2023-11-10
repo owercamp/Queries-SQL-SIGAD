@@ -20,37 +20,63 @@ Option Explicit
 '* - oneForOne: Una variable numerica para hacer un seguimiento del progreso de la barra de progreso para cada elemento de datos.
 '* - widthOneforOne: Una variable numerica para calcular el ancho de la barra de progreso para cada elemento de datos.
 '* ------------------------------------------------------------------------------------------------------------------
-Dim emo_origin_dictionary As Scripting.Dictionary
-Public Sub DataDiagnosticsEmo()
-  Dim tbl_diagnostics As Object, emo_origin As Object, counter As LongPtr
-  
-  Set emo_origin = origin.Worksheets("EMO").Range("A1") '' EMO DEL LIBRO ORIGEN ''
-  
-  Set tbl_diagnostics = diagnostics_destiny.ListObjects("tbl_diagnosticos")
+Public Sub DataDiagnosticsEmo(ByVal name_sheet As String)
+  Dim diagnostics_destiny_dictionary As Scripting.Dictionary
+  Dim emo_origin_dictionary As Scripting.Dictionary
+  Dim diagnostics_destiny_header As Object, emo_origin_header As Object, emo_origin_value As Object
+  Dim ItemDiagnosticsDestiny As Object, ItemEmoOrigin As Object, ItemData As Object, x As Long, emo_origin As Object
+
+  Set emo_origin = origin.Worksheets(name_sheet) '' EMO DEL LIBRO ORIGEN ''
+  diagnostics_destiny.Select
+  diagnostics_destiny.Range("$A5").Select
+
+  Set diagnostics_destiny_header = diagnostics_destiny.Range("$A4", diagnostics_destiny.Range("$A4").End(xlToRight))
+  Set emo_origin_header = emo_origin.Range("$A1", emo_origin.Range("$A1").End(xlToRight))
+  Set diagnostics_destiny_dictionary = CreateObject("Scripting.Dictionary")
   Set emo_origin_dictionary = CreateObject("Scripting.Dictionary")
 
+  If (emo_origin.Range("$A2") <> Empty And emo_origin.Range("$A3") <> Empty) Then
+    Set emo_origin_value = emo_origin.Range("$A2", emo_origin.Range("$A2").End(xlDown))
+  ElseIf (emo_origin.Range("$A2") <> Empty And emo_origin.Range("$A3") = Empty) Then
+    Set emo_origin_value = emo_origin.Range("$A2")
+  End If
+
+  Dim value_data As String
   x = 1
-  For Each item In Range(emo_origin, emo_origin.End(xlToRight))
-    If emo_origin_dictionary.Exists(diagnostics_header(item)) = False Then
-      emo_origin_dictionary.Add diagnostics_header(item), item.Column
+  For Each ItemDiagnosticsDestiny In diagnostics_destiny_header
+    value_data = diagnostics_header(ItemDiagnosticsDestiny, x)
+    If diagnostics_destiny_dictionary.Exists(value_data) = False And value_data <> Empty Then
+      diagnostics_destiny_dictionary.Add value_data, (ItemDiagnosticsDestiny.Column - 1)
+      If diagnostics_destiny_dictionary.Exists("DIAG REL " & x) = True Then
+        x = x + 1
+      End If
+    End If
+  Next ItemDiagnosticsDestiny
+  
+  x = 1
+  For Each ItemEmoOrigin In emo_origin_header
+    value_data = diagnostics_header(ItemEmoOrigin, x)
+    If emo_origin_dictionary.Exists(value_data) = False And value_data <> Empty Then
+      emo_origin_dictionary.Add value_data, (ItemEmoOrigin.Column - 1)
       If emo_origin_dictionary.Exists("DIAG REL " & x) = True Then
         x = x + 1
       End If
     End If
-  Next item
+  Next ItemEmoOrigin
 
   numbers = 1
   porcentaje = 0
   
-  counts = Ubound(origin.Worksheets("EMO").Range("A1").CurrentRegion.Value, 1) - 1
+  counts = emo_origin_value.Count
   formImports.ProgressBarOneforOne.Width = 0
   formImports.porcentageOneoforOne = "0%"
   vals = 1 / counts
   oneForOne = 0
   widthOneforOne = formImports.content_ProgressBarOneforOne.Width / counts
 
+  Dim type_exam As String
   With formImports
-    For Each item In Range(emo_origin.offset(1, 0), emo_origin.offset(1, 0).End(xlDown))
+    For Each ItemData In emo_origin_value
       oneForOne = oneForOne + widthOneforOne
       generalAll = generalAll + widthGeneral
       .lblGeneral.Caption = "importando " & CStr(numbersGeneral) & " de " & CStr(totalData) & "(" & CStr(totalData - numbersGeneral) & ") REGISTROS"
@@ -76,50 +102,30 @@ Public Sub DataDiagnosticsEmo()
       
       .Caption = CStr(nameCompany)
 
-      counter = (emo_origin_dictionary.Count - 5) / 2
-      If (typeExams(charters(item.Offset(, emo_origin_dictionary("TIPO EXAMEN") - 1))) <> "EGRESO") Then
-        If item.Value <> "" And item.Row = 2 Then
-          Call addNewRegister(tbl_diagnostics.ListRows(1), counter - 1, item)
-          DoEvents
-        ElseIf item.Value <> "" And item.Row > 2 Then
-          Call addNewRegister(tbl_diagnostics.ListRows.Add, counter - 1, item)
-          DoEvents
-        ElseIf item.Value = "" Or item.Value = VbNullString Then
-          Exit For
-        End If
+      type_exam = typeExams(Trim(ItemData.Offset(, emo_origin_dictionary("TIPO EXAMEN"))))
+      If (type_exam <> "EGRESO") Then
+        ActiveCell.Offset(, diagnostics_destiny_dictionary("IDENTIFICACION")) = Trim(ItemData.Offset(, emo_origin_dictionary("IDENTIFICACION")))
+        ActiveCell.Offset(, diagnostics_destiny_dictionary("CODIGO DIAG PPAL")) = Trim(UCase(ItemData.Offset(, emo_origin_dictionary("CODIGO DIAG PPAL"))))
+        ActiveCell.Offset(, diagnostics_destiny_dictionary("DIAG PPAL")) = Trim(UCase(ItemData.Offset(, emo_origin_dictionary("DIAG PPAL"))))
+        For i = 1 To ((emo_origin_dictionary.Count - 5) / 2)
+          ActiveCell.Offset(, diagnostics_destiny_dictionary("CODIGO DIAG REL" & i)) = Trim(UCase(ItemData.Offset(, emo_origin_dictionary("CODIGO DIAG REL" & i))))
+          ActiveCell.Offset(, diagnostics_destiny_dictionary("DIAG REL " & i)) = Trim(UCase(ItemData.Offset(, emo_origin_dictionary("DIAG REL " & i))))
+        Next i
+        ActiveCell.Offset(1, 0).Select
         numbers = numbers + 1
         numbersGeneral = numbersGeneral + 1
+        DoEvents
       End If
-    Next item
+    Next ItemData
   End With
 
   Call dataDuplicate(diagnostics_destiny.Range("tbl_diagnosticos[[#Data],[IDENTIFICACION]]"))
   Call formatter(diagnostics_destiny.Range("tbl_diagnosticos[[#Data],[IDENTIFICACION]]"))
 
-  Set emo_origin = Nothing
+  Set diagnostics_destiny_header = Nothing
+  Set emo_origin_header = Nothing
+  Set emo_origin_value = Nothing
+  diagnostics_destiny_dictionary.RemoveAll
   emo_origin_dictionary.RemoveAll
   
-End Sub
-
-Private Sub addNewRegister(ByVal table As Object, ByVal numberMaxEmphasis As LongPtr, ByVal information As Object)
-
-  Dim numberEmphasis As LongPtr
-  numberEmphasis = 1
-  With table
-    .Range(1) = charters(information(, emo_origin_dictionary("IDENTIFICACION")))
-    .Range(4) = charters(information(, emo_origin_dictionary("CODIGO DIAG PPAL")))
-    .Range(5) = charters(information(, emo_origin_dictionary("DIAG PPAL")))
-    For i = 6 to 71 Step 2
-      Select Case numberMaxEmphasis
-        Case 0
-          Exit For
-        Case Is > 0
-          .Range(i) = charters(information(, emo_origin_dictionary("CODIGO DIAG REL" & numberEmphasis)))
-          .Range(i + 1) = charters(information(, emo_origin_dictionary("DIAG REL " & numberEmphasis)))
-          numberEmphasis = numberEmphasis + 1
-          numberMaxEmphasis = numberMaxEmphasis - 1
-      End Select
-    Next i
-  End With
-
 End Sub

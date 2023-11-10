@@ -20,37 +20,62 @@ Option Explicit
 '* - oneForOne: Una variable numerica para hacer un seguimiento del progreso de la barra de progreso para cada elemento de datos.
 '* - widthOneforOne: Una variable numerica para calcular el ancho de la barra de progreso para cada elemento de datos.
 '* ------------------------------------------------------------------------------------------------------------------
-Dim emo_origin_dictionary As Scripting.Dictionary
-Public Sub DataEmphasisEmo()
-  Dim tbl_emphasis As Object, emo_origin As Object, counter As LongPtr
-  
-  Set emo_origin = origin.Worksheets("EMO").Range("A1") '' EMO DEL LIBRO ORIGEN ''
-  
-  Set tbl_emphasis = emphasis_destiny.ListObjects("tbl_enfasis")
+Public Sub DataEmphasisEmo(ByVal name_sheet As String)
+  Dim emphasis_destiny_dictionary As Scripting.Dictionary
+  Dim emo_origin_dictionary As Scripting.Dictionary
+  Dim emphasis_destiny_header As Object, emo_origin_header As Object, emo_origin_value As Object
+  Dim ItemEmphasisDestiny As Object, ItemEmoOrigin As Object, ItemData As Object, x As Long, emo_origin As Object
+
+  Set emo_origin = origin.Worksheets(name_sheet) '' EMO DEL LIBRO ORIGEN ''
+  emphasis_destiny.Select
+  emphasis_destiny.Range("$A5").Select
+  Set emphasis_destiny_header = emphasis_destiny.Range("$A4", emphasis_destiny.Range("$A4").End(xlToRight))
+  Set emo_origin_header = emo_origin.Range("$A1", emo_origin.Range("$A1").End(xlToRight))
+  Set emphasis_destiny_dictionary = CreateObject("Scripting.Dictionary")
   Set emo_origin_dictionary = CreateObject("Scripting.Dictionary")
 
+  If (emo_origin.Range("$A2") <> Empty And emo_origin.Range("$A3") <> Empty) Then
+    Set emo_origin_value = emo_origin.Range("$A2", emo_origin.Range("$A2").End(xlDown))
+  ElseIf (emo_origin.Range("$A2") <> Empty And emo_origin.Range("$A3") = Empty) Then
+    Set emo_origin_value = emo_origin.Range("$A2")
+  End If
+
+  Dim value_data As String
   x = 1
-  For Each item In Range(emo_origin, emo_origin.End(xlToRight))
-    If emo_origin_dictionary.Exists(emphasis_headers(item)) = False Then
-      emo_origin_dictionary.Add emphasis_headers(item), item.Column
+  For Each ItemEmphasisDestiny In emphasis_destiny_header
+    value_data = emphasis_headers(ItemEmphasisDestiny, x)
+    If emphasis_destiny_dictionary.Exists(value_data) = False And value_data <> Empty Then
+      emphasis_destiny_dictionary.Add value_data, (ItemEmphasisDestiny.Column - 1)
+      If emphasis_destiny_dictionary.Exists("OBSERVACIONES_AL_ENFASIS_" & x) = True Then
+        x = x + 1
+      End If
+    End If
+  Next ItemEmphasisDestiny
+  
+  x = 1
+  For Each ItemEmoOrigin In emo_origin_header
+    value_data = emphasis_headers(ItemEmoOrigin, x)
+    If emo_origin_dictionary.Exists(value_data) = False And value_data <> Empty Then
+      emo_origin_dictionary.Add value_data, (ItemEmoOrigin.Column - 1)
       If emo_origin_dictionary.Exists("OBSERVACIONES_AL_ENFASIS_" & x) = True Then
         x = x + 1
       End If
     End If
-  Next item
-
+  Next ItemEmoOrigin
+  
   numbers = 1
   porcentaje = 0
   
-  counts = Ubound(origin.Worksheets("EMO").Range("A1").CurrentRegion.Value, 1) - 1
+  counts = emo_origin_value.Count
   formImports.ProgressBarOneforOne.Width = 0
   formImports.porcentageOneoforOne = "0%"
   vals = 1 / counts
   oneForOne = 0
   widthOneforOne = formImports.content_ProgressBarOneforOne.Width / counts
 
+  Dim type_exam As String
   With formImports
-    For Each item In Range(emo_origin.offset(1, 0), emo_origin.offset(1, 0).End(xlDown))
+    For Each ItemData In emo_origin_value
       oneForOne = oneForOne + widthOneforOne
       generalAll = generalAll + widthGeneral
       .lblGeneral.Caption = "importando " & CStr(numbersGeneral) & " de " & CStr(totalData) & "(" & CStr(totalData - numbersGeneral) & ") REGISTROS"
@@ -76,49 +101,29 @@ Public Sub DataEmphasisEmo()
       
       .Caption = CStr(nameCompany)
 
-      counter = (emo_origin_dictionary.Count - 2) / 3
-      If (typeExams(charters(item.Offset(, emo_origin_dictionary("TIPO EXAMEN") - 1))) <> "EGRESO") Then
-        If item.Value <> "" And item.Row = 2 Then
-          Call addNewRegister(tbl_emphasis.ListRows(1), counter - 1, item)
-          DoEvents
-        ElseIf item.Value <> "" And item.Row > 2 Then
-          Call addNewRegister(tbl_emphasis.ListRows.Add, counter - 1, item)
-          DoEvents
-        ElseIf item.Value = "" Or item.Value = VbNullString Then
-          Exit For
-        End If
+      type_exam = typeExams(Trim(ItemData.Offset(, emo_origin_dictionary("TIPO EXAMEN"))))
+      If (type_exam <> "EGRESO") Then
+        ActiveCell.Offset(, emphasis_destiny_dictionary("IDENTIFICACION")) = Trim(ItemData.Offset(, emo_origin_dictionary("IDENTIFICACION")))
+        For i = 1 To ((emo_origin_dictionary.Count - 2) / 3)
+          ActiveCell.Offset(, emphasis_destiny_dictionary("ENFASIS_" & i)) = Trim(UCase(ItemData.Offset(, emo_origin_dictionary("ENFASIS_" & i))))
+          ActiveCell.Offset(, emphasis_destiny_dictionary("CONCEPTO AL ENFASIS_" & i)) = emphasisConcepts(Trim(UCase(ItemData.Offset(, emo_origin_dictionary("CONCEPTO AL ENFASIS_" & i)))), Trim(UCase(ItemData.Offset(, emo_origin_dictionary("ENFASIS_" & i)))))
+          ActiveCell.Offset(, emphasis_destiny_dictionary("OBSERVACIONES_AL_ENFASIS_" & i)) = Trim(UCase(ItemData.Offset(, emo_origin_dictionary("OBSERVACIONES_AL_ENFASIS_" & i))))
+        Next i
+        ActiveCell.Offset(1, 0).Select
         numbers = numbers + 1
         numbersGeneral = numbersGeneral + 1
+        DoEvents
       End If
-    Next item
+    Next ItemData
   End With
 
   Call dataDuplicate(emphasis_destiny.Range("tbl_enfasis[[#Data],[IDENTIFICACION]]"))
   Call formatter(emphasis_destiny.Range("tbl_enfasis[[#Data],[IDENTIFICACION]]"))
 
-  Set emo_origin = Nothing
+  Set emphasis_destiny_header = Nothing
+  Set emo_origin_header = Nothing
+  Set emo_origin_value = Nothing
+  emphasis_destiny_dictionary.RemoveAll
   emo_origin_dictionary.RemoveAll
-
-End Sub
-
-Private Sub addNewRegister(ByVal table As Object, ByVal numberMaxEmphasis As LongPtr, ByVal information As Object)
-
-  Dim numberEmphasis As LongPtr
-  numberEmphasis = 1
-  With table
-    .Range(1) = charters(information(, emo_origin_dictionary("IDENTIFICACION")))
-    For i = 3 to 71 Step 4
-      Select Case numberMaxEmphasis
-        Case 0
-          Exit For
-        Case Is > 0
-          .Range(i) = charters(information(, emo_origin_dictionary("ENFASIS_" & numberEmphasis)))
-          .Range(i + 1) = emphasisConcepts(charters(information(, emo_origin_dictionary("CONCEPTO AL ENFASIS_" & numberEmphasis))), charters(information(, emo_origin_dictionary("ENFASIS_" & numberEmphasis))))
-          .Range(i + 2) = charters(information(, emo_origin_dictionary("OBSERVACIONES_AL_ENFASIS_" & numberEmphasis)))
-          numberEmphasis = numberEmphasis + 1
-          numberMaxEmphasis = numberMaxEmphasis - 1
-      End Select
-    Next i
-  End With
 
 End Sub
