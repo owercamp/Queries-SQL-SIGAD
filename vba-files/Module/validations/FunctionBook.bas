@@ -105,28 +105,6 @@ Public Sub clearContents()
       Company = trabajadores.range("B5").value & " - " & trabajadores.range("D5").value
     End If
 
-    Set consolidado = Workbooks.Open(libro)
-    ''' TRABAJADORES ''
-
-    consolidado.Worksheets("Registros").Select
-    consolidado.ActiveSheet.Unprotect Password:="1024500065"
-    range("C3").End(xlDown).Select
-    ActiveCell.Offset(1, 0).Select
-    ActiveCell = Trim(UCase(Company))
-    ActiveCell.Offset(0, 1) = Trim(UCase("ICS-" & PadLeft(sigad, 4, "0")))
-    ActiveCell.Offset(0, 2) = Trim(orden)
-    ActiveCell.Offset(0, -1) = Date
-    ActiveCell.Offset(0, 3) = Trim(info)
-
-    Application.Calculation = xlCalculationAutomatic
-    Application.Calculation = xlCalculationManual
-
-    consolidado.ActiveSheet.Protect Password:="1024500065", DrawingObjects:=False, Contents:=True, Scenarios:= _
-    False, AllowSorting:=True, AllowFiltering:=True, AllowUsingPivotTables:= _
-    True
-    consolidado.Save
-    consolidado.Close
-
     Call AddRecordToGoogleSheet(Trim(UCase(Company)), Trim(UCase("ICS-" & PadLeft(sigad, 4, "0"))), Trim(orden), Trim(info), libro, bookNow)
 
     Application.Calculation = xlCalculationManual
@@ -416,6 +394,7 @@ Public Sub AddRecordToGoogleSheet(ByVal Company As String, ByVal sigad As String
   Dim Json As Object
   Dim monthNow As Integer, yearNow As Integer
   Dim fullDate As String, dateNow As String, bearerToken As String
+  Dim consolidado As Object
 
   fullDate = Format(Now, "dd/mm/yyyy hh:mm:ss")
   dateNow = Format(Date, "dd-mmm-yyyy")
@@ -434,6 +413,32 @@ Public Sub AddRecordToGoogleSheet(ByVal Company As String, ByVal sigad As String
   On Error Resume Next
   HttpReq.send (requestBody)
   On Error GoTo 0
+
+  Set consolidado = Workbooks.Open(libro)
+  ''' TRABAJADORES ''
+
+  Windows(consolidado.Name).Activate
+  consolidado.Worksheets("Registro").Select
+  consolidado.ActiveSheet.Unprotect Password:="1024500065"
+  range("$A1").End(xlDown).Select
+  ActiveCell.Offset(1, 0).Select
+  activecell = Trim(fullDate)
+  ActiveCell.Offset(0, 1) = Trim(dateNow)
+  ActiveCell.Offset(0, 2) = Trim(UCase(Company))
+  ActiveCell.Offset(0, 3) = Trim(sigad)
+  ActiveCell.Offset(0, 4) = Trim(orden)
+  ActiveCell.Offset(0, 5) = Trim(patience)
+  ActiveCell.Offset(0, 6) = Trim(monthNow)
+  ActiveCell.Offset(0, 7) = Trim(yearNow)
+
+  Application.Calculation = xlCalculationAutomatic
+  Application.Calculation = xlCalculationManual
+
+  consolidado.ActiveSheet.Protect Password:="1024500065", DrawingObjects:=False, Contents:=True, Scenarios:= _
+  False, AllowSorting:=True, AllowFiltering:=True, AllowUsingPivotTables:= _
+  True
+  consolidado.Save
+  consolidado.Close
 
   If HttpReq.status = 200 Then
     MsgBox "Record added successfully:" + vbNewLine + vbNewLine + Chr(32) + "code:" & HttpReq.status & "" + vbNewLine + Chr(32) + "status:" & HttpReq.statusText
