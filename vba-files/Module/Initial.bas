@@ -55,7 +55,7 @@ Public Sub extraerdatos()
   'DATOS ORIGEN
 
   With Application
-    .StatusBar = "Importando informaci" & Chr(243) & "n por favor espere"
+    .StatusBar = "Importando informaci" & ChrW(243) & "n por favor espere"
     .ScreenUpdating = False
     .Calculation = xlCalculationManual
     .EnableEvents = False
@@ -136,7 +136,7 @@ Public Sub extraerdatos()
     Call Shell("shutdown /s /t: 30 /f")
     destiny.Close
   Else
-    MsgBox "Importe de informaci" & Chr(243) & "n terminado", vbInformation + vbOKOnly, "Importaci" & Chr(243) & "n Datos"
+    MsgBox "Importe de informaci" & ChrW(243) & "n terminado", vbInformation + vbOKOnly, "Importaci" & ChrW(243) & "n Datos"
   End If
 
 End Sub
