@@ -50,41 +50,41 @@ End Function
 '? @return Cadena de texto representando una version estandarizada del nombre de ciudad.
 Public Function city(ByVal value As String) As String
   Select Case value
-   Case "BOGOTA", "BOGOTA, D.C.", "BOGOT" & Chr(193) & ", D.C.", "BOGOTA, D.C", "BOGOTA D.C", "BOGOT" & Chr(193), "BOGOTA  D.C", "BOGOTA, BOGOTA D.C", "BOGOTA,D,C", "BOGOTA  D C", "BOGOTa, D,C,", "BOGOTA,D.C", "BOGOTA, DC","BOGOTA, D.C.","BOGOT" & Chr(193) & ", D.C"
+   Case "BOGOTA", "BOGOTA, D.C.", "BOGOT" & ChrW(193) & ", D.C.", "BOGOTA, D.C", "BOGOTA D.C", "BOGOT" & ChrW(193), "BOGOTA  D.C", "BOGOTA, BOGOTA D.C", "BOGOTA,D,C", "BOGOTA  D C", "BOGOTa, D,C,", "BOGOTA,D.C", "BOGOTA, DC","BOGOTA, D.C.","BOGOT" & ChrW(193) & ", D.C"
     city = Trim("BOGOTA D.C.")
    Case "CARTAGENA DE INDIAS", "CARTAGENA, BOLIVAR"
     city = Trim("CARTAGENA")
    Case "BUGA", "GUADALAJARA"
     city = Trim("GUADALAJARA DE BUGA")
-   Case "MONTEL" & Chr(205) & "BANO"
+   Case "MONTEL" & ChrW(205) & "BANO"
     city = Trim("MONTELIBANO")
-   Case "PUERTO GAIT" & Chr(193) & "N"
+   Case "PUERTO GAIT" & ChrW(193) & "N"
     city = Trim("PUERTO GAITAN")
-   Case "PUERTO BOYAC" & Chr(193)
+   Case "PUERTO BOYAC" & ChrW(193)
     city = Trim("PUERTO BOYACA")
-   Case "PUERTO AS" & Chr(205) & "S", "PUETRTO ASIS"
+   Case "PUERTO AS" & ChrW(205) & "S", "PUETRTO ASIS"
     city = Trim("PUERTO ASIS")
-   Case "TULU" & Chr(193)
+   Case "TULU" & ChrW(193)
     city = Trim("TULUA")
-   Case "POPAY" & Chr(193) & "N"
+   Case "POPAY" & ChrW(193) & "N"
     city = Trim("POPAYAN")
    Case "SAN JOSE DE GUAVIARE","SAN JOS" & ChrW(201) & " DEL GUAVIARE"
     city = Trim("SAN JOSE DEL GUAVIARE")
    Case "MANIZALEZ"
     city = Trim("MANIZALES")
-   Case "QUIBD" & Chr(211)
+   Case "QUIBD" & ChrW(211)
     city = Trim("QUIBDO")
    Case "UBATE"
     city = Trim("VILLA DE SAN DIEGO DE UBATE")
-   Case "CHIQUINQUIR" & Chr(193)
+   Case "CHIQUINQUIR" & ChrW(193)
     city = Trim("CHIQUINQUIRA")
-   Case "FACATATIV" & Chr(193)
+   Case "FACATATIV" & ChrW(193)
     city = Trim("FACATATIVA")
    Case "BUCARAMANGA, SANTANDER"
     city = "BUCARAMANGA"
    Case "VILLAVICENCIO, META"
     city = "VILLAVICENCIO"
-   Case "IBAGUE, TOLIMA"
+   Case "IBAGUE, TOLIMA","IBAGU" & ChrW(201)
     city = "IBAGUE"
    Case "BARRANQUILA"
     city = "BARRANQUILLA"
@@ -138,7 +138,7 @@ Public Function typeExams(ByVal value As String) As String
     typeExams = "PERIODICO"
    Case "PERIODICO SEGUIMIENTO", "PERIODICO CON RECOMENDACIONES", "PERIODICO CON SEGUIMIENTO"
     typeExams = "PERIODICO DE SEGUIMIENTO"
-   Case "CAMBIO OCUPACION", "CAMBIO DE OCUPACI" & Chr(211) & "N"
+   Case "CAMBIO OCUPACION", "CAMBIO DE OCUPACI" & ChrW(211) & "N"
     typeExams = "CAMBIO DE OCUPACION"
    Case "REINTEGRO LABORAL", "OTROS REINTEGROS"
     typeExams = "EGRESO"
@@ -171,7 +171,7 @@ Public Function typeSex(ByVal value As String) As String
     typeSex = Trim("MESTIZO")
    Case "SIN DATO", "SIN DATOS"
     typeSex = Trim("SIN DATO")
-   Case "IND" & Chr(205) & "GENA"
+   Case "IND" & ChrW(205) & "GENA"
     typeSex = Trim("INDIGENA")
    Case Else
     typeSex = value
@@ -186,7 +186,7 @@ End Function
 '? @return Cadena de texto representando una version estandarizada del estado civil.
 Public Function typeCivil(ByVal value As String) As String
   Select Case value
-   Case "UNI" & Chr(211) & "N LIBRE"
+   Case "UNI" & ChrW(211) & "N LIBRE"
     typeCivil = "UNION LIBRE"
    Case Else
     typeCivil = value
@@ -201,8 +201,8 @@ End Function
 '? @return Cadena de texto representando una version estandarizada del actividad fisica.
 Public Function typeActivity(ByVal value As String) As String
   Select Case value
-   Case "F" & Chr(205) & "SICAMENTE ACTIVO", "FISICAMENTE ACTIVO", "FISICAMENTE ACTIVO(A)", "F" & Chr(205) & "SICAMENTE ACTIVO(A)"
-    typeActivity = "F" & Chr(205) & "SICAMENTE ACTIVO"
+   Case "F" & ChrW(205) & "SICAMENTE ACTIVO", "FISICAMENTE ACTIVO", "FISICAMENTE ACTIVO(A)", "F" & ChrW(205) & "SICAMENTE ACTIVO(A)"
+    typeActivity = "F" & ChrW(205) & "SICAMENTE ACTIVO"
    Case Else
     typeActivity = value
   End Select
