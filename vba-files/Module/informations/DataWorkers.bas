@@ -27,7 +27,7 @@ Public Sub Workers(ByVal name_sheet As String)
   Set emo_dictionary = CreateObject("Scripting.Dictionary")
 
   formMix.lblMsg.Caption = "Por favor ingrese el numero ID correspondiente a la orden en SIGAD"
-  formMix.Caption = "N" & Chr(250) & "mero de Orden"
+  formMix.Caption = "N" & ChrW(250) & "mero de Orden"
   formMix.Show
   formMix.txt_cantidad.SetFocus
 
