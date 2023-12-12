@@ -53,7 +53,7 @@ Public Sub clearContents()
 
   meses = Array("Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre")
   formMix.Caption = "SIGAD Informe"
-  formMix.lblMsg.Caption = "Ingrese el n" & Chr(250) & "mero de orden SIGAD"
+  formMix.lblMsg.Caption = "Ingrese el n" & ChrW(250) & "mero de orden SIGAD"
   formMix.Show
 
   Set trabajadores = Worksheets("TRABAJADORES")
@@ -338,7 +338,7 @@ Public Sub Modification()
 
   If (range("$B$6").value <> "") Then
 
-    msg = Application.InputBox(prompt:="Indica el mensaje de la modificaci" & Chr(243) & "n efectuada", _
+    msg = Application.InputBox(prompt:="Indica el mensaje de la modificaci" & ChrW(243) & "n efectuada", _
     Default:="", Type:=2)
 
     If (Trim(msg) = Empty) Then
@@ -372,7 +372,7 @@ Public Sub Modification()
       End If
       ActiveCell.Offset(1, 0).Select
     Loop
-    MsgBox prompt:="Se ha registrado la modificaci" & Chr(243) & "n", Buttons:=vbInformation + vbOKOnly, Title:="Registro Exitoso"
+    MsgBox prompt:="Se ha registrado la modificaci" & ChrW(243) & "n", Buttons:=vbInformation + vbOKOnly, Title:="Registro Exitoso"
 
   End If
 End Sub
@@ -441,9 +441,9 @@ Public Sub AddRecordToGoogleSheet(ByVal Company As String, ByVal sigad As String
   consolidado.Close
 
   If HttpReq.status = 200 Then
-    MsgBox "Record added successfully:" + vbNewLine + vbNewLine + Chr(32) + "code:" & HttpReq.status & "" + vbNewLine + Chr(32) + "status:" & HttpReq.statusText
+    MsgBox "Record added successfully:" + vbNewLine + vbNewLine + ChrW(32) + "code:" & HttpReq.status & "" + vbNewLine + ChrW(32) + "status:" & HttpReq.statusText
   ElseIf HttpReq.status = 12031 Then
-    MsgBox "Restriction by network administrator:" + vbNewLine + vbNewLine + Chr(32) + "code:" & HttpReq.status
+    MsgBox "Restriction by network administrator:" + vbNewLine + vbNewLine + ChrW(32) + "code:" & HttpReq.status
     Workbooks.Open (libro)
     Windows(bookNow).Activate
   Else
@@ -483,9 +483,9 @@ Public Sub UpdateGoogleSheetRecord(ByVal rowData As Integer, ByVal textModify As
   On Error GoTo 0
 
   If (httpObject.status = 200) Then
-    MsgBox "Record updated successfully:" + vbNewLine + vbNewLine + Chr(32) + "code:" & httpObject.status & "" + vbNewLine + Chr(32) + "status:" & httpObject.statusText
+    MsgBox "Record updated successfully:" + vbNewLine + vbNewLine + ChrW(32) + "code:" & httpObject.status & "" + vbNewLine + ChrW(32) + "status:" & httpObject.statusText
   ElseIf (httpObject.status = 12031) Then
-    MsgBox "Restriction by network administrator:" + vbNewLine + vbNewLine + Chr(32) + "code:" & httpObject.status
+    MsgBox "Restriction by network administrator:" + vbNewLine + vbNewLine + ChrW(32) + "code:" & httpObject.status
   Else
     MsgBox "Error updated record: " & httpObject.status & vbNewLine & httpObject.statusText & vbNewLine & httpObject.responseText
   End If
@@ -1172,7 +1172,7 @@ Public Sub ExportSQL()
   Next sh
   MyFile.Close
 
-  MsgBox "Se genero el archivo SQL textfile.sql" + vbNewLine + vbNewLine + Chr(32) + "Que se encuentra en la ruta: " + vbNewLine + vbNewLine + ThisWorkbook.Worksheets("RUTAS").range("C9").value
+  MsgBox "Se genero el archivo SQL textfile.sql" + vbNewLine + vbNewLine + ChrW(32) + "Que se encuentra en la ruta: " + vbNewLine + vbNewLine + ThisWorkbook.Worksheets("RUTAS").range("C9").value
 End Sub
 
 Private Function reemplazarUltimoCaracter(ByVal texto As String) As String
@@ -1271,3 +1271,31 @@ Public Sub DateAccident()
   MsgBox "Success",,"Success" 
 
 End Sub
+
+Function ObtenerIPv4() As String
+  Dim objShell As Object
+  Dim objExec As Object
+  Dim strOutput As String
+
+  ' Crea un objeto Shell
+  Set objShell = CreateObject("WScript.Shell")
+
+  ' Ejecuta el comando ipconfig y captura la salida
+  Set objExec = objShell.Exec("ipconfig")
+  strOutput = objExec.StdOut.ReadAll
+
+  ' Busca la línea que contiene la dirección IPv4
+  Dim lines() As String
+  lines = Split(strOutput, vbCrLf)
+  Dim line As Variant
+  For Each line In lines
+      If InStr(line, "Direcci¢n IPv4") > 0 Then
+          ' Extrae la dirección IPv4 de la línea
+          ObtenerIPv4 = Trim(Split(line, ":")(1))
+          Exit Function
+      End If
+  Next line
+
+  ' Si no se encuentra la dirección IPv4, devuelve un mensaje de error
+  ObtenerIPv4 = "Error al obtener la dirección IP"
+End Function
