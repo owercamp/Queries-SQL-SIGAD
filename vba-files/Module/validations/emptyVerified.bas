@@ -63,3 +63,14 @@ Public Sub correctionAntiquity()
   End With
 
 End Sub
+
+Public Sub Size()
+
+  Do Until IsEmpty(ActiveCell.Offset(0, -2))
+    If VBA.InStr(ActiveCell.value, ",") = 0 Then
+      ActiveCell = ActiveCell.value / 100
+      ActiveCell.NumberFormat = "0.00"
+    End If
+    ActiveCell.Offset(1, 0).Select
+  Loop
+End Sub
