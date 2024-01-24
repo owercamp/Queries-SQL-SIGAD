@@ -261,7 +261,7 @@ Public Function emo_headers(ByVal value As String) As String
     emo_headers = "RESPIRATORIA"
    Case "AUDITIVO"
     emo_headers = "AUDITIVO"
-   Case "RECOMENDACIONES ESPECIFICAS"
+   Case "RECOMENDACIONES ESPECIFICAS", "RECOMENDACIÓN ESPECIFICAS"
     emo_headers = "RECOMENDACIONES ESPECIFICAS"
    Case "id_emo"
     emo_headers = "ID_EMO"
