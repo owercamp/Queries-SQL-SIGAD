@@ -391,7 +391,7 @@ Public Function ReplaceNonAlphaNumeric(str As String) As String
   Next accent
 
   '? Define la expresion regular para encontrar valores no alfanumericos
-  regEx.Pattern = "[^a-zA-Z0-9/" & ChrW(209) & ChrW(45) & "]"
+  regEx.Pattern = "[^a-zA-Z0-9&\[\]/" & ChrW(209) & ChrW(45) & "]"
   regEx.Global = True
 
   '? Reemplaza cualquier valor no alfanumerico por un espacio
