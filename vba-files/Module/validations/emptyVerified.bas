@@ -37,6 +37,7 @@ Public Sub verifiedEmpty()
 
 End Sub
 
+' This subroutine corrects the antiquity of the active cell value.
 Public Sub correctionAntiquity()
 
   Dim valor As Integer
@@ -47,11 +48,13 @@ Public Sub correctionAntiquity()
     .Calculation = xlCalculationManual  
   End With
 
-  Do Until IsEmpty(ActiveCell.Offset(, -2).value)
-    valor = Len(ActiveCell.value)
+  ' Loop until the cell to the left of the active cell is empty
+  Do Until IsEmpty(ActiveCell.Offset(, -2).Value)
+    valor = Len(ActiveCell.Value)
+    ' If the length of the active cell value is greater than 5, truncate and remove commas
     If valor > 5 Then
-      ActiveCell = VBA.Mid$(ActiveCell.value, 1, 2)
-      ActiveCell = VBA.Replace(ActiveCell, ",", "")
+      ActiveCell.Value = VBA.Mid$(ActiveCell.Value, 1, 2)
+      ActiveCell.Value = VBA.Replace(ActiveCell.Value, ",", "")
     End If
     ActiveCell.Offset(1, 0).Select
   Loop
@@ -65,7 +68,7 @@ Public Sub correctionAntiquity()
 End Sub
 
 Public Sub Size()
-
+  ' This subroutine scales the active cell value by 100 and formats it to two decimal places if the value does not contain a comma.
   Do Until IsEmpty(ActiveCell.Offset(0, -2))
     If VBA.InStr(ActiveCell.value, ",") = 0 Then
       ActiveCell = ActiveCell.value / 100
@@ -73,4 +76,37 @@ Public Sub Size()
     End If
     ActiveCell.Offset(1, 0).Select
   Loop
+End Sub
+
+Public Sub incapacity()
+  ' This subroutine processes the incapacity data in the active cell.
+  Dim incapacity As String
+  Dim number As String
+
+  With Application
+    .ScreenUpdating = False
+    .EnableEvents = False
+    .Calculation = xlCalculationManual
+  End With
+
+  Do Until IsEmpty(ActiveCell.Offset(, -7))
+    ' Extract the incapacity and number values from the active cell and the cell 1 column to the right.
+    incapacity = ActiveCell.Value
+    number = ActiveCell.Offset(, 1).Value
+    ' Check if the active cell is not numeric and not empty, then update the active cell and the cell 1 column to the right.
+    If Not IsNumeric(ActiveCell) And Not IsEmpty(ActiveCell) Then
+      ActiveCell.Value = number
+      ActiveCell.Offset(, 1).Value = incapacity
+    ' If the active cell and the cell 1 column to the right are not numeric, clear the active cell.
+    ElseIf Not IsNumeric(ActiveCell) And Not IsNumeric(ActiveCell.Offset(, 1)) Then
+      ActiveCell.Value = ""
+    End If
+    ActiveCell.Offset(1, 0).Select
+  Loop
+
+  With Application
+    .ScreenUpdating = True
+    .EnableEvents = True
+    .Calculation = xlCalculationAutomatic
+  End With
 End Sub
