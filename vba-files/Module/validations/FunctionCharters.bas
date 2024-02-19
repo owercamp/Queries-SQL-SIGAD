@@ -263,6 +263,16 @@ Public Function typeComplements(ByVal value As String) As String
   End Select
 End Function
 
+Public Function typeInterpretation(ByVal value As String) As String
+  Select Case value
+   Case "OBSTRUCCION"
+    typeInterpretation = Trim$("OBSTRUCTIVA")
+   Case "RESTRICCION"
+    typeInterpretation = Trim$("RESTRICTIVA")
+   Case Else
+    typeInterpretation = Trim$(value)
+End Function
+
 'TODO Funcion: total
 '? Descripcion: Esta funcion toma un objeto de libro de Excel y cuenta el numero de filas en cada hoja de trabajo con un nombre especifico para calcular un total.
 '? Parametros:
