@@ -271,6 +271,7 @@ Public Function typeInterpretation(ByVal value As String) As String
     typeInterpretation = Trim$("RESTRICTIVA")
    Case Else
     typeInterpretation = Trim$(value)
+  End Select
 End Function
 
 'TODO Funcion: total
