@@ -163,7 +163,7 @@ Public Function typeSex(ByVal value As String) As String
   Select Case value
    Case "COBRIZA", "COBRIZO"
     typeSex = Trim("COBRIZA")
-   Case "NEGRA", "NEGRO", "PALENQUERO", "RAIZAL"
+   Case "NEGRA", "NEGRO", "PALENQUERO", "RAIZAL", "AFRODESENDIENTE"
     typeSex = Trim("NEGRA")
    Case "OTRO", "OTRA"
     typeSex = Trim("OTRO")
