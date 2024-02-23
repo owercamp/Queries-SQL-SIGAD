@@ -122,6 +122,30 @@ Public Sub Risk(ByVal selection As Object)
 
 End Sub
 
+'* Aplica una regla de formato condicional a un rango seleccionado de celdas.
+'* Las celdas que cumplen la condicion especificada en la formula de la regla se formatean con fuente en negrita, color de tema xlThemeColorAccent1 y un tono de sombreado especifico.
+'* El color de fondo de la celda se establece en un valor especifico.
+'* La condicion es verdadera si la celda AZ4 no esta vacia y es diferente de "AUDICION NORMAL BILATERAL", "DISMINUCION LEVE UNILATERAL / BILATERAL", "DISMINUCION MODERADA UNILATERAL / BILATERAL", "DISMINUCION MODERADA A SEVERA UNILATERAL / BILATERAL", "DISMINUCION SEVERA UNILATERAL / BILATERAL", "DISMINUCION PROFUNDA UNILATERAL / BILATERAL".
+Public Sub internalDiagnosis(ByVal selection As Object)
+
+  selection.FormatConditions.Add Type:=xlExpression, Formula1:= _
+  "=Y($AZ4<>""AUDICION NORMAL BILATERAL"";$AZ4<>""DISMINUCION LEVE UNILATERAL / BILATERAL"";$AZ4<>""DISMINUCION MODERADA UNILATERAL / BILATERAL"";$AZ4<>""DISMINUCION MODERADA A SEVERA UNILATERAL / BILATERAL"";$AZ4<>""DISMINUCION SEVERA UNILATERAL / BILATERAL"";$AZ4<>""DISMINUCION PROFUNDA UNILATERAL / BILATERAL"")"
+  selection.FormatConditions(selection.FormatConditions.Count).SetFirstPriority
+  With selection.FormatConditions(1).Font
+    .Bold = True
+    .Italic = False
+    .ThemeColor = xlThemeColorAccent1
+    .TintAndShade = -0.499984740745262
+  End With
+  With selection.FormatConditions(1).Interior
+    .PatternColorIndex = xlAutomatic
+    .Color = 15388336
+    .TintAndShade = 0
+  End With
+  selection.FormatConditions(1).StopIfTrue = False
+
+End Sub
+
 '* Aplica formato condicional a las celdas seleccionadas que cumplan con la expresion especificada
 '* para trabajadores en pre-ingreso
 Public Sub riskPre_ingreso(ByVal selection As Object)
