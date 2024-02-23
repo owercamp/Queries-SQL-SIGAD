@@ -178,6 +178,7 @@ Public Sub AudioData(ByVal name_sheet As String)
   Call greaterThanOne(audio_destiny.Range("tbl_audio[[CONTROLES MENSUALES]:[CONTROLES 1 A" & ChrW(209) & "O]]"),"AUDIO")
   Call iqualCero(audio_destiny.Range("tbl_audio[[CONTROLES MENSUALES]:[CONTROLES 1 A" & ChrW(209) & "O]]"), "AUDIO")
   Call formatter(audio_destiny.Range("tbl_audio[[#Data],[NROAIDENFICACION]]"))
+  Call internalDiagnosis(audio_destiny.Range("tbl_audio[[#Data],[DIAG INTERNO]]"))
 
   Set audio_origin_value = Nothing
   Set audio_destiny_header = Nothing
