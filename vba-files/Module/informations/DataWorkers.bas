@@ -11,11 +11,11 @@ Option Explicit
 '* ------------------------------------------------------------------------------------------------------------------
 Dim aumentFromID As LongPtr
 Public Sub Workers(ByVal name_sheet As String)
-  Dim workers_dictionary As Scripting.Dictionary
-  Dim emo_dictionary As Scripting.Dictionary
+  Dim workers_dictionary As Object
+  Dim emo_dictionary As Object
   Dim workers_header As Object, emo_header As Object, workers_value As Object
   Dim ItemWorks As Object, ItemEmo As Object, ItemData As Object
-  Dim company_name As String, emo_origin As Object
+  Dim company_name As String, emo_origin As Object, cell_active as Range
 
   Set emo_origin = origin.Worksheets(name_sheet) '' EMO DEL LIBRO ORIGEN ''
   Windows(destiny.Name).Activate
@@ -25,6 +25,7 @@ Public Sub Workers(ByVal name_sheet As String)
   Set emo_header = emo_origin.Range("$A1", emo_origin.Range("$A1").End(xlToRight))
   Set workers_dictionary = CreateObject("Scripting.Dictionary")
   Set emo_dictionary = CreateObject("Scripting.Dictionary")
+  Set cell_active = ActiveCell
 
   formMix.lblMsg.Caption = "Por favor ingrese el numero ID correspondiente a la orden en SIGAD"
   formMix.Caption = "N" & ChrW(250) & "mero de Orden"
@@ -95,32 +96,32 @@ Public Sub Workers(ByVal name_sheet As String)
 
       type_exam = typeExams(Trim(ItemData.Offset(, emo_dictionary("TIPO EXAMEN"))))
       If (type_exam <> "EGRESO") Then
-        ActiveCell = "8"
-        ActiveCell.Offset(, workers_dictionary("NOMBRE CONTRATO")) = Trim(company_name)
-        ActiveCell.Offset(, workers_dictionary("DESTINO")) = Trim(ItemData.Offset(, emo_dictionary("DESTINO")))
-        ActiveCell.Offset(, workers_dictionary("CIUDAD")) = city(Trim(UCase(ItemData.Offset(, emo_dictionary("CIUDAD")))))
-        ActiveCell.Offset(, workers_dictionary("INGRESO REGISTRO")) = Trim(ItemData.Offset(, emo_dictionary("INGRESO REGISTRO")))
-        ActiveCell.Offset(, workers_dictionary("TIPO EXAMEN")) = UCase(type_exam)
-        ActiveCell.Offset(, workers_dictionary("FECHA INGRESO")) = Trim(ItemData.Offset(, emo_dictionary("FECHA INGRESO")))
-        ActiveCell.Offset(, workers_dictionary("PACIENTE")) = Trim(UCase(ItemData.Offset(, emo_dictionary("PACIENTE"))))
-        ActiveCell.Offset(, workers_dictionary("NRO IDENFICACION")) = Trim(ItemData.Offset(, emo_dictionary("NRO IDENFICACION")))
-        ActiveCell.Offset(, workers_dictionary("EDAD")) = Trim(ItemData.Offset(, emo_dictionary("EDAD")))
-        ActiveCell.Offset(, workers_dictionary("ESTRATO")) = Trim(UCase(ItemData.Offset(, emo_dictionary("ESTRATO"))))
-        ActiveCell.Offset(, workers_dictionary("GENERO")) = Trim(UCase(ItemData.Offset(, emo_dictionary("GENERO"))))
-        ActiveCell.Offset(, workers_dictionary("NRO HIJOS")) = Trim(ItemData.Offset(, emo_dictionary("NRO HIJOS")))
-        ActiveCell.Offset(, workers_dictionary("RAZA")) = typeSex(Trim(UCase(ItemData.Offset(, emo_dictionary("RAZA")))))
-        ActiveCell.Offset(, workers_dictionary("ESTADO CIVIL")) = typeCivil(Trim(UCase(ItemData.Offset(, emo_dictionary("ESTADO CIVIL")))))
-        ActiveCell.Offset(, workers_dictionary("ESCOLARIDAD")) = school(Trim(UCase(ItemData.Offset(, emo_dictionary("ESCOLARIDAD")))))
-        ActiveCell.Offset(, workers_dictionary("CARGO USUARIO")) = Trim(UCase(ItemData.Offset(, emo_dictionary("CARGO USUARIO"))))
-        ActiveCell.Offset(, workers_dictionary("LAB DURACION EN ANOS")) = IIf(Trim(ItemData.Offset(, emo_dictionary("LAB DURACION EN ANOS"))) = "SIN DATO", "", Trim(ItemData.Offset(, emo_dictionary("LAB DURACION EN ANOS"))))
-        ActiveCell.Offset(, workers_dictionary("FUENTE")) = "ARMYWEB"
-        ActiveCell.Offset(, workers_dictionary("TIPO ACTIVIDAD")) = "1"
-        If (ActiveCell.Row <> 5) Then
-          aumentFromID = aumentFromID + 1
-        End If
-        ActiveCell.Offset(, workers_dictionary("idOrdenListaTrabajadores")) = aumentFromID
-        ActiveCell.Offset(, workers_dictionary("idOrden")) = idOrden
-        ActiveCell.Offset(1, 0).Select
+        ' cell_active = "8"
+        ' cell_active.Offset(, workers_dictionary("NOMBRE CONTRATO")) = Trim(company_name)
+        ' cell_active.Offset(, workers_dictionary("DESTINO")) = Trim(ItemData.Offset(, emo_dictionary("DESTINO")))
+        ' cell_active.Offset(, workers_dictionary("CIUDAD")) = city(Trim(UCase(ItemData.Offset(, emo_dictionary("CIUDAD")))))
+        ' cell_active.Offset(, workers_dictionary("INGRESO REGISTRO")) = Trim(ItemData.Offset(, emo_dictionary("INGRESO REGISTRO")))
+        ' cell_active.Offset(, workers_dictionary("TIPO EXAMEN")) = UCase(type_exam)
+        ' cell_active.Offset(, workers_dictionary("FECHA INGRESO")) = Trim(ItemData.Offset(, emo_dictionary("FECHA INGRESO")))
+        ' cell_active.Offset(, workers_dictionary("PACIENTE")) = Trim(UCase(ItemData.Offset(, emo_dictionary("PACIENTE"))))
+        ' cell_active.Offset(, workers_dictionary("NRO IDENFICACION")) = Trim(ItemData.Offset(, emo_dictionary("NRO IDENFICACION")))
+        ' cell_active.Offset(, workers_dictionary("EDAD")) = Trim(ItemData.Offset(, emo_dictionary("EDAD")))
+        ' cell_active.Offset(, workers_dictionary("ESTRATO")) = Trim(UCase(ItemData.Offset(, emo_dictionary("ESTRATO"))))
+        ' cell_active.Offset(, workers_dictionary("GENERO")) = Trim(UCase(ItemData.Offset(, emo_dictionary("GENERO"))))
+        ' cell_active.Offset(, workers_dictionary("NRO HIJOS")) = Trim(ItemData.Offset(, emo_dictionary("NRO HIJOS")))
+        ' cell_active.Offset(, workers_dictionary("RAZA")) = typeSex(Trim(UCase(ItemData.Offset(, emo_dictionary("RAZA")))))
+        ' cell_active.Offset(, workers_dictionary("ESTADO CIVIL")) = typeCivil(Trim(UCase(ItemData.Offset(, emo_dictionary("ESTADO CIVIL")))))
+        ' cell_active.Offset(, workers_dictionary("ESCOLARIDAD")) = school(Trim(UCase(ItemData.Offset(, emo_dictionary("ESCOLARIDAD")))))
+        ' cell_active.Offset(, workers_dictionary("CARGO USUARIO")) = Trim(UCase(ItemData.Offset(, emo_dictionary("CARGO USUARIO"))))
+        ' cell_active.Offset(, workers_dictionary("LAB DURACION EN ANOS")) = IIf(Trim(ItemData.Offset(, emo_dictionary("LAB DURACION EN ANOS"))) = "SIN DATO", "", Trim(ItemData.Offset(, emo_dictionary("LAB DURACION EN ANOS"))))
+        ' cell_active.Offset(, workers_dictionary("FUENTE")) = "ARMYWEB"
+        ' cell_active.Offset(, workers_dictionary("TIPO ACTIVIDAD")) = "1"
+        ' If (cell_active.Row <> 5) Then
+        '   aumentFromID = aumentFromID + 1
+        ' End If
+        ' cell_active.Offset(, workers_dictionary("idOrdenListaTrabajadores")) = aumentFromID
+        ' cell_active.Offset(, workers_dictionary("idOrden")) = idOrden
+        ' Set cell_active = cell_active.Offset(1, 0)
         numbers = numbers + 1
         numbersGeneral = numbersGeneral + 1
         DoEvents
@@ -128,12 +129,12 @@ Public Sub Workers(ByVal name_sheet As String)
     Next ItemData
   End With
 
-  Call dataDuplicate(worker_destiny.Range("tbl_trabajadores[[#Data],[INGRESO]]"))
-  Call dataDuplicate(worker_destiny.Range("tbl_trabajadores[[#Data],[NRO IDENFICACION]]"))
-  Call dataDuplicate(worker_destiny.Range("tbl_trabajadores[[#Data],[PACIENTE]]"))
-  Call dataDuplicate(worker_destiny.Range("tbl_trabajadores[[#Data],[CARGO USUARIO]]"))
-  Call dataDuplicate(worker_destiny.Range("tbl_trabajadores[[#Data],[idOrdenListaTrabajadores]]"))
-  Call formatter(worker_destiny.Range("tbl_trabajadores[[#Data],[NRO IDENFICACION]]"))
+  ' Call dataDuplicate(worker_destiny.Range("tbl_trabajadores[[#Data],[INGRESO]]"))
+  ' Call dataDuplicate(worker_destiny.Range("tbl_trabajadores[[#Data],[NRO IDENFICACION]]"))
+  ' Call dataDuplicate(worker_destiny.Range("tbl_trabajadores[[#Data],[PACIENTE]]"))
+  ' Call dataDuplicate(worker_destiny.Range("tbl_trabajadores[[#Data],[CARGO USUARIO]]"))
+  ' Call dataDuplicate(worker_destiny.Range("tbl_trabajadores[[#Data],[idOrdenListaTrabajadores]]"))
+  ' Call formatter(worker_destiny.Range("tbl_trabajadores[[#Data],[NRO IDENFICACION]]"))
 
   Set workers_header = Nothing
   Set emo_header = Nothing
