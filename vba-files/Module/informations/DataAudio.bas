@@ -25,11 +25,12 @@ Public Sub AudioData(ByVal name_sheet As String)
   Dim audio_destiny_dictionary As Scripting.Dictionary
   Dim audio_origin_dictionary As Scripting.Dictionary
   Dim audio_destiny_header As Object, audio_origin_header As Object, audio_origin_value As Object
-  Dim ItemAudioDestiny As Object, ItemAudioOrigin As Object, ItemData As Object, audio_origin As Object
+  Dim ItemAudioDestiny As Object, ItemAudioOrigin As Object, ItemData As Object, audio_origin As Object, cell_active as Range
 
   Set audio_origin = origin.Worksheets(name_sheet) '' AUDIO DEL LIBRO ORIGEN ''
   audio_destiny.Select
   audio_destiny.Range("$A4").Select
+  Set cell_active = ActiveCell
   Set audio_destiny_header = audio_destiny.Range("$A3", audio_destiny.Range("$A3").End(xlToRight))
   Set audio_origin_header = audio_origin.Range("$A1", audio_origin.Range("$A1").End(xlToRight))
   Set audio_destiny_dictionary = CreateObject("Scripting.Dictionary")
@@ -99,74 +100,196 @@ Public Sub AudioData(ByVal name_sheet As String)
 
       type_exam = typeExams(Trim(ItemData.Offset(, audio_origin_dictionary("TIPO EXAMEN"))))
       If (type_exam <> "EGRESO") Then
-        ActiveCell.Offset(, audio_destiny_dictionary("NROAIDENFICACION")) = Trim(ItemData.Offset(, audio_origin_dictionary("NROAIDENFICACION")))
-        ActiveCell.Offset(, audio_destiny_dictionary("EPP ESPECIFICO / AUDITIVO")) = charters_empty(ItemData.Offset(, audio_origin_dictionary("EPP ESPECIFICO / AUDITIVO")))
-        ActiveCell.Offset(, audio_destiny_dictionary("EPP ESPECIFICO / AUDITIVO COPA")) = charters_empty(ItemData.Offset(, audio_origin_dictionary("EPP ESPECIFICO / AUDITIVO COPA")))
-        ActiveCell.Offset(, audio_destiny_dictionary("EPP ESPECIFICO / AUDITIVO INSERCION")) = charters_empty(ItemData.Offset(, audio_origin_dictionary("EPP ESPECIFICO / AUDITIVO INSERCION")))
-        ActiveCell.Offset(, audio_destiny_dictionary("EPP ESPECIFICO / AUDITIVO DOBLE")) = charters_empty(ItemData.Offset(, audio_origin_dictionary("EPP ESPECIFICO / AUDITIVO DOBLE")))
-        ActiveCell.Offset(, audio_destiny_dictionary("PABELLON AURIC_ OIDO DER_")) = Trim(UCase(ItemData.Offset(, audio_origin_dictionary("PABELLON AURIC_ OIDO DER_"))))
-        ActiveCell.Offset(, audio_destiny_dictionary("PABELLON AURIC_ OIDO DER_ OBS")) = Trim(UCase(ItemData.Offset(, audio_origin_dictionary("PABELLON AURIC_ OIDO DER_ OBS"))))
-        ActiveCell.Offset(, audio_destiny_dictionary("PABELLON AURIC_ OIDO IZQ_")) = Trim(UCase(ItemData.Offset(, audio_origin_dictionary("PABELLON AURIC_ OIDO IZQ_"))))
-        ActiveCell.Offset(, audio_destiny_dictionary("PABELLON AURIC_ OIDO IZQ_ OBS")) = Trim(UCase(ItemData.Offset(, audio_origin_dictionary("PABELLON AURIC_ OIDO IZQ_ OBS"))))
-        ActiveCell.Offset(, audio_destiny_dictionary("CONDUCTO AUDIT_ OIDO DER_")) = Trim(UCase(ItemData.Offset(, audio_origin_dictionary("CONDUCTO AUDIT_ OIDO DER_"))))
-        ActiveCell.Offset(, audio_destiny_dictionary("CONDUCTO AUDIT_ OIDO DER_ OBS")) = Trim(UCase(ItemData.Offset(, audio_origin_dictionary("CONDUCTO AUDIT_ OIDO DER_ OBS"))))
-        ActiveCell.Offset(, audio_destiny_dictionary("CONDUCTO AUDIT_ OIDO IZQ_")) = Trim(UCase(ItemData.Offset(, audio_origin_dictionary("CONDUCTO AUDIT_ OIDO IZQ_"))))
-        ActiveCell.Offset(, audio_destiny_dictionary("CONDUCTO AUDIT_ OIDO IZQ_ OBS")) = Trim(UCase(ItemData.Offset(, audio_origin_dictionary("CONDUCTO AUDIT_ OIDO IZQ_ OBS"))))
-        ActiveCell.Offset(, audio_destiny_dictionary("MEMBRANA TIMP_ OIDO DER")) = Trim(UCase(ItemData.Offset(, audio_origin_dictionary("MEMBRANA TIMP_ OIDO DER"))))
-        ActiveCell.Offset(, audio_destiny_dictionary("MEMBRANA TIMP_ OIDO DER_ OBS")) = Trim(UCase(ItemData.Offset(, audio_origin_dictionary("MEMBRANA TIMP_ OIDO DER_ OBS"))))
-        ActiveCell.Offset(, audio_destiny_dictionary("MEMBRANA TIMP_ OIDO IZQ")) = Trim(UCase(ItemData.Offset(, audio_origin_dictionary("MEMBRANA TIMP_ OIDO IZQ"))))
-        ActiveCell.Offset(, audio_destiny_dictionary("MEMBRANA TIMP_ OIDO IZQ_ OBS")) = Trim(ItemData.Offset(, audio_origin_dictionary("MEMBRANA TIMP_ OIDO IZQ_ OBS")))
-        ActiveCell.Offset(, audio_destiny_dictionary("TIPO DE EXAMEN")) = Trim(UCase(ItemData.Offset(, audio_origin_dictionary("TIPO DE EXAMEN"))))
-        ActiveCell.Offset(, audio_destiny_dictionary("OD 500")) = Trim(ItemData.Offset(, audio_origin_dictionary("OD 500")))
-        ActiveCell.Offset(, audio_destiny_dictionary("OD 1000")) = Trim(ItemData.Offset(, audio_origin_dictionary("OD 1000")))
-        ActiveCell.Offset(, audio_destiny_dictionary("OD 2000")) = Trim(ItemData.Offset(, audio_origin_dictionary("OD 2000")))
-        ActiveCell.Offset(, audio_destiny_dictionary("OD 3000")) = Trim(ItemData.Offset(, audio_origin_dictionary("OD 3000")))
-        ActiveCell.Offset(, audio_destiny_dictionary("OD 4000")) = Trim(ItemData.Offset(, audio_origin_dictionary("OD 4000")))
-        ActiveCell.Offset(, audio_destiny_dictionary("OD 6000")) = Trim(ItemData.Offset(, audio_origin_dictionary("OD 6000")))
-        ActiveCell.Offset(, audio_destiny_dictionary("OD 8000")) = Trim(ItemData.Offset(, audio_origin_dictionary("OD 8000")))
-        ActiveCell.Offset(, audio_destiny_dictionary("OI 500")) = Trim(ItemData.Offset(, audio_origin_dictionary("OI 500")))
-        ActiveCell.Offset(, audio_destiny_dictionary("OI 1000")) = Trim(ItemData.Offset(, audio_origin_dictionary("OI 1000")))
-        ActiveCell.Offset(, audio_destiny_dictionary("OI 2000")) = Trim(ItemData.Offset(, audio_origin_dictionary("OI 2000")))
-        ActiveCell.Offset(, audio_destiny_dictionary("OI 3000")) = Trim(ItemData.Offset(, audio_origin_dictionary("OI 3000")))
-        ActiveCell.Offset(, audio_destiny_dictionary("OI 4000")) = Trim(ItemData.Offset(, audio_origin_dictionary("OI 4000")))
-        ActiveCell.Offset(, audio_destiny_dictionary("OI 6000")) = Trim(ItemData.Offset(, audio_origin_dictionary("OI 6000")))
-        ActiveCell.Offset(, audio_destiny_dictionary("OI 8000")) = Trim(ItemData.Offset(, audio_origin_dictionary("OI 8000")))
-        ActiveCell.Offset(, audio_destiny_dictionary("CONTROL SEGUN PVE")) = charters_empty(ItemData.Offset(, audio_origin_dictionary("CONTROL SEGUN PVE")))
-        ActiveCell.Offset(, audio_destiny_dictionary("CONFIRMATORIA")) = charters_empty(ItemData.Offset(, audio_origin_dictionary("CONFIRMATORIA")))
-        ActiveCell.Offset(, audio_destiny_dictionary("REMISION ORL")) = charters_empty(ItemData.Offset(, audio_origin_dictionary("REMISION ORL")))
-        ActiveCell.Offset(, audio_destiny_dictionary("PRUEBAS COMPLEMENTARIAS")) = charters_empty(ItemData.Offset(, audio_origin_dictionary("PRUEBAS COMPLEMENTARIAS")))
-        ActiveCell.Offset(, audio_destiny_dictionary("LIMPIEZA DE OIDO")) = charters_empty(ItemData.Offset(, audio_origin_dictionary("LIMPIEZA DE OIDO")))
-        ActiveCell.Offset(, audio_destiny_dictionary("LIMPIEZA OD")) = charters_empty(ItemData.Offset(, audio_origin_dictionary("LIMPIEZA OD")))
-        ActiveCell.Offset(, audio_destiny_dictionary("LIMPIEZA OI")) = charters_empty(ItemData.Offset(, audio_origin_dictionary("LIMPIEZA OI")))
-        ActiveCell.Offset(, audio_destiny_dictionary("REPOSO AUDITIVO EXTRALAB")) = charters_empty(ItemData.Offset(, audio_origin_dictionary("REPOSO AUDITIVO EXTRALAB")))
-        ActiveCell.Offset(, audio_destiny_dictionary("ROTAR DIADEMA TELEFONICA")) = charters_empty(ItemData.Offset(, audio_origin_dictionary("ROTAR DIADEMA TELEFONICA")))
-        ActiveCell.Offset(, audio_destiny_dictionary("CONDUCIR CON VENTANAS CERRADAS")) = charters_empty(ItemData.Offset(, audio_origin_dictionary("CONDUCIR CON VENTANAS CERRADAS")))
-        ActiveCell.Offset(, audio_destiny_dictionary("USO DE EPP AUDITIVO")) = charters_empty(ItemData.Offset(, audio_origin_dictionary("USO DE EPP AUDITIVO")))
-        ActiveCell.Offset(, audio_destiny_dictionary("CONTROLES MENSUALES")) = Trim(ItemData.Offset(, audio_origin_dictionary("CONTROLES MENSUALES")))
-        ActiveCell.Offset(, audio_destiny_dictionary("CONTROLES_BIMESTRALES")) = Trim(ItemData.Offset(, audio_origin_dictionary("CONTROLES_BIMESTRALES")))
-        ActiveCell.Offset(, audio_destiny_dictionary("CONTROLES TRIMESTRALES")) = Trim(ItemData.Offset(, audio_origin_dictionary("CONTROLES TRIMESTRALES")))
-        ActiveCell.Offset(, audio_destiny_dictionary("CONTROLES 6 MESES")) = Trim(ItemData.Offset(, audio_origin_dictionary("CONTROLES 6 MESES")))
-        ActiveCell.Offset(, audio_destiny_dictionary("CONTROLES 1 ANO")) = Trim(ItemData.Offset(, audio_origin_dictionary("CONTROLES 1 ANO")))
-        If (Trim(ItemData.Offset(, audio_origin_dictionary("DIAG PPAL"))) = "NO REFIERE") Then
-          ActiveCell.Offset(, audio_destiny_dictionary("DIAG PPAL")) = "#N/A"
+        cell_active.Offset(, audio_destiny_dictionary("NROAIDENFICACION")) = Trim(ItemData.Offset(, audio_origin_dictionary("NROAIDENFICACION")))
+
+        search = ItemData.Offset(, audio_origin_dictionary("EPP ESPECIFICO / AUDITIVO"))
+        If (withIncidence.Exists(Trim(search))) Then
+          cell_active.Offset(, audio_destiny_dictionary("EPP ESPECIFICO / AUDITIVO")) = 1
+        ElseIf (withoutIncidence.Exists(Trim(search))) Then
+          cell_active.Offset(, audio_destiny_dictionary("EPP ESPECIFICO / AUDITIVO")) = 0
         Else
-          ActiveCell.Offset(, audio_destiny_dictionary("DIAG PPAL")) = Trim(UCase(ItemData.Offset(, audio_origin_dictionary("DIAG PPAL"))))
+          cell_active.Offset(, audio_destiny_dictionary("EPP ESPECIFICO / AUDITIVO")) = Trim$(search)
+        End If
+        
+        search = ItemData.Offset(, audio_origin_dictionary("EPP ESPECIFICO / AUDITIVO COPA"))
+        If (withIncidence.Exists(Trim(search))) Then
+          cell_active.Offset(, audio_destiny_dictionary("EPP ESPECIFICO / AUDITIVO COPA")) = 1
+        ElseIf (withoutIncidence.Exists(Trim(search))) Then
+          cell_active.Offset(, audio_destiny_dictionary("EPP ESPECIFICO / AUDITIVO COPA")) = 0
+        Else
+          cell_active.Offset(, audio_destiny_dictionary("EPP ESPECIFICO / AUDITIVO COPA")) = Trim$(search)
+        End If
+        
+        search = ItemData.Offset(, audio_origin_dictionary("EPP ESPECIFICO / AUDITIVO INSERCION"))
+        If (withIncidence.Exists(Trim(search))) Then
+          cell_active.Offset(, audio_destiny_dictionary("EPP ESPECIFICO / AUDITIVO INSERCION")) = 1
+        ElseIf (withoutIncidence.Exists(Trim(search))) Then
+          cell_active.Offset(, audio_destiny_dictionary("EPP ESPECIFICO / AUDITIVO INSERCION")) = 0
+        Else
+          cell_active.Offset(, audio_destiny_dictionary("EPP ESPECIFICO / AUDITIVO INSERCION")) = Trim$(search)
+        End If
+        
+        search = ItemData.Offset(, audio_origin_dictionary("EPP ESPECIFICO / AUDITIVO DOBLE"))
+        If (withIncidence.Exists(Trim(search))) Then
+          cell_active.Offset(, audio_destiny_dictionary("EPP ESPECIFICO / AUDITIVO DOBLE")) = 1
+        ElseIf (withoutIncidence.Exists(Trim(search))) Then
+          cell_active.Offset(, audio_destiny_dictionary("EPP ESPECIFICO / AUDITIVO DOBLE")) = 0
+        Else
+          cell_active.Offset(, audio_destiny_dictionary("EPP ESPECIFICO / AUDITIVO DOBLE")) = Trim$(search)
+        End If
+
+        cell_active.Offset(, audio_destiny_dictionary("PABELLON AURIC_ OIDO DER_")) = Trim(UCase(ItemData.Offset(, audio_origin_dictionary("PABELLON AURIC_ OIDO DER_"))))
+        cell_active.Offset(, audio_destiny_dictionary("PABELLON AURIC_ OIDO DER_ OBS")) = Trim(UCase(ItemData.Offset(, audio_origin_dictionary("PABELLON AURIC_ OIDO DER_ OBS"))))
+        cell_active.Offset(, audio_destiny_dictionary("PABELLON AURIC_ OIDO IZQ_")) = Trim(UCase(ItemData.Offset(, audio_origin_dictionary("PABELLON AURIC_ OIDO IZQ_"))))
+        cell_active.Offset(, audio_destiny_dictionary("PABELLON AURIC_ OIDO IZQ_ OBS")) = Trim(UCase(ItemData.Offset(, audio_origin_dictionary("PABELLON AURIC_ OIDO IZQ_ OBS"))))
+        cell_active.Offset(, audio_destiny_dictionary("CONDUCTO AUDIT_ OIDO DER_")) = Trim(UCase(ItemData.Offset(, audio_origin_dictionary("CONDUCTO AUDIT_ OIDO DER_"))))
+        cell_active.Offset(, audio_destiny_dictionary("CONDUCTO AUDIT_ OIDO DER_ OBS")) = Trim(UCase(ItemData.Offset(, audio_origin_dictionary("CONDUCTO AUDIT_ OIDO DER_ OBS"))))
+        cell_active.Offset(, audio_destiny_dictionary("CONDUCTO AUDIT_ OIDO IZQ_")) = Trim(UCase(ItemData.Offset(, audio_origin_dictionary("CONDUCTO AUDIT_ OIDO IZQ_"))))
+        cell_active.Offset(, audio_destiny_dictionary("CONDUCTO AUDIT_ OIDO IZQ_ OBS")) = Trim(UCase(ItemData.Offset(, audio_origin_dictionary("CONDUCTO AUDIT_ OIDO IZQ_ OBS"))))
+        cell_active.Offset(, audio_destiny_dictionary("MEMBRANA TIMP_ OIDO DER")) = Trim(UCase(ItemData.Offset(, audio_origin_dictionary("MEMBRANA TIMP_ OIDO DER"))))
+        cell_active.Offset(, audio_destiny_dictionary("MEMBRANA TIMP_ OIDO DER_ OBS")) = Trim(UCase(ItemData.Offset(, audio_origin_dictionary("MEMBRANA TIMP_ OIDO DER_ OBS"))))
+        cell_active.Offset(, audio_destiny_dictionary("MEMBRANA TIMP_ OIDO IZQ")) = Trim(UCase(ItemData.Offset(, audio_origin_dictionary("MEMBRANA TIMP_ OIDO IZQ"))))
+        cell_active.Offset(, audio_destiny_dictionary("MEMBRANA TIMP_ OIDO IZQ_ OBS")) = Trim(ItemData.Offset(, audio_origin_dictionary("MEMBRANA TIMP_ OIDO IZQ_ OBS")))
+        cell_active.Offset(, audio_destiny_dictionary("TIPO DE EXAMEN")) = Trim(UCase(ItemData.Offset(, audio_origin_dictionary("TIPO DE EXAMEN"))))
+        cell_active.Offset(, audio_destiny_dictionary("OD 500")) = Trim(ItemData.Offset(, audio_origin_dictionary("OD 500")))
+        cell_active.Offset(, audio_destiny_dictionary("OD 1000")) = Trim(ItemData.Offset(, audio_origin_dictionary("OD 1000")))
+        cell_active.Offset(, audio_destiny_dictionary("OD 2000")) = Trim(ItemData.Offset(, audio_origin_dictionary("OD 2000")))
+        cell_active.Offset(, audio_destiny_dictionary("OD 3000")) = Trim(ItemData.Offset(, audio_origin_dictionary("OD 3000")))
+        cell_active.Offset(, audio_destiny_dictionary("OD 4000")) = Trim(ItemData.Offset(, audio_origin_dictionary("OD 4000")))
+        cell_active.Offset(, audio_destiny_dictionary("OD 6000")) = Trim(ItemData.Offset(, audio_origin_dictionary("OD 6000")))
+        cell_active.Offset(, audio_destiny_dictionary("OD 8000")) = Trim(ItemData.Offset(, audio_origin_dictionary("OD 8000")))
+        cell_active.Offset(, audio_destiny_dictionary("OI 500")) = Trim(ItemData.Offset(, audio_origin_dictionary("OI 500")))
+        cell_active.Offset(, audio_destiny_dictionary("OI 1000")) = Trim(ItemData.Offset(, audio_origin_dictionary("OI 1000")))
+        cell_active.Offset(, audio_destiny_dictionary("OI 2000")) = Trim(ItemData.Offset(, audio_origin_dictionary("OI 2000")))
+        cell_active.Offset(, audio_destiny_dictionary("OI 3000")) = Trim(ItemData.Offset(, audio_origin_dictionary("OI 3000")))
+        cell_active.Offset(, audio_destiny_dictionary("OI 4000")) = Trim(ItemData.Offset(, audio_origin_dictionary("OI 4000")))
+        cell_active.Offset(, audio_destiny_dictionary("OI 6000")) = Trim(ItemData.Offset(, audio_origin_dictionary("OI 6000")))
+        cell_active.Offset(, audio_destiny_dictionary("OI 8000")) = Trim(ItemData.Offset(, audio_origin_dictionary("OI 8000")))
+
+        search = ItemData.Offset(, audio_origin_dictionary("CONTROL SEGUN PVE"))
+        If (withIncidence.Exists(Trim(search))) Then
+          cell_active.Offset(, audio_destiny_dictionary("CONTROL SEGUN PVE")) = 1
+        ElseIf (withoutIncidence.Exists(Trim(search))) Then
+          cell_active.Offset(, audio_destiny_dictionary("CONTROL SEGUN PVE")) = 0
+        Else
+          cell_active.Offset(, audio_destiny_dictionary("CONTROL SEGUN PVE")) = Trim$(search)
+        End If
+        
+        search = ItemData.Offset(, audio_origin_dictionary("CONFIRMATORIA"))
+        If (withIncidence.Exists(Trim(search))) Then
+          cell_active.Offset(, audio_destiny_dictionary("CONFIRMATORIA")) = 1
+        ElseIf (withoutIncidence.Exists(Trim(search))) Then
+          cell_active.Offset(, audio_destiny_dictionary("CONFIRMATORIA")) = 0
+        Else
+          cell_active.Offset(, audio_destiny_dictionary("CONFIRMATORIA")) = Trim$(search)
+        End If
+        
+        search = ItemData.Offset(, audio_origin_dictionary("REMISION ORL"))
+        If (withIncidence.Exists(Trim(search))) Then
+          cell_active.Offset(, audio_destiny_dictionary("REMISION ORL")) = 1
+        ElseIf (withoutIncidence.Exists(Trim(search))) Then
+          cell_active.Offset(, audio_destiny_dictionary("REMISION ORL")) = 0
+        Else
+          cell_active.Offset(, audio_destiny_dictionary("REMISION ORL")) = Trim$(search)
+        End If
+        
+        search = ItemData.Offset(, audio_origin_dictionary("PRUEBAS COMPLEMENTARIAS"))
+        If (withIncidence.Exists(Trim(search))) Then
+          cell_active.Offset(, audio_destiny_dictionary("PRUEBAS COMPLEMENTARIAS")) = 1
+        ElseIf (withoutIncidence.Exists(Trim(search))) Then
+          cell_active.Offset(, audio_destiny_dictionary("PRUEBAS COMPLEMENTARIAS")) = 0
+        Else
+          cell_active.Offset(, audio_destiny_dictionary("PRUEBAS COMPLEMENTARIAS")) = Trim$(search)
+        End If
+        
+        search = ItemData.Offset(, audio_origin_dictionary("LIMPIEZA DE OIDO"))
+        If (withIncidence.Exists(Trim(search))) Then
+          cell_active.Offset(, audio_destiny_dictionary("LIMPIEZA DE OIDO")) = 1
+        ElseIf (withoutIncidence.Exists(Trim(search))) Then
+          cell_active.Offset(, audio_destiny_dictionary("LIMPIEZA DE OIDO")) = 0
+        Else
+          cell_active.Offset(, audio_destiny_dictionary("LIMPIEZA DE OIDO")) = Trim$(search)
+        End If
+        
+        search = ItemData.Offset(, audio_origin_dictionary("LIMPIEZA OD"))
+        If (withIncidence.Exists(Trim(search))) Then
+          cell_active.Offset(, audio_destiny_dictionary("LIMPIEZA OD")) = 1
+        ElseIf (withoutIncidence.Exists(Trim(search))) Then
+          cell_active.Offset(, audio_destiny_dictionary("LIMPIEZA OD")) = 0
+        Else
+          cell_active.Offset(, audio_destiny_dictionary("LIMPIEZA OD")) = Trim$(search)
+        End If
+        
+        search = ItemData.Offset(, audio_origin_dictionary("LIMPIEZA OI"))
+        If (withIncidence.Exists(Trim(search))) Then
+          cell_active.Offset(, audio_destiny_dictionary("LIMPIEZA OI")) = 1
+        ElseIf (withoutIncidence.Exists(Trim(search))) Then
+          cell_active.Offset(, audio_destiny_dictionary("LIMPIEZA OI")) = 0
+        Else
+          cell_active.Offset(, audio_destiny_dictionary("LIMPIEZA OI")) = Trim$(search)
+        End If
+        
+        search = ItemData.Offset(, audio_origin_dictionary("REPOSO AUDITIVO EXTRALAB"))
+        If (withIncidence.Exists(Trim(search))) Then
+          cell_active.Offset(, audio_destiny_dictionary("REPOSO AUDITIVO EXTRALAB")) = 1
+        ElseIf (withoutIncidence.Exists(Trim(search))) Then
+          cell_active.Offset(, audio_destiny_dictionary("REPOSO AUDITIVO EXTRALAB")) = 0
+        Else
+          cell_active.Offset(, audio_destiny_dictionary("REPOSO AUDITIVO EXTRALAB")) = Trim$(search)
+        End If
+        
+        search = ItemData.Offset(, audio_origin_dictionary("ROTAR DIADEMA TELEFONICA"))
+        If (withIncidence.Exists(Trim(search))) Then
+          cell_active.Offset(, audio_destiny_dictionary("ROTAR DIADEMA TELEFONICA")) = 1
+        ElseIf (withoutIncidence.Exists(Trim(search))) Then
+          cell_active.Offset(, audio_destiny_dictionary("ROTAR DIADEMA TELEFONICA")) = 0
+        Else
+          cell_active.Offset(, audio_destiny_dictionary("ROTAR DIADEMA TELEFONICA")) = Trim$(search)
+        End If
+        
+        search = ItemData.Offset(, audio_origin_dictionary("CONDUCIR CON VENTANAS CERRADAS"))
+        If (withIncidence.Exists(Trim(search))) Then
+          cell_active.Offset(, audio_destiny_dictionary("CONDUCIR CON VENTANAS CERRADAS")) = 1
+        ElseIf (withoutIncidence.Exists(Trim(search))) Then
+          cell_active.Offset(, audio_destiny_dictionary("CONDUCIR CON VENTANAS CERRADAS")) = 0
+        Else
+          cell_active.Offset(, audio_destiny_dictionary("CONDUCIR CON VENTANAS CERRADAS")) = Trim$(search)
+        End If
+        
+        search = ItemData.Offset(, audio_origin_dictionary("USO DE EPP AUDITIVO"))
+        If (withIncidence.Exists(Trim(search))) Then
+          cell_active.Offset(, audio_destiny_dictionary("USO DE EPP AUDITIVO")) = 1
+        ElseIf (withoutIncidence.Exists(Trim(search))) Then
+          cell_active.Offset(, audio_destiny_dictionary("USO DE EPP AUDITIVO")) = 0
+        Else
+          cell_active.Offset(, audio_destiny_dictionary("USO DE EPP AUDITIVO")) = Trim$(search)
+        End If
+
+        cell_active.Offset(, audio_destiny_dictionary("CONTROLES MENSUALES")) = Trim(ItemData.Offset(, audio_origin_dictionary("CONTROLES MENSUALES")))
+        cell_active.Offset(, audio_destiny_dictionary("CONTROLES_BIMESTRALES")) = Trim(ItemData.Offset(, audio_origin_dictionary("CONTROLES_BIMESTRALES")))
+        cell_active.Offset(, audio_destiny_dictionary("CONTROLES TRIMESTRALES")) = Trim(ItemData.Offset(, audio_origin_dictionary("CONTROLES TRIMESTRALES")))
+        cell_active.Offset(, audio_destiny_dictionary("CONTROLES 6 MESES")) = Trim(ItemData.Offset(, audio_origin_dictionary("CONTROLES 6 MESES")))
+        cell_active.Offset(, audio_destiny_dictionary("CONTROLES 1 ANO")) = Trim(ItemData.Offset(, audio_origin_dictionary("CONTROLES 1 ANO")))
+        If (Trim(ItemData.Offset(, audio_origin_dictionary("DIAG PPAL"))) = "NO REFIERE") Then
+          cell_active.Offset(, audio_destiny_dictionary("DIAG PPAL")) = "#N/A"
+        Else
+          cell_active.Offset(, audio_destiny_dictionary("DIAG PPAL")) = Trim(UCase(ItemData.Offset(, audio_origin_dictionary("DIAG PPAL"))))
         End If
         If (Trim(ItemData.Offset(, audio_origin_dictionary("DIAG INTERNO"))) = "NO REFIERE") Then
-          ActiveCell.Offset(, audio_destiny_dictionary("DIAG INTERNO")) = "#N/A"
+          cell_active.Offset(, audio_destiny_dictionary("DIAG INTERNO")) = "#N/A"
         Else
-          ActiveCell.Offset(, audio_destiny_dictionary("DIAG INTERNO")) = Trim(UCase(ItemData.Offset(, audio_origin_dictionary("DIAG INTERNO"))))
+          cell_active.Offset(, audio_destiny_dictionary("DIAG INTERNO")) = Trim(UCase(ItemData.Offset(, audio_origin_dictionary("DIAG INTERNO"))))
         End If
         If (Trim(ItemData.Offset(, audio_origin_dictionary("DIAG GATI-SO"))) = "NO REFIERE") Then
-          ActiveCell.Offset(, audio_destiny_dictionary("DIAG GATI-SO")) ="#N/A"
+          cell_active.Offset(, audio_destiny_dictionary("DIAG GATI-SO")) ="#N/A"
         Else
-          ActiveCell.Offset(, audio_destiny_dictionary("DIAG GATI-SO")) = Trim(UCase(ItemData.Offset(, audio_origin_dictionary("DIAG GATI-SO"))))
+          cell_active.Offset(, audio_destiny_dictionary("DIAG GATI-SO")) = Trim(UCase(ItemData.Offset(, audio_origin_dictionary("DIAG GATI-SO"))))
         End If
-        If (ActiveCell.Row <> 4) Then
+        If (cell_active.Row <> 4) Then
           aumentFromID = aumentFromID + 1
         End If
-        ActiveCell.Offset(, audio_destiny_dictionary("ID_AUDIOMETRIA")) = aumentFromID
-        ActiveCell.Offset(1, 0).Select
+        cell_active.Offset(, audio_destiny_dictionary("ID_AUDIOMETRIA")) = aumentFromID
+        Set cell_active = cell_active.Offset(1, 0).Select
         numbers = numbers + 1
         numbersGeneral = numbersGeneral + 1
         DoEvents     
@@ -178,6 +301,7 @@ Public Sub AudioData(ByVal name_sheet As String)
   Call greaterThanOne(audio_destiny.Range("tbl_audio[[CONTROLES MENSUALES]:[CONTROLES 1 A" & ChrW(209) & "O]]"),"AUDIO")
   Call iqualCero(audio_destiny.Range("tbl_audio[[CONTROLES MENSUALES]:[CONTROLES 1 A" & ChrW(209) & "O]]"), "AUDIO")
   Call formatter(audio_destiny.Range("tbl_audio[[#Data],[NROAIDENFICACION]]"))
+  Call internalDiagnosis(audio_destiny.range("tbl_audio[[#Data],[DIAG INTERNO]]"))
 
   Set audio_origin_value = Nothing
   Set audio_destiny_header = Nothing
