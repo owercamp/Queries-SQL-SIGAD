@@ -100,6 +100,8 @@ Public Function city(ByVal value As String) As String
     city = "RIOHACHA"
    Case "TOCANCIP" & ChrW(193)
     city = "TOCANCIPA"
+   Case "TURAMENA"
+    city = "TAURAMENA"
    Case Else
     city = value
   End Select
