@@ -289,7 +289,7 @@ Public Sub AudioData(ByVal name_sheet As String)
           aumentFromID = aumentFromID + 1
         End If
         cell_active.Offset(, audio_destiny_dictionary("ID_AUDIOMETRIA")) = aumentFromID
-        Set cell_active = cell_active.Offset(1, 0).Select
+        Set cell_active = cell_active.Offset(1, 0)
         numbers = numbers + 1
         numbersGeneral = numbersGeneral + 1
         DoEvents     
