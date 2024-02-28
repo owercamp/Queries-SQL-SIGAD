@@ -100,6 +100,8 @@ Public Function city(ByVal value As String) As String
     city = "RIOHACHA"
    Case "TOCANCIP" & ChrW(193)
     city = "TOCANCIPA"
+   Case "TURAMENA"
+    city = "TAURAMENA"
    Case Else
     city = value
   End Select
@@ -123,6 +125,8 @@ Public Function school(ByVal value As String) As String
     school = "MAESTRIA"
    Case "TECNOLOGICO"
     school = "TECNOLOGO"
+   Case "PREESCOLAR"
+    school = "PRIMARIA"
    Case Else
     school = value
   End Select
@@ -163,7 +167,7 @@ Public Function typeSex(ByVal value As String) As String
   Select Case value
    Case "COBRIZA", "COBRIZO"
     typeSex = Trim("COBRIZA")
-   Case "NEGRA", "NEGRO", "PALENQUERO", "RAIZAL", "AFRODESENDIENTE"
+   Case "NEGRA", "NEGRO", "PALENQUERO", "RAIZAL", "AFRODESENDIENTE","AFRO COLOMBIANO"
     typeSex = Trim("NEGRA")
    Case "OTRO", "OTRA"
     typeSex = Trim("OTRO")
