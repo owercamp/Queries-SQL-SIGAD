@@ -111,7 +111,7 @@ Public Sub DataEmoWorkers(ByVal name_sheet As String)
         ElseIf (withoutIncidence.Exists(Trim(search))) Then
           cell_active.Offset(, emo_destiny_dictionary("RIESGO FISICO / ILUMINACION")) = 0
         Else
-          cell_active.Offset(, emo_destiny_dictionary("RIESGO FISICO / ILUMINACION")) = Trim$(ItemData.Offset(, emo_origin_dictionary("RIESGO FISICO / ILUMINACION")))
+          cell_active.Offset(, emo_destiny_dictionary("RIESGO FISICO / ILUMINACION")) = Trim$(search)
         End If
 
         search = ItemData.Offset(, emo_origin_dictionary("RIESGO FISICO / VIBRACION"))
@@ -120,7 +120,7 @@ Public Sub DataEmoWorkers(ByVal name_sheet As String)
         ElseIf (withoutIncidence.Exists(Trim(search))) Then
           cell_active.Offset(, emo_destiny_dictionary("RIESGO FISICO / VIBRACION")) = 0
         Else
-          cell_active.Offset(, emo_destiny_dictionary("RIESGO FISICO / VIBRACION")) = Trim$(ItemData.Offset(, emo_origin_dictionary("RIESGO FISICO / VIBRACION")))
+          cell_active.Offset(, emo_destiny_dictionary("RIESGO FISICO / VIBRACION")) = Trim$(search)
         End If
 
         search = ItemData.Offset(, emo_origin_dictionary("RIESGO FISICO / TEMP EXTREMAS"))
@@ -129,7 +129,7 @@ Public Sub DataEmoWorkers(ByVal name_sheet As String)
         ElseIf (withoutIncidence.Exists(Trim(search))) Then
           cell_active.Offset(, emo_destiny_dictionary("RIESGO FISICO / TEMP EXTREMAS")) = 0
         Else
-          cell_active.Offset(, emo_destiny_dictionary("RIESGO FISICO / TEMP EXTREMAS")) = Trim$(ItemData.Offset(, emo_origin_dictionary("RIESGO FISICO / TEMP EXTREMAS")))
+          cell_active.Offset(, emo_destiny_dictionary("RIESGO FISICO / TEMP EXTREMAS")) = Trim$(search)
         End If
 
         search = ItemData.Offset(, emo_origin_dictionary("RIESGO FISICO / PRES ATMOSFERICA"))
@@ -138,7 +138,7 @@ Public Sub DataEmoWorkers(ByVal name_sheet As String)
         ElseIf (withoutIncidence.Exists(Trim(search))) Then
           cell_active.Offset(, emo_destiny_dictionary("RIESGO FISICO / PRES ATMOSFERICA")) = 0
         Else
-          cell_active.Offset(, emo_destiny_dictionary("RIESGO FISICO / PRES ATMOSFERICA")) = Trim$(ItemData.Offset(, emo_origin_dictionary("RIESGO FISICO / PRES ATMOSFERICA")))
+          cell_active.Offset(, emo_destiny_dictionary("RIESGO FISICO / PRES ATMOSFERICA")) = Trim$(search)
         End If
 
         search = ItemData.Offset(, emo_origin_dictionary("RIESGO FISICO / RAD IONIZANTES"))
@@ -147,7 +147,7 @@ Public Sub DataEmoWorkers(ByVal name_sheet As String)
         ElseIf (withoutIncidence.Exists(Trim(search))) Then
           cell_active.Offset(, emo_destiny_dictionary("RIESGO FISICO / RAD IONIZANTES")) = 0
         Else
-          cell_active.Offset(, emo_destiny_dictionary("RIESGO FISICO / RAD IONIZANTES")) = Trim$(ItemData.Offset(, emo_origin_dictionary("RIESGO FISICO / RAD IONIZANTES")))
+          cell_active.Offset(, emo_destiny_dictionary("RIESGO FISICO / RAD IONIZANTES")) = Trim$(search)
         End If
 
         search = ItemData.Offset(, emo_origin_dictionary("RIESGO FISICO / RAD NO IONIZANTES"))
@@ -156,7 +156,7 @@ Public Sub DataEmoWorkers(ByVal name_sheet As String)
         ElseIf (withoutIncidence.Exists(Trim(search))) Then
           cell_active.Offset(, emo_destiny_dictionary("RIESGO FISICO / RAD NO IONIZANTES")) = 0
         Else
-          cell_active.Offset(, emo_destiny_dictionary("RIESGO FISICO / RAD NO IONIZANTES")) = Trim$(ItemData.Offset(, emo_origin_dictionary("RIESGO FISICO / RAD NO IONIZANTES")))
+          cell_active.Offset(, emo_destiny_dictionary("RIESGO FISICO / RAD NO IONIZANTES")) = Trim$(search)
         End If
         
         cell_active.Offset(, emo_destiny_dictionary("RIESGO DE OTROS FACTORES FISICOS")) = VBA.Trim$(ItemData.Offset(, emo_origin_dictionary("RIESGO DE OTROS FACTORES FISICOS")))
@@ -167,7 +167,7 @@ Public Sub DataEmoWorkers(ByVal name_sheet As String)
         ElseIf (withoutIncidence.Exists(Trim(search))) Then
           cell_active.Offset(, emo_destiny_dictionary("RIESGO BIOLOGICO / VIRUS")) = 0
         Else
-          cell_active.Offset(, emo_destiny_dictionary("RIESGO BIOLOGICO / VIRUS")) = Trim$(ItemData.Offset(, emo_origin_dictionary("RIESGO BIOLOGICO / VIRUS")))
+          cell_active.Offset(, emo_destiny_dictionary("RIESGO BIOLOGICO / VIRUS")) = Trim$(search)
         End If
 
         search = ItemData.Offset(, emo_origin_dictionary("RIESGO BIOLOGICO / BACTERIAS"))
@@ -176,7 +176,7 @@ Public Sub DataEmoWorkers(ByVal name_sheet As String)
         ElseIf (withoutIncidence.Exists(Trim(search))) Then
           cell_active.Offset(, emo_destiny_dictionary("RIESGO BIOLOGICO / BACTERIAS")) = 0
         Else
-          cell_active.Offset(, emo_destiny_dictionary("RIESGO BIOLOGICO / BACTERIAS")) = Trim$(ItemData.Offset(, emo_origin_dictionary("RIESGO BIOLOGICO / BACTERIAS")))
+          cell_active.Offset(, emo_destiny_dictionary("RIESGO BIOLOGICO / BACTERIAS")) = Trim$(search)
         End If
         
         search = ItemData.Offset(, emo_origin_dictionary("RIESGO BIOLOGICO / HONGOS"))
@@ -185,7 +185,7 @@ Public Sub DataEmoWorkers(ByVal name_sheet As String)
         ElseIf (withoutIncidence.Exists(Trim(search))) Then
           cell_active.Offset(, emo_destiny_dictionary("RIESGO BIOLOGICO / HONGOS")) = 0
         Else
-          cell_active.Offset(, emo_destiny_dictionary("RIESGO BIOLOGICO / HONGOS")) = Trim$(ItemData.Offset(, emo_origin_dictionary("RIESGO BIOLOGICO / HONGOS")))
+          cell_active.Offset(, emo_destiny_dictionary("RIESGO BIOLOGICO / HONGOS")) = Trim$(search)
         End If
         
         search = ItemData.Offset(, emo_origin_dictionary("RIESGO BIOLOGICO / RICKETSIAS"))
@@ -194,7 +194,7 @@ Public Sub DataEmoWorkers(ByVal name_sheet As String)
         ElseIf (withoutIncidence.Exists(Trim(search))) Then
           cell_active.Offset(, emo_destiny_dictionary("RIESGO BIOLOGICO / RICKETSIAS")) = 0
         Else
-          cell_active.Offset(, emo_destiny_dictionary("RIESGO BIOLOGICO / RICKETSIAS")) = Trim$(ItemData.Offset(, emo_origin_dictionary("RIESGO BIOLOGICO / RICKETSIAS")))
+          cell_active.Offset(, emo_destiny_dictionary("RIESGO BIOLOGICO / RICKETSIAS")) = Trim$(search)
         End If
         
         search = ItemData.Offset(, emo_origin_dictionary("RIESGO BIOLOGICO / PARASITOS"))
@@ -203,7 +203,7 @@ Public Sub DataEmoWorkers(ByVal name_sheet As String)
         ElseIf (withoutIncidence.Exists(Trim(search))) Then
           cell_active.Offset(, emo_destiny_dictionary("RIESGO BIOLOGICO / PARASITOS")) = 0
         Else
-          cell_active.Offset(, emo_destiny_dictionary("RIESGO BIOLOGICO / PARASITOS")) = Trim$(ItemData.Offset(, emo_origin_dictionary("RIESGO BIOLOGICO / PARASITOS")))
+          cell_active.Offset(, emo_destiny_dictionary("RIESGO BIOLOGICO / PARASITOS")) = Trim$(search)
         End If
 
         search = ItemData.Offset(, emo_origin_dictionary("RIESGO BIOLOGICO / FLUIDOS"))
@@ -212,7 +212,7 @@ Public Sub DataEmoWorkers(ByVal name_sheet As String)
         ElseIf (withoutIncidence.Exists(Trim(search))) Then
           cell_active.Offset(, emo_destiny_dictionary("RIESGO BIOLOGICO / FLUIDOS")) = 0
         Else
-          cell_active.Offset(, emo_destiny_dictionary("RIESGO BIOLOGICO / FLUIDOS")) = Trim$(ItemData.Offset(, emo_origin_dictionary("RIESGO BIOLOGICO / FLUIDOS")))
+          cell_active.Offset(, emo_destiny_dictionary("RIESGO BIOLOGICO / FLUIDOS")) = Trim$(search)
         End If
         
         search = ItemData.Offset(, emo_origin_dictionary("RIESGO BIOLOGICO / PICADURAS"))
@@ -221,7 +221,7 @@ Public Sub DataEmoWorkers(ByVal name_sheet As String)
         ElseIf (withoutIncidence.Exists(Trim(search))) Then
           cell_active.Offset(, emo_destiny_dictionary("RIESGO BIOLOGICO / PICADURAS")) = 0
         Else
-          cell_active.Offset(, emo_destiny_dictionary("RIESGO BIOLOGICO / PICADURAS")) = Trim$(ItemData.Offset(, emo_origin_dictionary("RIESGO BIOLOGICO / PICADURAS")))
+          cell_active.Offset(, emo_destiny_dictionary("RIESGO BIOLOGICO / PICADURAS")) = Trim$(search)
         End If
         
         search = ItemData.Offset(, emo_origin_dictionary("RIESGO BIOLOGICO / MORDEDURAS"))
@@ -230,7 +230,7 @@ Public Sub DataEmoWorkers(ByVal name_sheet As String)
         ElseIf (withoutIncidence.Exists(Trim(search))) Then
           cell_active.Offset(, emo_destiny_dictionary("RIESGO BIOLOGICO / MORDEDURAS")) = 0
         Else
-          cell_active.Offset(, emo_destiny_dictionary("RIESGO BIOLOGICO / MORDEDURAS")) = Trim$(ItemData.Offset(, emo_origin_dictionary("RIESGO BIOLOGICO / MORDEDURAS")))
+          cell_active.Offset(, emo_destiny_dictionary("RIESGO BIOLOGICO / MORDEDURAS")) = Trim$(search)
         End If
 
         cell_active.Offset(, emo_destiny_dictionary("OTROS RIESGOS BIOLOGICOS")) = VBA.Trim$(ItemData.Offset(, emo_origin_dictionary("OTROS RIESGOS BIOLOGICOS")))
@@ -241,7 +241,7 @@ Public Sub DataEmoWorkers(ByVal name_sheet As String)
         ElseIf (withoutIncidence.Exists(Trim(search))) Then
           cell_active.Offset(, emo_destiny_dictionary("RIESGO QUIMICO / POLVOS")) = 0
         Else
-          cell_active.Offset(, emo_destiny_dictionary("RIESGO QUIMICO / POLVOS")) = Trim$(ItemData.Offset(, emo_origin_dictionary("RIESGO QUIMICO / POLVOS")))
+          cell_active.Offset(, emo_destiny_dictionary("RIESGO QUIMICO / POLVOS")) = Trim$(search)
         End If
         
         search = ItemData.Offset(, emo_origin_dictionary("RIESGO QUIMICO / FIBRAS"))
@@ -250,7 +250,7 @@ Public Sub DataEmoWorkers(ByVal name_sheet As String)
         ElseIf (withoutIncidence.Exists(search)) Then
           cell_active.Offset(, emo_destiny_dictionary("RIESGO QUIMICO / FIBRAS")) = 0
         Else
-          cell_active.Offset(, emo_destiny_dictionary("RIESGO QUIMICO / FIBRAS")) = Trim$(ItemData.Offset(, emo_origin_dictionary("RIESGO QUIMICO / FIBRAS")))
+          cell_active.Offset(, emo_destiny_dictionary("RIESGO QUIMICO / FIBRAS")) = Trim$(search)
         End If
         
         search = ItemData.Offset(, emo_origin_dictionary("RIESGO QUIMICO / LIQUIDOS"))
@@ -259,7 +259,7 @@ Public Sub DataEmoWorkers(ByVal name_sheet As String)
         ElseIf (withoutIncidence.Exists(search)) Then
           cell_active.Offset(, emo_destiny_dictionary("RIESGO QUIMICO / LIQUIDOS")) = 0
         Else
-          cell_active.Offset(, emo_destiny_dictionary("RIESGO QUIMICO / LIQUIDOS")) = Trim$(ItemData.Offset(, emo_origin_dictionary("RIESGO QUIMICO / LIQUIDOS")))
+          cell_active.Offset(, emo_destiny_dictionary("RIESGO QUIMICO / LIQUIDOS")) = Trim$(search)
         End If
         
         search = ItemData.Offset(, emo_origin_dictionary("RIESGO QUIMICO /GASES"))
@@ -268,7 +268,7 @@ Public Sub DataEmoWorkers(ByVal name_sheet As String)
         ElseIf (withoutIncidence.Exists(search)) Then
           cell_active.Offset(, emo_destiny_dictionary("RIESGO QUIMICO /GASES")) = 0
         Else
-          cell_active.Offset(, emo_destiny_dictionary("RIESGO QUIMICO /GASES")) = Trim$(ItemData.Offset(, emo_origin_dictionary("RIESGO QUIMICO /GASES")))
+          cell_active.Offset(, emo_destiny_dictionary("RIESGO QUIMICO /GASES")) = Trim$(search)
         End If
         
         search = ItemData.Offset(, emo_origin_dictionary("RIESGO QUIMICO / VAPORES"))
@@ -277,7 +277,7 @@ Public Sub DataEmoWorkers(ByVal name_sheet As String)
         ElseIf (withoutIncidence.Exists(search)) Then
           cell_active.Offset(, emo_destiny_dictionary("RIESGO QUIMICO / VAPORES")) = 0
         Else
-          cell_active.Offset(, emo_destiny_dictionary("RIESGO QUIMICO / VAPORES")) = Trim$(ItemData.Offset(, emo_origin_dictionary("RIESGO QUIMICO / VAPORES")))
+          cell_active.Offset(, emo_destiny_dictionary("RIESGO QUIMICO / VAPORES")) = Trim$(search)
         End If
         
         search = ItemData.Offset(, emo_origin_dictionary("RIESGO QUIMICO / HUMOS"))
@@ -286,7 +286,7 @@ Public Sub DataEmoWorkers(ByVal name_sheet As String)
         ElseIf (withoutIncidence.Exists(search)) Then
           cell_active.Offset(, emo_destiny_dictionary("RIESGO QUIMICO / HUMOS")) = 0
         Else
-          cell_active.Offset(, emo_destiny_dictionary("RIESGO QUIMICO / HUMOS")) = Trim$(ItemData.Offset(, emo_origin_dictionary("RIESGO QUIMICO / HUMOS")))
+          cell_active.Offset(, emo_destiny_dictionary("RIESGO QUIMICO / HUMOS")) = Trim$(search)
         End If
         
         search = ItemData.Offset(, emo_origin_dictionary("RIESGO QUIMICO /MATERIAL PARTICULADO"))
@@ -295,7 +295,7 @@ Public Sub DataEmoWorkers(ByVal name_sheet As String)
         ElseIf (withoutIncidence.Exists(search)) Then
           cell_active.Offset(, emo_destiny_dictionary("RIESGO QUIMICO /MATERIAL PARTICULADO")) = 0
         Else
-          cell_active.Offset(, emo_destiny_dictionary("RIESGO QUIMICO /MATERIAL PARTICULADO")) = Trim$(ItemData.Offset(, emo_origin_dictionary("RIESGO QUIMICO /MATERIAL PARTICULADO")))
+          cell_active.Offset(, emo_destiny_dictionary("RIESGO QUIMICO /MATERIAL PARTICULADO")) = Trim$(search)
         End If
 
         cell_active.Offset(, emo_destiny_dictionary("OTROS RIESGOS QUIMICOS")) = VBA.Trim$(ItemData.Offset(, emo_origin_dictionary("OTROS RIESGOS QUIMICOS")))
@@ -306,7 +306,7 @@ Public Sub DataEmoWorkers(ByVal name_sheet As String)
         ElseIf (withoutIncidence.Exists(search)) Then
           cell_active.Offset(, emo_destiny_dictionary("RIESGO PSICO / GESTION ORGANIZACIONAL")) = 0
         Else
-          cell_active.Offset(, emo_destiny_dictionary("RIESGO PSICO / GESTION ORGANIZACIONAL")) = Trim$(ItemData.Offset(, emo_origin_dictionary("RIESGO PSICO / GESTION ORGANIZACIONAL")))
+          cell_active.Offset(, emo_destiny_dictionary("RIESGO PSICO / GESTION ORGANIZACIONAL")) = Trim$(search)
         End If
         
         search = ItemData.Offset(, emo_origin_dictionary("RIESGO PSICO / CARACT DEL GRUPO"))
@@ -315,7 +315,7 @@ Public Sub DataEmoWorkers(ByVal name_sheet As String)
         ElseIf (withoutIncidence.Exists(search)) Then
           cell_active.Offset(, emo_destiny_dictionary("RIESGO PSICO / CARACT DEL GRUPO")) = 0
         Else
-          cell_active.Offset(, emo_destiny_dictionary("RIESGO PSICO / CARACT DEL GRUPO")) = Trim$(ItemData.Offset(, emo_origin_dictionary("RIESGO PSICO / CARACT DEL GRUPO")))
+          cell_active.Offset(, emo_destiny_dictionary("RIESGO PSICO / CARACT DEL GRUPO")) = Trim$(search)
         End If
         
         search = ItemData.Offset(, emo_origin_dictionary("RIESGO PSICO / INTERFACES TAREA"))
@@ -324,7 +324,7 @@ Public Sub DataEmoWorkers(ByVal name_sheet As String)
         ElseIf (withoutIncidence.Exists(search)) Then
           cell_active.Offset(, emo_destiny_dictionary("RIESGO PSICO / INTERFACES TAREA")) = 0
         Else
-          cell_active.Offset(, emo_destiny_dictionary("RIESGO PSICO / INTERFACES TAREA")) = Trim$(ItemData.Offset(, emo_origin_dictionary("RIESGO PSICO / INTERFACES TAREA")))
+          cell_active.Offset(, emo_destiny_dictionary("RIESGO PSICO / INTERFACES TAREA")) = Trim$(search)
         End If
         
         search = ItemData.Offset(, emo_origin_dictionary("RIESGO PSICO / CARACT ORGANIZACION"))
@@ -333,7 +333,7 @@ Public Sub DataEmoWorkers(ByVal name_sheet As String)
         ElseIf (withoutIncidence.Exists(search)) Then
           cell_active.Offset(, emo_destiny_dictionary("RIESGO PSICO / CARACT ORGANIZACION")) = 0
         Else
-          cell_active.Offset(, emo_destiny_dictionary("RIESGO PSICO / CARACT ORGANIZACION")) = Trim$(ItemData.Offset(, emo_origin_dictionary("RIESGO PSICO / CARACT ORGANIZACION")))
+          cell_active.Offset(, emo_destiny_dictionary("RIESGO PSICO / CARACT ORGANIZACION")) = Trim$(search)
         End If
         
         search = ItemData.Offset(, emo_origin_dictionary("RIESGO PSICO / CONDICIONES"))
@@ -342,7 +342,7 @@ Public Sub DataEmoWorkers(ByVal name_sheet As String)
         ElseIf (withoutIncidence.Exists(search)) Then
           cell_active.Offset(, emo_destiny_dictionary("RIESGO PSICO / CONDICIONES")) = 0
         Else
-          cell_active.Offset(, emo_destiny_dictionary("RIESGO PSICO / CONDICIONES")) = Trim$(ItemData.Offset(, emo_origin_dictionary("RIESGO PSICO / CONDICIONES")))
+          cell_active.Offset(, emo_destiny_dictionary("RIESGO PSICO / CONDICIONES")) = Trim$(search)
         End If
         
         search = ItemData.Offset(, emo_origin_dictionary("RIESGO PSICO / JORNADA"))
@@ -351,7 +351,7 @@ Public Sub DataEmoWorkers(ByVal name_sheet As String)
         ElseIf (withoutIncidence.Exists(search)) Then
           cell_active.Offset(, emo_destiny_dictionary("RIESGO PSICO / JORNADA")) = 0
         Else
-          cell_active.Offset(, emo_destiny_dictionary("RIESGO PSICO / JORNADA")) = Trim$(ItemData.Offset(, emo_origin_dictionary("RIESGO PSICO / JORNADA")))
+          cell_active.Offset(, emo_destiny_dictionary("RIESGO PSICO / JORNADA")) = Trim$(search)
         End If
 
         cell_active.Offset(, emo_destiny_dictionary("OTROS PSICO LABORAL")) = VBA.Trim$(ItemData.Offset(, emo_origin_dictionary("OTROS PSICO LABORAL")))
@@ -362,7 +362,7 @@ Public Sub DataEmoWorkers(ByVal name_sheet As String)
         ElseIf (withoutIncidence.Exists(search)) Then
           cell_active.Offset(, emo_destiny_dictionary("RIESGO_BIOMECANICO_POSTURA")) = 0
         Else
-          cell_active.Offset(, emo_destiny_dictionary("RIESGO_BIOMECANICO_POSTURA")) = Trim$(ItemData.Offset(, emo_origin_dictionary("RIESGO_BIOMECANICO_POSTURA")))
+          cell_active.Offset(, emo_destiny_dictionary("RIESGO_BIOMECANICO_POSTURA")) = Trim$(search)
         End If
         
         search = ItemData.Offset(, emo_origin_dictionary("RIESGO_BIOMECANICO_ESFUERZO"))
@@ -371,7 +371,7 @@ Public Sub DataEmoWorkers(ByVal name_sheet As String)
         ElseIf (withoutIncidence.Exists(search)) Then
           cell_active.Offset(, emo_destiny_dictionary("RIESGO_BIOMECANICO_ESFUERZO")) = 0
         Else
-          cell_active.Offset(, emo_destiny_dictionary("RIESGO_BIOMECANICO_ESFUERZO")) = Trim$(ItemData.Offset(, emo_origin_dictionary("RIESGO_BIOMECANICO_ESFUERZO")))
+          cell_active.Offset(, emo_destiny_dictionary("RIESGO_BIOMECANICO_ESFUERZO")) = Trim$(search)
         End If
         
         search = ItemData.Offset(, emo_origin_dictionary("RIESGO_BIOMECANICO_MOVREPETITIVO"))
@@ -380,7 +380,7 @@ Public Sub DataEmoWorkers(ByVal name_sheet As String)
         ElseIf (withoutIncidence.Exists(search)) Then
           cell_active.Offset(, emo_destiny_dictionary("RIESGO_BIOMECANICO_MOVREPETITIVO")) = 0
         Else
-          cell_active.Offset(, emo_destiny_dictionary("RIESGO_BIOMECANICO_MOVREPETITIVO")) = Trim$(ItemData.Offset(, emo_origin_dictionary("RIESGO_BIOMECANICO_MOVREPETITIVO")))
+          cell_active.Offset(, emo_destiny_dictionary("RIESGO_BIOMECANICO_MOVREPETITIVO")) = Trim$(search)
         End If
         
         search = ItemData.Offset(, emo_origin_dictionary("RIESGO_BIOMECANICO_MANIPULACION_CARGA"))
@@ -389,7 +389,7 @@ Public Sub DataEmoWorkers(ByVal name_sheet As String)
         ElseIf (withoutIncidence.Exists(search)) Then
           cell_active.Offset(, emo_destiny_dictionary("RIESGO_BIOMECANICO_MANIPULACION_CARGA")) = 0
         Else
-          cell_active.Offset(, emo_destiny_dictionary("RIESGO_BIOMECANICO_MANIPULACION_CARGA")) = Trim$(ItemData.Offset(, emo_origin_dictionary("RIESGO_BIOMECANICO_MANIPULACION_CARGA")))
+          cell_active.Offset(, emo_destiny_dictionary("RIESGO_BIOMECANICO_MANIPULACION_CARGA")) = Trim$(search)
         End If
 
         cell_active.Offset(, emo_destiny_dictionary("OTROS RIESGOS BIOMECANICOS")) = VBA.Trim$(ItemData.Offset(, emo_origin_dictionary("OTROS RIESGOS BIOMECANICOS")))
@@ -400,7 +400,7 @@ Public Sub DataEmoWorkers(ByVal name_sheet As String)
         ElseIf (withoutIncidence.Exists(search)) Then
           cell_active.Offset(, emo_destiny_dictionary("CONDICIONES DE SEGURIDAD / MECANICOS")) = 0
         Else
-          cell_active.Offset(, emo_destiny_dictionary("CONDICIONES DE SEGURIDAD / MECANICOS")) = Trim$(ItemData.Offset(, emo_origin_dictionary("CONDICIONES DE SEGURIDAD / MECANICOS")))
+          cell_active.Offset(, emo_destiny_dictionary("CONDICIONES DE SEGURIDAD / MECANICOS")) = Trim$(search)
         End If
         
         search = ItemData.Offset(, emo_origin_dictionary("CONDICIONES DE SEGURIDAD / ELECTRICOS"))
@@ -409,7 +409,7 @@ Public Sub DataEmoWorkers(ByVal name_sheet As String)
         ElseIf (withoutIncidence.Exists(search)) Then
           cell_active.Offset(, emo_destiny_dictionary("CONDICIONES DE SEGURIDAD / ELECTRICOS")) = 0
         Else
-          cell_active.Offset(, emo_destiny_dictionary("CONDICIONES DE SEGURIDAD / ELECTRICOS")) = Trim$(ItemData.Offset(, emo_origin_dictionary("CONDICIONES DE SEGURIDAD / ELECTRICOS")))
+          cell_active.Offset(, emo_destiny_dictionary("CONDICIONES DE SEGURIDAD / ELECTRICOS")) = Trim$(search)
         End If
         
         search = ItemData.Offset(, emo_origin_dictionary("CONDICIONES DE SEGURIDAD / LOCATIVO"))
@@ -418,7 +418,7 @@ Public Sub DataEmoWorkers(ByVal name_sheet As String)
         ElseIf (withoutIncidence.Exists(search)) Then
           cell_active.Offset(, emo_destiny_dictionary("CONDICIONES DE SEGURIDAD / LOCATIVO")) = 0
         Else
-          cell_active.Offset(, emo_destiny_dictionary("CONDICIONES DE SEGURIDAD / LOCATIVO")) = Trim$(ItemData.Offset(, emo_origin_dictionary("CONDICIONES DE SEGURIDAD / LOCATIVO")))
+          cell_active.Offset(, emo_destiny_dictionary("CONDICIONES DE SEGURIDAD / LOCATIVO")) = Trim$(search)
         End If
         
         search = ItemData.Offset(, emo_origin_dictionary("CONDICIONES DE SEGURIDAD / TECNOLOGICO"))
@@ -427,7 +427,7 @@ Public Sub DataEmoWorkers(ByVal name_sheet As String)
         ElseIf (withoutIncidence.Exists(search)) Then
           cell_active.Offset(, emo_destiny_dictionary("CONDICIONES DE SEGURIDAD / TECNOLOGICO")) = 0
         Else
-          cell_active.Offset(, emo_destiny_dictionary("CONDICIONES DE SEGURIDAD / TECNOLOGICO")) = Trim$(ItemData.Offset(, emo_origin_dictionary("CONDICIONES DE SEGURIDAD / TECNOLOGICO")))
+          cell_active.Offset(, emo_destiny_dictionary("CONDICIONES DE SEGURIDAD / TECNOLOGICO")) = Trim$(search)
         End If
         
         search = ItemData.Offset(, emo_origin_dictionary("CONDICIONES DE SEGURIDAD / ACC DE TRANSITO"))
@@ -436,7 +436,7 @@ Public Sub DataEmoWorkers(ByVal name_sheet As String)
         ElseIf (withoutIncidence.Exists(search)) Then
           cell_active.Offset(, emo_destiny_dictionary("CONDICIONES DE SEGURIDAD / ACC DE TRANSITO")) = 0
         Else
-          cell_active.Offset(, emo_destiny_dictionary("CONDICIONES DE SEGURIDAD / ACC DE TRANSITO")) = Trim$(ItemData.Offset(, emo_origin_dictionary("CONDICIONES DE SEGURIDAD / ACC DE TRANSITO")))
+          cell_active.Offset(, emo_destiny_dictionary("CONDICIONES DE SEGURIDAD / ACC DE TRANSITO")) = Trim$(search)
         End If
         
         search = ItemData.Offset(, emo_origin_dictionary("CONDICIONES DE SEGURIDAD / PUBLICOS"))
@@ -445,7 +445,7 @@ Public Sub DataEmoWorkers(ByVal name_sheet As String)
         ElseIf (withoutIncidence.Exists(search)) Then
           cell_active.Offset(, emo_destiny_dictionary("CONDICIONES DE SEGURIDAD / PUBLICOS")) = 0
         Else
-          cell_active.Offset(, emo_destiny_dictionary("CONDICIONES DE SEGURIDAD / PUBLICOS")) = Trim$(ItemData.Offset(, emo_origin_dictionary("CONDICIONES DE SEGURIDAD / PUBLICOS")))
+          cell_active.Offset(, emo_destiny_dictionary("CONDICIONES DE SEGURIDAD / PUBLICOS")) = Trim$(search)
         End If
         
         search = ItemData.Offset(, emo_origin_dictionary("CONDICIONES DE SEGURIDAD / TRABAJO EN ALTURAS"))
@@ -454,7 +454,7 @@ Public Sub DataEmoWorkers(ByVal name_sheet As String)
         ElseIf (withoutIncidence.Exists(search)) Then
           cell_active.Offset(, emo_destiny_dictionary("CONDICIONES DE SEGURIDAD / TRABAJO EN ALTURAS")) = 0
         Else
-          cell_active.Offset(, emo_destiny_dictionary("CONDICIONES DE SEGURIDAD / TRABAJO EN ALTURAS")) = Trim$(ItemData.Offset(, emo_origin_dictionary("CONDICIONES DE SEGURIDAD / TRABAJO EN ALTURAS")))
+          cell_active.Offset(, emo_destiny_dictionary("CONDICIONES DE SEGURIDAD / TRABAJO EN ALTURAS")) = Trim$(search)
         End If
         
         search = ItemData.Offset(, emo_origin_dictionary("CONDICIONES DE SEGURIDAD / ESPACIOS CONFINADOS"))
@@ -463,7 +463,7 @@ Public Sub DataEmoWorkers(ByVal name_sheet As String)
         ElseIf (withoutIncidence.Exists(search)) Then
           cell_active.Offset(, emo_destiny_dictionary("CONDICIONES DE SEGURIDAD / ESPACIOS CONFINADOS")) = 0
         Else
-          cell_active.Offset(, emo_destiny_dictionary("CONDICIONES DE SEGURIDAD / ESPACIOS CONFINADOS")) = Trim$(ItemData.Offset(, emo_origin_dictionary("CONDICIONES DE SEGURIDAD / ESPACIOS CONFINADOS")))
+          cell_active.Offset(, emo_destiny_dictionary("CONDICIONES DE SEGURIDAD / ESPACIOS CONFINADOS")) = Trim$(search)
         End If
 
         cell_active.Offset(, emo_destiny_dictionary("CONDICIONES DE SEGURIDAD / OTROS DE SEGURIDAD")) = VBA.Trim$(ItemData.Offset(, emo_origin_dictionary("CONDICIONES DE SEGURIDAD / OTROS DE SEGURIDAD")))
@@ -474,7 +474,7 @@ Public Sub DataEmoWorkers(ByVal name_sheet As String)
         ElseIf (withoutIncidence.Exists(search)) Then
           cell_active.Offset(, emo_destiny_dictionary("FENOMENOS NATURALES / SISMO")) = 0
         Else
-          cell_active.Offset(, emo_destiny_dictionary("FENOMENOS NATURALES / SISMO")) = Trim$(ItemData.Offset(, emo_origin_dictionary("FENOMENOS NATURALES / SISMO")))
+          cell_active.Offset(, emo_destiny_dictionary("FENOMENOS NATURALES / SISMO")) = Trim$(search)
         End If
         
         search = ItemData.Offset(, emo_origin_dictionary("FENOMENOS NATURALES / TERREMOTO"))
@@ -483,7 +483,7 @@ Public Sub DataEmoWorkers(ByVal name_sheet As String)
         ElseIf (withoutIncidence.Exists(search)) Then
           cell_active.Offset(, emo_destiny_dictionary("FENOMENOS NATURALES / TERREMOTO")) = 0
         Else
-          cell_active.Offset(, emo_destiny_dictionary("FENOMENOS NATURALES / TERREMOTO")) = Trim$(ItemData.Offset(, emo_origin_dictionary("FENOMENOS NATURALES / TERREMOTO")))
+          cell_active.Offset(, emo_destiny_dictionary("FENOMENOS NATURALES / TERREMOTO")) = Trim$(search)
         End If
         
         search = ItemData.Offset(, emo_origin_dictionary("FENOMENOS NATURALES / VENDAVAL"))
@@ -492,7 +492,7 @@ Public Sub DataEmoWorkers(ByVal name_sheet As String)
         ElseIf (withoutIncidence.Exists(search)) Then
           cell_active.Offset(, emo_destiny_dictionary("FENOMENOS NATURALES / VENDAVAL")) = 0
         Else
-          cell_active.Offset(, emo_destiny_dictionary("FENOMENOS NATURALES / VENDAVAL")) = Trim$(ItemData.Offset(, emo_origin_dictionary("FENOMENOS NATURALES / VENDAVAL")))
+          cell_active.Offset(, emo_destiny_dictionary("FENOMENOS NATURALES / VENDAVAL")) = Trim$(search)
         End If
         
         search = ItemData.Offset(, emo_origin_dictionary("FENOMENOS NATURALES / INUNDACION"))
@@ -501,7 +501,7 @@ Public Sub DataEmoWorkers(ByVal name_sheet As String)
         ElseIf (withoutIncidence.Exists(search)) Then
           cell_active.Offset(, emo_destiny_dictionary("FENOMENOS NATURALES / INUNDACION")) = 0
         Else
-          cell_active.Offset(, emo_destiny_dictionary("FENOMENOS NATURALES / INUNDACION")) = Trim$(ItemData.Offset(, emo_origin_dictionary("FENOMENOS NATURALES / INUNDACION")))
+          cell_active.Offset(, emo_destiny_dictionary("FENOMENOS NATURALES / INUNDACION")) = Trim$(search)
         End If
         
         search = ItemData.Offset(, emo_origin_dictionary("FENOMENOS NATURALES / DERRUMBE"))
@@ -510,7 +510,7 @@ Public Sub DataEmoWorkers(ByVal name_sheet As String)
         ElseIf (withoutIncidence.Exists(search)) Then
           cell_active.Offset(, emo_destiny_dictionary("FENOMENOS NATURALES / DERRUMBE")) = 0
         Else
-          cell_active.Offset(, emo_destiny_dictionary("FENOMENOS NATURALES / DERRUMBE")) = Trim$(ItemData.Offset(, emo_origin_dictionary("FENOMENOS NATURALES / DERRUMBE")))
+          cell_active.Offset(, emo_destiny_dictionary("FENOMENOS NATURALES / DERRUMBE")) = Trim$(search)
         End If
         
         search = ItemData.Offset(, emo_origin_dictionary("FENOMENOS NATURALES / PRECIPITACIONES"))
@@ -519,7 +519,7 @@ Public Sub DataEmoWorkers(ByVal name_sheet As String)
         ElseIf (withoutIncidence.Exists(search)) Then
           cell_active.Offset(, emo_destiny_dictionary("FENOMENOS NATURALES / PRECIPITACIONES")) = 0
         Else
-          cell_active.Offset(, emo_destiny_dictionary("FENOMENOS NATURALES / PRECIPITACIONES")) = Trim$(ItemData.Offset(, emo_origin_dictionary("FENOMENOS NATURALES / PRECIPITACIONES")))
+          cell_active.Offset(, emo_destiny_dictionary("FENOMENOS NATURALES / PRECIPITACIONES")) = Trim$(search)
         End If
 
         cell_active.Offset(, emo_destiny_dictionary("FENOMENOS NATURALES / OTROS NATURALES")) = VBA.Trim$(ItemData.Offset(, emo_origin_dictionary("FENOMENOS NATURALES / OTROS NATURALES")))
