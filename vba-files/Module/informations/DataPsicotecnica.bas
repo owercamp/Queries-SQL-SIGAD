@@ -104,9 +104,8 @@ Public Sub PsicotecnicaData(ByVal name_sheet As String)
         ActiveCell.Offset(, psicotecnica_destiny_dictionary("DIAGNOSTICO OBS")) = Trim(UCase(ItemData.Offset(, psicotecnica_origin_dictionary("DIAGNOSTICO OBS"))))
         If (ActiveCell.Row <> 2) Then
           aumentFromID = aumentFromID + 1
-        Else
-          ActiveCell.Offset(, psicotecnica_destiny_dictionary("ID_PSICOTECNICA")) = aumentFromID
         End If
+        ActiveCell.Offset(, psicotecnica_destiny_dictionary("ID_PSICOTECNICA")) = aumentFromID
         ActiveCell.Offset(1, 0).Select
         numbers = numbers + 1
         numbersGeneral = numbersGeneral + 1
