@@ -1220,12 +1220,14 @@ Public Sub DateAccident()
   Dim dateString As String
   Dim arrayDateStringToNumber As Variant
   Dim element As Variant
+  Dim number As Long
   
   Application.EnableEvents = False
   Application.ScreenUpdating = False
   Application.Calculation = xlCalculationManual
   Application.StatusBar = "Procesando..."
   
+  number = 0
   Set dateRange = range("$BC5")
   Set dateCell = dateRange
   
@@ -1257,6 +1259,8 @@ Public Sub DateAccident()
     End If
     
     Set dateCell = dateCell.Offset(1, 0)
+    number = number + 1
+    Application.StatusBar = "Procesando..." & number
     DoEvents
   Loop
   
@@ -1267,7 +1271,7 @@ Public Sub DateAccident()
   Application.EnableEvents = True
   Application.ScreenUpdating = True
   Application.Calculation = xlCalculationAutomatic
-  Application.StatusBar = ""
+  Application.StatusBar = "Completado!"
   MsgBox "Success",,"Success" 
 
 End Sub
