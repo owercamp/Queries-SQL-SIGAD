@@ -360,6 +360,7 @@ Public Sub ClearNonAlphaNumeric()
   Dim valor As String
   Dim data As Variant
   Dim i As Long, j As Long
+  Dim number As Long
 
   '? Desactivar la actualizacion de pantalla, el calculo y los eventos
   Application.ScreenUpdating = False
@@ -368,6 +369,7 @@ Public Sub ClearNonAlphaNumeric()
 
   '? Leer los valores de la seleccion en una matriz
   data = selection.value
+  number = 0
 
   '? Iterar a traves de la matriz y realizar los reemplazos
   On Error Resume Next
@@ -375,8 +377,10 @@ Public Sub ClearNonAlphaNumeric()
     For j = 1 To UBound(data, 2)
       valor = VBA.Replace(data(i, j), "  ", " ", , , vbTextCompare)
       data(i, j) = Trim(ReplaceNonAlphaNumeric(valor))
+      DoEvents
     Next j
     DoEvents
+    Application.StatusBar = "Corrigiendo..." & CStr(i) & " de " & CStr(UBound(data, 1))
   Next i
   On Error GoTo 0
 
@@ -387,6 +391,8 @@ Public Sub ClearNonAlphaNumeric()
   Application.ScreenUpdating = True
   Application.Calculation = xlCalculationAutomatic
   Application.EnableEvents = True
+
+  Application.StatusBar = "Completado!"
 
   formClear.Hide
   MsgBox "Correcciones realizadas, exitosamente!!", vbInformation, "Correcciones"
