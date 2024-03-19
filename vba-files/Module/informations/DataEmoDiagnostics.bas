@@ -24,11 +24,12 @@ Public Sub DataDiagnosticsEmo(ByVal name_sheet As String)
   Dim diagnostics_destiny_dictionary As Scripting.Dictionary
   Dim emo_origin_dictionary As Scripting.Dictionary
   Dim diagnostics_destiny_header As Object, emo_origin_header As Object, emo_origin_value As Object
-  Dim ItemDiagnosticsDestiny As Object, ItemEmoOrigin As Object, ItemData As Object, x As Long, emo_origin As Object
+  Dim ItemDiagnosticsDestiny As Object, ItemEmoOrigin As Object, ItemData As Object, x As Long, emo_origin As Object, cell_active as Range
 
   Set emo_origin = origin.Worksheets(name_sheet) '' EMO DEL LIBRO ORIGEN ''
   diagnostics_destiny.Select
   diagnostics_destiny.Range("$A5").Select
+  Set cell_active = ActiveCell
 
   Set diagnostics_destiny_header = diagnostics_destiny.Range("$A4", diagnostics_destiny.Range("$A4").End(xlToRight))
   Set emo_origin_header = emo_origin.Range("$A1", emo_origin.Range("$A1").End(xlToRight))
@@ -104,14 +105,14 @@ Public Sub DataDiagnosticsEmo(ByVal name_sheet As String)
 
       type_exam = typeExams(Trim(ItemData.Offset(, emo_origin_dictionary("TIPO EXAMEN"))))
       If (type_exam <> "EGRESO") Then
-        ActiveCell.Offset(, diagnostics_destiny_dictionary("IDENTIFICACION")) = Trim(ItemData.Offset(, emo_origin_dictionary("IDENTIFICACION")))
-        ActiveCell.Offset(, diagnostics_destiny_dictionary("CODIGO DIAG PPAL")) = Trim(UCase(ItemData.Offset(, emo_origin_dictionary("CODIGO DIAG PPAL"))))
-        ActiveCell.Offset(, diagnostics_destiny_dictionary("DIAG PPAL")) = Trim(UCase(ItemData.Offset(, emo_origin_dictionary("DIAG PPAL"))))
+        cell_active.Offset(, diagnostics_destiny_dictionary("IDENTIFICACION")) = Trim(ItemData.Offset(, emo_origin_dictionary("IDENTIFICACION")))
+        cell_active.Offset(, diagnostics_destiny_dictionary("CODIGO DIAG PPAL")) = Trim(UCase(ItemData.Offset(, emo_origin_dictionary("CODIGO DIAG PPAL"))))
+        cell_active.Offset(, diagnostics_destiny_dictionary("DIAG PPAL")) = Trim(UCase(ItemData.Offset(, emo_origin_dictionary("DIAG PPAL"))))
         For i = 1 To ((emo_origin_dictionary.Count - 5) / 2)
-          ActiveCell.Offset(, diagnostics_destiny_dictionary("CODIGO DIAG REL" & i)) = Trim(UCase(ItemData.Offset(, emo_origin_dictionary("CODIGO DIAG REL" & i))))
-          ActiveCell.Offset(, diagnostics_destiny_dictionary("DIAG REL " & i)) = Trim(UCase(ItemData.Offset(, emo_origin_dictionary("DIAG REL " & i))))
+          cell_active.Offset(, diagnostics_destiny_dictionary("CODIGO DIAG REL" & i)) = Trim(UCase(ItemData.Offset(, emo_origin_dictionary("CODIGO DIAG REL" & i))))
+          cell_active.Offset(, diagnostics_destiny_dictionary("DIAG REL " & i)) = Trim(UCase(ItemData.Offset(, emo_origin_dictionary("DIAG REL " & i))))
         Next i
-        ActiveCell.Offset(1, 0).Select
+        Set cell_active = cell_active.Offset(1, 0)
         numbers = numbers + 1
         numbersGeneral = numbersGeneral + 1
         DoEvents

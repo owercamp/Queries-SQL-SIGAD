@@ -24,11 +24,12 @@ Public Sub DataEmphasisEmo(ByVal name_sheet As String)
   Dim emphasis_destiny_dictionary As Scripting.Dictionary
   Dim emo_origin_dictionary As Scripting.Dictionary
   Dim emphasis_destiny_header As Object, emo_origin_header As Object, emo_origin_value As Object
-  Dim ItemEmphasisDestiny As Object, ItemEmoOrigin As Object, ItemData As Object, x As Long, emo_origin As Object
+  Dim ItemEmphasisDestiny As Object, ItemEmoOrigin As Object, ItemData As Object, x As Long, emo_origin As Object, cell_active as Range
 
   Set emo_origin = origin.Worksheets(name_sheet) '' EMO DEL LIBRO ORIGEN ''
   emphasis_destiny.Select
   emphasis_destiny.Range("$A5").Select
+  Set cell_active = ActiveCell
   Set emphasis_destiny_header = emphasis_destiny.Range("$A4", emphasis_destiny.Range("$A4").End(xlToRight))
   Set emo_origin_header = emo_origin.Range("$A1", emo_origin.Range("$A1").End(xlToRight))
   Set emphasis_destiny_dictionary = CreateObject("Scripting.Dictionary")
@@ -103,13 +104,13 @@ Public Sub DataEmphasisEmo(ByVal name_sheet As String)
 
       type_exam = typeExams(Trim(ItemData.Offset(, emo_origin_dictionary("TIPO EXAMEN"))))
       If (type_exam <> "EGRESO") Then
-        ActiveCell.Offset(, emphasis_destiny_dictionary("IDENTIFICACION")) = Trim(ItemData.Offset(, emo_origin_dictionary("IDENTIFICACION")))
+        cell_active.Offset(, emphasis_destiny_dictionary("IDENTIFICACION")) = Trim(ItemData.Offset(, emo_origin_dictionary("IDENTIFICACION")))
         For i = 1 To ((emo_origin_dictionary.Count - 2) / 3)
-          ActiveCell.Offset(, emphasis_destiny_dictionary("ENFASIS_" & i)) = Trim(UCase(ItemData.Offset(, emo_origin_dictionary("ENFASIS_" & i))))
-          ActiveCell.Offset(, emphasis_destiny_dictionary("CONCEPTO AL ENFASIS_" & i)) = emphasisConcepts(Trim(UCase(ItemData.Offset(, emo_origin_dictionary("CONCEPTO AL ENFASIS_" & i)))), Trim(UCase(ItemData.Offset(, emo_origin_dictionary("ENFASIS_" & i)))))
-          ActiveCell.Offset(, emphasis_destiny_dictionary("OBSERVACIONES_AL_ENFASIS_" & i)) = Trim(UCase(ItemData.Offset(, emo_origin_dictionary("OBSERVACIONES_AL_ENFASIS_" & i))))
+          cell_active.Offset(, emphasis_destiny_dictionary("ENFASIS_" & i)) = Trim(UCase(ItemData.Offset(, emo_origin_dictionary("ENFASIS_" & i))))
+          cell_active.Offset(, emphasis_destiny_dictionary("CONCEPTO AL ENFASIS_" & i)) = emphasisConcepts(Trim(UCase(ItemData.Offset(, emo_origin_dictionary("CONCEPTO AL ENFASIS_" & i)))), Trim(UCase(ItemData.Offset(, emo_origin_dictionary("ENFASIS_" & i)))))
+          cell_active.Offset(, emphasis_destiny_dictionary("OBSERVACIONES_AL_ENFASIS_" & i)) = Trim(UCase(ItemData.Offset(, emo_origin_dictionary("OBSERVACIONES_AL_ENFASIS_" & i))))
         Next i
-        ActiveCell.Offset(1, 0).Select
+        Set cell_active = cell_active.Offset(1, 0)
         numbers = numbers + 1
         numbersGeneral = numbersGeneral + 1
         DoEvents

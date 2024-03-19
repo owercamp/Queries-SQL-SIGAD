@@ -25,12 +25,13 @@ Public Sub ComplementarioData(ByVal name_sheet As String)
   Dim comple_destiny_dictionary As Scripting.Dictionary
   Dim comple_origin_dictionary As Scripting.Dictionary
   Dim comple_destiny_header As Object, comple_origin_header As Object, comple_origin_value As Object
-  Dim ItemCompleDestiny As Object, ItemCompleOrigin As Object, ItemData As Object, comple_origin As Object
+  Dim ItemCompleDestiny As Object, ItemCompleOrigin As Object, ItemData As Object, comple_origin As Object, cell_active as Range
 
   Set comple_origin = origin.Worksheets(name_sheet) '' COMPLEMENTARIOS DEL LIBRO ORIGEN ''
 
   comple_destiny.Select
   comple_destiny.Range("$A4").Select
+  Set cell_active = ActiveCell
   Set comple_destiny_header = comple_destiny.Range("$A3", comple_destiny.Range("$A3").End(xlToRight))
   Set comple_origin_header = comple_origin.Range("$A1", comple_origin.Range("$A1").End(xlToRight))
   Set comple_destiny_dictionary = CreateObject("Scripting.Dictionary")
@@ -100,19 +101,19 @@ Public Sub ComplementarioData(ByVal name_sheet As String)
 
       type_exam = typeExams(Trim(ItemData.Offset(, comple_origin_dictionary("TIPO EXAMEN"))))
       If (type_exam <> "EGRESO") Then
-        ActiveCell.Offset(, comple_destiny_dictionary("NRO IDENFICACION")) = Trim(ItemData.Offset(, comple_origin_dictionary("NRO IDENFICACION")))
-        ActiveCell.Offset(, comple_destiny_dictionary("PROCEDIMIENTO")) = typeComplements(Trim(UCase(ItemData.Offset(, comple_origin_dictionary("PROCEDIMIENTO")))))
-        ActiveCell.Offset(, comple_destiny_dictionary("DIAG_ PPAL")) = Trim(UCase(ItemData.Offset(, comple_origin_dictionary("DIAG_ PPAL"))))
-        ActiveCell.Offset(, comple_destiny_dictionary("DIAG_ PPAL OBS")) = Trim(UCase(ItemData.Offset(, comple_origin_dictionary("DIAG_ PPAL OBS"))))
-        ActiveCell.Offset(, comple_destiny_dictionary("DIAG_ REL/1")) = Trim(ItemData.Offset(, comple_origin_dictionary("DIAG_ REL/1")))
-        ActiveCell.Offset(, comple_destiny_dictionary("DIAG_ REL/2")) = Trim(ItemData.Offset(, comple_origin_dictionary("DIAG_ REL/2")))
-        ActiveCell.Offset(, comple_destiny_dictionary("DIAG_ REL/3")) = Trim(ItemData.Offset(, comple_origin_dictionary("DIAG_ REL/3")))
-        ActiveCell.Offset(, comple_destiny_dictionary("HALLAZGOS")) = Trim(ItemData.Offset(, comple_origin_dictionary("HALLAZGOS")))
-        If (ActiveCell.Row <> 4) Then
+        cell_active.Offset(, comple_destiny_dictionary("NRO IDENFICACION")) = Trim(ItemData.Offset(, comple_origin_dictionary("NRO IDENFICACION")))
+        cell_active.Offset(, comple_destiny_dictionary("PROCEDIMIENTO")) = typeComplements(Trim(UCase(ItemData.Offset(, comple_origin_dictionary("PROCEDIMIENTO")))))
+        cell_active.Offset(, comple_destiny_dictionary("DIAG_ PPAL")) = Trim(UCase(ItemData.Offset(, comple_origin_dictionary("DIAG_ PPAL"))))
+        cell_active.Offset(, comple_destiny_dictionary("DIAG_ PPAL OBS")) = Trim(UCase(ItemData.Offset(, comple_origin_dictionary("DIAG_ PPAL OBS"))))
+        cell_active.Offset(, comple_destiny_dictionary("DIAG_ REL/1")) = Trim(ItemData.Offset(, comple_origin_dictionary("DIAG_ REL/1")))
+        cell_active.Offset(, comple_destiny_dictionary("DIAG_ REL/2")) = Trim(ItemData.Offset(, comple_origin_dictionary("DIAG_ REL/2")))
+        cell_active.Offset(, comple_destiny_dictionary("DIAG_ REL/3")) = Trim(ItemData.Offset(, comple_origin_dictionary("DIAG_ REL/3")))
+        cell_active.Offset(, comple_destiny_dictionary("HALLAZGOS")) = Trim(ItemData.Offset(, comple_origin_dictionary("HALLAZGOS")))
+        If (cell_active.Row <> 4) Then
           aumentFromID = aumentFromID + 1
         End If
-        ActiveCell.Offset(, comple_destiny_dictionary("ID_COMPLEMENTARIOS")) = aumentFromID
-        ActiveCell.Offset(1, 0).Select
+        cell_active.Offset(, comple_destiny_dictionary("ID_COMPLEMENTARIOS")) = aumentFromID
+        Set cell_active = cell_active.Offset(1, 0)
         numbers = numbers + 1
         numbersGeneral = numbersGeneral + 1
         DoEvents
