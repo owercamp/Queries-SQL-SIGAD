@@ -8,13 +8,27 @@ Public route As String, nameCompany As String
 Public variable As Object,ordenListaTrabajador As Long, item As Variant
 Public vals As Double, valsGeneral As Double, porcentaje As Double, porcentajeGeneral As Double, counts As Double, totalData As Double, generalAll As Double, widthOneforOne As Double, widthGeneral As Double, oneForOne As Double
 Public idOrden As LongPtr, numbers As LongPtr, numbersGeneral As LongPtr, sumOneforOne As LongPtr, sumGeneral As LongPtr, x As LongPtr, i As LongPtr, number_emphasis As LongPtr, number_diag As LongPtr
-Public dateInitials As Date, dateFinals As Date
+Public dateInitials As Date, dateFinals As Date,  withIncidence As Object, withoutIncidence As Object, search As String
 
 Public Sub extraerdatos()
 
   Dim fso As Object
   Dim hora As Integer, min As Integer
   Set fso = CreateObject("Scripting.FileSystemObject")
+  Set withIncidence = CreateObject("Scripting.Dictionary")
+  Set withoutIncidence = CreateObject("Scripting.Dictionary")
+  
+  '*Dictionary withIncidence and withoutIncidence
+
+  withIncidence.CompareMode = vbTextCompare
+  withIncidence.Add Trim$("OCASIONAL"),Trim$("OCASIONAL")
+  withIncidence.Add Trim$("SI"),Trim$("SI")
+  withIncidence.Add Trim$("1"),Trim$("1")
+  
+  withoutIncidence.CompareMode = vbTextCompare
+  withoutIncidence.Add Trim$(""),Trim$("")
+  withoutIncidence.Add Trim$("NO"),Trim$("NO")
+  withoutIncidence.Add Trim$("0"),Trim$("0")
 
   numbers = 1
   numbersGeneral = 1

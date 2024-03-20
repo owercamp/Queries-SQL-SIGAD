@@ -19,11 +19,12 @@ Public Sub DataEmoWorkers(ByVal name_sheet As String)
   Dim emo_destiny_dictionary As Scripting.Dictionary
   Dim emo_origin_dictionary As Scripting.Dictionary
   Dim emo_destiny_header As Object, emo_origin_header As Object, emo_origin_value As Object
-  Dim ItemEmoDestiny As Object, ItemEmoOrigin As Object, ItemData As Object, emo_origin As Object
+  Dim ItemEmoDestiny As Object, ItemEmoOrigin As Object, ItemData As Object, emo_origin As Object, cell_active as Range
 
   Set emo_origin = origin.Worksheets(name_sheet) '' EMO DEL LIBRO ORIGEN ''
   emo_destiny.Select
   emo_destiny.Range("$A5").Select
+  Set cell_active = ActiveCell
   Set emo_destiny_header = emo_destiny.Range("$A4", emo_destiny.Range("$A4").End(xlToRight))
   Set emo_origin_header = emo_origin.Range("$A1", emo_origin.Range("$A1").End(xlToRight))
   Set emo_destiny_dictionary = CreateObject("Scripting.Dictionary")
@@ -93,110 +94,485 @@ Public Sub DataEmoWorkers(ByVal name_sheet As String)
 
       type_exam = typeExams(Trim(ItemData.Offset(, emo_origin_dictionary("TIPO EXAMEN"))))
       If (type_exam <> "EGRESO") Then
-        ActiveCell.Offset(, emo_destiny_dictionary("NRO IDENFICACION")) = Trim(ItemData.Offset(, emo_origin_dictionary("NRO IDENFICACION")))
-        ActiveCell.Offset(, emo_destiny_dictionary("RIESGO FISICO / RUIDO")) = charters_empty(ItemData.Offset(, emo_origin_dictionary("RIESGO FISICO / RUIDO")))
-        ActiveCell.Offset(, emo_destiny_dictionary("RIESGO FISICO / ILUMINACION")) = charters_empty(ItemData.Offset(, emo_origin_dictionary("RIESGO FISICO / ILUMINACION")))
-        ActiveCell.Offset(, emo_destiny_dictionary("RIESGO FISICO / VIBRACION")) = charters_empty(ItemData.Offset(, emo_origin_dictionary("RIESGO FISICO / VIBRACION")))
-        ActiveCell.Offset(, emo_destiny_dictionary("RIESGO FISICO / TEMP EXTREMAS")) = charters_empty(ItemData.Offset(, emo_origin_dictionary("RIESGO FISICO / TEMP EXTREMAS")))
-        ActiveCell.Offset(, emo_destiny_dictionary("RIESGO FISICO / PRES ATMOSFERICA")) = charters_empty(ItemData.Offset(, emo_origin_dictionary("RIESGO FISICO / PRES ATMOSFERICA")))
-        ActiveCell.Offset(, emo_destiny_dictionary("RIESGO FISICO / RAD IONIZANTES")) = charters_empty(ItemData.Offset(, emo_origin_dictionary("RIESGO FISICO / RAD IONIZANTES")))
-        ActiveCell.Offset(, emo_destiny_dictionary("RIESGO FISICO / RAD NO IONIZANTES")) = charters_empty(ItemData.Offset(, emo_origin_dictionary("RIESGO FISICO / RAD NO IONIZANTES")))
-        ActiveCell.Offset(, emo_destiny_dictionary("RIESGO DE OTROS FACTORES FISICOS")) = VBA.Trim$(ItemData.Offset(, emo_origin_dictionary("RIESGO DE OTROS FACTORES FISICOS")))
-        ActiveCell.Offset(, emo_destiny_dictionary("RIESGO BIOLOGICO / VIRUS")) = charters_empty(ItemData.Offset(, emo_origin_dictionary("RIESGO BIOLOGICO / VIRUS")))
-        ActiveCell.Offset(, emo_destiny_dictionary("RIESGO BIOLOGICO / BACTERIAS")) = charters_empty(ItemData.Offset(, emo_origin_dictionary("RIESGO BIOLOGICO / BACTERIAS")))
-        ActiveCell.Offset(, emo_destiny_dictionary("RIESGO BIOLOGICO / HONGOS")) = charters_empty(ItemData.Offset(, emo_origin_dictionary("RIESGO BIOLOGICO / HONGOS")))
-        ActiveCell.Offset(, emo_destiny_dictionary("RIESGO BIOLOGICO / RICKETSIAS")) = charters_empty(ItemData.Offset(, emo_origin_dictionary("RIESGO BIOLOGICO / RICKETSIAS")))
-        ActiveCell.Offset(, emo_destiny_dictionary("RIESGO BIOLOGICO / PARASITOS")) = charters_empty(ItemData.Offset(, emo_origin_dictionary("RIESGO BIOLOGICO / PARASITOS")))
-        ActiveCell.Offset(, emo_destiny_dictionary("RIESGO BIOLOGICO / FLUIDOS")) = charters_empty(ItemData.Offset(, emo_origin_dictionary("RIESGO BIOLOGICO / FLUIDOS")))
-        ActiveCell.Offset(, emo_destiny_dictionary("RIESGO BIOLOGICO / PICADURAS")) = charters_empty(ItemData.Offset(, emo_origin_dictionary("RIESGO BIOLOGICO / PICADURAS")))
-        ActiveCell.Offset(, emo_destiny_dictionary("RIESGO BIOLOGICO / MORDEDURAS")) = charters_empty(ItemData.Offset(, emo_origin_dictionary("RIESGO BIOLOGICO / MORDEDURAS")))
-        ActiveCell.Offset(, emo_destiny_dictionary("OTROS RIESGOS BIOLOGICOS")) = VBA.Trim$(ItemData.Offset(, emo_origin_dictionary("OTROS RIESGOS BIOLOGICOS")))
-        ActiveCell.Offset(, emo_destiny_dictionary("RIESGO QUIMICO / POLVOS")) = charters_empty(ItemData.Offset(, emo_origin_dictionary("RIESGO QUIMICO / POLVOS")))
-        ActiveCell.Offset(, emo_destiny_dictionary("RIESGO QUIMICO / FIBRAS")) = charters_empty(ItemData.Offset(, emo_origin_dictionary("RIESGO QUIMICO / FIBRAS")))
-        ActiveCell.Offset(, emo_destiny_dictionary("RIESGO QUIMICO / LIQUIDOS")) = charters_empty(ItemData.Offset(, emo_origin_dictionary("RIESGO QUIMICO / LIQUIDOS")))
-        ActiveCell.Offset(, emo_destiny_dictionary("RIESGO QUIMICO /GASES")) = charters_empty(ItemData.Offset(, emo_origin_dictionary("RIESGO QUIMICO /GASES")))
-        ActiveCell.Offset(, emo_destiny_dictionary("RIESGO QUIMICO / VAPORES")) = charters_empty(ItemData.Offset(, emo_origin_dictionary("RIESGO QUIMICO / VAPORES")))
-        ActiveCell.Offset(, emo_destiny_dictionary("RIESGO QUIMICO / HUMOS")) = charters_empty(ItemData.Offset(, emo_origin_dictionary("RIESGO QUIMICO / HUMOS")))
-        ActiveCell.Offset(, emo_destiny_dictionary("RIESGO QUIMICO /MATERIAL PARTICULADO")) = charters_empty(ItemData.Offset(, emo_origin_dictionary("RIESGO QUIMICO /MATERIAL PARTICULADO")))
-        ActiveCell.Offset(, emo_destiny_dictionary("OTROS RIESGOS QUIMICOS")) = VBA.Trim$(ItemData.Offset(, emo_origin_dictionary("OTROS RIESGOS QUIMICOS")))
-        ActiveCell.Offset(, emo_destiny_dictionary("RIESGO PSICO / GESTION ORGANIZACIONAL")) = charters_empty(ItemData.Offset(, emo_origin_dictionary("RIESGO PSICO / GESTION ORGANIZACIONAL")))
-        ActiveCell.Offset(, emo_destiny_dictionary("RIESGO PSICO / CARACT DEL GRUPO")) = charters_empty(ItemData.Offset(, emo_origin_dictionary("RIESGO PSICO / CARACT DEL GRUPO")))
-        ActiveCell.Offset(, emo_destiny_dictionary("RIESGO PSICO / INTERFACES TAREA")) = charters_empty(ItemData.Offset(, emo_origin_dictionary("RIESGO PSICO / INTERFACES TAREA")))
-        ActiveCell.Offset(, emo_destiny_dictionary("RIESGO PSICO / CARACT ORGANIZACION")) = charters_empty(ItemData.Offset(, emo_origin_dictionary("RIESGO PSICO / CARACT ORGANIZACION")))
-        ActiveCell.Offset(, emo_destiny_dictionary("RIESGO PSICO / CONDICIONES")) = charters_empty(ItemData.Offset(, emo_origin_dictionary("RIESGO PSICO / CONDICIONES")))
-        ActiveCell.Offset(, emo_destiny_dictionary("RIESGO PSICO / JORNADA")) = charters_empty(ItemData.Offset(, emo_origin_dictionary("RIESGO PSICO / JORNADA")))
-        ActiveCell.Offset(, emo_destiny_dictionary("OTROS PSICO LABORAL")) = VBA.Trim$(ItemData.Offset(, emo_origin_dictionary("OTROS PSICO LABORAL")))
-        ActiveCell.Offset(, emo_destiny_dictionary("RIESGO_BIOMECANICO_POSTURA")) = charters_empty(ItemData.Offset(, emo_origin_dictionary("RIESGO_BIOMECANICO_POSTURA")))
-        ActiveCell.Offset(, emo_destiny_dictionary("RIESGO_BIOMECANICO_ESFUERZO")) = charters_empty(ItemData.Offset(, emo_origin_dictionary("RIESGO_BIOMECANICO_ESFUERZO")))
-        ActiveCell.Offset(, emo_destiny_dictionary("RIESGO_BIOMECANICO_MOVREPETITIVO")) = charters_empty(ItemData.Offset(, emo_origin_dictionary("RIESGO_BIOMECANICO_MOVREPETITIVO")))
-        ActiveCell.Offset(, emo_destiny_dictionary("RIESGO_BIOMECANICO_MANIPULACION_CARGA")) = charters_empty(ItemData.Offset(, emo_origin_dictionary("RIESGO_BIOMECANICO_MANIPULACION_CARGA")))
-        ActiveCell.Offset(, emo_destiny_dictionary("OTROS RIESGOS BIOMECANICOS")) = VBA.Trim$(ItemData.Offset(, emo_origin_dictionary("OTROS RIESGOS BIOMECANICOS")))
-        ActiveCell.Offset(, emo_destiny_dictionary("CONDICIONES DE SEGURIDAD / MECANICOS")) = charters_empty(ItemData.Offset(, emo_origin_dictionary("CONDICIONES DE SEGURIDAD / MECANICOS")))
-        ActiveCell.Offset(, emo_destiny_dictionary("CONDICIONES DE SEGURIDAD / ELECTRICOS")) = charters_empty(ItemData.Offset(, emo_origin_dictionary("CONDICIONES DE SEGURIDAD / ELECTRICOS")))
-        ActiveCell.Offset(, emo_destiny_dictionary("CONDICIONES DE SEGURIDAD / LOCATIVO")) = charters_empty(ItemData.Offset(, emo_origin_dictionary("CONDICIONES DE SEGURIDAD / LOCATIVO")))
-        ActiveCell.Offset(, emo_destiny_dictionary("CONDICIONES DE SEGURIDAD / TECNOLOGICO")) = charters_empty(ItemData.Offset(, emo_origin_dictionary("CONDICIONES DE SEGURIDAD / TECNOLOGICO")))
-        ActiveCell.Offset(, emo_destiny_dictionary("CONDICIONES DE SEGURIDAD / ACC DE TRANSITO")) = charters_empty(ItemData.Offset(, emo_origin_dictionary("CONDICIONES DE SEGURIDAD / ACC DE TRANSITO")))
-        ActiveCell.Offset(, emo_destiny_dictionary("CONDICIONES DE SEGURIDAD / PUBLICOS")) = charters_empty(ItemData.Offset(, emo_origin_dictionary("CONDICIONES DE SEGURIDAD / PUBLICOS")))
-        ActiveCell.Offset(, emo_destiny_dictionary("CONDICIONES DE SEGURIDAD / TRABAJO EN ALTURAS")) = charters_empty(ItemData.Offset(, emo_origin_dictionary("CONDICIONES DE SEGURIDAD / TRABAJO EN ALTURAS")))
-        ActiveCell.Offset(, emo_destiny_dictionary("CONDICIONES DE SEGURIDAD / ESPACIOS CONFINADOS")) = charters_empty(ItemData.Offset(, emo_origin_dictionary("CONDICIONES DE SEGURIDAD / ESPACIOS CONFINADOS")))
-        ActiveCell.Offset(, emo_destiny_dictionary("CONDICIONES DE SEGURIDAD / OTROS DE SEGURIDAD")) = VBA.Trim$(ItemData.Offset(, emo_origin_dictionary("CONDICIONES DE SEGURIDAD / OTROS DE SEGURIDAD")))
-        ActiveCell.Offset(, emo_destiny_dictionary("FENOMENOS NATURALES / SISMO")) = charters_empty(ItemData.Offset(, emo_origin_dictionary("FENOMENOS NATURALES / SISMO")))
-        ActiveCell.Offset(, emo_destiny_dictionary("FENOMENOS NATURALES / TERREMOTO")) = charters_empty(ItemData.Offset(, emo_origin_dictionary("FENOMENOS NATURALES / TERREMOTO")))
-        ActiveCell.Offset(, emo_destiny_dictionary("FENOMENOS NATURALES / VENDAVAL")) = charters_empty(ItemData.Offset(, emo_origin_dictionary("FENOMENOS NATURALES / VENDAVAL")))
-        ActiveCell.Offset(, emo_destiny_dictionary("FENOMENOS NATURALES / INUNDACION")) = charters_empty(ItemData.Offset(, emo_origin_dictionary("FENOMENOS NATURALES / INUNDACION")))
-        ActiveCell.Offset(, emo_destiny_dictionary("FENOMENOS NATURALES / DERRUMBE")) = charters_empty(ItemData.Offset(, emo_origin_dictionary("FENOMENOS NATURALES / DERRUMBE")))
-        ActiveCell.Offset(, emo_destiny_dictionary("FENOMENOS NATURALES / PRECIPITACIONES")) = charters_empty(ItemData.Offset(, emo_origin_dictionary("FENOMENOS NATURALES / PRECIPITACIONES")))
-        ActiveCell.Offset(, emo_destiny_dictionary("FENOMENOS NATURALES / OTROS NATURALES")) = VBA.Trim$(ItemData.Offset(, emo_origin_dictionary("FENOMENOS NATURALES / OTROS NATURALES")))
-        ActiveCell.Offset(, emo_destiny_dictionary("FECHA ACCIDENTE")) = Trim(ItemData.Offset(, emo_origin_dictionary("FECHA ACCIDENTE")))
-        ActiveCell.Offset(, emo_destiny_dictionary("ACCIDENTE_PASO_EN_EMPRESA")) = Trim(UCase(ItemData.Offset(, emo_origin_dictionary("ACCIDENTE_PASO_EN_EMPRESA"))))
-        ActiveCell.Offset(, emo_destiny_dictionary("TIPO ACCIDENTE")) = Trim(ItemData.Offset(, emo_origin_dictionary("TIPO ACCIDENTE")))
-        ActiveCell.Offset(, emo_destiny_dictionary("NATURALEZA LESION")) = Trim(UCase(ItemData.Offset(, emo_origin_dictionary("NATURALEZA LESION"))))
-        ActiveCell.Offset(, emo_destiny_dictionary("PARTE AFECTADA")) = Trim(UCase(ItemData.Offset(, emo_origin_dictionary("PARTE AFECTADA"))))
-        ActiveCell.Offset(, emo_destiny_dictionary("INCAPACIDAD")) = Trim(ItemData.Offset(, emo_origin_dictionary("INCAPACIDAD")))
-        ActiveCell.Offset(, emo_destiny_dictionary("SECUELAS")) = Trim(UCase(ItemData.Offset(, emo_origin_dictionary("SECUELAS"))))
-        ActiveCell.Offset(, emo_destiny_dictionary("NOMBRE ENFERMEDAD")) = Trim(UCase(ItemData.Offset(, emo_origin_dictionary("NOMBRE ENFERMEDAD"))))
-        ActiveCell.Offset(, emo_destiny_dictionary("ETAPA")) = Trim(UCase(ItemData.Offset(, emo_origin_dictionary("ETAPA"))))
-        ActiveCell.Offset(, emo_destiny_dictionary("OBSERVACIONES DE ENFERMEDAD")) = Trim(UCase(ItemData.Offset(, emo_origin_dictionary("OBSERVACIONES DE ENFERMEDAD"))))
-        ActiveCell.Offset(, emo_destiny_dictionary("ACT_ FISICA")) = typeActivity(Trim(UCase(ItemData.Offset(, emo_origin_dictionary("ACT_ FISICA")))))
-        ActiveCell.Offset(, emo_destiny_dictionary("FUMA")) = typeSmoke(Trim(ItemData.Offset(, emo_origin_dictionary("FUMA"))))
-        ActiveCell.Offset(, emo_destiny_dictionary("CONSUMO DE ALCOHOL")) = Trim(ItemData.Offset(, emo_origin_dictionary("CONSUMO DE ALCOHOL")))
-        ActiveCell.Offset(, emo_destiny_dictionary("PESO")) = Trim(ItemData.Offset(, emo_origin_dictionary("PESO")))
-        ActiveCell.Offset(, emo_destiny_dictionary("TALLA")) = Trim(ItemData.Offset(, emo_origin_dictionary("TALLA")))
-        ActiveCell.Offset(, emo_destiny_dictionary("TENSION ARTERIAL")) = Trim(ItemData.Offset(, emo_origin_dictionary("TENSION ARTERIAL")))
-        ActiveCell.Offset(, emo_destiny_dictionary("FREC_ CARDIACA")) = Trim(ItemData.Offset(, emo_origin_dictionary("FREC_ CARDIACA")))
-        ActiveCell.Offset(, emo_destiny_dictionary("FREC_ RESPIRATORIA")) = Trim(ItemData.Offset(, emo_origin_dictionary("FREC_ RESPIRATORIA")))
-        ActiveCell.Offset(, emo_destiny_dictionary("PERIMETRO ABDOMINAL")) = Trim(ItemData.Offset(, emo_origin_dictionary("PERIMETRO ABDOMINAL")))
-        ActiveCell.Offset(, emo_destiny_dictionary("LATERALIDAD")) = Trim(UCase(ItemData.Offset(, emo_origin_dictionary("LATERALIDAD"))))
-        ActiveCell.Offset(, emo_destiny_dictionary("OBS DIAGS")) = Trim(UCase(ItemData.Offset(, emo_origin_dictionary("OBS DIAGS"))))
-        ActiveCell.Offset(, emo_destiny_dictionary("CONCEPTO DE EVALUACION")) = validateConcepts(Trim(UCase(ItemData.Offset(, emo_origin_dictionary("CONCEPTO DE EVALUACION")))))
-        ActiveCell.Offset(, emo_destiny_dictionary("OBSERVACIONES DEL CONCEPTO")) = Trim(UCase(ItemData.Offset(, emo_origin_dictionary("OBSERVACIONES DEL CONCEPTO"))))
-        ActiveCell.Offset(, emo_destiny_dictionary("RECOMENDACIONES ESPECIFICAS")) = Trim(UCase(ItemData.Offset(, emo_origin_dictionary("RECOMENDACIONES ESPECIFICAS"))))
-        ActiveCell.Offset(, emo_destiny_dictionary("REMISION EPS")) = "0"
-        ActiveCell.Offset(, emo_destiny_dictionary("CONTROL PERIODICO OCUPACIONAL")) = "0"
-        ActiveCell.Offset(, emo_destiny_dictionary("UTILIZACION EPP ACORDE AL CARGO")) = "0"
-        ActiveCell.Offset(, emo_destiny_dictionary("REALIZACION DE PRUEBAS COMPLEMENTARIAS")) = "0"
-        ActiveCell.Offset(, emo_destiny_dictionary("HABITOS NUTRICIONALES")) = "0"
-        ActiveCell.Offset(, emo_destiny_dictionary("EJERCICIO REGULAR 3 VECES POR SEMANA")) = "0"
-        ActiveCell.Offset(, emo_destiny_dictionary("DEJAR DE FUMAR")) = "0"
-        ActiveCell.Offset(, emo_destiny_dictionary("REDUCIR CONSUMO ALCOHOL")) = "0"
-        ActiveCell.Offset(, emo_destiny_dictionary("OBSERVACIONES")) = "0"
-        ActiveCell.Offset(, emo_destiny_dictionary("OSTEOMUSCULAR")) = "0"
-        ActiveCell.Offset(, emo_destiny_dictionary("VISUAL")) = "0"
-        ActiveCell.Offset(, emo_destiny_dictionary("ALTURAS")) = "0"
-        ActiveCell.Offset(, emo_destiny_dictionary("BIOLOGICO")) = "0"
-        ActiveCell.Offset(, emo_destiny_dictionary("MANIPULACION DE ALIMENTOS")) = "0"
-        ActiveCell.Offset(, emo_destiny_dictionary("QUIMICO")) = "0"
-        ActiveCell.Offset(, emo_destiny_dictionary("CUIDADO DE LA VOZ")) = "0"
-        ActiveCell.Offset(, emo_destiny_dictionary("TEMPERATURAS EXTREMAS")) = "0"
-        ActiveCell.Offset(, emo_destiny_dictionary("ESPACIOS CONFINADOS")) = "0"
-        ActiveCell.Offset(, emo_destiny_dictionary("PIEL")) = "0"
-        ActiveCell.Offset(, emo_destiny_dictionary("RESPIRATORIA")) = "0"
-        ActiveCell.Offset(, emo_destiny_dictionary("AUDITIVO")) = "0"
-        If (Activecell.Row <> 5) Then
+        cell_active.Offset(, emo_destiny_dictionary("NRO IDENFICACION")) = Trim(ItemData.Offset(, emo_origin_dictionary("NRO IDENFICACION")))
+
+        search = ItemData.Offset(, emo_origin_dictionary("RIESGO FISICO / RUIDO"))
+        If (withIncidence.Exists(Trim(search))) Then
+          cell_active.Offset(, emo_destiny_dictionary("RIESGO FISICO / RUIDO")) = 1
+        ElseIf (withoutIncidence.Exists(Trim(search))) Then
+          cell_active.Offset(, emo_destiny_dictionary("RIESGO FISICO / RUIDO")) = 0
+        Else
+          cell_active.Offset(, emo_destiny_dictionary("RIESGO FISICO / RUIDO")) = Trim$(ItemData.Offset(, emo_origin_dictionary("RIESGO FISICO / RUIDO")))
+        End If
+
+        search = ItemData.Offset(, emo_origin_dictionary("RIESGO FISICO / ILUMINACION"))
+        If (withIncidence.Exists(Trim(search))) Then
+          cell_active.Offset(, emo_destiny_dictionary("RIESGO FISICO / ILUMINACION")) = 1
+        ElseIf (withoutIncidence.Exists(Trim(search))) Then
+          cell_active.Offset(, emo_destiny_dictionary("RIESGO FISICO / ILUMINACION")) = 0
+        Else
+          cell_active.Offset(, emo_destiny_dictionary("RIESGO FISICO / ILUMINACION")) = Trim$(search)
+        End If
+
+        search = ItemData.Offset(, emo_origin_dictionary("RIESGO FISICO / VIBRACION"))
+        If (withIncidence.Exists(Trim(search))) Then
+          cell_active.Offset(, emo_destiny_dictionary("RIESGO FISICO / VIBRACION")) = 1
+        ElseIf (withoutIncidence.Exists(Trim(search))) Then
+          cell_active.Offset(, emo_destiny_dictionary("RIESGO FISICO / VIBRACION")) = 0
+        Else
+          cell_active.Offset(, emo_destiny_dictionary("RIESGO FISICO / VIBRACION")) = Trim$(search)
+        End If
+
+        search = ItemData.Offset(, emo_origin_dictionary("RIESGO FISICO / TEMP EXTREMAS"))
+        If (withIncidence.Exists(Trim(search))) Then
+          cell_active.Offset(, emo_destiny_dictionary("RIESGO FISICO / TEMP EXTREMAS")) = 1
+        ElseIf (withoutIncidence.Exists(Trim(search))) Then
+          cell_active.Offset(, emo_destiny_dictionary("RIESGO FISICO / TEMP EXTREMAS")) = 0
+        Else
+          cell_active.Offset(, emo_destiny_dictionary("RIESGO FISICO / TEMP EXTREMAS")) = Trim$(search)
+        End If
+
+        search = ItemData.Offset(, emo_origin_dictionary("RIESGO FISICO / PRES ATMOSFERICA"))
+        If (withIncidence.Exists(Trim(search))) Then
+          cell_active.Offset(, emo_destiny_dictionary("RIESGO FISICO / PRES ATMOSFERICA")) = 1
+        ElseIf (withoutIncidence.Exists(Trim(search))) Then
+          cell_active.Offset(, emo_destiny_dictionary("RIESGO FISICO / PRES ATMOSFERICA")) = 0
+        Else
+          cell_active.Offset(, emo_destiny_dictionary("RIESGO FISICO / PRES ATMOSFERICA")) = Trim$(search)
+        End If
+
+        search = ItemData.Offset(, emo_origin_dictionary("RIESGO FISICO / RAD IONIZANTES"))
+        If (withIncidence.Exists(Trim(search))) Then
+          cell_active.Offset(, emo_destiny_dictionary("RIESGO FISICO / RAD IONIZANTES")) = 1
+        ElseIf (withoutIncidence.Exists(Trim(search))) Then
+          cell_active.Offset(, emo_destiny_dictionary("RIESGO FISICO / RAD IONIZANTES")) = 0
+        Else
+          cell_active.Offset(, emo_destiny_dictionary("RIESGO FISICO / RAD IONIZANTES")) = Trim$(search)
+        End If
+
+        search = ItemData.Offset(, emo_origin_dictionary("RIESGO FISICO / RAD NO IONIZANTES"))
+        If (withIncidence.Exists(Trim(search))) Then
+          cell_active.Offset(, emo_destiny_dictionary("RIESGO FISICO / RAD NO IONIZANTES")) = 1
+        ElseIf (withoutIncidence.Exists(Trim(search))) Then
+          cell_active.Offset(, emo_destiny_dictionary("RIESGO FISICO / RAD NO IONIZANTES")) = 0
+        Else
+          cell_active.Offset(, emo_destiny_dictionary("RIESGO FISICO / RAD NO IONIZANTES")) = Trim$(search)
+        End If
+        
+        cell_active.Offset(, emo_destiny_dictionary("RIESGO DE OTROS FACTORES FISICOS")) = VBA.Trim$(ItemData.Offset(, emo_origin_dictionary("RIESGO DE OTROS FACTORES FISICOS")))
+
+        search = ItemData.Offset(, emo_origin_dictionary("RIESGO BIOLOGICO / VIRUS"))
+        If (withIncidence.Exists(Trim(search))) Then
+          cell_active.Offset(, emo_destiny_dictionary("RIESGO BIOLOGICO / VIRUS")) = 1
+        ElseIf (withoutIncidence.Exists(Trim(search))) Then
+          cell_active.Offset(, emo_destiny_dictionary("RIESGO BIOLOGICO / VIRUS")) = 0
+        Else
+          cell_active.Offset(, emo_destiny_dictionary("RIESGO BIOLOGICO / VIRUS")) = Trim$(search)
+        End If
+
+        search = ItemData.Offset(, emo_origin_dictionary("RIESGO BIOLOGICO / BACTERIAS"))
+        If (withIncidence.Exists(Trim(search))) Then
+          cell_active.Offset(, emo_destiny_dictionary("RIESGO BIOLOGICO / BACTERIAS")) = 1
+        ElseIf (withoutIncidence.Exists(Trim(search))) Then
+          cell_active.Offset(, emo_destiny_dictionary("RIESGO BIOLOGICO / BACTERIAS")) = 0
+        Else
+          cell_active.Offset(, emo_destiny_dictionary("RIESGO BIOLOGICO / BACTERIAS")) = Trim$(search)
+        End If
+        
+        search = ItemData.Offset(, emo_origin_dictionary("RIESGO BIOLOGICO / HONGOS"))
+        If (withIncidence.Exists(Trim(search))) Then
+          cell_active.Offset(, emo_destiny_dictionary("RIESGO BIOLOGICO / HONGOS")) = 1
+        ElseIf (withoutIncidence.Exists(Trim(search))) Then
+          cell_active.Offset(, emo_destiny_dictionary("RIESGO BIOLOGICO / HONGOS")) = 0
+        Else
+          cell_active.Offset(, emo_destiny_dictionary("RIESGO BIOLOGICO / HONGOS")) = Trim$(search)
+        End If
+        
+        search = ItemData.Offset(, emo_origin_dictionary("RIESGO BIOLOGICO / RICKETSIAS"))
+        If (withIncidence.Exists(Trim(search))) Then
+          cell_active.Offset(, emo_destiny_dictionary("RIESGO BIOLOGICO / RICKETSIAS")) = 1
+        ElseIf (withoutIncidence.Exists(Trim(search))) Then
+          cell_active.Offset(, emo_destiny_dictionary("RIESGO BIOLOGICO / RICKETSIAS")) = 0
+        Else
+          cell_active.Offset(, emo_destiny_dictionary("RIESGO BIOLOGICO / RICKETSIAS")) = Trim$(search)
+        End If
+        
+        search = ItemData.Offset(, emo_origin_dictionary("RIESGO BIOLOGICO / PARASITOS"))
+        If (withIncidence.Exists(Trim(search))) Then
+          cell_active.Offset(, emo_destiny_dictionary("RIESGO BIOLOGICO / PARASITOS")) = 1
+        ElseIf (withoutIncidence.Exists(Trim(search))) Then
+          cell_active.Offset(, emo_destiny_dictionary("RIESGO BIOLOGICO / PARASITOS")) = 0
+        Else
+          cell_active.Offset(, emo_destiny_dictionary("RIESGO BIOLOGICO / PARASITOS")) = Trim$(search)
+        End If
+
+        search = ItemData.Offset(, emo_origin_dictionary("RIESGO BIOLOGICO / FLUIDOS"))
+        If (withIncidence.Exists(Trim(search))) Then
+          cell_active.Offset(, emo_destiny_dictionary("RIESGO BIOLOGICO / FLUIDOS")) = 1
+        ElseIf (withoutIncidence.Exists(Trim(search))) Then
+          cell_active.Offset(, emo_destiny_dictionary("RIESGO BIOLOGICO / FLUIDOS")) = 0
+        Else
+          cell_active.Offset(, emo_destiny_dictionary("RIESGO BIOLOGICO / FLUIDOS")) = Trim$(search)
+        End If
+        
+        search = ItemData.Offset(, emo_origin_dictionary("RIESGO BIOLOGICO / PICADURAS"))
+        If (withIncidence.Exists(Trim(search))) Then
+          cell_active.Offset(, emo_destiny_dictionary("RIESGO BIOLOGICO / PICADURAS")) = 1
+        ElseIf (withoutIncidence.Exists(Trim(search))) Then
+          cell_active.Offset(, emo_destiny_dictionary("RIESGO BIOLOGICO / PICADURAS")) = 0
+        Else
+          cell_active.Offset(, emo_destiny_dictionary("RIESGO BIOLOGICO / PICADURAS")) = Trim$(search)
+        End If
+        
+        search = ItemData.Offset(, emo_origin_dictionary("RIESGO BIOLOGICO / MORDEDURAS"))
+        If (withIncidence.Exists(Trim(search))) Then
+          cell_active.Offset(, emo_destiny_dictionary("RIESGO BIOLOGICO / MORDEDURAS")) = 1
+        ElseIf (withoutIncidence.Exists(Trim(search))) Then
+          cell_active.Offset(, emo_destiny_dictionary("RIESGO BIOLOGICO / MORDEDURAS")) = 0
+        Else
+          cell_active.Offset(, emo_destiny_dictionary("RIESGO BIOLOGICO / MORDEDURAS")) = Trim$(search)
+        End If
+
+        cell_active.Offset(, emo_destiny_dictionary("OTROS RIESGOS BIOLOGICOS")) = VBA.Trim$(ItemData.Offset(, emo_origin_dictionary("OTROS RIESGOS BIOLOGICOS")))
+
+        search = ItemData.Offset(, emo_origin_dictionary("RIESGO QUIMICO / POLVOS"))
+        If (withIncidence.Exists(Trim(search))) Then
+          cell_active.Offset(, emo_destiny_dictionary("RIESGO QUIMICO / POLVOS")) = 1
+        ElseIf (withoutIncidence.Exists(Trim(search))) Then
+          cell_active.Offset(, emo_destiny_dictionary("RIESGO QUIMICO / POLVOS")) = 0
+        Else
+          cell_active.Offset(, emo_destiny_dictionary("RIESGO QUIMICO / POLVOS")) = Trim$(search)
+        End If
+        
+        search = ItemData.Offset(, emo_origin_dictionary("RIESGO QUIMICO / FIBRAS"))
+        If (withIncidence.Exists(search)) Then
+          cell_active.Offset(, emo_destiny_dictionary("RIESGO QUIMICO / FIBRAS")) = 1
+        ElseIf (withoutIncidence.Exists(search)) Then
+          cell_active.Offset(, emo_destiny_dictionary("RIESGO QUIMICO / FIBRAS")) = 0
+        Else
+          cell_active.Offset(, emo_destiny_dictionary("RIESGO QUIMICO / FIBRAS")) = Trim$(search)
+        End If
+        
+        search = ItemData.Offset(, emo_origin_dictionary("RIESGO QUIMICO / LIQUIDOS"))
+        If (withIncidence.Exists(search)) Then
+          cell_active.Offset(, emo_destiny_dictionary("RIESGO QUIMICO / LIQUIDOS")) = 1
+        ElseIf (withoutIncidence.Exists(search)) Then
+          cell_active.Offset(, emo_destiny_dictionary("RIESGO QUIMICO / LIQUIDOS")) = 0
+        Else
+          cell_active.Offset(, emo_destiny_dictionary("RIESGO QUIMICO / LIQUIDOS")) = Trim$(search)
+        End If
+        
+        search = ItemData.Offset(, emo_origin_dictionary("RIESGO QUIMICO /GASES"))
+        If (withIncidence.Exists(search)) Then
+          cell_active.Offset(, emo_destiny_dictionary("RIESGO QUIMICO /GASES")) = 1
+        ElseIf (withoutIncidence.Exists(search)) Then
+          cell_active.Offset(, emo_destiny_dictionary("RIESGO QUIMICO /GASES")) = 0
+        Else
+          cell_active.Offset(, emo_destiny_dictionary("RIESGO QUIMICO /GASES")) = Trim$(search)
+        End If
+        
+        search = ItemData.Offset(, emo_origin_dictionary("RIESGO QUIMICO / VAPORES"))
+        If (withIncidence.Exists(search)) Then
+          cell_active.Offset(, emo_destiny_dictionary("RIESGO QUIMICO / VAPORES")) = 1
+        ElseIf (withoutIncidence.Exists(search)) Then
+          cell_active.Offset(, emo_destiny_dictionary("RIESGO QUIMICO / VAPORES")) = 0
+        Else
+          cell_active.Offset(, emo_destiny_dictionary("RIESGO QUIMICO / VAPORES")) = Trim$(search)
+        End If
+        
+        search = ItemData.Offset(, emo_origin_dictionary("RIESGO QUIMICO / HUMOS"))
+        If (withIncidence.Exists(search)) Then
+          cell_active.Offset(, emo_destiny_dictionary("RIESGO QUIMICO / HUMOS")) = 1
+        ElseIf (withoutIncidence.Exists(search)) Then
+          cell_active.Offset(, emo_destiny_dictionary("RIESGO QUIMICO / HUMOS")) = 0
+        Else
+          cell_active.Offset(, emo_destiny_dictionary("RIESGO QUIMICO / HUMOS")) = Trim$(search)
+        End If
+        
+        search = ItemData.Offset(, emo_origin_dictionary("RIESGO QUIMICO /MATERIAL PARTICULADO"))
+        If (withIncidence.Exists(search)) Then
+          cell_active.Offset(, emo_destiny_dictionary("RIESGO QUIMICO /MATERIAL PARTICULADO")) = 1
+        ElseIf (withoutIncidence.Exists(search)) Then
+          cell_active.Offset(, emo_destiny_dictionary("RIESGO QUIMICO /MATERIAL PARTICULADO")) = 0
+        Else
+          cell_active.Offset(, emo_destiny_dictionary("RIESGO QUIMICO /MATERIAL PARTICULADO")) = Trim$(search)
+        End If
+
+        cell_active.Offset(, emo_destiny_dictionary("OTROS RIESGOS QUIMICOS")) = VBA.Trim$(ItemData.Offset(, emo_origin_dictionary("OTROS RIESGOS QUIMICOS")))
+        
+        search = ItemData.Offset(, emo_origin_dictionary("RIESGO PSICO / GESTION ORGANIZACIONAL"))
+        If (withIncidence.Exists(search)) Then
+          cell_active.Offset(, emo_destiny_dictionary("RIESGO PSICO / GESTION ORGANIZACIONAL")) = 1
+        ElseIf (withoutIncidence.Exists(search)) Then
+          cell_active.Offset(, emo_destiny_dictionary("RIESGO PSICO / GESTION ORGANIZACIONAL")) = 0
+        Else
+          cell_active.Offset(, emo_destiny_dictionary("RIESGO PSICO / GESTION ORGANIZACIONAL")) = Trim$(search)
+        End If
+        
+        search = ItemData.Offset(, emo_origin_dictionary("RIESGO PSICO / CARACT DEL GRUPO"))
+        If (withIncidence.Exists(search)) Then
+          cell_active.Offset(, emo_destiny_dictionary("RIESGO PSICO / CARACT DEL GRUPO")) = 1
+        ElseIf (withoutIncidence.Exists(search)) Then
+          cell_active.Offset(, emo_destiny_dictionary("RIESGO PSICO / CARACT DEL GRUPO")) = 0
+        Else
+          cell_active.Offset(, emo_destiny_dictionary("RIESGO PSICO / CARACT DEL GRUPO")) = Trim$(search)
+        End If
+        
+        search = ItemData.Offset(, emo_origin_dictionary("RIESGO PSICO / INTERFACES TAREA"))
+        If (withIncidence.Exists(search)) Then
+          cell_active.Offset(, emo_destiny_dictionary("RIESGO PSICO / INTERFACES TAREA")) = 1
+        ElseIf (withoutIncidence.Exists(search)) Then
+          cell_active.Offset(, emo_destiny_dictionary("RIESGO PSICO / INTERFACES TAREA")) = 0
+        Else
+          cell_active.Offset(, emo_destiny_dictionary("RIESGO PSICO / INTERFACES TAREA")) = Trim$(search)
+        End If
+        
+        search = ItemData.Offset(, emo_origin_dictionary("RIESGO PSICO / CARACT ORGANIZACION"))
+        If (withIncidence.Exists(search)) Then
+          cell_active.Offset(, emo_destiny_dictionary("RIESGO PSICO / CARACT ORGANIZACION")) = 1
+        ElseIf (withoutIncidence.Exists(search)) Then
+          cell_active.Offset(, emo_destiny_dictionary("RIESGO PSICO / CARACT ORGANIZACION")) = 0
+        Else
+          cell_active.Offset(, emo_destiny_dictionary("RIESGO PSICO / CARACT ORGANIZACION")) = Trim$(search)
+        End If
+        
+        search = ItemData.Offset(, emo_origin_dictionary("RIESGO PSICO / CONDICIONES"))
+        If (withIncidence.Exists(search)) Then
+          cell_active.Offset(, emo_destiny_dictionary("RIESGO PSICO / CONDICIONES")) = 1
+        ElseIf (withoutIncidence.Exists(search)) Then
+          cell_active.Offset(, emo_destiny_dictionary("RIESGO PSICO / CONDICIONES")) = 0
+        Else
+          cell_active.Offset(, emo_destiny_dictionary("RIESGO PSICO / CONDICIONES")) = Trim$(search)
+        End If
+        
+        search = ItemData.Offset(, emo_origin_dictionary("RIESGO PSICO / JORNADA"))
+        If (withIncidence.Exists(search)) Then
+          cell_active.Offset(, emo_destiny_dictionary("RIESGO PSICO / JORNADA")) = 1
+        ElseIf (withoutIncidence.Exists(search)) Then
+          cell_active.Offset(, emo_destiny_dictionary("RIESGO PSICO / JORNADA")) = 0
+        Else
+          cell_active.Offset(, emo_destiny_dictionary("RIESGO PSICO / JORNADA")) = Trim$(search)
+        End If
+
+        cell_active.Offset(, emo_destiny_dictionary("OTROS PSICO LABORAL")) = VBA.Trim$(ItemData.Offset(, emo_origin_dictionary("OTROS PSICO LABORAL")))
+        
+        search = ItemData.Offset(, emo_origin_dictionary("RIESGO_BIOMECANICO_POSTURA"))
+        If (withIncidence.Exists(search)) Then
+          cell_active.Offset(, emo_destiny_dictionary("RIESGO_BIOMECANICO_POSTURA")) = 1
+        ElseIf (withoutIncidence.Exists(search)) Then
+          cell_active.Offset(, emo_destiny_dictionary("RIESGO_BIOMECANICO_POSTURA")) = 0
+        Else
+          cell_active.Offset(, emo_destiny_dictionary("RIESGO_BIOMECANICO_POSTURA")) = Trim$(search)
+        End If
+        
+        search = ItemData.Offset(, emo_origin_dictionary("RIESGO_BIOMECANICO_ESFUERZO"))
+        If (withIncidence.Exists(search)) Then
+          cell_active.Offset(, emo_destiny_dictionary("RIESGO_BIOMECANICO_ESFUERZO")) = 1
+        ElseIf (withoutIncidence.Exists(search)) Then
+          cell_active.Offset(, emo_destiny_dictionary("RIESGO_BIOMECANICO_ESFUERZO")) = 0
+        Else
+          cell_active.Offset(, emo_destiny_dictionary("RIESGO_BIOMECANICO_ESFUERZO")) = Trim$(search)
+        End If
+        
+        search = ItemData.Offset(, emo_origin_dictionary("RIESGO_BIOMECANICO_MOVREPETITIVO"))
+        If (withIncidence.Exists(search)) Then
+          cell_active.Offset(, emo_destiny_dictionary("RIESGO_BIOMECANICO_MOVREPETITIVO")) = 1
+        ElseIf (withoutIncidence.Exists(search)) Then
+          cell_active.Offset(, emo_destiny_dictionary("RIESGO_BIOMECANICO_MOVREPETITIVO")) = 0
+        Else
+          cell_active.Offset(, emo_destiny_dictionary("RIESGO_BIOMECANICO_MOVREPETITIVO")) = Trim$(search)
+        End If
+        
+        search = ItemData.Offset(, emo_origin_dictionary("RIESGO_BIOMECANICO_MANIPULACION_CARGA"))
+        If (withIncidence.Exists(search)) Then
+          cell_active.Offset(, emo_destiny_dictionary("RIESGO_BIOMECANICO_MANIPULACION_CARGA")) = 1
+        ElseIf (withoutIncidence.Exists(search)) Then
+          cell_active.Offset(, emo_destiny_dictionary("RIESGO_BIOMECANICO_MANIPULACION_CARGA")) = 0
+        Else
+          cell_active.Offset(, emo_destiny_dictionary("RIESGO_BIOMECANICO_MANIPULACION_CARGA")) = Trim$(search)
+        End If
+
+        cell_active.Offset(, emo_destiny_dictionary("OTROS RIESGOS BIOMECANICOS")) = VBA.Trim$(ItemData.Offset(, emo_origin_dictionary("OTROS RIESGOS BIOMECANICOS")))
+
+        search = ItemData.Offset(, emo_origin_dictionary("CONDICIONES DE SEGURIDAD / MECANICOS"))
+        If (withIncidence.Exists(search)) Then
+          cell_active.Offset(, emo_destiny_dictionary("CONDICIONES DE SEGURIDAD / MECANICOS")) = 1
+        ElseIf (withoutIncidence.Exists(search)) Then
+          cell_active.Offset(, emo_destiny_dictionary("CONDICIONES DE SEGURIDAD / MECANICOS")) = 0
+        Else
+          cell_active.Offset(, emo_destiny_dictionary("CONDICIONES DE SEGURIDAD / MECANICOS")) = Trim$(search)
+        End If
+        
+        search = ItemData.Offset(, emo_origin_dictionary("CONDICIONES DE SEGURIDAD / ELECTRICOS"))
+        If (withIncidence.Exists(search)) Then
+          cell_active.Offset(, emo_destiny_dictionary("CONDICIONES DE SEGURIDAD / ELECTRICOS")) = 1
+        ElseIf (withoutIncidence.Exists(search)) Then
+          cell_active.Offset(, emo_destiny_dictionary("CONDICIONES DE SEGURIDAD / ELECTRICOS")) = 0
+        Else
+          cell_active.Offset(, emo_destiny_dictionary("CONDICIONES DE SEGURIDAD / ELECTRICOS")) = Trim$(search)
+        End If
+        
+        search = ItemData.Offset(, emo_origin_dictionary("CONDICIONES DE SEGURIDAD / LOCATIVO"))
+        If (withIncidence.Exists(search)) Then
+          cell_active.Offset(, emo_destiny_dictionary("CONDICIONES DE SEGURIDAD / LOCATIVO")) = 1
+        ElseIf (withoutIncidence.Exists(search)) Then
+          cell_active.Offset(, emo_destiny_dictionary("CONDICIONES DE SEGURIDAD / LOCATIVO")) = 0
+        Else
+          cell_active.Offset(, emo_destiny_dictionary("CONDICIONES DE SEGURIDAD / LOCATIVO")) = Trim$(search)
+        End If
+        
+        search = ItemData.Offset(, emo_origin_dictionary("CONDICIONES DE SEGURIDAD / TECNOLOGICO"))
+        If (withIncidence.Exists(search)) Then
+          cell_active.Offset(, emo_destiny_dictionary("CONDICIONES DE SEGURIDAD / TECNOLOGICO")) = 1
+        ElseIf (withoutIncidence.Exists(search)) Then
+          cell_active.Offset(, emo_destiny_dictionary("CONDICIONES DE SEGURIDAD / TECNOLOGICO")) = 0
+        Else
+          cell_active.Offset(, emo_destiny_dictionary("CONDICIONES DE SEGURIDAD / TECNOLOGICO")) = Trim$(search)
+        End If
+        
+        search = ItemData.Offset(, emo_origin_dictionary("CONDICIONES DE SEGURIDAD / ACC DE TRANSITO"))
+        If (withIncidence.Exists(search)) Then
+          cell_active.Offset(, emo_destiny_dictionary("CONDICIONES DE SEGURIDAD / ACC DE TRANSITO")) = 1
+        ElseIf (withoutIncidence.Exists(search)) Then
+          cell_active.Offset(, emo_destiny_dictionary("CONDICIONES DE SEGURIDAD / ACC DE TRANSITO")) = 0
+        Else
+          cell_active.Offset(, emo_destiny_dictionary("CONDICIONES DE SEGURIDAD / ACC DE TRANSITO")) = Trim$(search)
+        End If
+        
+        search = ItemData.Offset(, emo_origin_dictionary("CONDICIONES DE SEGURIDAD / PUBLICOS"))
+        If (withIncidence.Exists(search)) Then
+          cell_active.Offset(, emo_destiny_dictionary("CONDICIONES DE SEGURIDAD / PUBLICOS")) = 1
+        ElseIf (withoutIncidence.Exists(search)) Then
+          cell_active.Offset(, emo_destiny_dictionary("CONDICIONES DE SEGURIDAD / PUBLICOS")) = 0
+        Else
+          cell_active.Offset(, emo_destiny_dictionary("CONDICIONES DE SEGURIDAD / PUBLICOS")) = Trim$(search)
+        End If
+        
+        search = ItemData.Offset(, emo_origin_dictionary("CONDICIONES DE SEGURIDAD / TRABAJO EN ALTURAS"))
+        If (withIncidence.Exists(search)) Then
+          cell_active.Offset(, emo_destiny_dictionary("CONDICIONES DE SEGURIDAD / TRABAJO EN ALTURAS")) = 1
+        ElseIf (withoutIncidence.Exists(search)) Then
+          cell_active.Offset(, emo_destiny_dictionary("CONDICIONES DE SEGURIDAD / TRABAJO EN ALTURAS")) = 0
+        Else
+          cell_active.Offset(, emo_destiny_dictionary("CONDICIONES DE SEGURIDAD / TRABAJO EN ALTURAS")) = Trim$(search)
+        End If
+        
+        search = ItemData.Offset(, emo_origin_dictionary("CONDICIONES DE SEGURIDAD / ESPACIOS CONFINADOS"))
+        If (withIncidence.Exists(search)) Then
+          cell_active.Offset(, emo_destiny_dictionary("CONDICIONES DE SEGURIDAD / ESPACIOS CONFINADOS")) = 1
+        ElseIf (withoutIncidence.Exists(search)) Then
+          cell_active.Offset(, emo_destiny_dictionary("CONDICIONES DE SEGURIDAD / ESPACIOS CONFINADOS")) = 0
+        Else
+          cell_active.Offset(, emo_destiny_dictionary("CONDICIONES DE SEGURIDAD / ESPACIOS CONFINADOS")) = Trim$(search)
+        End If
+
+        cell_active.Offset(, emo_destiny_dictionary("CONDICIONES DE SEGURIDAD / OTROS DE SEGURIDAD")) = VBA.Trim$(ItemData.Offset(, emo_origin_dictionary("CONDICIONES DE SEGURIDAD / OTROS DE SEGURIDAD")))
+
+        search = ItemData.Offset(, emo_origin_dictionary("FENOMENOS NATURALES / SISMO"))
+        If (withIncidence.Exists(search)) Then
+          cell_active.Offset(, emo_destiny_dictionary("FENOMENOS NATURALES / SISMO")) = 1
+        ElseIf (withoutIncidence.Exists(search)) Then
+          cell_active.Offset(, emo_destiny_dictionary("FENOMENOS NATURALES / SISMO")) = 0
+        Else
+          cell_active.Offset(, emo_destiny_dictionary("FENOMENOS NATURALES / SISMO")) = Trim$(search)
+        End If
+        
+        search = ItemData.Offset(, emo_origin_dictionary("FENOMENOS NATURALES / TERREMOTO"))
+        If (withIncidence.Exists(search)) Then
+          cell_active.Offset(, emo_destiny_dictionary("FENOMENOS NATURALES / TERREMOTO")) = 1
+        ElseIf (withoutIncidence.Exists(search)) Then
+          cell_active.Offset(, emo_destiny_dictionary("FENOMENOS NATURALES / TERREMOTO")) = 0
+        Else
+          cell_active.Offset(, emo_destiny_dictionary("FENOMENOS NATURALES / TERREMOTO")) = Trim$(search)
+        End If
+        
+        search = ItemData.Offset(, emo_origin_dictionary("FENOMENOS NATURALES / VENDAVAL"))
+        If (withIncidence.Exists(search)) Then
+          cell_active.Offset(, emo_destiny_dictionary("FENOMENOS NATURALES / VENDAVAL")) = 1
+        ElseIf (withoutIncidence.Exists(search)) Then
+          cell_active.Offset(, emo_destiny_dictionary("FENOMENOS NATURALES / VENDAVAL")) = 0
+        Else
+          cell_active.Offset(, emo_destiny_dictionary("FENOMENOS NATURALES / VENDAVAL")) = Trim$(search)
+        End If
+        
+        search = ItemData.Offset(, emo_origin_dictionary("FENOMENOS NATURALES / INUNDACION"))
+        If (withIncidence.Exists(search)) Then
+          cell_active.Offset(, emo_destiny_dictionary("FENOMENOS NATURALES / INUNDACION")) = 1
+        ElseIf (withoutIncidence.Exists(search)) Then
+          cell_active.Offset(, emo_destiny_dictionary("FENOMENOS NATURALES / INUNDACION")) = 0
+        Else
+          cell_active.Offset(, emo_destiny_dictionary("FENOMENOS NATURALES / INUNDACION")) = Trim$(search)
+        End If
+        
+        search = ItemData.Offset(, emo_origin_dictionary("FENOMENOS NATURALES / DERRUMBE"))
+        If (withIncidence.Exists(search)) Then
+          cell_active.Offset(, emo_destiny_dictionary("FENOMENOS NATURALES / DERRUMBE")) = 1
+        ElseIf (withoutIncidence.Exists(search)) Then
+          cell_active.Offset(, emo_destiny_dictionary("FENOMENOS NATURALES / DERRUMBE")) = 0
+        Else
+          cell_active.Offset(, emo_destiny_dictionary("FENOMENOS NATURALES / DERRUMBE")) = Trim$(search)
+        End If
+        
+        search = ItemData.Offset(, emo_origin_dictionary("FENOMENOS NATURALES / PRECIPITACIONES"))
+        If (withIncidence.Exists(search)) Then
+          cell_active.Offset(, emo_destiny_dictionary("FENOMENOS NATURALES / PRECIPITACIONES")) = 1
+        ElseIf (withoutIncidence.Exists(search)) Then
+          cell_active.Offset(, emo_destiny_dictionary("FENOMENOS NATURALES / PRECIPITACIONES")) = 0
+        Else
+          cell_active.Offset(, emo_destiny_dictionary("FENOMENOS NATURALES / PRECIPITACIONES")) = Trim$(search)
+        End If
+
+        cell_active.Offset(, emo_destiny_dictionary("FENOMENOS NATURALES / OTROS NATURALES")) = VBA.Trim$(ItemData.Offset(, emo_origin_dictionary("FENOMENOS NATURALES / OTROS NATURALES")))
+        cell_active.Offset(, emo_destiny_dictionary("FECHA ACCIDENTE")) = Trim(ItemData.Offset(, emo_origin_dictionary("FECHA ACCIDENTE")))
+        cell_active.Offset(, emo_destiny_dictionary("ACCIDENTE_PASO_EN_EMPRESA")) = Trim(UCase(ItemData.Offset(, emo_origin_dictionary("ACCIDENTE_PASO_EN_EMPRESA"))))
+        cell_active.Offset(, emo_destiny_dictionary("TIPO ACCIDENTE")) = Trim(ItemData.Offset(, emo_origin_dictionary("TIPO ACCIDENTE")))
+        cell_active.Offset(, emo_destiny_dictionary("NATURALEZA LESION")) = Trim(UCase(ItemData.Offset(, emo_origin_dictionary("NATURALEZA LESION"))))
+        cell_active.Offset(, emo_destiny_dictionary("PARTE AFECTADA")) = Trim(UCase(ItemData.Offset(, emo_origin_dictionary("PARTE AFECTADA"))))
+        cell_active.Offset(, emo_destiny_dictionary("INCAPACIDAD")) = Trim(ItemData.Offset(, emo_origin_dictionary("INCAPACIDAD")))
+        cell_active.Offset(, emo_destiny_dictionary("SECUELAS")) = Trim(UCase(ItemData.Offset(, emo_origin_dictionary("SECUELAS"))))
+        cell_active.Offset(, emo_destiny_dictionary("NOMBRE ENFERMEDAD")) = Trim(UCase(ItemData.Offset(, emo_origin_dictionary("NOMBRE ENFERMEDAD"))))
+        cell_active.Offset(, emo_destiny_dictionary("ETAPA")) = Trim(UCase(ItemData.Offset(, emo_origin_dictionary("ETAPA"))))
+        cell_active.Offset(, emo_destiny_dictionary("OBSERVACIONES DE ENFERMEDAD")) = Trim(UCase(ItemData.Offset(, emo_origin_dictionary("OBSERVACIONES DE ENFERMEDAD"))))
+        cell_active.Offset(, emo_destiny_dictionary("ACT_ FISICA")) = typeActivity(Trim(UCase(ItemData.Offset(, emo_origin_dictionary("ACT_ FISICA")))))
+        cell_active.Offset(, emo_destiny_dictionary("FUMA")) = typeSmoke(Trim(ItemData.Offset(, emo_origin_dictionary("FUMA"))))
+        cell_active.Offset(, emo_destiny_dictionary("CONSUMO DE ALCOHOL")) = Trim(ItemData.Offset(, emo_origin_dictionary("CONSUMO DE ALCOHOL")))
+        cell_active.Offset(, emo_destiny_dictionary("PESO")) = Trim(ItemData.Offset(, emo_origin_dictionary("PESO")))
+        cell_active.Offset(, emo_destiny_dictionary("TALLA")) = Trim(ItemData.Offset(, emo_origin_dictionary("TALLA")))
+        cell_active.Offset(, emo_destiny_dictionary("TENSION ARTERIAL")) = Trim(ItemData.Offset(, emo_origin_dictionary("TENSION ARTERIAL")))
+        cell_active.Offset(, emo_destiny_dictionary("FREC_ CARDIACA")) = Trim(ItemData.Offset(, emo_origin_dictionary("FREC_ CARDIACA")))
+        cell_active.Offset(, emo_destiny_dictionary("FREC_ RESPIRATORIA")) = Trim(ItemData.Offset(, emo_origin_dictionary("FREC_ RESPIRATORIA")))
+        cell_active.Offset(, emo_destiny_dictionary("PERIMETRO ABDOMINAL")) = Trim(ItemData.Offset(, emo_origin_dictionary("PERIMETRO ABDOMINAL")))
+        cell_active.Offset(, emo_destiny_dictionary("LATERALIDAD")) = Trim(UCase(ItemData.Offset(, emo_origin_dictionary("LATERALIDAD"))))
+        cell_active.Offset(, emo_destiny_dictionary("OBS DIAGS")) = Trim(UCase(ItemData.Offset(, emo_origin_dictionary("OBS DIAGS"))))
+        cell_active.Offset(, emo_destiny_dictionary("CONCEPTO DE EVALUACION")) = validateConcepts(Trim(UCase(ItemData.Offset(, emo_origin_dictionary("CONCEPTO DE EVALUACION")))))
+        cell_active.Offset(, emo_destiny_dictionary("OBSERVACIONES DEL CONCEPTO")) = Trim(UCase(ItemData.Offset(, emo_origin_dictionary("OBSERVACIONES DEL CONCEPTO"))))
+        cell_active.Offset(, emo_destiny_dictionary("RECOMENDACIONES ESPECIFICAS")) = Trim(UCase(ItemData.Offset(, emo_origin_dictionary("RECOMENDACIONES ESPECIFICAS"))))
+        cell_active.Offset(, emo_destiny_dictionary("REMISION EPS")) = "0"
+        cell_active.Offset(, emo_destiny_dictionary("CONTROL PERIODICO OCUPACIONAL")) = "0"
+        cell_active.Offset(, emo_destiny_dictionary("UTILIZACION EPP ACORDE AL CARGO")) = "0"
+        cell_active.Offset(, emo_destiny_dictionary("REALIZACION DE PRUEBAS COMPLEMENTARIAS")) = "0"
+        cell_active.Offset(, emo_destiny_dictionary("HABITOS NUTRICIONALES")) = "0"
+        cell_active.Offset(, emo_destiny_dictionary("EJERCICIO REGULAR 3 VECES POR SEMANA")) = "0"
+        cell_active.Offset(, emo_destiny_dictionary("DEJAR DE FUMAR")) = "0"
+        cell_active.Offset(, emo_destiny_dictionary("REDUCIR CONSUMO ALCOHOL")) = "0"
+        cell_active.Offset(, emo_destiny_dictionary("OBSERVACIONES")) = "0"
+        cell_active.Offset(, emo_destiny_dictionary("OSTEOMUSCULAR")) = "0"
+        cell_active.Offset(, emo_destiny_dictionary("VISUAL")) = "0"
+        cell_active.Offset(, emo_destiny_dictionary("ALTURAS")) = "0"
+        cell_active.Offset(, emo_destiny_dictionary("BIOLOGICO")) = "0"
+        cell_active.Offset(, emo_destiny_dictionary("MANIPULACION DE ALIMENTOS")) = "0"
+        cell_active.Offset(, emo_destiny_dictionary("QUIMICO")) = "0"
+        cell_active.Offset(, emo_destiny_dictionary("CUIDADO DE LA VOZ")) = "0"
+        cell_active.Offset(, emo_destiny_dictionary("TEMPERATURAS EXTREMAS")) = "0"
+        cell_active.Offset(, emo_destiny_dictionary("ESPACIOS CONFINADOS")) = "0"
+        cell_active.Offset(, emo_destiny_dictionary("PIEL")) = "0"
+        cell_active.Offset(, emo_destiny_dictionary("RESPIRATORIA")) = "0"
+        cell_active.Offset(, emo_destiny_dictionary("AUDITIVO")) = "0"
+        If (cell_active.Row <> 5) Then
           aumentFromID = aumentFromID + 1
         End If
-        ActiveCell.Offset(, emo_destiny_dictionary("ID_EMO")) = aumentFromID
-        ActiveCell.Offset(1, 0).Select
+        cell_active.Offset(, emo_destiny_dictionary("ID_EMO")) = aumentFromID
+        Set cell_active = cell_active.Offset(1, 0)
         numbers = numbers + 1
         numbersGeneral = numbersGeneral + 1
         DoEvents
